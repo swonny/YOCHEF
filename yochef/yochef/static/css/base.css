@@ -1,0 +1,519 @@
+/* 아래부터 base.html css */
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration-line: none;
+}
+
+/* 네브바 전체 감싸는 컨테이너 */
+.nav-container {
+    width: 100%;
+    height: 70px;
+    background-color: #BD0000;
+    opacity: 100%;
+    box-shadow: 0 4px 4px -4px gray;
+}
+
+/*네브바 왼쪽 부분(메인페이지 버튼)*/
+#nav-yochef {
+        color: white;
+        font-weight: bolder;
+        display: inline-block;
+        margin: 27px 43px;
+}
+
+/* 네브바 오른쪽 부분(메인페이지 제외 나머지) */
+.nav-item-right-container {
+    display: inline;
+    float: right;
+    margin-right: 222px;
+    margin-top: 40px;
+    margin-bottom: 0px;
+    padding: 0px;
+}
+
+/* 네브바 각 버튼 */
+.nav-item {
+    display: inline;
+    font-size: 16px;
+    font: white;
+}
+
+/* 네브바 아이템 링크 */
+.nav-item a{
+    color: white;
+    text-decoration-line: none;
+}
+
+/* 네브바 아이템 링크 hover */
+.nav-item a:hover{
+    color: #BD0000;
+}
+
+/* 네브바 오른쪽 마진 */
+.margin-right {
+    margin-right: 15px;
+}
+
+#footer {
+    flex-shrink: 0;
+    margin-top: auto;
+}
+
+/* 푸터 링크 컨테이너 */
+.footer-link-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* 푸터 컨테이너 */
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 40px;
+}
+
+.footer-top {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.footer-item {
+    padding: 10px;
+    display: inline;
+}
+
+#footer-bottom {
+    display: inline;
+    float: left;
+    margin-left: 270px;
+}
+
+.footer-copyright-part {
+    display: inline-box;
+    width: 860px;
+    margin-top: 20;
+    font-weight: 200;
+    padding: 10px 10px 10px 0px;
+    border-bottom: #868686 solid 0.5px;
+}
+
+.footer-bottom-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.footer-bottom-link-item-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 0px;
+    padding: 0px;
+}
+
+.footer-bottom-link-item {
+    display: inline;
+    padding: 0px 10px 0px 0px;
+    margin: 10px 5px 10px 0px;
+    border-right: #868686 solid 0.5px;
+}
+
+.footer-bottom-link-item a{
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+
+/* 아래부터 main.html css */
+
+/* 메인.html 전체 */
+.contents {
+    flex: 1;
+}
+
+/* 메인페이지 가장 큰 사진 + 카테고리 네브바 */
+.main-header {
+    position: relative;
+}
+
+.main-image {
+    background-color: rgb(0, 0, 0);
+    color: rgb(41, 41, 41);
+    width: 100%;
+}
+
+.main-img-desc {
+    display: inline;
+    color: white;
+    position: absolute;
+    margin-right: 800px;
+}
+
+/* 메인페이지 가장 큰 사진 */
+.main-image img {
+    margin-left: 500px;
+}
+
+/* 메인페이지 카테고리 네브바 전체 컨테이너 */
+.main-category-container {
+    margin: 0px;
+    background-color: white;
+    position: absolute;
+    top: 400px;
+    left: 344.5px;
+}
+
+/* 메인페이지 카테고리 네브바 아이템 컨테이너 */
+.main-category-item-container {
+    margin: 0px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 800px;
+    text-align: center;
+    border: #e0e0e0 solid 0.1px;
+    border-radius: 7px;
+    box-shadow: 0 5px 5px -5px gray;
+}
+
+/* 메인페이지 카테고리 네브바 item */
+.main-category-item {
+    display: inline;
+    padding: 13px;
+}
+
+/* 메인페이지 카테고리 네브바 item 링크*/
+.main-category-item a {
+    color: black;
+    text-decoration-line: none;
+}
+
+
+/* best chef */
+
+.best-chef-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 70px 0px;
+    margin-top: 40px;
+    border-bottom: #dfdfe0 solid 0.5px;
+}
+
+#house {
+    padding: 50px;
+}
+
+.best-chef-item-img {
+    display: inline;
+}
+
+/* best chef img */
+.best-chef-item-img img {
+    width: 237px;
+    height: 237px;
+}
+
+.best-chef-item-desc {
+    padding: 8px 8px 8px 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+.best-chef-item-title {
+    font-size: 12px;
+    display: inline;
+    text-align: center;
+}
+
+.best-chef-item-id {
+    font-size: 16px;
+    font-weight: bold;
+    display: inline;
+    text-align: center;
+}
+
+.more-button {
+    position: absolute;
+    margin-top: 307px;
+    float: left;
+    margin-left: 800px;
+}
+
+.more-button button {
+    border-radius: 3px;
+    border-color: #BD0000;
+    color: white;
+    font-size: 12px;
+    background-color: #BD0000;
+    padding: 5px 20px;
+        box-shadow: 0 4px 4px -4px gray;
+}
+
+/* xx대에게 인기있어요! */
+.popular-menu-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0px;
+    width: 100%;
+}
+
+.twenty-popular-menu-container,
+.thirty-popular-menu-container {
+    margin: 20px 0px 0px 0px;
+}
+
+.thirty-popular-menu-container {
+    margin-bottom: 100px;
+}
+
+/* 20대/30에게 인기 있어요! 그리드 컨테이너 */
+.twenty-popular-menu-grid-container,
+.thirty-popular-menu-grid-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 800px;
+    float: left;
+    margin: 0px 370px;
+    padding: 0px;
+}
+
+/* xx에게 인기 있어요! 타이틀 */
+.popular-menu-title {
+    float: left right;
+    margin: 20px 370px;
+}
+
+.popular-menu-img img {
+    width: 180px;
+    height: 180px;
+    border-radius: 5px;
+    box-shadow: 0px 8px 8px -7px rgb(85, 84, 84);
+}
+
+/* 인기메뉴 사진 설명 */
+.popular-menu-item-desc {
+    display: block;
+    font-size: 12px;
+    margin: 5px;
+}
+
+/* 메뉴 그리드 아이템 hovering */
+/* .menu-grid-item-hovering {
+    background-color: #525050;
+    opacity: 0.5%;
+    width: 270px;
+    height: 270px;
+} */
+
+.popular-menu-item-desc-title,
+.popular-menu-item-desc-id {
+    padding: 10px 0px;
+}
+
+
+/* 홍제동에서 열려요!여기부터 시작 */
+
+.place-menu {
+    background-color: #FFEC48;
+    width: 100%;
+    height: 500px;
+}
+
+/* 메인페이지 연령대별 인기메뉴 컨테이너 */
+.place-menu-container {
+    width: 100%;
+}
+
+.place-menu-title {
+    display: block;
+}
+
+#hongjae {
+    text-align: center;
+    font-size: 20px;
+    color: black;
+    padding-top: 30px;
+    font-weight: 700;
+}
+
+/* 빨간색 글자 강조 */
+.red-emp {
+    font-size: 25px;
+    font-weight: 700;
+    color: #BD0000;
+}
+
+.text  {
+    font-size: 16px;
+    color: black;
+    padding-top: 10px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.place-menu-item-container ,
+.recent-menu-item-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.place-menu-item {
+    display: inline-block;
+    padding: 6px;
+}
+
+.place-menu-item-img img {
+    width: 250px;
+    height: 250px;
+}
+
+.place-menu-item-desc {
+    display: block;
+    font-size: 12px;
+    background-color: white;
+    height: 60px;
+    padding: 10px;
+}
+
+
+/* 최근 본 프로그램 */
+.recent-menu {
+    margin-top: 50px;
+    margin-bottom: 130px;
+    display: inline-block;
+}
+
+.recent-menu-container {
+    width: 630px;
+    height: 300px;
+    float: left;
+    margin-left: 250px;
+}
+
+.recent-menu-item {
+    padding: 3px;
+}
+
+.recent-menu-title {
+    display: block;
+    padding: 15px 0px;
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+.recent-menu-item-img img {
+    width: 200px;
+    height: 150px;
+    border-radius: 5px;
+    box-shadow: 0 8px 8px -7px gray;
+}
+
+.recent-menu-item-desc {
+    display: block;
+    font-size: 12px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    width: 200px;
+}
+
+.recent-menu-item-desc-id {
+    margin-bottom: 8px;
+    color: #ADADB7;
+}
+
+.recent-menu-item-desc-title {
+    font-size: 12px;
+    padding: 0px;
+}
+
+.recent-menu-item-desc-price {
+    font-size: 16px;
+    text-align: right;
+    padding-top: 5px;
+}
+
+.recent-menu-item-container {
+    margin: 0px;
+}
+
+
+/* 최근 본 메뉴와 유사한 메뉴 */
+.recent-similar-menu {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    margin-bottom: 200px;
+}
+
+.recent-similar-menu-title {
+    font-size: 15px;
+    font-weight: bolder;
+    padding: 15px;
+}
+
+.recent-similar-menu-item-container {
+    background-color: #BD0000;
+    width: 300px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.recent-similar-menu-item-img img {
+    width: 91px;
+    height: 70px;
+    border-radius: 6px;
+    padding-left: 3px;
+}
+
+.recent-similar-menu-item-img {
+    display: inline-block;
+    width: 93px;
+    height: 100%;
+    padding-top: 21px;
+}
+
+.recent-similar-menu-item-desc {
+    font-size: 12px;
+    display: inline;
+    color: white;
+}
+
+.recent-similar-menu-item-price {
+    font-size: 15px;
+    display: block;
+    text-align: right;
+    padding: 0px 10px 3px 0px;
+    text-align: right;
+    color: white;
+}
+
+#recent-menu {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 100px;
+}

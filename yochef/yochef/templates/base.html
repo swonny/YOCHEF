@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css">
+</head>
+<body>
+  <!-- 네브바 -->
+  <nav class="nav-container">
+    <div class="item-container">
+
+      <div id="nav-yochef">
+          <span class="nav-item"><a href="">YOCHEF</a><span>
+      </div>
+
+      <ul class="nav-item-right-container">
+        <li class="nav-item margin-right"><a href="">로그인</a></li>
+        <li class="nav-item margin-right"><a href="">아이디/비밀번호 찾기</a></li>
+        <li class="nav-item"><a  href="">회원가입</a></li>
+      </ul>
+    </div> 
+
+  </nav>   
+  <div class="contents">
+    {% block content %}
+    {% endblock %}
+  </div> 
+  
+  <!-- 푸터 -->
+  <footer id="footer">
+    <div class="footer-link-container">
+      <ul class="footer-container">
+        <li><span class="footer-top">COMPANY</span></li>
+        <li class="footer-item">company</li>
+        <li class="footer-item">company</li>
+        <li class="footer-item">company</li>
+      </ul>
+
+      <ul class="footer-container">
+        <li><span class="footer-top">POLICIES</span></li>
+        <li class="footer-item">company</li>
+        <li class="footer-item">company</li>
+      </ul>
+
+      <ul class="footer-container">
+        <li><span class="footer-top">SUPPORT</span></li>
+        <li class="footer-item">company</li>
+        <li class="footer-item">company</li>
+      </ul>
+
+      <ul class="footer-container">
+        <li><span class="footer-top">BETWEEN</span></li>
+        <li class="footer-item">company</li>
+        <li class="footer-item">company</li>
+      </ul>
+
+      <ul class="footer-container">
+        <li><span class="footer-top">YOCHEF CENTER</span></li>
+        <li class="footer-item">company</li>
+        <li class="footer-item">company</li>
+        <li class="footer-item">company</li>
+      </ul>
+    </div>
+
+    <div id="footer-bottom">
+      <div class="footer-copyright-part">
+        Cursus bibendum pellentesque lectus in. Ut amet ut egestas libero tincidunt pellentesque eu.
+      </div>
+
+      <div class="footer-bottom-container">
+        <ul class="footer-bottom-link-item-container">
+          <li class="footer-bottom-link-item"><a href="">이용약관</a></li>
+          <li class="footer-bottom-link-item"><a href="">개인정보취급방침</a></li>
+          <li class="footer-bottom-link-item"><a href="">환불규정</a></li>
+        </ul>
+      </div>
+    </div>
+
+
+  </footer>
+   
+</body>
+</html>
