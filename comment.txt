@@ -1,5 +1,20 @@
 개발 기록
+** 개발 시작 전 꼭 읽어봐주세요 **
 
 21.05.18 블루
 - 가상환경 생성, 프로젝트 생성 완료
 - github 레포지토리 공유 완료
+
+21.6.26 백엔드
+- 모델 관련 변경 내용
+	수정 내용 sqldbm 반영해서 카톡방 공유 예정
+	- Coupon 모델에 title 추가, validitydate -> validdate, sale -> offrate
+	- Coupon과 customer 잇는 Model - hasCoupon 추가
+	- Book 모델 - Schedule 부분 null=true 설정
+	- chef 모델 - region란 추가, instalink -> snslink로 변경
+	- post 모델 - mprice -> movingprice 변경
+	- 모든 모델의 content -> description, kind -> category로 변경
+	- phoneNum type을 int -> charfield(max_length=11)로 통일
+	# import 관련 에러 -> 'appname.modelname'으로 변경하여 해결
+- customer > views.py 내 html 이름 수정, 자동 로그인 관련 값 재설정 필요 (주석 참고)
+- login, signup 기능 구현 완료, html 작성 완료시 관련 값 수정해서 테스트 예정 (현재 테스트 안 해본 상태)
