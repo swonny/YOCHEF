@@ -17,3 +17,4 @@ class File(models.Model):
 	chef = models.ForeignKey('chef.Chef', on_delete=models.CASCADE, null=True)
 	post = models.ForeignKey('chef.Post', on_delete=models.CASCADE, null=True)
 	course = models.ForeignKey('chef.Course', on_delete=models.CASCADE, null=True)
+	specOrder = models.IntegerField(null=True)

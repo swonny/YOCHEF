@@ -18,6 +18,7 @@ class Customer(models.Model):
 
 	def __str__(self):
 		return self.nickname
+		
 
 class Coupon(models.Model):
 	title = models.TextField(max_length=255)
@@ -38,12 +39,6 @@ class Like(models.Model):
 	customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 	chef = models.ForeignKey(Chef, on_delete=models.CASCADE)
 
-class Review(models.Model):
-	post = models.ForeignKey(Post, on_delete=models.CASCADE)
-	customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
-	pubdate = DateTimeField(auto_now=True)
-	description = models.TextField(max_length=5000)
-
 class Book(models.Model):
 	customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
 	coupon = models.ForeignKey(Coupon, null=True, on_delete=models.SET_NULL)
@@ -60,3 +55,11 @@ class BookDetail(models.Model):
 	book = models.ForeignKey(Book, on_delete=models.CASCADE)
 	course = models.ForeignKey(Course, null=True, on_delete=models.SET_NULL)
 	amount = models.IntegerField()
+
+
+class Review(models.Model):
+	post = models.ForeignKey(Post, on_delete=models.CASCADE)
+	customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
+	book = models.ForeignKey(Book, on_delete=models.CASCADE)
+	pubdate = DateTimeField(auto_now=True)
+	description = models.TextField(max_length=5000)
