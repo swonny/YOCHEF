@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+    <form name="regiFrmChefIntro" action="">
+        <div id="regiFrmWrap">
+            <!-- section header -->
+            <section class="regiChefSection__header">
+                <div class="regiChefSection__headerContainer">
+                    <h2>셰프 등록</h2>
+                </div>
+            </section>
+
+            <div class="regiContent">
+                <div class="regiContentContainer">
+                    <!-- 셰프 등록 nav -->
+                    <ul class="regiContent__navContainer">
+                        <li class="regiContent__navItem">
+                            <a href="">셰프 소개</a>
+                        </li>
+                        <li class="regiContent__navItem">
+                            <a href="#">예약글 등록</a>
+                        </li>
+                        <li class="regiContent__navItem">
+                            <a href="">출장비 등록</a>
+                        </li>
+                    </ul>
+                    <!-- // 셰프 등록 nav -->
+
+                    <!-- 셰프등록 셰프 정보 추가 main -->
+                    <section class="chefRegiMain">
+                        <article class="chefRegiMain__header">
+                            <h3>예약글을 등록해 주세요!</h3>
+                            <!-- !!!!진행상황 바 -->
+                            <div></div>
+                            <!-- // !!!!진행상황 바 -->
+                        </article>
+
+                        <!-- 음식 카테고리 지정 -->
+                        <!-- !!!! option value 값 수정  -->
+                        <form class="chefRegiMain__foodCategory">
+                            <div class="formTitle">
+                                카테고리
+                            </div>
+                            <select name="language" >
+                              <option value="none">선택하세요.</option>
+                              <option value="">전체보기</option>
+                              <option value="english">한식</option>
+                              <option value="chinese">일식</option>
+                              <option value="spanish">중식</option>
+                              <option value="korean">아시안</option>
+                              <option value="english">양식</option>
+                              <option value="chinese">채식</option>
+                              <option value="spanish">디저트</option>
+                            </select>
+                        </form>
+                        <!-- // 음식 카테고리 지정 -->
+
+                        <!-- 지역 설정 -->
+                        <form class="chefRegiMain__region">
+                            <div class="formTitle">
+                                지역 선택
+                            </div>
+                            <select name="language" >
+                              <option value="none">선택하세요.</option>
+                              <option value="">추후 결정</option>
+                              <option value="english">서울</option>
+                              <option value="chinese">경기</option>
+                              <option value="spanish">인천</option>
+                              <option value="korean">부산</option>
+                              <option value="english">경상, 대구, 울산</option>
+                              <option value="chinese">대전, 충청</option>
+                              <option value="spanish">강원</option>
+                              <option value="spanish">광주, 전라, 제주</option>
+                            </select>
+                            <!-- !!!!지역 추가 버튼 : 자바스크립트로 추가버튼 누르면 바로 위에 저장항목 뜨게 수정하기 -->
+                            <div class="addBtn">
+                                <button type="submit">+</button>
+                            </div>
+                            <!-- // !!!!지역 추가 버튼 : 자바스크립트로 추가버튼 누르면 바로 위에 저장항목 뜨게 수정하기 -->
+                        </form>
+                        <!-- // 지역 설정 -->
+                    </section>
+
+                    <!-- 이전, 다음 버튼 -->
+                    <aside class="button">
+                        <div class="submitBtn"><a href="{% url 'registerChef_01' %}">이전</a></div>
+                        <div class="previousBtn"><a href="{% url 'registerChef_03' %}">이전</a></div>
+                    </aside>
+                    <!-- // 이전, 다음 버튼 -->
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

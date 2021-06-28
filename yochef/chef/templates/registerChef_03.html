@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <form name="" action="">
+        <div class="regiFrmWrap">
+            <section class="regiChefSection__header">
+                <div class="regiChefSection__headerContainer">
+                    <h2>셰프 등록</h2>
+                </div>
+            </section>
+
+            <div class="regiContent">
+                <div class="regiContentContainer">
+                    <!-- 셰프 등록 nav -->
+                    <ul class="regiContent__navContainer">
+                        <li class="regiContent__navItem">
+                            <a href="">셰프 소개</a>
+                        </li>
+                        <li class="regiContent__navItem">
+                            <a href="#">예약글 등록</a>
+                        </li>
+                        <li class="regiContent__navItem">
+                            <a href="">출장비 등록</a>
+                        </li>
+                    </ul>
+                    <!-- 셰프 등록 nav -->
+
+                    <!-- 셰프등록 셰프 정보 추가 main -->
+                    <section class="chefRegiMain">
+                        <article class="chefRegiMain__header">
+                            <h3>예약글을 등록해 주세요!</h3>
+                            <!-- !!!!진행상황 바 수정하기 -->
+                            <div></div>
+                            <!-- // !!!!진행상황 바 수정하기 -->
+                        </article>
+
+                        <!-- 글 제목 -->
+                        <article class="regiMainInput">
+                            <h4>글 제목</h4>
+                            <div class="regiMainInput__title">
+                                <input type="text" placeholder="예약글 제목을 입력해주세요.">
+                            </div>
+                        </article>
+                        <!-- // 글 제목 -->
+
+                        <!-- 예약글 커버 이미지 업로드 -->
+                        <!-- !!!! 수정 필요: 자바스크립트 파트 -->
+                        <article class="chefRegiThird__input">
+                            <div class="chefRegiThird__input__coverImg">
+                                <h4 class="coverImg__title">커버 이미지</h4>
+                                <div class="coverImg__container">
+                                    <div class="coverImg__img">
+                                        <!-- !!!!프로필 사진 등록? -->
+                                        <img src="" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- // !!!! 수정 필요: 자바스크립트 파트 -->
+                        <!-- // 예약글 커버 이미지 -->
+
+                        <!-- 셰프 소개 -->
+                        <article class="chefRegiThird__input">
+                            <div class="chefRegiThird__chefInfoContainer">
+                                <div class="chefRegiThird__chefInfo__descContainer">
+                                    <h4 class="chefInfo__desc__title">셰프 소개</h4>
+                                    <p class="chefInfo__desc__notice">경력, 자격증, 메뉴 등 셰프님에 대한 구체적인 정보를 알려주세요!</p>
+                                </div>
+
+                                <div class="chefRegiThird__chefInfo__inputContainer">
+                                    <textarea class="chefInfoInput" maxlength="500" cols="136" rows="609"></textarea><br>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- // 셰프 소개 -->
+
+                        <!-- 코스 정보 -->
+                        <article>
+                            <div class="chefRegiThird__courseInfoContainer">
+                                <div class="chefRegiThird__courseInfo__descContainer">
+                                    <h4 class="chefInfo__desc__title">코스 정보</h4>
+                                    <p class="chefInfo__desc__notice">메뉴 구성과 요리에 대한 구체적인 정보를 알려주세요!</p>
+                                </div>
+
+                                <div class="chefRegiThird__courseInfo__inputContainer">
+                                    <div class="courseInfo__Name">
+                                        <h4 class="courseInfo__Name__title">이름</h4>
+                                        <input type="text" class="courseInfo__Name" placeholder="ex) A코스(10인) 20,000원">
+                                    </div>
+
+                                    <div class="courseInfo__price">
+                                        <h4 class="courseInfo__price__title">이름</h4>
+                                        <input type="text" class="courseInfo__price" placeholder="인당 가격" value="원">
+                                    </div>
+
+                                    <div class="courseInfo__menuDscr">
+                                        <textarea class="courseInfo__menuDscr__i nput" maxlength="500" placeholder="ex)
+
+                                        1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)
+                                        
+                                        2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...
+                                        
+                                        3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국
+                                        
+                                        8인~12인용 코스입니다. 
+                                        
+                                        인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^
+                                        
+                                        
+                                        
+                                        " cols="255" rows="609"></textarea><br>
+                                    </div>
+                                    <!-- !!!! 수정 필요 : 이미지 추가 - 자바스크립트로 구현 -->
+                                    <!-- !!!! 수정 필요 : 코스 추가 버튼 - 자바스크립트로 구현 -->
+                                    <button>코스 추가</button>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- // 코스 정보 -->
+
+                        <!-- 유의사항 -->
+                        <article>
+                            <div class="chefRegiThird__notice">
+                                <div class="chefRegiThird__notice__descContainer">
+                                    <h4 class="notice__desc__title">유의사항</h4>
+                                </div>
+
+                                <div class="chefRegiThird__notice__inputContainer">
+                                    <textarea class="noticeInput" maxlength="500" placeholder="ex) 
+
+                                    예약이 완료되면 안내 카톡을 보내드릴 예정입니다. 세부 요청사항은 카톡에서 말씀해주세요!
+                                    
+                                    코스별 안내사항
+                                    
+                                    코스 A: 준비시간 약 2시간
+                                    
+                                    ※ 가격은 1인 기준입니다. 
+                                    
+                                    ※ 출장비 별도
+                                    " cols="180" rows="609"></textarea><br>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- // 유의사항 -->
+                    </section>
+
+                    <!-- 이전, 다음 버튼 -->
+                    <aside class="button">
+                        <div class="submitBtn"><a href="{% url 'registerChef_02' %}">이전</a></div>
+                        <div class="previousBtn"><a href="{% url 'registerChef_04' %}">이전</a></div>
+                    </aside>
+                    <!-- // 이전, 다음 버튼 -->
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
