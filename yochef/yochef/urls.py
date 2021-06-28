@@ -14,14 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-import public.views # back 수정 필요 (html css 확인 목적으로 작성)
+from django.urls import path, include
 from django.conf.urls.static import static #static 연결 목적으로 작성
 from django.conf import settings #static 연결 목적으로 작성
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', public.views.main, name = "main") # back 수정 필요 (html css 확인 목적으로 작성)
-]
-
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) #static 연결 목적으로 작성
+    path('', include('public.urls')),
+    path('customer/', include('customer.urls')),
+    path('chef/', include('chef.urls')),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) #static 연결 목적으로 작성

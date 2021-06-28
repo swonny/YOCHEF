@@ -43,5 +43,14 @@
 	- File 모델 - specOrder integerfield 추가
 	- Post 모델 - isOpen란 추가
 
+21.06.28 백엔드
+- Post 모델 - registerDate 추가
+- Post 카테고리 이름 전환 기능 추가
+- main 함수 수정 후 "요청" 시트에 기록해뒀습니다. 프론트 main페이지 담당하시는 분은 확인 부탁드립니다.
 
+21.06.28 블루
+- 모든 모델 __str__함수 작성 완료했습니다. admin페이지에서 테스트까지 완료했습니다.
+- chef.models -> datetimefield를 str 형식으로 바꿔주는 turn_strdate 함수 작성. 
+- 앱별 url분리 완료. 각 앱별 urls.py에서 작업해주세요
+- file 제외 모든 모델 테스트 데이터 추가해뒀습니다.
 
