@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<main>
+        <div class="mainContainer">
+            <div class="mainContainer__title">
+                <span>계정생성</span>
+            </div>
+            <div class="mainContainer__signup">
+                <form method="POST" action="{% url 'signup'%}">
+                    {% csrf_token %}
+                    {% if error %}
+                        <div class="mainContainer__errorBox">
+                            <p>{{error}}</p>
+                        </div>
+                    {% endif %}
+                    <ul>
+                        <div class="mainContainer__signup_names">
+                            <li><input class="mainContainer__signup_name"type="text" placeholder="Name"></li>
+                            <div class="mainContainer__signup_nickname">
+                                <li><input name="userNickname" type="text" placeholder="Nickname"></li>
+                                <li><input type="button" value="중복확인"></li>
+                            </div>                          
+                        </div>
+                        <li><input class="mainContainer__signup_emailAdrress" name="userEmail" type="text" placeholder="Email Addrress"></li>
+                        <li><input class="mainContainer__signup_password"
+                        name="userPassword" type="password" placeholder="Password"></li>
+                        <li><input class="mainContainer__signup_passwordCheck"
+                        name="userPasswordCheck" type="password" placeholder="Password Check"></li>
+                        <li><input class="mainContainer__signup_phoneNum" name="userPhoneNum"type="text" placeholder="Phone Number"></li>
+                        <li>
+                            <select name="residence">
+                                <option value="none">residence</option>
+                                <option value="서대문구">서대문구</option>
+                                <option value="마포구">마포구</option>
+                                <option value="은평구">은평구</option>
+                            </select>
+                        </li>
+                        <li><input class="mainContainer__signup_autoLogin"type="checkbox" vlaue="#">이용약관 동의</li>
+                        <li><input class="mainContainer__signup_submit" type="sumit" value="가입완료"></li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </main>
+
+
+{% endblock %}

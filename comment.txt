@@ -54,5 +54,14 @@
 - 앱별 url분리 완료. 각 앱별 urls.py에서 작업해주세요
 - file 제외 모든 모델 테스트 데이터 추가해뒀습니다.
 
-21.03.28 감귤
+21.06.28 감귤
 - 테스트
+
+21.06.29 감귤
+- 템플릿 추가 
+	- customer앱 안
+- html 추가
+	- customer -> templates -> pay_apply.html, pay_payment.html
+	- pulbic -> templates -> 로그인, 회원가입, 아이디/비밀번호 찾기
+- 기타
+	- input태그 name이 누락된 부분 연락주시면 체크 후 수정하겠습니다!

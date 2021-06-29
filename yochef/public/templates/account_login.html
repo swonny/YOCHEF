@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main>
+        <div class="mainContainer">
+            <div class="mainContainer__title">
+                <span>로그인</span>
+            </div>
+            <div class="mainContainer__login">
+                <form method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    {% if error %}
+                        <div class="mainContainer__errorBox">
+                            <p>{{error}}</p>
+                        </div>
+                    {% endif %}
+                    <ul>
+                        <li><input class="mainContainer__login_emailAddress" name="userEmail" type="text" placeholder='Email Address'></li>
+                        <li><input class="mainContainer__login_password" name="userPassword"type="password" placeholder='Password'></li>
+                        <li><input class="mainContainer__login_autoLogin" name="autoLogin" type="checkbox" vlaue="#">자동 로그인</li>
+                        <li><input class="mainContainer__login_submit" name="submit" type="sumit" value="로그인"></li>
+                    </ul>
+                </form>
+                <div class="mainContainer__login_help">
+                    <a href="{% url 'account_findId'%}"><span>아이디 찾기</span></a>
+                    <a href="{% url 'account_findPassword'%}"><span>비밀번호 찾기</span></a>
+                    <a href="{% url 'account_createAccount'%}"><span>손님 회원가입</span></a>
+                </div>
+            </div>
+                
+            
+        </div>
+    </main>
+
+    
+{% endblock %}

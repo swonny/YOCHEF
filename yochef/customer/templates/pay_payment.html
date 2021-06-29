@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main>
+        <div class="mainContainer">
+            <div class="mainContainer__title">
+                <span>요리 예약</span>
+            </div>
+            <div class="mainContainer__left">
+                <div class="mainContainer__left_thumbnail">
+                    <img src="#" alt="요리 이미지입니다.">
+                    <span>요리 제목 또는 간단 소개</span>
+                </div>
+                <div class="mainContainer__left_detail">
+                    <form action="#">
+                        <div class="mainContainer__left_detail--coupon">
+                            <li><span>쿠폰</span></li>
+                            <li>
+                                <select name="coupon">
+                                    <option value="none">==== 쿠폰 사용 ====</option>
+                                    <option value="사용안함">++++ 사용안함 ++++</option>
+                                    <option value="10%">정규 10% 할인 쿠폰</option>
+                                    <option value="10%">신규회원 10% 할인 쿠폰</option>
+                                    <option value="10%">오픈 이벤트 10%할인 쿠폰</option>
+                                </select>
+                            </li>
+                        </div>
+                        <div class="mainContainer__left_detail--point">
+                            <li><span>포인트</span></li>
+                            <li>
+                                <span>보유</span>
+                                <span>0 원</span>
+                            </li>
+                            <li>
+                                <span>사용</span>
+                                <input type="text" placeholder="0원">
+                                <input type="button" value="전액사용">
+                            </li>
+                        </div>
+                        <div class="mainContainer__left_detail--howPay">
+                            <li><span>결제 수단</span></li>
+                            <li>
+                                <input type="button" value="신용 / 체크카드">
+                                <input type="button" value="무통장">
+                            </li>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="mainContainer__right">
+                <div class="mainContainer__right_title"><h2>최종 결제 금액</h2></div>
+                <div class="mainContainer__right_payDetail">
+                    <ul>
+                        <li>
+                            <span>비용</span>
+                            <span>0원</span>
+                        </li>
+                        <li>
+                            <span>신청 인원</span>
+                            <span>1명</span>
+                        </li>
+                        <li>
+                            <span>쿠폰 사용</span>
+                            <span>(-) 0원</span>
+                        </li>
+                        <li>
+                            <span>포인트 할인</span>
+                            <span>(-) 0원</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mainContainer__right_totalPrice">
+                    <span>총 결제 금액</span>
+                    <span> 원</span>
+                </div>
+                <div class="mainConatainer__right_payButton">
+                    <form action="#">
+                        <input type="button" value="18,000원 결제하기">
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </main>
+{% endblock %}

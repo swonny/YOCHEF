@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main>
+        <div class="mainContainer">
+            <div class="mainContainer__title">
+                <span>요리 예약</span>
+            </div>
+            <div class="mainContainer__book">
+                <div class="mainContainer__book_detail">
+                    <img src="#" alt="요리 이미지">
+                    <span>요리 제목 또는 간단 소개</span>
+                </div>
+                <div class="mainContainer__book_applyForm">
+                    <form action="#">
+                        <ul>
+                            <li><span>신청인원</span></li>
+                            <li><span>연락 받으실 전화번호</span></li>
+                            <li><span>번호 인증은 최초 결제 시에만 해당됩니다.</span></li>
+                            <div class="mainContainer__book_applyForm--phoneNum">
+                                <li><span>휴대폰 번호</span></li>
+                                <div>
+                                    <li><input type="text" placeholder="휴대폰 번호를 -없이 입력해주세요"></li>
+                                    <li><input type="submit" value="SMS전송"></li>
+                                </div>
+                            </div>
+                            <div class="mainContainer__book_applyForm--certificationNum">
+                                <li><span>인증번호</span></li>
+                                <div>
+                                    <li><input type="text" placeholder="인증번호 4자리를 입력해주세요"></li>
+                                    <li><input type="submit" value="인증"></li>
+                                    <li><span>3분 0초</span></li>
+                                </div>
+                            </div>
+                            <div class="mainContainer__book_applyForm--communication">
+                                <li><span>셰프에게 전하는 말!</span></li>
+                                <li><span>셰프에게 간단히 자신을 소개하고, 못 먹는 음식 등을 알려주세요.</span></li>
+                                <li><input type="text" placeholder="예) 땅콩 알레르기가 있어요."></li>
+                                <li><input name="submit" type="submit" value="다음"></li>
+                            </div>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
