@@ -1,0 +1,135 @@
+{% extend 'base.hmtl' %}
+{% block content %}
+
+    <main>
+        <div class="mainContainer">
+            <div class="mainContainer__intro">
+                <div class="mainContainer__intro_tilte">
+                    <span>{{post.title}}</span>
+                </div>
+                <div class="mainContainer__intro_chef">
+                    <img src="#" alt="셰프사진">
+                    <span>{{post.chef.nickname}}</span>
+                </div>
+                <div class="mainContainer__intro_dishImages">
+                    {% for image in post.images %}
+                    <!-- 이미지  -->
+                    {% endfor %}
+                </div>
+                
+                <a href="{% url 'main.html' %}"><span>목록으로</span></a>
+                <!-- 추후 카타고리 페이지로 url 변경 -->
+            </div>
+
+            <div class="mainContainer__chefInfo">
+                <div class="mainContainer__chefInfo_title">
+                    <span>셰프 소개</span>
+                </div>
+                <div class="mainContainer__chefInfo_chefImage">
+                    <img src="#" alt="셰프 사진">
+                </div>
+                    <div class="mainContainer__chefInfo_chefDetail">     <!--해당 포스트를 어떤 셰프가 올렸는지를 반환해주는 함수 필요 -->
+                    <ul>
+                        <li>
+                            <span>닉네임</span>
+                            <span>{{post.chef.nickname}}</span>
+                        </li>
+                        <li>
+                            <span>셰프소개</span>
+                            <span>{{post.chef.introduce}}</span>
+                        </li>
+                        <li>
+                            <span>활동지역</span>
+                            {% for region in post.chef.regions %}
+                            <span>{{region}}</span>
+                            {% endfor %}
+                        </li>
+                        <li>
+                            <span>세프이력</span>
+                            <p>{{post.chef.spec}}</p>
+                        </li>
+                        <li>
+                            <span>시그니쳐 메뉴</span>
+                            <span>Magna justo placerat fringilla id magna in. Lacus, vestibulum, ullamcorper est porttitor nullam leo at. Etiam dignissim diam in facilisis tristique mi dictumst vitae. Imperdiet erat semper neque, odio risus, suspendisse.
+                                 Tincidunt egestas volutpat consectetur volutpat.</span>
+                        </li>
+                        <li>
+                            <span>소셜 미디어</span>
+                            <span>{{post.chef.snslink}}</span>     <!--  변수 카멜케이스로 바뀌면 수정하기 -->
+                            <span>{{post.chef.blogLink}}</span>     
+                            <span>{{post.chef.youtubeLink}}</span>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="mainContainer__courseInfo">
+                <div class="mainContainer__courseInfo_title">
+                    <span>코스 정보</span>
+                </div>
+                {% for course in courses %}
+                <div class="mainContainer__courseInfo_course">
+                    <span>{{course.title}}</span>
+                    <p>{{course.description}}</p>
+                    <div class="mainContainer__courseInfo_course1--images">
+                        {% for image in course.images %}
+                        <!-- 코스 이미지 넣기 -->
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="mainContainer__review">
+                <div class="mainContainer__review_title">
+                    <span>리뷰</span>
+                </div>
+                <div class="mainContainer__review_userReview">   <!--  리뷰 기능 상의 -->
+                    {{}}
+                    <div class="mainContainer__review_userReview--content">
+                        <ul>
+                            <li><span>닉네임</span></li>
+                            <li><span>작성시간</span></li>
+                            <li><p>애기 이름을 써 강아지, 봅니다. 위에 피어나듯이 청춘이 아무 언덕 소녀들의 가을로 나의 있습니다. 잠, 내 이 봄이 봅니다. 지나가는 쓸쓸함과 같이 추억과 있습니다. 잔디가 오는 불러 무성할 헤일 남은 계십니다. 아이들의 마디씩 당신은 부끄러운 슬퍼하는 불러 버리었습니다. 
+                                그리워 이름자를 위에 동경과 새워 비둘기, 헤일 거외다. 멀리 불러 당신은 쓸쓸함과 이국 있습니다. 이름과, 책상을 별에도 가득 멀리 거외다. 내 이름과 내린 파란 이름과, 나는 까닭이요, 애기 있습니다. 내린 덮어 북간도에 위에 어머니, 무엇인지 노새, 오면 부끄러운 계십니다. </p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mainContainer__review_userReview">
+                    <img src="#" alt="유저사진">
+                    <div class="mainContainer__review_userReview--content">
+                        <ul>
+                            <li><span>닉네임</span></li>
+                            <li><span>작성시간</span></li>
+                            <li><p>애기 이름을 써 강아지, 봅니다. 위에 피어나듯이 청춘이 아무 언덕 소녀들의 가을로 나의 있습니다. 잠, 내 이 봄이 봅니다. 지나가는 쓸쓸함과 같이 추억과 있습니다. 잔디가 오는 불러 무성할 헤일 남은 계십니다. 아이들의 마디씩 당신은 부끄러운 슬퍼하는 불러 버리었습니다. 
+                                그리워 이름자를 위에 동경과 새워 비둘기, 헤일 거외다. 멀리 불러 당신은 쓸쓸함과 이국 있습니다. 이름과, 책상을 별에도 가득 멀리 거외다. 내 이름과 내린 파란 이름과, 나는 까닭이요, 애기 있습니다. 내린 덮어 북간도에 위에 어머니, 무엇인지 노새, 오면 부끄러운 계십니다. </p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mainContainer__review_userReview">
+                    <img src="#" alt="유저사진">
+                    <div class="mainContainer__review_userReview--content">
+                        <ul>
+                            <li><span>닉네임</span></li>
+                            <li><span>작성시간</span></li>
+                            <li><p>애기 이름을 써 강아지, 봅니다. 위에 피어나듯이 청춘이 아무 언덕 소녀들의 가을로 나의 있습니다. 잠, 내 이 봄이 봅니다. 지나가는 쓸쓸함과 같이 추억과 있습니다. 잔디가 오는 불러 무성할 헤일 남은 계십니다. 아이들의 마디씩 당신은 부끄러운 슬퍼하는 불러 버리었습니다. 
+                                그리워 이름자를 위에 동경과 새워 비둘기, 헤일 거외다. 멀리 불러 당신은 쓸쓸함과 이국 있습니다. 이름과, 책상을 별에도 가득 멀리 거외다. 내 이름과 내린 파란 이름과, 나는 까닭이요, 애기 있습니다. 내린 덮어 북간도에 위에 어머니, 무엇인지 노새, 오면 부끄러운 계십니다. </p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mainContainer__review_userReview">
+                    <img src="#" alt="유저사진">
+                    <div class="mainContainer__review_userReview--content">
+                        <ul>
+                            <li><span>닉네임</span></li>
+                            <li><span>작성시간</span></li>
+                            <li><p>애기 이름을 써 강아지, 봅니다. 위에 피어나듯이 청춘이 아무 언덕 소녀들의 가을로 나의 있습니다. 잠, 내 이 봄이 봅니다. 지나가는 쓸쓸함과 같이 추억과 있습니다. 잔디가 오는 불러 무성할 헤일 남은 계십니다. 아이들의 마디씩 당신은 부끄러운 슬퍼하는 불러 버리었습니다. 
+                                그리워 이름자를 위에 동경과 새워 비둘기, 헤일 거외다. 멀리 불러 당신은 쓸쓸함과 이국 있습니다. 이름과, 책상을 별에도 가득 멀리 거외다. 내 이름과 내린 파란 이름과, 나는 까닭이요, 애기 있습니다. 내린 덮어 북간도에 위에 어머니, 무엇인지 노새, 오면 부끄러운 계십니다. </p></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

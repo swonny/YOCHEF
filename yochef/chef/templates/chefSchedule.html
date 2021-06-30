@@ -1,0 +1,36 @@
+<main>
+        <div class="mainContainer">
+            <div class="schedule__chooseDate">
+
+            </div>
+            <div class="schedule__scheduleList">
+                <div class="schedule__scheduleList_title">
+                    <h1>전체 일정 목록</h1>
+                </div>
+                <div class="schedule__scheduleList_detail">
+                    <ul>
+                        <li>
+                            <span>예약 날짜</span><span>예약 현황</span><span>코스</span><span>인원</span><span>총 결제금액</span><span>상세내역 확인</span>    
+                        </li>
+                        {% for customer in book.customers %}
+                            <span>{{}}</span>
+                        {% endfor%}
+                    </ul>
+
+                </div>
+            </div>
+            <div class="shedule__register">
+                <div class="schedule__resister_title">
+                    <h1>예약 일정 등록</h1>
+                </div>
+                <div>
+                    <form method="POST" action="{% url '#' %}">
+                        <span>요리하실 메뉴에 대해 여러 장소/날짜를 추가할 수 있습니다. </span>
+                        <!-- 지역 추가, 날짜 선택 논의 -->
+                        <input type="text" placeholder=" ex) 아침, 점심, 저녁, 야간">
+                        <span>* 선택사항입니다.</span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>

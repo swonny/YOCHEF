@@ -17,10 +17,15 @@
                             <li>
                                 <select name="coupon">
                                     <option value="none">==== 쿠폰 사용 ====</option>
-                                    <option value="사용안함">++++ 사용안함 ++++</option>
-                                    <option value="10%">정규 10% 할인 쿠폰</option>
-                                    <option value="10%">신규회원 10% 할인 쿠폰</option>
-                                    <option value="10%">오픈 이벤트 10%할인 쿠폰</option>
+                                    {% if %}
+                                        <option value="사용안함">++++ 사용안함 ++++</option>
+                                        <option value="10%">정규 10% 할인 쿠폰</option>
+                                        <option value="10%">신규회원 10% 할인 쿠폰</option>
+                                        <option value="10%">오픈 이벤트 10%할인 쿠폰</option>
+                                    
+                                    {% else %}
+                                        <option value="none">보유하신 쿠폰이 없습니다. </option>
+                                    {% endif %}
                                 </select>
                             </li>
                         </div>
@@ -73,12 +78,12 @@
                     <span> 원</span>
                 </div>
                 <div class="mainConatainer__right_payButton">
-                    <form action="#">
-                        <input type="button" value="18,000원 결제하기">
+                    <form method="POST"action="{% url '##' %}">
+                        <input name="payYes"type="button" value="18,000원 결제하기">
                     </form>
                 </div>
             </div>
-
         </div>
+        
     </main>
 {% endblock %}
