@@ -50,6 +50,14 @@ class Like(models.Model):
 	def __str__(self):
 		return self.customer.nickname + ' likes ' + self.chef.nickname
 
+# 조회수 관련 모델 - 보류
+# class View(models.Model):
+# 	customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+# 	post = models.ForeignKey('chef.Post', on_delete=models.CASCADE)
+
+# 	def __str__(self):
+# 		return self.customer.nickname + ' likes ' + self.chef.nickname
+
 class Book(models.Model):
 	customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
 	coupon = models.ForeignKey(Coupon, null=True, on_delete=models.SET_NULL)

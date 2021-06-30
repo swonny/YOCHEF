@@ -14,10 +14,10 @@ class Chef(models.Model):
 	snslink = models.TextField(max_length = 500, null=True)
 	blogLink = models.TextField(max_length = 500, null=True)
 	youtubeLink = models.TextField(max_length = 500, null=True)
-	chefPhoneNum = models.CharField(max_length=11)
 	registerDate = models.DateTimeField(auto_now_add=True)
 	region = models.IntegerField()
 	regionDetail = models.ForeignKey(RegionDetail, null=True, on_delete=models.SET_NULL)
+	isLicensed = models.BooleanField(default=False)
 
 	def __str__(self):
 		return self.nickname
