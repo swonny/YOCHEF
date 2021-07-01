@@ -11,7 +11,7 @@ class Chef(models.Model):
 	customer = models.OneToOneField('customer.Customer', on_delete=models.CASCADE)
 	nickname = models.CharField(max_length=20)
 	spec = models.TextField(max_length=5000, null=True)
-	snslink = models.TextField(max_length = 500, null=True)
+	snsLink = models.TextField(max_length = 500, null=True)
 	blogLink = models.TextField(max_length = 500, null=True)
 	youtubeLink = models.TextField(max_length = 500, null=True)
 	registerDate = models.DateTimeField(auto_now_add=True)

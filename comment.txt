@@ -65,3 +65,23 @@
 	- pulbic -> templates -> 로그인, 회원가입, 아이디/비밀번호 찾기
 - 기타
 	- input태그 name이 누락된 부분 연락주시면 체크 후 수정하겠습니다!
+
+21.07.01 제우스
+- favicon.ico 제작 후 base.html에 반영
+- registerChef url 및 함수 추가
+	- registerChef01~04.html 다음 & 이전 버튼 수정
+		- registerChef01.html line 106 <a>
+			- {% url 'registerChef_02' %} -> {% url 'registerChef' '2' %}
+		- registerChef02~04.html 파일도 위의 양식처럼 수정했어요. "chef/urls.py", "chef/views.py" 참고 바랍니다. 
+	- registerChef01~04.html 파일명 수정
+		- 코드 가독성을 위해 파일명의 01~04를 1~4로 수정했습니다. 
+	- 현재 registerChef 관련 url은 이전 버튼과 다음 버튼으로 연결되는 링크(<a> 태그)에만 관여하고 입력된 내용은 전송하지 않습니다. 
+- chefSchedule url 및 함수 추가
+- ! form-submit 양식 관련 FE 전달사항
+	1. <form> 에서 작성한 양식을 전달하기 위해 method 속성을 설정해줘야 합니다. 
+	2. <input type="submit"> 제출 태그가 있어야 합니다. 
+	3. <form> 태그의 action 속성에 템플릿 태그를 이용한 함수를 넣어 주세요. 예는 다음과 같습니다. 
+	4. registerChef_1.html에서 "<form action="{% url 'registerChef' '1' %}">
+	5. django 세션 때 만들었던 new.html 을 참고하면 이해에 도움이 될 거에요. 
+	위 1~5 작성이 되어야 GET 또는 POST로 셰프 등록 양식에 입력한 데이터를 가져올 수 있습니다. 
+	form 태그 작성을 완료했다면, 다음 버튼과 이전 버튼의 <a> 태그를 삭제해주세요. 
