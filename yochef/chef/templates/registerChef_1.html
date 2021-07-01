@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <form name="registerChef_01" method="GET" action="{% url 'registerChef' '1' %}">
+    <form name="registerChef_1" method="GET" action="{% url 'registerChef' '1' %}">
         <div id="regiFrmWrap">
             <!-- section header -->
             <section class="regiChefSection__header">
@@ -31,6 +31,7 @@
                         <article class="chefRegifirst__title">
                             <h3>셰프님에 대한 소개를 작성해주세요!</h3>
                             <p>첫 번째 예약에서만 작성하는 페이지입니다.</p>
+                            <input name="registerChef_title" type="text">
                             <!-- !!!!진행상황 바 추가하기 -->
                             <div></div>
                         </article>
@@ -40,7 +41,7 @@
                             <div class="chefRegifirst__input__chefPhoneNum">
                                 <!-- !!!! 만약 유저의 폰번호가 등록되어 있다면 -->
                                 <!-- !!!! {% comment %} chefPhoneNum이 등록되어 있다면 폰 번호 chefPhoneNum__input--left value에 넣기 {% endcomment %} -->
-                                <input type="text" class="chefPhoneNum__input--left" placeholder="번호를 입력해주세요." value="{{chef.chefPhoneNum}}">
+                                <input name="registerChef_phoneNum" type="int" class="chefPhoneNum__input--left" placeholder="번호를 입력해주세요." value="{{chef.chefPhoneNum}}">
                                 <button type="button" class="buttonSubmit">확인</button>
                             </div>
                         </article>
@@ -53,8 +54,7 @@
                                 <h4 class="chefProfile__title">프로필 사진 </h4>
                                 <div class="chefProfile__container">
                                     <div class="chefProfile__img">
-                                        <!-- !!!!프로필 사진 등록? -->
-                                        <img src="" alt="">
+                                        <input name="registerChef_profileImg" type="image">
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                         <article class="regiMainInput">
                             <h4>닉네임</h4>
                             <div class="regiMainInput__nickname">
-                                <input type="text" placeholder="사용하실 닉네임을 입력해주세요.">
+                                <input name="registerChef_nickname" type="text" placeholder="사용하실 닉네임을 입력해주세요.">
                             </div>
                         </article>
                         <!-- // 닉네임 등록 -->
@@ -78,7 +78,7 @@
                                 <h4>이력</h4>
                                 <p>셰프님과 메뉴에 대한 정보를 알 수 있는 이력을 입력해주세요!</p>
                             </div>
-                            <input type="text">
+                            <input name="registerChef_spec" type="text">
                         </article>
                         <!-- // 이력 입력 -->
 
@@ -86,13 +86,13 @@
                         <article class="regiMainInput">
                             <h4>소셜 미디어</h4>
                             <div class="regiMainInput__instagram">
-                                <input type="text" placeholder="인스타그램 아이디">
+                                <input name="registerChef_insta" type="text" placeholder="인스타그램 아이디">
                             </div>
-                            <div class="regiMainInput__instagram">
-                                <input type="text" placeholder="유튜브 주소">
+                            <div class="regiMainInput__blog">
+                                <input name="registerChef_blog" type="text" placeholder="유튜브 주소">
                             </div>
-                            <div class="regiMainInput__instagram">
-                                <input type="text" placeholder="페이스북 주소">
+                            <div class="regiMainInput__facebook">
+                                <input name="registerChef_facebook" type="text" placeholder="페이스북 주소">
                             </div>
                         </article>
                         <!-- // 소셜미디어 -->

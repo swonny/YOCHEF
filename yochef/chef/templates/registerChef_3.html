@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <form name="registerChef_01" method="GET" action="{% url 'registerChef' '3' %}">
+    <form name="registerChef_3" method="GET" action="{% url 'registerChef' '3' %}">
         <div id="regiFrmWrap">>
         <div class="regiFrmWrap">
             <section class="regiChefSection__header">
@@ -39,7 +39,7 @@
                         <article class="regiMainInput">
                             <h4>글 제목</h4>
                             <div class="regiMainInput__title">
-                                <input type="text" placeholder="예약글 제목을 입력해주세요.">
+                                <input name="registerChef_title" type="text" placeholder="예약글 제목을 입력해주세요.">
                             </div>
                         </article>
                         <!-- // 글 제목 -->
@@ -52,7 +52,7 @@
                                 <div class="coverImg__container">
                                     <div class="coverImg__img">
                                         <!-- !!!!프로필 사진 등록? -->
-                                        <img src="" alt="">
+                                        <input name="registerChef_coverImg" type="image">
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                                 </div>
 
                                 <div class="chefRegiThird__chefInfo__inputContainer">
-                                    <textarea class="chefInfoInput" maxlength="500" cols="136" rows="609"></textarea><br>
+                                    <textarea name="registerChef_intro" class="chefInfoInput" maxlength="500" cols="136" rows="609"></textarea><br>
                                 </div>
                             </div>
                         </article>
@@ -86,16 +86,16 @@
                                 <div class="chefRegiThird__courseInfo__inputContainer">
                                     <div class="courseInfo__Name">
                                         <h4 class="courseInfo__Name__title">이름</h4>
-                                        <input type="text" class="courseInfo__Name" placeholder="ex) A코스(10인) 20,000원">
+                                        <input name="registerChef_courseTitle" type="text" class="courseInfo__Name" placeholder="ex) A코스(10인) 20,000원">
                                     </div>
 
                                     <div class="courseInfo__price">
-                                        <h4 class="courseInfo__price__title">이름</h4>
-                                        <input type="text" class="courseInfo__price" placeholder="인당 가격" value="원">
+                                        <h4 class="courseInfo__price__title">가격</h4>
+                                        <input name="registerChef_coursePrice" type="text" class="courseInfo__price" placeholder="인당 가격" value="원">
                                     </div>
 
                                     <div class="courseInfo__menuDscr">
-                                        <textarea class="courseInfo__menuDscr__i nput" maxlength="500" placeholder="ex)
+                                        <textarea name="registerChef_menuDscr" class="courseInfo__menuDscr__i nput" maxlength="500" placeholder="ex)
 
                                         1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)
                                         
@@ -106,8 +106,6 @@
                                         8인~12인용 코스입니다. 
                                         
                                         인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^
-                                        
-                                        
                                         
                                         " cols="255" rows="609"></textarea><br>
                                     </div>
@@ -127,7 +125,7 @@
                                 </div>
 
                                 <div class="chefRegiThird__notice__inputContainer">
-                                    <textarea class="noticeInput" maxlength="500" placeholder="ex) 
+                                    <textarea name="registerChef_notice" class="noticeInput" maxlength="500" placeholder="ex) 
 
                                     예약이 완료되면 안내 카톡을 보내드릴 예정입니다. 세부 요청사항은 카톡에서 말씀해주세요!
                                     
@@ -147,8 +145,8 @@
 
                     <!-- 이전, 다음 버튼 -->
                     <aside class="button">
-                        <div class="submitBtn"><a href="{% url 'registerChef' '2' %}">이전</a></div>
-                        <div class="previousBtn"><a href="{% url 'registerChef' '4' %}">다음</a></div>
+                        <div class="submitBtn">이전</div>
+                        <div class="previousBtn">다음</div>
                     </aside>
                     <!-- // 이전, 다음 버튼 -->
                 </div>

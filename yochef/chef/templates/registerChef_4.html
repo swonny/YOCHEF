@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form name="registerChef_01" method="GET" action="{% url 'registerChef' '4' %}">
+    <form name="registerChef_4" method="GET" action="{% url 'registerChef' '4' %}">
         <div id="regiFrmWrap">
             <section class="regiChefSection__header">
                 <div class="regiChefSection__headerContainer">
@@ -36,7 +36,7 @@
                             <div class="priceArea">
                                 <div class="priceArea__movingPrice">
                                     <h4>출장비</h4>
-                                    <input type="text" placeholder="\ (입력)">
+                                    <input name="registerChef_movingPrice" type="int" placeholder="\ (입력)">
                                     <span class="unit">원</span>
                                 </div>
 
@@ -97,8 +97,8 @@
                     </section>
                     <!-- 이전, 제출 버튼 -->
                     <aside class="button">
-                        <div class="submitBtn"><a href="">제출</a></div>
-                        <div class="previousBtn"><a href="{% url 'registerChef' '3' %}">이전</a></div>
+                        <div class="submitBtn">제출</div>
+                        <div class="previousBtn">이전</div>
                     </aside>
                     <!-- // 이전, 제출 버튼 -->
 
