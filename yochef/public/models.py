@@ -29,3 +29,5 @@ class File(models.Model):
 	post = models.ForeignKey('chef.Post', on_delete=models.CASCADE, null=True)
 	course = models.ForeignKey('chef.Course', on_delete=models.CASCADE, null=True)
 	specOrder = models.IntegerField(null=True)
+	fileName = models.CharField(max_length=255)
+	uploadDate = models.DateTimeField(auto_now_add=True)

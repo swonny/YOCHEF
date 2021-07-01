@@ -45,19 +45,19 @@ class Post(models.Model):
 
 	def category_name(self):
 		if self.category == 1 :
-			return '한식'
+			return '뷔페/케이터링'
 		elif self.category == 2 :
-			return '일식'
+			return '한식'
 		elif self.category == 3 :
-			return '중식'
+			return '일식'
 		elif self.category == 4 :
-			return '아시안'
+			return '중식'
 		elif self.category == 5 :
-			return '양식'
+			return '아시안'
 		elif self.category == 6 :
-			return '채식'
+			return '양식'
 		elif self.category == 7 :
-			return '디저트'
+			return '채식'
 		else :
 			return '기타'
 
