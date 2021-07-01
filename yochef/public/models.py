@@ -30,4 +30,4 @@ class File(models.Model):
 	course = models.ForeignKey('chef.Course', on_delete=models.CASCADE, null=True)
 	specOrder = models.IntegerField(null=True)
 	fileName = models.CharField(max_length=255)
-	uploadDate = models.DateTimeField(auto_now_add=True)
+	uploadDate = models.DateTimeField(auto_now=True)

@@ -138,3 +138,19 @@
 	- 첨부파일 업로드를 위해 media 경로 추가
 - chef/views.py
 	- 함수 registerChef 수정
+
+21.07.02 블루
+- customer/models.py
+	- (모두 참고) customer model에 currentVer 필드 추가
+		현재 유저가 어떤 버전(손님, 셰프)의 페이지를 보고 있는지 계속 GET방식으로 전달하려니 
+		너무 번거로울 듯 해 customer model에 추가하였습니다.
+		0 - cusVer, 1 - chefVer로 정의하도록 하겠습니다.
+		(프론트 참고) - {{request.user.currentVer}}로 현재 User가 어느 버전을 사용중인지 확인 가능하니 참고 바랍니다.
+		(키위 참고) - 로그인 시 customer model의 currentVer 란을 0(customer ver)으로 변경하도록 작업 부탁드립니다.
+- public/views.py
+	- currentVer 변경하는 changePageVer 함수 작성
+	- (프론트 참고) base.html navbar에 현재 currentVer을 변경할 수 있는 기능 JS로 연결해둠 (아이디어톤 대비)
+- public/main.html
+	- (프론트 main.html 담당자 참고) 
+		한 셰프 이미지를 가져오는데 너무 시간이 오래걸려서 에러가 나길래 다른 이미지로 대체해뒀습니다.
+		'<!-- 이미지 대체 - 블루 -->' 참고해주세요.

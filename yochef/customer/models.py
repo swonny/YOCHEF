@@ -14,6 +14,7 @@ class Customer(models.Model):
 	point = models.IntegerField(default=0)
 	isChef = models.BooleanField(default=False)
 	registerDate = models.DateTimeField(auto_now_add=True)
+	currentVer = models.IntegerField(default=0)
 
 	def __str__(self):
 		return self.nickname
