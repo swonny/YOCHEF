@@ -154,3 +154,23 @@
 	- (프론트 main.html 담당자 참고) 
 		한 셰프 이미지를 가져오는데 너무 시간이 오래걸려서 에러가 나길래 다른 이미지로 대체해뒀습니다.
 		'<!-- 이미지 대체 - 블루 -->' 참고해주세요.
+
+21.07.02 워니
+- (백 참고) 
+	-base.html 네브바 관련
+		- 셰프버전 로그인/ 셰프등록된 손님버전 로그인 / 셰프등록 안된 손님버전 로그인 / 로그아웃
+		네 가지 경우로 분리해 네브바 작성하였습니다.
+	- registerChef_1 ~ 4.html 
+		- input name 변경 - registerChef_ 삭제
+		- method POST 로 변경
+	- registerChef_1.html input name 변경
+		- insta -> instagram 수정
+		- profileImg -> profileImage 수정
+	- registerChef_3.html input name 변경
+		- coverImg -> coverImage 수정
+		- menuDscr -> menuDescribe 수정
+	- 요청시트 기록 사항
+		- base.html 네브바 셰프등록 되어있는 경우 테스트를 위해 셰프등록이 완료된 객체가 필요합니다.
+	
+	
+	
