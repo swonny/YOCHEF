@@ -47,9 +47,9 @@
         <li class="nav-item margin-right"><a href="">{{user.username}}님</a></li>
         <!-- 로그아웃 상태라면 -->
         {% else %}
-        <li class="nav-item margin-right"><a href="">로그인</a></li>
+        <li class="nav-item margin-right"><a href="{% url 'login.html' %}">로그인</a></li>
         <li class="nav-item margin-right"><a href="">아이디/비밀번호 찾기</a></li>
-        <li class="nav-item"><a  href="">회원가입</a></li>
+        <li class="nav-item"><a  href="{% url 'signup.html' %}">회원가입</a></li>
         {% endif %}
       </ul>
     </div> 

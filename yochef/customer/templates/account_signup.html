@@ -2,21 +2,23 @@
 {% block content %}
 
 <main>
-        <div class="mainContainer">
-            <div class="mainContainer__title">
-                <span>계정생성</span>
-            </div>
-            <div class="mainContainer__signup">
-                <form method="POST" action="{% url 'signup'%}">
-                    {% csrf_token %}
-                    {% if error %}
-                        <div class="mainContainer__errorBox">
-                            <p>{{error}}</p>
-                        </div>
-                    {% endif %}
+    <div class="mainContainer">
+        <div class="mainContainer__title">
+            <span>계정생성</span>
+        </div>
+        <div class="mainContainer__signup">
+            <form method="POST" action="{% url 'signup.html'%}">
+                {% csrf_token %}
+                <!-- 에러(이미 존재하는 닉네임or비밀번호 재입력 실패)시 해당 에러 출력-->
+                {% if error %}
+                    <div class="mainContainer__errorBox">
+                        <p>{{error}}</p>
+                    </div>
+                {% endif %}
+                <!-- 회원가입 양식 -->
                     <ul>
                         <div class="mainContainer__signup_names">
-                            <li><input class="mainContainer__signup_name"type="text" placeholder="Name"></li>
+                            <li><input class="mainContainer__signup_name" name="username" type="text" placeholder="Name"></li>
                             <div class="mainContainer__signup_nickname">
                                 <li><input name="userNickname" type="text" placeholder="Nickname"></li>
                                 <li><input type="button" value="중복확인"></li>

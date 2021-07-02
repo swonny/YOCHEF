@@ -1,8 +1,7 @@
 <main>
         <div class="mainContainer">
-            <div class="schedule__chooseDate">
-
-            </div>
+            <div class="schedule__chooseDate"></div><!-- js로 구현-->
+            <!-- 전체 일정 목록 -->
             <div class="schedule__scheduleList">
                 <div class="schedule__scheduleList_title">
                     <h1>전체 일정 목록</h1>
@@ -12,13 +11,18 @@
                         <li>
                             <span>예약 날짜</span><span>예약 현황</span><span>코스</span><span>인원</span><span>총 결제금액</span><span>상세내역 확인</span>    
                         </li>
-                        {% for customer in book.customers %}
-                            <span>{{}}</span>
+                        {% for book in books %}
+                            <span>{{book.registerDate}}</span>
+                            <span>{{book.status}}</span>
+                            <span>{{book.bookDetail.course}}</span>
+                            <span>{{book.bookDetail.amount}}</span>
+                            <span>{{book.totalPrice}}</span>
+                            <span><a href="{% url 'detail'%}"></a>확인하기</span>
                         {% endfor%}
                     </ul>
-
                 </div>
             </div>
+            <!-- 예약 일정 등록 -->
             <div class="shedule__register">
                 <div class="schedule__resister_title">
                     <h1>예약 일정 등록</h1>
@@ -33,4 +37,4 @@
                 </div>
             </div>
         </div>
-    </main>
+</main>
