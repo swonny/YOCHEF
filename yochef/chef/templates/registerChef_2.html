@@ -2,7 +2,7 @@
 {% block content %}
 
 
-    <form name="registerChef_2" method="POST" action="{% url 'registerChef' '2' %}">
+    <form name="registerChef_2" method="POST" action="{% url 'registerChef' '2' customer.id %}">
     {% csrf_token %}
         <div id="regiFrmWrap">>
         <div id="regiFrmWrap">

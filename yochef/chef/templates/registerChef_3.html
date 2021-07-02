@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <form name="registerChef_3" method="POST" action="{% url 'registerChef' '3' %}">
+    <form name="registerChef_3" method="POST" action="{% url 'registerChef' '3' customer.id %}">
     {% csrf_token %}
         <div id="regiFrmWrap">>
         <div class="regiFrmWrap">
