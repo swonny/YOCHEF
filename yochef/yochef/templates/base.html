@@ -17,15 +17,41 @@
     <div class="item-container">
 
       <div id="nav-yochef">
-          <span class="nav-item"><a href="">YOCHEF</a><span>
+          <span class="nav-item"><a href="{% url 'main' %}">YOCHEF</a><span>
       </div>
 
+      
       <ul class="nav-item-right-container">
+        <!-- 로그인 상태라면 -->
+        {% if user.is_authenticated %}
+        <li class="nav-item margin-right"><a href="">메인페이지</a></li>
+          <!-- 셰프등록 돼있다면 -->
+          {% if customer.isChef %}
+            <!-- 셰프버전이라면 -->
+            {% if customer.currentVer == 1 %}
+            <li class="nav-item margin-right"><a href="">셰프 정보 관리</a></li>
+            <li class="nav-item margin-right"><a href="">로그아웃</a></li>
+            <!-- 셰프등록 o & 손님버전이라면 -->
+            {% else %}
+            <li class="nav-item margin-right"><a href="">마이메뉴</a></li>
+            <li class="nav-item margin-right"><a href="">쿠폰함</a></li>
+            {% endif %}
+          <button id="currentVer" onclick="location.href='changePageVer';">버전</button>
+          <!-- 셰프등록 안돼있다면 -->
+          {% else %}
+          <li class="nav-item margin-right"><a href="">마이메뉴</a></li>
+          <li class="nav-item margin-right"><a href="">쿠폰함</a></li>
+          <li class="nav-item margin-right"><a href="">셰프등록</a></li>
+          {% endif %}
+        <li class="nav-item margin-right"><a href="">로그아웃</a></li>
+        <li class="nav-item margin-right"><a href="">{{user.username}}님</a></li>
+        <!-- 로그아웃 상태라면 -->
+        {% else %}
         <li class="nav-item margin-right"><a href="">로그인</a></li>
         <li class="nav-item margin-right"><a href="">아이디/비밀번호 찾기</a></li>
         <li class="nav-item"><a  href="">회원가입</a></li>
+        {% endif %}
       </ul>
-      <button id="currentVer" onclick="location.href='changePageVer';">버전</button>
     </div> 
   </nav>   
   <div class="contents">
