@@ -5,23 +5,23 @@ from .models import *
 
 # Create your views here.
 def signup(request):
-	if str(request.user) != "AnonymousUser":
-		return redirect('/')
-	else:
-		if request.method == "POST":
-			if User.objects.filter(username=request.POST['userEmail']).exists():
-				return render(request, "account_signup.html", {'error': '이메일이 중복됩니다'})
+    if str(request.user) != "AnonymousUser":
+        return redirect('/')
+    else:
+        if request.method == "POST":
+            if User.objects.filter(username=request.POST['userEmail']).exists():
+                return render(request, "account_signup.html", {'error': '이메일이 중복됩니다'})
             elif Customer.objects.filter(nickname = request.POST['userNickname']).exists() :
                 return render(request, "account_signup.html", {'error': '닉네임이 중복됩니다'})
-            else : 
+            else: 
                 user = User.objects.create_user(
                     username=request.POST['userEmail'], password=request.POST['password']) 
                 phoneNumber = request.POST['phoneNumber']
                 customer = Customer(user=user, phoneNumber=phoneNumber)
                 customer.save()
-                    auth.login(request, user)
-		else:
-			return render(request, 'account_signup.html') # html 이름 수정
+                auth.login(request, user)
+        else:
+            return render(request, 'account_signup.html') # html 이름 수정
 
 def login(request):
     if str(request.user) != "AnonymousUser":
