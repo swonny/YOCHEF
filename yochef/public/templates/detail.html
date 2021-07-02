@@ -1,4 +1,4 @@
-{% extend 'base.hmtl' %}
+{% extends 'base.html' %}
 {% block content %}
 
     <main>
@@ -7,6 +7,8 @@
             <div class="mainContainer__intro">
                 <div class="mainContainer__intro_tilte">
                     <span>{{post.title}}</span>
+                    <!-- 프론트 참고 - 결제하기 버튼 추가하였습니다. -->
+                    <a href="{% url 'apply' %}">결제하기</a>
                 </div>
                 <div class="mainContainer__intro_chef">
                     {{post.chef.image}}

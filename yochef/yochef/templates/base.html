@@ -26,9 +26,10 @@
         {% if user.is_authenticated %}
         <li class="nav-item margin-right"><a href="">메인페이지</a></li>
           <!-- 셰프등록 돼있다면 -->
-          {% if customer.isChef %}
+          <!-- 프론트 참고 - customer.isChef를 다음과 같이 수정하였습니다. -->
+          {% if user.customer.isChef %}
             <!-- 셰프버전이라면 -->
-            {% if customer.currentVer == 1 %}
+            {% if user.customer.currentVer == 1 %}
             <li class="nav-item margin-right"><a href="">셰프 정보 관리</a></li>
             <li class="nav-item margin-right"><a href="{% url 'logout' %}">로그아웃</a></li>
             <!-- 셰프등록 o & 손님버전이라면 -->
@@ -36,15 +37,17 @@
             <li class="nav-item margin-right"><a href="">마이메뉴</a></li>
             <li class="nav-item margin-right"><a href="">쿠폰함</a></li>
             {% endif %}
-          <button id="currentVer" onclick="location.href='changePageVer';">버전</button>
+            <button id="currentVer" onclick="location.href='changePageVer';">버전</button>
           <!-- 셰프등록 안돼있다면 -->
           {% else %}
           <li class="nav-item margin-right"><a href="">마이메뉴</a></li>
           <li class="nav-item margin-right"><a href="">쿠폰함</a></li>
-          <li class="nav-item margin-right"><a href="">셰프등록</a></li>
+          <!-- 프론트 참고 - 테스트 위해 임의로 추가하였습니다. -->
+          <li class="nav-item margin-right"><a href="{% url 'registerChef' '1'%}">셰프등록</a></li>
           {% endif %}
         <li class="nav-item margin-right"><a href="{% url 'logout' %}">로그아웃</a></li>
-        <li class="nav-item margin-right"><a href="">{{user.username}}님</a></li>
+        <!-- 프론트참고 username -> nickname 변경 -->
+        <li class="nav-item margin-right"><a href="">{{user.customer.nickname}}님</a></li>
         <!-- 로그아웃 상태라면 -->
         {% else %}
         <li class="nav-item margin-right"><a href="{% url 'login' %}">로그인</a></li>

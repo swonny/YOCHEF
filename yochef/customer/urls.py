@@ -7,4 +7,6 @@ urlpatterns = [
 	path('findId', findId, name='findId'),
 	path('findPassword', findPassword, name='findPassword'),
 	path('createAccount', createAccount, name='createAccount'),
+	path('apply', apply, name='apply'),
+	path('payment', payment, name='payment'),
 ]

@@ -15,4 +15,7 @@ def changePageVer(request):
     request.user.customer.save()
     
     return redirect('/')
-    
+
+def detail(request, post_id):
+    post = Post.objects.get(id = post_id)
+    return render(request, 'detail.html', {'post': post})

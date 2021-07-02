@@ -100,7 +100,8 @@
 
                         {% for post in posts %}
                         <!-- !!!!div태그에 onclick="location.href='';" 로 해당 링크로 이동하게 하기 -->
-                        <div onclick="location.href='';" class="popular-menu-item">
+                        <!-- 프론트 참고 - href 값 추가해뒀습니다. -->
+                        <div onclick="location.href='detail/{{post.id}}';" class="popular-menu-item">
                             <div class="popular-menu-img"><img src="https://t1.daumcdn.net/liveboard/dailylife/8defeeef58a04d3888ddfe03b5722000.jpg" alt=""></div>
                             <div class="popular-menu-item-desc">
                                 <div class="popular-menu-item-desc-title">{{post.title}}</div>

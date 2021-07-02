@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include('public.urls')),
     path('customer/', include('customer.urls')),
     path('chef/', include('chef.urls')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) #static 연결 목적으로 작성
+# ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) #static 연결 목적으로 작성
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

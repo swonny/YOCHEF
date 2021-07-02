@@ -55,7 +55,8 @@
                                 <h4 class="chefProfile__title">프로필 사진 </h4>
                                 <div class="chefProfile__container">
                                     <div class="chefProfile__img">
-                                        <input name="profileImage" type="image">
+                                        <!-- 프론트 참고 - type = image > file로 변경하였습니다. -->
+                                        <input name="profileImage" type="file">
                                     </div>
                                 </div>
                             </div>
@@ -106,6 +107,7 @@
             <!-- 다음 버튼 -->
             <aside class="button">
                 <!-- <div class="submitBtn"><a href="{% url 'registerChef' '2' %}">다음</a></div> -->
+                <!-- 프론트 참고 - 다음버튼 추가하였습니다 -->
                 <div class="submitBtn"><button type="submit">다음</button></div>
             </aside>
             <!-- // 다음 버튼 -->

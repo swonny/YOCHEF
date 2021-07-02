@@ -23,7 +23,7 @@ class RegionDetail(models.Model):
 		return str(self.region) + ' - ' + self.detailName
 
 class File(models.Model):
-	attachment = models.FileField()
+	attachment = models.FileField(upload_to='media')
 	category = models.IntegerField() # 1. chef profile, 2. chef spec, 3. course image, 4. post cover image
 	chef = models.ForeignKey('chef.Chef', on_delete=models.CASCADE, null=True)
 	post = models.ForeignKey('chef.Post', on_delete=models.CASCADE, null=True)

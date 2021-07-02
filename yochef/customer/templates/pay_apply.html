@@ -11,7 +11,8 @@
                     <span>요리 제목 또는 간단 소개</span>
                 </div>
                 <div class="mainContainer__book_applyForm">
-                    <form action="#">
+                    <!-- 프론트 참고 - action url 지정해뒀습니다. -->
+                    <form action="{% url 'payment' %}">
                         <ul>
                             <li><span>신청인원</span></li>
                             <li><span>연락 받으실 전화번호</span></li>
@@ -35,7 +36,10 @@
                                 <li><span>셰프에게 전하는 말!</span></li>
                                 <li><span>셰프에게 간단히 자신을 소개하고, 못 먹는 음식 등을 알려주세요.</span></li>
                                 <li><input type="text" placeholder="예) 땅콩 알레르기가 있어요."></li>
-                                <li><input name="submit" type="submit" value="다음"></li>
+                                <li>
+                                    <!-- 프론트 참고 - input -> button으로 변경해뒀습니다. -->
+                                    <!--<input name="submit" type="submit" value="다음"></li>-->
+                                    <button name="submit" type="submit" value="다음">다음</button></li>
                             </div>
                         </ul>
                     </form>
