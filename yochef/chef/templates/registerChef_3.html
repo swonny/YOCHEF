@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <form name="registerChef_3" method="POST" action="{% url 'registerChef' '3' customer.id %}">
+    <form name="registerChef_3" method="POST" action="{% url 'registerChef' '4' %}">
     {% csrf_token %}
         <div id="regiFrmWrap">>
         <div class="regiFrmWrap">
@@ -70,7 +70,7 @@
                                 </div>
 
                                 <div class="chefRegiThird__chefInfo__inputContainer">
-                                    <textarea name="intro" class="chefInfoInput" maxlength="500" cols="136" rows="609"></textarea><br>
+                                    <textarea name="introduce" class="chefInfoInput" maxlength="500" cols="136" rows="609"></textarea><br>
                                 </div>
                             </div>
                         </article>
@@ -96,7 +96,7 @@
                                     </div>
 
                                     <div class="courseInfo__menuDscr">
-                                        <textarea name="menuDescribe" class="courseInfo__menuDscr__i nput" maxlength="500" placeholder="ex)
+                                        <textarea name="courseDescribe" class="courseInfo__menuDscr__i nput" maxlength="500" placeholder="ex)
 
                                         1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)
                                         
