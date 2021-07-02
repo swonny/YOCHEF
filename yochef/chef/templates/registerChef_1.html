@@ -41,6 +41,7 @@
                             <div class="chefRegifirst__input__chefPhoneNum">
                                 <!-- !!!! 만약 유저의 폰번호가 등록되어 있다면 -->
                                 <!-- !!!! {% comment %} chefPhoneNum이 등록되어 있다면 폰 번호 chefPhoneNum__input--left value에 넣기 {% endcomment %} -->
+                                <!-- 프론트 참고 - 셰프 전화번호란 삭제되었습니다. 지워도 될 것 같아요 -->
                                 <input name="phoneNum" type="int" class="chefPhoneNum__input--left" placeholder="번호를 입력해주세요." value="{{chef.chefPhoneNum}}">
                                 <button type="button" class="buttonSubmit">확인</button>
                             </div>
@@ -84,15 +85,16 @@
 
                         <!-- 소셜미디어 -->
                         <article class="regiMainInput">
+                            <!-- 프론트 참고 - UI와 기획이 일부 달라 sns, blog, youtube로 수정하였습니다-->
                             <h4>소셜 미디어</h4>
-                            <div class="regiMainInput__instagram">
-                                <input name="instagram" type="text" placeholder="인스타그램 아이디">
+                            <div class="regiMainInput__snsLink">
+                                <input name="snsLink" type="text" placeholder="인스타그램 아이디">
                             </div>
-                            <div class="regiMainInput__blog">
-                                <input name="blog" type="text" placeholder="유튜브 주소">
+                            <div class="regiMainInput__blogLink">
+                                <input name="blogLink" type="text" placeholder="블로그 주소">
                             </div>
-                            <div class="regiMainInput__facebook">
-                                <input name="facebook" type="text" placeholder="페이스북 주소">
+                            <div class="regiMainInput__youtubeLink">
+                                <input name="youtubeLink" type="text" placeholder="유튜브 주소">
                             </div>
                         </article>
                         <!-- // 소셜미디어 -->
@@ -103,7 +105,8 @@
 
             <!-- 다음 버튼 -->
             <aside class="button">
-                <div class="submitBtn"><a href="{% url 'registerChef' '2' %}">다음</a></div>
+                <!-- <div class="submitBtn"><a href="{% url 'registerChef' '2' %}">다음</a></div> -->
+                <div class="submitBtn"><button type="submit">다음</button></div>
             </aside>
             <!-- // 다음 버튼 -->
         </div>

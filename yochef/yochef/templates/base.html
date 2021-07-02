@@ -30,7 +30,7 @@
             <!-- 셰프버전이라면 -->
             {% if customer.currentVer == 1 %}
             <li class="nav-item margin-right"><a href="">셰프 정보 관리</a></li>
-            <li class="nav-item margin-right"><a href="">로그아웃</a></li>
+            <li class="nav-item margin-right"><a href="{% url 'logout' %}">로그아웃</a></li>
             <!-- 셰프등록 o & 손님버전이라면 -->
             {% else %}
             <li class="nav-item margin-right"><a href="">마이메뉴</a></li>
@@ -43,13 +43,13 @@
           <li class="nav-item margin-right"><a href="">쿠폰함</a></li>
           <li class="nav-item margin-right"><a href="">셰프등록</a></li>
           {% endif %}
-        <li class="nav-item margin-right"><a href="">로그아웃</a></li>
+        <li class="nav-item margin-right"><a href="{% url 'logout' %}">로그아웃</a></li>
         <li class="nav-item margin-right"><a href="">{{user.username}}님</a></li>
         <!-- 로그아웃 상태라면 -->
         {% else %}
-        <li class="nav-item margin-right"><a href="{% url 'login.html' %}">로그인</a></li>
+        <li class="nav-item margin-right"><a href="{% url 'login' %}">로그인</a></li>
         <li class="nav-item margin-right"><a href="">아이디/비밀번호 찾기</a></li>
-        <li class="nav-item"><a  href="{% url 'signup.html' %}">회원가입</a></li>
+        <li class="nav-item"><a  href="{% url 'signup' %}">회원가입</a></li>
         {% endif %}
       </ul>
     </div> 

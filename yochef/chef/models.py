@@ -15,7 +15,7 @@ class Chef(models.Model):
 	blogLink = models.TextField(max_length = 500, null=True)
 	youtubeLink = models.TextField(max_length = 500, null=True)
 	registerDate = models.DateTimeField(auto_now_add=True)
-	region = models.IntegerField()
+	region = models.IntegerField(null=True)
 	regionDetail = models.ForeignKey(RegionDetail, null=True, on_delete=models.SET_NULL)
 	isLicensed = models.BooleanField(default=False)
 

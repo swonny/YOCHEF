@@ -4,11 +4,9 @@ from .models import *
 # Create your views here.
 
 def registerChef(request, page_num=1):
-    return render(request, f'registerChef_{page_num}.html')
-
-def registerChefSubmit(request, user_id):   # 작성 중
-    if page_num == '2':
-        customer = request.user.Customer.objects.get(id=user_id)     # Customer() 가져오는 방법?
+    print(page_num)
+    if page_num == 2:
+        customer = request.user.customer    # Customer() 가져오는 방법?
         chef = Chef(customer=customer)
         # profileImage = File()                             # File() 가져오는 방법?
         # profileImage = request.POST['profileImg']
@@ -51,6 +49,10 @@ def registerChefSubmit(request, user_id):   # 작성 중
         chef.movingPrice = request.Post['movingPrice']
         chef.save()
         return render(request, '/')
+    return render(request, f'registerChef_{page_num}.html')
+
+# def registerChefSubmit(request):   # 작성 중
+    
 
 def chefSchedule(request):
     return render(request, 'chefSchedule.html')

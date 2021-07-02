@@ -7,7 +7,7 @@
             <span>계정생성</span>
         </div>
         <div class="mainContainer__signup">
-            <form method="POST" action="{% url 'signup.html'%}">
+            <form method="POST" action="{% url 'signup'%}">
                 {% csrf_token %}
                 <!-- 에러(이미 존재하는 닉네임or비밀번호 재입력 실패)시 해당 에러 출력-->
                 {% if error %}

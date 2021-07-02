@@ -8,7 +8,7 @@
             </div>
             <!-- 로그인 양식 -->
             <div class="mainContainer__login">
-                <form method="POST" action="{% url 'login.html' %}">
+                <form method="POST" action="{% url 'login' %}">
                     {% csrf_token %}
                     <!-- 에러 시 해당 에러 출력 -->
                     {% if error %}
@@ -25,10 +25,11 @@
                     </ul>
                 </form>
                 <!-- 부가 계정관련 페이지로 이동 -->
+                <!-- url 네임에 account_ 공통적으로 삭제해뒀습니다. -->
                 <div class="mainContainer__login_help">
-                    <a href="{% url 'account_findId'%}"><span>아이디 찾기</span></a>
-                    <a href="{% url 'account_findPassword'%}"><span>비밀번호 찾기</span></a>
-                    <a href="{% url 'account_createAccount'%}"><span>손님 회원가입</span></a>
+                    <a href="{% url 'findId'%}"><span>아이디 찾기</span></a>
+                    <a href="{% url 'findPassword'%}"><span>비밀번호 찾기</span></a>
+                    <a href="{% url 'createAccount'%}"><span>손님 회원가입</span></a>
                 </div>
             </div>
                 
