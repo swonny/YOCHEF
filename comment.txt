@@ -205,4 +205,10 @@
 	- 전체적인 에러 수정
 
 21.07.05 블루
-- RegionDetail 값 추가
+- RegionDetail DB 데이터 추가
+- regionDetail, region에 대응되는 값 자동으로 불러오도록 JS Ajax 코드 구현
+- getRegion, getRegionDetail API 구현
+- yochef > js > common.js 중요한 내용 명시
+- base.html과 accout_signup.html에 {% block style %}, {% block scripts %} 추가
+- 작업한 내용 signup페이지에서 거주지 선택하여 확인 가능
+

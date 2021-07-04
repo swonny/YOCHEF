@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/account.css' %}">
+{% endblock %} -->
 {% block content %}
-
 <main>
+    
     <div class="mainContainer">
         <div class="mainContainer__title">
             <span>계정생성</span>
@@ -30,14 +34,7 @@
                         <li><input class="mainContainer__signup_passwordCheck"
                         name="userPasswordCheck" type="password" placeholder="Password Check"></li>
                         <li><input class="mainContainer__signup_phoneNum" name="userPhoneNum"type="text" placeholder="Phone Number"></li>
-                        <li>
-                            <select name="residence">
-                                <option value="none">residence</option>
-                                <option value="서대문구">서대문구</option>
-                                <option value="마포구">마포구</option>
-                                <option value="은평구">은평구</option>
-                            </select>
-                        </li>
+                        <li><select name="residence"></select><select class="hide" name="residenceDetail"></select></li>
                         <li><input class="mainContainer__signup_autoLogin"type="checkbox" vlaue="#">이용약관 동의</li>
                         <li><input class="mainContainer__signup_submit" type="sumit" value="가입완료"></li>
                         <!-- 프론트 참고 -  완료 버튼이 없어 임시로 추가하였습니다. -->
@@ -47,6 +44,16 @@
             </div>
         </div>
     </main>
-
-
 {% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            getRegion();
+            getRegionDetail(1);
+        });
+
+        document.getElementsByName('residence')[0].addEventListener('change', (event)=>{
+            getRegionDetail(document.getElementsByName('residence')[0].value);
+        });
+    </script>
+{% endblock scripts %}

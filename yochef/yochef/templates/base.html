@@ -10,6 +10,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css">
     <link rel="shortcut icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
+    {% block style %}
+    {% endblock %}
 </head>
 <body>
   <!-- 네브바 -->
@@ -114,6 +116,9 @@
 
 
   </footer>
-   
+
 </body>
+<script src="{% static 'js/common.js' %}"></script>
+{% block scripts %}
+{% endblock scripts %}
 </html>
