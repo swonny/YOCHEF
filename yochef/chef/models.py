@@ -9,7 +9,7 @@ def turn_strdate(date):
 # Create your models here.
 class Chef(models.Model):
 	customer = models.OneToOneField('customer.Customer', on_delete=models.CASCADE)
-	nickname = models.CharField(max_length=20)
+	nickname = models.CharField(max_length=20, null=True)
 	spec = models.TextField(max_length=5000, null=True)
 	snsLink = models.TextField(max_length = 500, null=True)
 	blogLink = models.TextField(max_length = 500, null=True)
@@ -26,13 +26,13 @@ class Chef(models.Model):
 
 class Post(models.Model):
 	chef = models.OneToOneField(Chef, on_delete=models.CASCADE)
-	region = models.IntegerField()
+	region = models.IntegerField(null=True)
 	regionDetail = models.ForeignKey(RegionDetail, null=True, on_delete=models.SET_NULL)
-	title = models.TextField(max_length=255)
-	introduce = models.TextField(max_length=5000)
+	title = models.TextField(max_length=255, null=True)
+	introduce = models.TextField(max_length=5000, null=True)
 	spec = models.TextField(max_length=5000, null=True)
-	category = models.IntegerField()
-	notice = models.TextField(max_length=5000)
+	category = models.IntegerField(null=True)		# 한식, 일식, 중식, 아시안, 양식, 채식
+	notice = models.TextField(max_length=5000, null=True)
 	movingPrice = models.IntegerField(default=0)
 	isOpen = models.BooleanField(default=True)
 	registerDate = models.DateTimeField(auto_now=True)

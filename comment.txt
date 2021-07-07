@@ -212,3 +212,13 @@
 - base.html과 accout_signup.html에 {% block style %}, {% block scripts %} 추가
 - 작업한 내용 signup페이지에서 거주지 선택하여 확인 가능
 
+21.07.06 제우스
+- 배포 완료
+- /etc/nginx/sites-available/django-app
+	- (블루) /static/ 경로 수정
+	- /favicon.ico 등록
+
+21.07.07 제우스
+- registerChef 셰프등록
+	- registerChef_1.html 접속하면 chef, profileImage, post 생성
+	- registerChef_1.html line 72~76에 임시저장 구현을 위해 if 템플릿 태그 작성했으나 작동하지 않음

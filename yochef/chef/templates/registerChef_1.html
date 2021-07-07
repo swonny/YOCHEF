@@ -69,7 +69,11 @@
                         <article class="regiMainInput">
                             <h4>닉네임</h4>
                             <div class="regiMainInput__nickname">
+                                {% if chef.nickname is not None %}
                                 <input name="nickname" type="text" placeholder="사용하실 닉네임을 입력해주세요.">
+                                {% else %}
+                                <input name="nickname" type="text" value={{chef.nickname}}>
+                                {% endif %}
                             </div>
                         </article>
                         <!-- // 닉네임 등록 -->
