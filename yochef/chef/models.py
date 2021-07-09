@@ -18,6 +18,7 @@ class Chef(models.Model):
 	region = models.IntegerField(null=True)
 	regionDetail = models.ForeignKey(RegionDetail, null=True, on_delete=models.SET_NULL)
 	isLicensed = models.BooleanField(default=False)
+	isSubmitted = models.BooleanField(default=False)
 
 	def __str__(self):
 		return self.nickname

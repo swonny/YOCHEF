@@ -63,7 +63,6 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    
     response = render(request, "account_login.html")
     response.delete_cookie('username')
     response.delete_cookie('password')

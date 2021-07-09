@@ -5,36 +5,38 @@ from public.models import *
 # Create your views here.
 
 def registerChef(request, page_num=1):
+    customer = request.user.customer
     if page_num == 1:
-        customer = request.user.customer
         if Chef.objects.filter(customer=customer).exists():
             chef = customer.chef
             profileImage = File.objects.get(chef=chef)
         else:
             chef = Chef(customer=customer)
-            profileImage = File(chef=chef, category=1)
+            chef.save()
+            # if request.POST['files'] 있다면:
+            #     profileImage = File(chef=chef, category=1)
+            #     profileImage.save()
         if Post.objects.filter(chef=chef).exists():
             post = chef.post
         else:
             post = Post(chef=chef)
+            post.save()
         return render(request, 'registerChef_1.html')
     elif page_num == 2: # 1page 다음 버튼
-        customer = request.user.customer
         chef = customer.chef
-        profileImage = File.objects.get(chef=chef)
+        # profileImage = File.objects.get(chef=chef)
         chef.nickname = request.POST['nickname']
         chef.spec = request.POST['spec']
         chef.snsLink = request.POST['snsLink']
         chef.blogLink = request.POST['blogLink']
         chef.youtubeLink = request.POST['youtubeLink']
         chef.save()
-        profileImage.attachment = request.POST['profileImage']
-        profileImage.save()
+        # profileImage.attachment = request.POST['profileImage']
+        # profileImage.save()
         customer.isChef = True
         customer.save()
         return render(request, 'registerChef_2.html')
     elif page_num == 3: # 2page 다음 버튼
-        customer = request.user.customer
         chef = customer.chef
         post = chef.post
         post.category = request.POST['category']
@@ -43,10 +45,8 @@ def registerChef(request, page_num=1):
         post.save()
         return render(request, 'registerChef_3.html')
     elif page_num == 4: # 3page 다음 버튼
-        customer = request.user.customer
         chef = customer.chef
         post = chef.post
-
         post.title = request.POST['title']
         if File.objects.filter(post=post).exists():
             postCoverImage = File.objects.get(post=post)
