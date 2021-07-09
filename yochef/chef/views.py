@@ -42,10 +42,11 @@ def registerChef(request, page_num=1):
         post.regionDetail = request.POST['regionDetail']
         post.save()
         return render(request, 'registerChef_3.html')
-    elif page_num == 4: # 3page 다음 버튼, 0707작업 중
+    elif page_num == 4: # 3page 다음 버튼
         customer = request.user.customer
         chef = customer.chef
         post = chef.post
+
         post.title = request.POST['title']
         if File.objects.filter(post=post).exists():
             postCoverImage = File.objects.get(post=post)
@@ -53,13 +54,15 @@ def registerChef(request, page_num=1):
             postCoverImage = File(post=post)
         postCoverImage.attachment = request.POST['coverImage']
         post.introduce = request.POST['introduce']
+
         if Course.objects.filter(post=post).exists():
-            courses = Course.objects.filter(post=post)
+            course = Course.objects.filter(post=post).first()
         else:
-            courses = Course(post=post)
-        course.title = request.POST['courseTitle']
-        course.price = request.POST['coursePrice']
-        course.description = request.POST['courseDescribe']
+            course = Course(post=post)
+            course.title = request.POST['courseTitle']
+            course.price = request.POST['coursePrice']
+            course.description = request.POST['courseDescribe']
+
         post.notice = request.POST['notice']
         post.save()
         course.save()
