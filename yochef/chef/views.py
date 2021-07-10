@@ -36,8 +36,8 @@ def registerChef(request, page_num=1):
         chef.blogLink = request.POST['blogLink']
         chef.youtubeLink = request.POST['youtubeLink']
         chef.save()
-        profileImage.attachment = request.POST['profileImage']
-        profileImage.save()
+        # profileImage.attachment = request.POST['profileImage']
+        # profileImage.save()
         customer.isChef = True
         customer.save()
 
@@ -65,7 +65,6 @@ def registerChef(request, page_num=1):
     elif page_num == 4: # 3page 다음 버튼
         chef = customer.chef
         post = chef.post
-
         post.title = request.POST['title']
         if File.objects.filter(post=post).exists():
             postCoverImage = File.objects.get(post=post)

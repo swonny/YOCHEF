@@ -1,4 +1,3 @@
-
 // 기본으로 세팅된 함수입니다. 삭제하지 말아주세요!
 function parse_cookies() {
     var cookies = {};
