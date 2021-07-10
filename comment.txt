@@ -222,3 +222,14 @@
 - registerChef 셰프등록
 	- registerChef_1.html 접속하면 chef, profileImage, post 생성
 	- registerChef_1.html line 72~76에 임시저장 구현을 위해 if 템플릿 태그 작성했으나 작동하지 않음
+
+21.07.10 제우스
+- 커밋 시 예외 적용을 위해 .gitignore 에 /ignore 경로 추가
+- chef/models.py Chef().isSubmitted 필드 추가
+- chef/views.py 
+	- registerChef().context 필드 추가로 html에서 DB에 등록된 customer, chef, post, course 활용 가능
+	- line 77, Course() 모델 사용방식 FE와 논의 필요
+- chef/admin.py
+	- Chef 모델 Admin 페이지 가독성 개선
+- 현재 /home/ubuntu 위치 파일 혼선 있음. ~, ~/django-app, ~/yochef 3개 경로에 중복된 파일 다수 존재
+- ~/django-app/yochef에서 작업 후 커밋 및 푸쉬 완료

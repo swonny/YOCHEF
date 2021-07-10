@@ -18,11 +18,12 @@ class Chef(models.Model):
 	region = models.IntegerField(null=True)
 	regionDetail = models.ForeignKey(RegionDetail, null=True, on_delete=models.SET_NULL)
 	isLicensed = models.BooleanField(default=False)
+	isSubmitted = models.BooleanField(default=False)
 
 	def __str__(self):
 		return self.nickname
 	def like_count(self) :
-		return Like.objects.filter(chef = self).count()
+		return Like.objects.filter(chef=self).count()
 
 class Post(models.Model):
 	chef = models.OneToOneField(Chef, on_delete=models.CASCADE)
