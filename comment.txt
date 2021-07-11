@@ -243,3 +243,11 @@
 	- Schedule() .startTime .endTime, eventDate 수정 논의 필요
 - chef/views.py
 	- chefSchedule() 함수 내 반복문 사용 효율성 논의 필요
+
+21.07.11 워니
+- chef, customer, public 앱 내 static 생성 및 settings.py에 연결
+- 백 참고(제우스)
+	- chefSchedule.html
+		- POST 방식으로 name="datefilter" 전달 (날짜별 일정 검색)
+		- POST 방식으로 name="scheduleRegister" 전달 (예약 일정 등록)
+			- 지역, 날짜, 시간 전달 (chefRegister.html 내 <!--백참고-->주석 참고해주세요.)

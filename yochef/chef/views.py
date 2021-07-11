@@ -75,7 +75,7 @@ def registerChef(request, page_num=1):
         postCoverImage.attachment = request.POST['coverImage']
         post.introduce = request.POST['introduce']
 
-        # FE와 JS 활용 방식 논의 후 작성
+        # 코스 추가 : FE와 JS 활용 방식 논의 후 작성
         #if Course.objects.filter(post=post).exists():   
         #    course = Course.objects.filter(post=post).first()
         #else:
@@ -91,10 +91,10 @@ def registerChef(request, page_num=1):
         context = {}
         context['chef'] = chef
         context['post'] = post
-        if not chef.isSubmitted:
-            context['message'] = "제출"
-        else:
+        if chef.isSubmitted:
             context['message'] = "수정"
+        else:
+            context['message'] = "제출"
 
         return render(request, 'registerChef_4.html', context)
 
@@ -108,32 +108,59 @@ def registerChef(request, page_num=1):
 
 
 def chefSchedule(request):
-    chef = request.chef
+    chef = request.user.customer.chef
     post = Post.objects.get(chef=chef)
     schedules = Schedule.objects.filter(post=post)
+    course = Course.objects.filter(post=post).first()
 
-    """ 기획 case1: 기존 방식 """
-    amount, course, totalPrice = 0, [], 0
-    registerDates, statuses, courses, amounts, totalPrices, scheduleIds = [[] for _ in range(6)]
+    scheduleInfoList = []
+    amount, course_list, totalPrice = 0, [], 0
     for schedule in schedules:
-        registerDates.append(schedule.eventDate)    # 예약 날짜
-        statuses.append(schedule.status)            # 예약 현황
+        scheduleInfo = {}
+        scheduleInfo['registerDate'] = schedule.startTime
+        scheduleInfo['status'] = schedule.status
 
         books = Book.objects.filter(schedule=schedule) # 코스, 인원, 총 결제 금액
+        course_list = []
         for book in books:
-            bookDetails = BookDetail.objects.filter(book=book)
-            for bookdetail in bookDetails:
-                course.append(bookdetail.course.title)
-                amount += bookdetail.amount
             totalPrice += book.totalPrice
 
-        course = list(set(course)) # 중복 내용 제거
-        courses.append(course)
-        amounts.append(amount)
-        totalPrices.append(totalPrice)
-        amount, course, totalPrice = 0, [], 0 # 초기화
-        # 상세 내역용 일정id
-        scheduleIds.append(schedule.id)
+            bookDetails = BookDetail.objects.filter(book=book)
+            for bookdetail in bookDetails:
+                course_list.append(bookdetail.course.title)
+                amount += bookdetail.amount
+
+        scheduleInfo['course'] = list(set(course_list))
+        scheduleInfo['amount'] = amount
+        scheduleInfo['totalPrice'] = totalPrice
+        scheduleInfo['scheduleID'] = schedule.id
+        
+        scheduleInfoList.append(scheduleInfo)
+        amount, course_list, totalPrice = 0, [], 0
+
+    # """ 기획 case1: 기존 방식 """
+    # amount, course, totalPrice = 0, [], 0
+    # registerDates, statuses, courses, amounts, totalPrices, scheduleIds = [[] for _ in range(6)]
+    # for schedule in schedules:
+    #     #registerDates.append(schedule.eventDate)    # 예약 날짜
+    #     registerDates.append(schedule.startTime)
+    #     statuses.append(schedule.status)            # 예약 현황
+
+    #     books = Book.objects.filter(schedule=schedule) # 코스, 인원, 총 결제 금액
+    #     for book in books:
+    #         bookDetails = BookDetail.objects.filter(book=book)
+    #         for bookdetail in bookDetails:
+    #             course.append(bookdetail.course.title)
+    #             amount += bookdetail.amount
+    #         totalPrice += book.totalPrice
+
+    #     course = list(set(course)) # 중복 내용 제거
+    #     courses.append(course)
+    #     amounts.append(amount)
+    #     totalPrices.append(totalPrice)
+    #     amount, course, totalPrice = 0, [], 0 # 초기화
+    #     # 상세 내역용 일정id
+    #     scheduleIds.append(schedule.id)
 
     # """ 기획 case2: bookDetail 모델 대신, Book 모델이 course, amount 필드를 포함한 경우 """
     # amount, course, totalPrice = 0, [], 0
@@ -165,12 +192,10 @@ def chefSchedule(request):
     #     totalPrice = book.totalPrice
 
     context = {}
-    context['registerDates'] = registerDates
-    context['statuses'] = statuses
-    context['courses'] = courses
-    context['amounts'] = amounts
-    context['totalPrices'] = totalPrices
-    context['schedule_ids'] = scheduleIds
+    context['chef'] = chef
+    context['post'] = post
+    context['course'] = course
+    context['scheduleList'] = scheduleInfoList
 
     return render(request, 'chefSchedule.html', context)
 

@@ -124,6 +124,8 @@ USE_TZ = True
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'yochef', 'static'),
     os.path.join(BASE_DIR, 'customer', 'static'),
+    os.path.join(BASE_DIR, 'chef', 'static'),
+    os.path.join(BASE_DIR, 'public', 'static'),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')

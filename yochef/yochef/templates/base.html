@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css">
     <link rel="shortcut icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
@@ -17,23 +18,17 @@
   <!-- 네브바 -->
   <nav class="nav-container">
     <div class="item-container">
-
-      <div id="nav-yochef">
-          <span class="nav-item"><a href="{% url 'main' %}">YOCHEF</a><span>
-      </div>
-
-      
-      <ul class="nav-item-right-container">
+      <div class="nav__item"><a href="{% url 'main' %}">YOCHEF</a></div>  
+      <div class="nav__item"><a href="{% url 'main' %}">메인페이지</a></div>    
+      <ul class="nav__item-container">
         <!-- 로그인 상태라면 -->
         {% if user.is_authenticated %}
-        <li class="nav-item margin-right"><a href="">메인페이지</a></li>
           <!-- 셰프등록 돼있다면 -->
-          <!-- 프론트 참고 - customer.isChef를 다음과 같이 수정하였습니다. -->
           {% if user.customer.isChef %}
             <!-- 셰프버전이라면 -->
             {% if user.customer.currentVer == 1 %}
-            <li class="nav-item margin-right"><a href="">셰프 정보 관리</a></li>
-            <li class="nav-item margin-right"><a href="{% url 'logout' %}">로그아웃</a></li>
+            <li class="nav__item margin-right"><a href="">셰프 정보 관리</a></li>
+            <li class="nav__item margin-right"><a href="{% url 'logout' %}">로그아웃</a></li>
             <!-- 셰프등록 o & 손님버전이라면 -->
             {% else %}
             <li class="nav-item margin-right"><a href="">마이메뉴</a></li>
@@ -63,6 +58,7 @@
     {% block content %}
     {% endblock %}
   </div> 
+  <!-- // 네브바 -->
   
   <!-- 푸터 -->
   <footer id="footer">
