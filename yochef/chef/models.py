@@ -71,11 +71,12 @@ class Course(models.Model):
 	def __str__(self):
 		return self.title + ' - ' + str(self.price) + '원'
 	
-class Schedule(models.Model):
+class Schedule(models.Model):	
 	post = models.ForeignKey(Post, on_delete=models.CASCADE)
 	startTime = models.DateTimeField()
 	endTime = models.DateTimeField()
-	status = models.IntegerField()
+	# eventDate = models.DateField()
+	status = models.IntegerField()	# 0: 대기  1: 예약 가능  2: 마감  3: 종료  4: 취소
 
 	def __str__(self):
 		return self.post.title + ' [' + turn_strdate(self.startTime) + '~' + turn_strdate(self.endTime) + ']'
