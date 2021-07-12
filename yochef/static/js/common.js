@@ -1,4 +1,3 @@
-
 // 기본으로 세팅된 함수입니다. 삭제하지 말아주세요!
 function parse_cookies() {
     var cookies = {};
@@ -39,12 +38,14 @@ function setRegion(data){
 function getRegionDetail(regionId){
     let formData =  new FormData()
     formData.append('region_id', regionId)
-    sendAjax('POST', '/getRegionDetail', setRegionDetail, formData);
+    sendAjax('POST', '/getRegionDetailAPI', setRegionDetail, formData);
 }
 
 function setRegionDetail(data){
     data = data.region_details;
     let options = ``;
-    for (regionDetail of data) options += `<option value="${regionDetail.id}">${regionDetail.detailName}</option>`;
-    document.getElementsByName('residenceDetail')[0].innerHTML = options;
+    let resDetail = document.getElementsByName('residenceDetail')[0];
+    for (resid of data) options += `<option value="${resid.id}">${resid.detailName}</option>`;
+    resDetail.classList.replace("hide", "show");
+    resDetail.innerHTML = options;
 }

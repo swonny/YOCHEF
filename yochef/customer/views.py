@@ -10,11 +10,9 @@ def signup(request):
     else:
         if request.method == "POST":
             if User.objects.filter(username=request.POST['userEmail']).exists():
-                return render(request, "account_signup.html", {'error': '이메일이 중복됩니다'})
-            elif Customer.objects.filter(nickname = request.POST['userNickname']).exists() :
-                return render(request, "account_signup.html", {'error': '닉네임이 중복됩니다'})
+                return render(request, "customer_signup.html", {'error': '이메일이 중복됩니다'})
             elif request.POST['userPassword'] != request.POST['userPasswordCheck'] :
-                return render(request, "account_signup.html", {'error': '비밀번호 확인이 일치하지 않습니다'})
+                return render(request, "customer_signup.html", {'error': '비밀번호 확인이 일치하지 않습니다'})
             else: 
                 user = User.objects.create_user(
                     username=request.POST['userEmail'], password=request.POST['userPassword']) 
@@ -23,14 +21,14 @@ def signup(request):
                 customer.region = request.POST.get('region', 0)
                 # regiondetail 임시 지정
                 customer.regionDetail = RegionDetail.objects.get(region = 0)
-                customer.nickname = request.POST['userNickname']
+                customer.name = request.POST['username']
                 customer.email = user.username
                 customer.phoneNum = request.POST['userPhoneNum']
                 customer.save()
                 auth.login(request, user)
                 return redirect('/')
         else:
-            return render(request, 'account_signup.html') # html 이름 수정
+            return render(request, 'customer_signup.html') # html 이름 수정
 
 def login(request):
     if str(request.user) != "AnonymousUser":
@@ -43,7 +41,7 @@ def login(request):
             auth.login(request, user)
             return redirect('/')  
         else:
-            return render(request, "account_login.html") # html 이름 수정
+            return render(request, "customer_login.html") # html 이름 수정
     elif request.method == "POST":
         username = request.POST["userEmail"]
         password = request.POST["userPassword"]
@@ -57,25 +55,25 @@ def login(request):
                 return response
             return redirect('/')
         else:
-            return  render(request, "account_login.html", {'error':'아이디나 비밀번호가 일치하지 않습니다'})
+            return  render(request, "customer_login.html", {'error':'아이디나 비밀번호가 일치하지 않습니다'})
     else:
-        return render(request, "account_login.html")
+        return render(request, "customer_login.html")
 
 def logout(request):
     auth.logout(request)
-    response = render(request, "account_login.html")
+    response = render(request, "customer_login.html")
     response.delete_cookie('username')
     response.delete_cookie('password')
     return response
 
 def findId(request):
-    return render(request, "account_findId.html")
+    return render(request, "customer_findId.html")
 
-def findPassword(request):
-    return render(request, "account_findPassword.html")
+def findPw(request):
+    return render(request, "customer_findPw.html")
 
 def createAccount(request):
-    return render(request, "account_signup.html")
+    return render(request, "customer_signup.html")
 
 def apply(request):
     return render(request, 'pay_apply.html')
@@ -83,3 +81,7 @@ def apply(request):
 def payment(request):
     coupons = HasCoupon.objects.filter(customer = request.user.customer)
     return render(request, 'pay_payment.html', {'coupons' : coupons})
+
+def mypage(request):
+    return render(request, 'mypage.html')
+

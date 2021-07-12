@@ -32,7 +32,7 @@
 
         <!-- 날짜 선택 -->
         <aside class="date-filter-wrap">
-            <form action="POST" name="dateFilter" class="date-filter"><!--백 참고-->
+            <form action="GET" name="dateFilter" class="date-filter"><!--백 참고-->
                 <div class="date-filter__start-date"><input type="date"></div>
                 <span>~</span>
                 <div class="date-filter__end-date"><input type="date"></div>
@@ -56,12 +56,12 @@
                 </ul>
                 <div class="schedule-list__schedule-item-container">
                     {% for schedule in scheduleList %}
-                        <span>{{schedule.registerDate}}</span>
+                        <span>{{schedule.eventDate}}</span>
                         <span>{{schedule.status}}</span>
                         <span>{{schedule.course}}</span>
-                        <span>{{schedule.amount}}</span>
+                        <span>{{schedule.personNum}}</span>
                         <span>{{schedule.totalPrice}}</span>
-                        <span><a href="{% url 'chefScheduleDetail' schedule.scheduleID %}"></a>확인하기</span>
+                        <span><a href="{% url 'chefScheduleDetail' schedule.scheduleID %}">확인하기</a></span>
                     {% endfor %}
                 </div>
             </div>
@@ -77,6 +77,7 @@
             </div>
             <div class="schedule-register__form-wrap">
                 <form method="POST" name="scheduleRegister" action="{% comment %}{% url '#' %}{% endcomment %}">
+                {% csrf_token %}
                     <!-- 지역 추가 -->
                     <div class="form__region">
                         <h4 class="region__title">지역 추가</h4>

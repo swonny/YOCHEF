@@ -1,4 +1,111 @@
+/* 초기화 */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+input {
+    border: none;
+}
+input:focus {
+    outline: none;
+}
+select {
+    border: none;
+}
+select:focus {
+    outline: none;
+}
+
+
 /* 아래부터 base.html css */
+
+@font-face {
+    font-family: 'Arita-dotum-Bold';
+    src: url('./arita4.0_b.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Arita-dotum-SemiBold';
+    src: url('./arita4.0_sb.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Arita-dotum-Medium';
+    src: url('./arita4.0_m.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Arita-dotum-Thin';
+    src: url('./arita4.0_t.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Arita-dotum-Light';
+    src: url('./arita4.0_l.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --main-color: #BD0000;
+}
+
+*{
+    font-family: 'Arita-dotum-Medium';
+}
 
 html {
     height: 100%;
@@ -18,6 +125,7 @@ ul {
 
 a {
     text-decoration-line: none;
+    color: black;
 }
 
 /* 네브바 전체 감싸는 컨테이너 */
@@ -46,8 +154,6 @@ a {
     margin-bottom: 0px;
     padding: 0px;
 }
-
-
 
 /* 네브바 각 버튼 */
 .nav-item {
@@ -145,8 +251,6 @@ a {
 }
 
 
-
-
 /* 아래부터 main.html css */
 
 /* 메인.html 전체 */
@@ -159,13 +263,22 @@ a {
     position: relative;
 }
 
-/* 메인페이지 가장 큰 사진 */
-.main-image image {
-    margin: 0px;
+.main-image {
+    background-color: rgb(0, 0, 0);
+    color: rgb(41, 41, 41);
     width: 100%;
-    height: 450px;
-    padding: 0px;
+}
+
+.main-img-desc {
+    display: inline;
+    color: white;
     position: absolute;
+    margin-right: 800px;
+}
+
+/* 메인페이지 가장 큰 사진 */
+.main-image img {
+    margin-left: 500px;
 }
 
 /* 메인페이지 카테고리 네브바 전체 컨테이너 */
@@ -213,6 +326,10 @@ a {
     padding: 70px 0px;
     margin-top: 40px;
     border-bottom: #dfdfe0 solid 0.5px;
+}
+
+#house {
+    padding: 50px;
 }
 
 .best-chef-item-img {
@@ -284,22 +401,23 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 881.091px;
+    width: 800px;
     float: left;
-    margin: 0px 250px;
+    margin: 0px 370px;
     padding: 0px;
 }
 
 /* xx에게 인기 있어요! 타이틀 */
 .popular-menu-title {
     float: left right;
-    margin: 20px 250px;
+    margin: 20px 370px;
 }
 
 .popular-menu-img img {
-    width: 205px;
-    height: 205px;
+    width: 180px;
+    height: 180px;
     border-radius: 5px;
+    box-shadow: 0px 8px 8px -7px rgb(85, 84, 84);
 }
 
 /* 인기메뉴 사진 설명 */
@@ -317,17 +435,18 @@ a {
     height: 270px;
 } */
 
-
-
+.popular-menu-item-desc-title,
+.popular-menu-item-desc-id {
+    padding: 10px 0px;
+}
 
 
 /* 홍제동에서 열려요!여기부터 시작 */
 
-
 .place-menu {
     background-color: #FFEC48;
     width: 100%;
-    height: 600px;
+    height: 500px;
 }
 
 /* 메인페이지 연령대별 인기메뉴 컨테이너 */
@@ -337,7 +456,6 @@ a {
 
 .place-menu-title {
     display: block;
-    padding: 20px;
 }
 
 #hongjae {
@@ -367,28 +485,27 @@ a {
 .recent-menu-item-container{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     margin-top: 20px;
 }
 
-.place-menu-item, 
-.recent-menu-item {
-    display: inline;
+.place-menu-item {
+    display: inline-block;
+    padding: 6px;
 }
 
 .place-menu-item-img img {
     width: 250px;
-    height: 270px;
+    height: 250px;
 }
 
 .place-menu-item-desc {
     display: block;
     font-size: 12px;
     background-color: white;
-    height: 80px;
+    height: 60px;
     padding: 10px;
 }
-
 
 
 /* 최근 본 프로그램 */
@@ -405,6 +522,10 @@ a {
     margin-left: 250px;
 }
 
+.recent-menu-item {
+    padding: 3px;
+}
+
 .recent-menu-title {
     display: block;
     padding: 15px 0px;
@@ -416,6 +537,7 @@ a {
     width: 200px;
     height: 150px;
     border-radius: 5px;
+    box-shadow: 0 8px 8px -7px gray;
 }
 
 .recent-menu-item-desc {
@@ -469,14 +591,11 @@ a {
     border-radius: 5px;
 }
 
-.recent-similar-menu-item {
-}
-
 .recent-similar-menu-item-img img {
     width: 91px;
-    height: 65px;
+    height: 70px;
     border-radius: 6px;
-    padding: 5px;
+    padding-left: 3px;
 }
 
 .recent-similar-menu-item-img {

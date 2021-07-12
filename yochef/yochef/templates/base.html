@@ -34,7 +34,7 @@
             <li class="nav-item margin-right"><a href="">마이메뉴</a></li>
             <li class="nav-item margin-right"><a href="">쿠폰함</a></li>
             {% endif %}
-            <button id="currentVer" onclick="location.href='changePageVer';">버전</button>
+            <a id="currentVer" href="{% url 'changePageVer' %}">버전</a>
           <!-- 셰프등록 안돼있다면 -->
           {% else %}
           <li class="nav-item margin-right"><a href="">마이메뉴</a></li>
@@ -44,7 +44,7 @@
           {% endif %}
         <li class="nav-item margin-right"><a href="{% url 'logout' %}">로그아웃</a></li>
         <!-- 프론트참고 username -> nickname 변경 -->
-        <li class="nav-item margin-right"><a href="">{{user.customer.nickname}}님</a></li>
+        <li class="nav-item margin-right"><a href="{% url 'mypage' %}">{{user.customer.name}}님</a></li>
         <!-- 로그아웃 상태라면 -->
         {% else %}
         <li class="nav-item margin-right"><a href="{% url 'login' %}">로그인</a></li>

@@ -5,8 +5,9 @@ urlpatterns = [
 	path('logout', logout, name='logout'),
 	path('signup', signup, name='signup'),
 	path('findId', findId, name='findId'),
-	path('findPassword', findPassword, name='findPassword'),
+	path('findPw', findPw, name='findPw'),
 	path('createAccount', createAccount, name='createAccount'),
+	path('mypage', mypage, name='mypage'),
 	path('apply', apply, name='apply'),
 	path('payment', payment, name='payment'),
 ]

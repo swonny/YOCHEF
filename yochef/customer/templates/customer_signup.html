@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/customer_account.css' %}">
+{% endblock %} -->
+{% block content %}
+<main>
+    <div class="mainContainer">
+        <span>회원가입</span>
+        <form method="POST" action="{% url 'signup'%}">
+            <div class="inputbox">    
+                {% csrf_token %}
+                <!-- 에러(이미 존재하는 닉네임or비밀번호 재입력 실패)시 해당 에러 출력-->
+                {% if error %}
+                    <p>{{error}}</p>
+                {% endif %}
+                <!-- 회원가입 양식 -->
+                    <ul>
+                        <div class="inputbox__duplicateCheck">
+                            <li><input class="inputbox__duplicateCheck__userEmail" name="userEmail" type="text" placeholder="이메일 주소"></li>
+                            <li><input type="button" value="중복확인"></li>
+                        </div>                          
+                        <li><input class="inputbox__password" name="userPassword" type="password" placeholder="비밀번호"></li>
+                        <li><input class="inputbox__passwordCheck" name="userPasswordCheck" type="password" placeholder="비밀번호 확인"></li>
+                        <li><input class="inputbox__name" name="username" type="text" placeholder="이름"></li>
+                        <li><input class="inputbox__phoneNum" name="userPhoneNum"type="text" placeholder="전화번호 | +82"></li>
+                        <li>
+                            <select name="residence"></select>
+                            <select class="hide" name="residenceDetail"></select>
+                        </li>
+                        <li class="inputbox__checkbox__signup"><input class="inputbox__agree" type="checkbox" id="agreePolicy" name="agreePolicy"><label for="agreePolicy">이용약관 동의</label></li>
+                        <li><input class="mainContainer__submit last__button" type="submit" value="가입완료"></li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </main>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            getRegion();
+            getRegionDetail(1);
+        });
+
+        document.getElementsByName('residence')[0].addEventListener('change', (event)=>{
+            getRegionDetail(document.getElementsByName('residence')[0].value);
+        });
+    </script>
+{% endblock scripts %}

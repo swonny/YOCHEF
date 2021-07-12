@@ -251,3 +251,35 @@
 		- POST 방식으로 name="datefilter" 전달 (날짜별 일정 검색)
 		- POST 방식으로 name="scheduleRegister" 전달 (예약 일정 등록)
 			- 지역, 날짜, 시간 전달 (chefRegister.html 내 <!--백참고-->주석 참고해주세요.)
+
+2021.07.12 워니
+- 셰프 정보관리페이지 (editChefProfile_1 ~3) 생성
+- 백 참고
+	- chefSchedule.html 관련
+		- name="datefilter" 를 POST -> GET 방식 전달로 변경했습니다.
+	- editChefProfile_1 관련
+		- 셰프 정보 수정 데이터 name="editChefProfile_1"을 GET방식으로 전달
+		- 기존 등록되어있던 셰프 프로필을 불러올 수 있는 변수가 필요합니다. 
+
+2021.07.12 제우스
+- chefSchedule
+	- chef/views.py 함수 작성 완료
+	- .html 템플릿 태그에 필요한 변수 작성 완료
+- chefSchedule_detail
+	- chef/views.py 함수 작성 완료
+	- .html 템플릿 태그에 필요한 변수 작성 완료
+- editChefProfile_1
+	- chef/ views.py urls.py 함수 작성 완료
+- chef/models.py Schedule()
+	- .eventDate, .eventTime 추가
+	- .status 삭제, payment_status와 permit_status 추가
+
+
+21.07.13 블루
+- account_로 되어있던 내용 모두 customer_로 수정
+- findPassword -> findPw로 모두 수정
+- customer_findId, findPw, login, signup, mypage css 완료 및 요청 시트 작성 완료
+- chef용 mypage profile image 수정할 수 있도록 changeFile 함수 만듦
+- ** 키위 확인 필요 ** 
+	계정 관련 페이지 전부 백엔드 작업 가능하도록 세팅 완료. 시트 참고바람
+

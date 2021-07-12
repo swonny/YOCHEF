@@ -6,58 +6,53 @@
             <section class="orderStatus__header">
                 <h2 class="orderStatus__header__title">예약 고객 현황</h2>
             </section>
-                
-            {% for schedule in schedules.id %}
-                {% if id == schedules.id %}
-                    {% for schedule in schedules.id %}
-                        <section class="orderStatus__content">
-                            <!-- 총 예약 인원 수 -->
-                            <article class="orderStatus__totalCustomer">
-                                <h4>총 예약 인원 수</h4>
-                                <span>{{schedule.customer.count()}}</span><!-- 백 작업 후 수정 필요 -->
-                            </article>
-                            <!-- // 총 예약 인원 수 -->
-            
-                            <!-- 예약 미승인 인원 -->
-                            <article class="orderStatus__yetConfirmCustomer">
-                                <h4>예약 미승인 인원</h4>
-                                <span>{{schedule.customer}}</span><!-- 백 작업 후 수정 필요 -->
-                            </article>
-                            <!-- // 예약 미승인 인원 -->
-            
-                            <!-- 총 결제 금액 -->
-                            <article class="orderStatus__totalPayment">
-                                <h4>총 결제 금액</h4>
-                                <span>{{}}</span><!-- 백 작업 후 수정 필요 -->
-                            </article>
-                            <!-- // 총 결제 금액 -->
+            <section class="orderStatus__content">
+                <!-- 총 예약 인원 수 -->
+                <article class="orderStatus__totalCustomer">
+                    <h4>총 예약 인원 수</h4>
+                    <span>{{book.personNum}}</span><!-- 백 작업 후 수정 필요 -->
+                </article>
+                <!-- // 총 예약 인원 수 -->
 
-                            <article class="orderStatus__customerInfo">
-                                <h4 class="customerInfo__item name">이름 : {{ schedule.customer.name }}</h4><!-- 백 작업 후 수정 필요 -->
+                <!-- 예약 미승인 인원 -->
+                <article class="orderStatus__yetConfirmCustomer">
+                    <h4>예약 미승인 인원</h4>
+                    <span>{% comment %}{{schedule.customer}}{% endcomment %}</span><!-- 백 작업 후 수정 필요 -->
+                </article>
+                <!-- // 예약 미승인 인원 -->
 
-                                <!-- 만약 승인이 완료되었다면 승인 완료 출력-->
-                                {% if book.status == 2 %}<!-- 백 작업 후 수정 필요 -->
-                                    <span>승인 완료</span>
-                                {% elseif %}
-                                    <span>미승인</span>
-                                {% endif %}
-                                <!-- // 만약 승인이 완료되었다면 승인 완료 출력-->
+                <!-- 총 결제 금액 -->
+                <article class="orderStatus__totalPayment">
+                    <h4>총 결제 금액</h4>
+                    <span>{{book.totalPrice}}</span><!-- 백 작업 후 수정 필요 -->
+                </article>
+                <!-- // 총 결제 금액 -->
 
-                                <h4 class="customerInfo__item phoneNum">연락처 : {{schedule.customer.phoneNum}}</h4><!-- 수정필요 -->
-                                <h4 class="customerInfo__item name paid">결제여부 : {{schedule.customer.phoneNum}}</h4><!-- 수정필요 -->
-                                <h4 class="customerInfo__item name selectedCourse">선택코스 : {{cschedule.ustomer.phoneNum}}</h4><!-- 수정필요 -->
-                                <h4 class="customerInfo__item name requirement">요청사항 : {{schedule.customer.phoneNum}}</h4><!-- 수정필요 -->
-                                {% if schedule.confirm == 0 %}<!-- 만약 승인이 안되었다면 체크박스 생성 -->
-                                    <form action="" method="POST">
-                                        {% csrf_token %}
-                                        <input type="checkbox" name="scheduleConfirm" value="confirm"><!-- value값 수정 -->
-                                    </form>
-                                {% endif %}
-                            </article>
-                        </section>
-                    {% endfor %}
-                {% endfor %}
-            {% endfor %}
+                <article class="orderStatus__customerInfo">
+                    <h4 class="customerInfo__item name">이름 : {{ book.customer.name }}</h4><!-- 백 작업 후 수정 필요 -->
+
+                    <!-- 만약 승인이 완료되었다면 승인 완료 출력-->
+                    {% if schedule.permit_status == 1 %}<!-- 백 작업 후 수정 필요 -->
+                        <span>승인 대기</span>
+                    {% elif schedule.permit_status == 2 %}
+                        <span>승인 완료</span>
+                    {% else %}
+                        <span>Error</span>
+                    {% endif %}
+                    <!-- // 만약 승인이 완료되었다면 승인 완료 출력-->
+
+                    <h4 class="customerInfo__item phoneNum">연락처 : {{book.customer.phoneNum}}</h4><!-- 수정필요 -->
+                    <h4 class="customerInfo__item name paid">결제여부 : {{schedule.print_payment_status}}</h4><!-- 수정필요 -->
+                    <h4 class="customerInfo__item name selectedCourse">선택코스 : {{book.course.title}}</h4><!-- 수정필요 -->
+                    <h4 class="customerInfo__item name requirement">요청사항 : {{book.comment}}</h4><!-- 수정필요 -->
+                    {% if schedule.permit_status == 1 %}<!-- 만약 승인이 안되었다면 체크박스 생성 -->
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <input type="checkbox" name="scheduleConfirm" value="confirm"><!-- value값 수정 -->
+                        </form>
+                    {% endif %}
+                </article>
+            </section>
         </div>
     </section>
 

@@ -8,7 +8,7 @@ class Customer(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	region = models.IntegerField()
 	regionDetail = models.ForeignKey(RegionDetail, null=True, on_delete=models.SET_NULL)
-	nickname = models.CharField(max_length=20)
+	name = models.CharField(max_length=50)
 	email = models.EmailField(null=True)
 	phoneNum = models.CharField(max_length=11)
 	point = models.IntegerField(default=0)
@@ -17,9 +17,8 @@ class Customer(models.Model):
 	currentVer = models.IntegerField(default=0)
 
 	def __str__(self):
-		return self.nickname
+		return self.name
 		
-
 class Coupon(models.Model):
 	title = models.TextField(max_length=255)
 	description = models.TextField(max_length=1000) 
@@ -35,21 +34,21 @@ class HasCoupon(models.Model):
 	isUsed = models.BooleanField(default=False)
 
 	def __str__(self):
-		return self.customer.nickname + '님 - ' + self.coupon.title
+		return self.customer.name + '님 - ' + self.coupon.title
 
 class VerifyNum(models.Model):
 	customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 	verifyNum = models.IntegerField()
 
 	def __str__(self):
-		return self.customer.nickname + '의 인증번호 : ' + str(self.verifyNum)
+		return self.customer.name + '의 인증번호 : ' + str(self.verifyNum)
 
 class Like(models.Model):
 	customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 	chef = models.ForeignKey('chef.Chef', on_delete=models.CASCADE)
 
 	def __str__(self):
-		return self.customer.nickname + ' likes ' + self.chef.nickname
+		return self.customer.name + ' likes ' + self.chef.nickname
 
 # 조회수 관련 모델 - 보류
 # class View(models.Model):
@@ -62,27 +61,19 @@ class Like(models.Model):
 class Book(models.Model):
 	customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
 	coupon = models.ForeignKey(Coupon, null=True, on_delete=models.SET_NULL)
-	schedule = models.ForeignKey('chef.Schedule', null=True, on_delete=models.SET_NULL)
+	schedule = models.OneToOneField('chef.Schedule', on_delete=models.CASCADE)
 	status = models.IntegerField()
 	phoneNum = models.CharField(max_length=11)
 	usedPoint = models.IntegerField()
 	payMethod = models.IntegerField()
+	course = models.ForeignKey('chef.Course', null=True, on_delete=models.SET_NULL)
 	totalPrice = models.IntegerField()
 	personNum = models.IntegerField()
 	comment = models.TextField(max_length=1000, null=True)
 	registerDate = models.DateTimeField(auto_now=True) 
 
 	def __str__(self):
-		return self.schedule.post.chef.nickname + ' 셰프 - ' + self.customer.nickname
-
-class BookDetail(models.Model):
-	book = models.ForeignKey(Book, on_delete=models.CASCADE)
-	course = models.ForeignKey('chef.Course', null=True, on_delete=models.SET_NULL)
-	amount = models.IntegerField()
-
-	def __str__(self):
-		return self.course.title + ' - ' + str(self.amount) + '개'
-
+		return self.schedule.post.chef.nickname + ' 셰프 - ' + self.customer.name
 
 class Review(models.Model):
 	post = models.ForeignKey('chef.Post', on_delete=models.CASCADE)
@@ -93,6 +84,6 @@ class Review(models.Model):
 
 	def __str__(self):
 		if len(self.description) > 20 :
-			return '[' + self.customer.nickname + '] ' + self.description[:20] + '...'
+			return '[' + self.customer.name + '] ' + self.description[:20] + '...'
 		else :
-			return '[' + self.customer.nickname + '] ' + self.description
+			return '[' + self.customer.name + '] ' + self.description

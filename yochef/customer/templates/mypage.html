@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css' %}">
+{% endblock %} -->
+{% block content %}
+<main>
+    <div class="pageTitle">
+        <span>마이페이지</span>
+    </div>
+    <div class="mainContainer">
+        <form method="POST" action="{% url 'changeFile' %}"> <!-- action changeProfileImg으로 수정 필요-->
+            {% csrf_token %}
+            <aside>
+                {% if user.customer.currentVer == 0 %}
+                <div class="customerName">
+                    <span>{{ user.customer.name }}</span><span>님</span>
+                </div>
+                {% else %}
+                <div class="profileImgBox">
+                    <img class="profileImg" src="{{ profile.attachment }}" onerror="this.src=`{% static 'img/default.png' %}`">
+                    <img src="{% static 'img/editProfileImg.png' %}">
+                    <input type="file" name="profileImg" hidden>
+                </div>
+                <input type="text" name="category" value="1" hidden>
+                <input type="text" name="id" value="{{profile}}" hidden>
+                <input type="text" name="url" value="/customer/mypage" hidden>
+                <div class="chefName">
+                    <span>{{ user.customer.chef.nickname }}</span><span>님</span>
+                </div>
+                {% endif %}
+                <div class="index">
+                    <span>개인정보 수정</span>
+                </div>
+            </aside>
+            <input class="profileImgSubmit" type="submit" hidden>
+        </form>
+        <div class="inputbox">
+            <form method="POST" action=""> <!-- action changeProfile 수정 필요--> 
+                {% csrf_token %}
+                <!-- 기본정보 수정 양식 -->
+                <div class="inputTitle">
+                    <span>기본정보</span>
+                </div>
+                <ul>
+                    <li>
+                        <div><span>이메일 주소</span></div>
+                        <input class="inputbox__userEmail" name="userEmail" type="text" placeholder="이메일 주소" value="{{ user.username }}">
+                    </li>
+                    <li>
+                        <div><span>전화번호</span></div>
+                        <input class="inputbox__userEmail" name="phoneNum" type="text" placeholder="전화번호" value="{{ user.customer.phoneNum }}">
+                    </li>
+                    <li>
+                        <div><span>거주지</span></div>
+                        <select name="residence"></select>
+                        <select class="hide" name="residenceDetail"></select>
+                    </li>           
+                    <li><input class="inputTitle__submit last__button" type="submit" value="변경"></li>
+                </ul>
+            </form>
+            <form method="POST" action=""> <!-- action changeProfile 수정 필요--> 
+                {% csrf_token %}
+                <!-- 비밀번호 변경 양식 -->
+                <div class="inputTitle">
+                    <span>비밀번호 변경</span>
+                </div>
+                <ul>
+                    <li>
+                        <div><span>현재 비밀번호</span></div>
+                        <input name="currentUserPw" type="password" placeholder="현재 비밀번호">
+                    </li>
+                    <li>
+                        <div><span>변경 비밀번호</span></div>
+                        <input name="userPw" type="password" placeholder="변경할 비밀번호">
+                        <input name="userPwCheck" type="password" placeholder="변경할 비밀번호 확인">
+                    </li>   
+                    <li><input class="inputTitle__submit" type="submit" value="변경"></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            getRegion();
+            getRegionDetail(1);
+        });
+
+        document.getElementsByName('residence')[0].addEventListener('change', (event)=>{
+            getRegionDetail(document.getElementsByName('residence')[0].value);
+        });
+
+        if ('{{ user.customer.currentVer }}' == 1) {
+            document.getElementsByClassName('profileImgBox')[0].addEventListener('click', ()=>{
+                document.querySelector('input[name="profileImg"]').click();
+            })           
+            document.querySelector('input[name="profileImg"]').addEventListener('change', (e)=>{
+                document.getElementsByClassName('profileImgSubmit')[0].click();
+            })
+        } 
+    </script>
+{% endblock scripts %}

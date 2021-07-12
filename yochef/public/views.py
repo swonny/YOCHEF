@@ -1,6 +1,7 @@
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 from chef.models import *
+from .models import *
 import json
 
 # Create your views here.
@@ -34,4 +35,20 @@ def getRegionDetailAPI(request):
     region_all = list(RegionDetail.objects.filter(id__lte = 104, id__gte = 97, region = region).values('id', 'detailName'))
     region_details = region_all + list(RegionDetail.objects.filter(region = region, id__lt = 97).values('id', 'detailName'))
     return JsonResponse({'region_details':region_details}, status=200)
+
+def changeFile(request):
+    fileValue = request.POST.get('profileImg', None)
+    id = request.POST.get('id', 0)
+    attachment = File()
+    if id != "":
+        attachment = File.objects.get(id=int(id))
+    else:
+        category = int(request.POST['category'])
+        attachment.category = category
+        if category == 1:
+            attachment.chef = request.user.customer.chef
+    attachment.attachment = fileValue
+    attachment.save()
+    return redirect(request.POST['url'])
+    
 

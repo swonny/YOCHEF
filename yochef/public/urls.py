@@ -6,4 +6,5 @@ urlpatterns = [
 	path('detail/<int:post_id>', detail, name="detail"),
 	path('getRegion', getRegionAPI, name="getRegion"),
 	path('getRegionDetail', getRegionDetailAPI, name="getRegionDetail"),
+	path('changeFile', changeFile, name="changeFile")
 ]

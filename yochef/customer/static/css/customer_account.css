@@ -1,0 +1,144 @@
+.show {
+    visibility: visible;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+/* 공통 */
+
+main {
+    display: flex;
+}
+
+.mainContainer {
+    margin: 40px auto;
+    height: 100%;
+    width : 25%;
+    padding: 35px 60px;
+    border: 2px solid rgb(0, 0, 0, 0.7);
+    border-radius: 20px;
+    min-width: 300px;
+    max-width: 350px;
+    box-shadow: 10px 10px 4px lightgray;
+}
+
+.mainContainer__submit {
+    width: 100%;
+    height: 25px;
+    border-radius: 20px;
+    background-color: var(--main-color);
+    color: white;
+    margin-top: 30px;
+}
+
+.mainContainer > span {
+    font-family: 'Arita-dotum-SemiBold';
+    font-size: 20px;
+}
+
+.mainContainer > form {
+    margin-bottom: 20px;
+}
+
+.inputbox{
+    margin-top: 60px;
+}
+
+.inputbox__checkbox {
+    margin-top: 13px;
+}
+
+input[type="checkbox"]{
+    display:none;
+}
+
+input[type="checkbox"] + label{
+    font-size: 12px;
+    height: 23px;
+    line-height: 23px;
+    padding-left: 23px; 
+    background-repeat: no-repeat;
+    background-image: url('../img/whitecheckbox.png');
+    background-size: 15px;
+}
+
+input[type="checkbox"]:checked + label{
+    background-image: url('../img/redcheckbox.png');
+}
+
+input[type="checkbox"]:disabled + label{
+    background-image: url('../img/whitecheckbox.png');
+}
+
+/* login 페이지 */
+li > input[type="text"],  li > input[type="password"]{
+    width: 100%;
+    border-bottom: 2px solid rgb(0, 0, 0, 0.7);
+    margin-top: 35px;
+    line-height: 20px;
+}
+
+.login_help {
+    font-size: 12px;
+    padding: 0 20px;
+    display: flex;
+    margin-bottom: 60px;
+}
+
+.login_help > a {
+    margin: auto;
+}
+
+/* customer_signup.html */
+
+.inputbox__duplicateCheck {
+    width: 100%;
+    margin-top: 35px;
+    border-bottom: 2px solid rgb(0, 0, 0, 0.7);
+    display: flex;
+}
+
+.inputbox__duplicateCheck > :nth-child(1) {
+    border: none;
+    margin-right: auto;
+}
+
+.inputbox__duplicateCheck > :nth-child(1) > input[type="text"]{
+    margin: 0;
+    border: none;
+}
+
+.inputbox__duplicateCheck > :nth-child(2) {
+    margin-left: auto;
+}
+
+.inputbox__duplicateCheck > :nth-child(2) > input[type="button"] {
+    background-color: var(--main-color);
+    color: white;
+    border-radius: 20px;
+    font-size: 12px;
+    font-family: 'Arita-dotum-Thin';
+    height: 20px;
+    width: 80px;
+}
+
+select {
+    width: 48%;
+    border-bottom: 2px solid black;
+    margin-top: 35px;
+    color: gray;
+}
+
+li > select:first-child {
+    margin-right: 2%;
+}
+
+.inputbox__checkbox__signup{
+    margin: 70px 0 -15px 0;
+}
+
+.last__button {
+    margin-bottom: 60px;
+}

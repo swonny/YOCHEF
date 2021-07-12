@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/customer_account.css' %}">
+{% endblock %} -->
+{% block content %}
+<main>
+    <div class="mainContainer">
+        <span>비밀번호 찾기</span>
+        <form method="POST" action="{% url 'findPw'%}">
+            <div class="inputbox">    
+                {% csrf_token %}
+                <!-- 비밀번호 찾기 양식 -->
+                    <ul>
+                        <li><input class="inputbox__userEmail" name="userEmail" type="text" placeholder="이메일 주소"></li>
+                        <div class="inputbox__duplicateCheck">
+                            <li><input class="inputbox__duplicateCheck__phoneNum" name="phoneNum" type="text" placeholder="전화번호"></li>
+                            <li><input type="button" value="인증번호 발송"></li>
+                        </div>     
+                        <div class="inputbox__duplicateCheck">
+                            <li><input class="inputbox__duplicateCheck__verifyNum" name="verifyNum" type="text" placeholder="인증번호"></li>
+                            <li><input type="button" value="인증하기"></li>
+                        </div>                         
+                        <li><input class="mainContainer__submit last__button" type="submit" value="비밀번호 찾기"></li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </main>
+{% endblock %}

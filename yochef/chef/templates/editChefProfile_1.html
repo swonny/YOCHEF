@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form name="editChefProfile_1" action="{% url 'editChefProfile' '1' %}" method="POST" ><!--백참고-->
+    {% csrf_token %}
+        <div class="edit-chef-wrapper">
+            <!-- section header -->
+            <section class="edit-chef__header-container">
+                <h2>셰프 정보관리</h2>
+            </section>
+
+            <div class="edit-chef-content">
+                <div class="regiContentContainer">
+                    <!-- 셰프 등록 nav -->
+                    <ul class="regiContent__navContainer">
+                        <li class="regiContent__navItem">
+                            <a href="#">셰프 소개</a>
+                        </li>
+                        <li class="regiContent__navItem">
+                            <a href="">예약글 등록</a>
+                        </li>
+                        <li class="regiContent__navItem">
+                            <a href="">출장비 등록</a>
+                        </li>
+                    </ul>
+                    <!-- // 셰프 등록 nav -->
+
+                    <!-- 프로필 사진 수정 -->
+                    <article class="edit-chef__profile">
+                        <div class="profile-edit-wrapper">
+                            <h4 class="profile__title">프로필 사진 </h4>
+                            <div class="profile__img-container">
+                                <input value="" name="profileImage" type="file"><!--백참고:-->
+                                <button type="submit">수정</button>
+                            </div>
+                        </div>
+                        <p class="notice_msg">반드시 셰프님의 얼굴을 확인할 수 있는 사진으로 등록해주세요! (배경, 동물, 뒷모습 등의 사진은 승인이 불가합니다.)</p>
+                    </article>
+                    <!-- // 프로필 사진 수정 -->
+
+                    <!-- 닉네임 수정 -->
+                    <article class="edit-chef__nickname">
+                        <h4>닉네임</h4>
+                        <div class="nickname-edit-wrapper">
+                            {% if chef.nickname %}
+                            <input name="nickname" type="text" placeholder="사용하실 닉네임을 입력해주세요.">
+                            {% else %}
+                            <input name="nickname" type="text" value={{chef.nickname}}>
+                            {% endif %}
+                        </div>
+                    </article>
+                    <!-- // 닉네임 수정 -->
+
+                    <!-- 이력 수정 -->
+                    <article class="edit-chef__spec">
+                        <div class="spec-edit-wrapper">
+                            <h4>이력</h4>
+                            <p>셰프님과 메뉴에 대한 정보를 알 수 있는 이력을 입력해주세요!</p>
+                        </div>
+                        <input value={{chef.spec}} name="spec" type="text">
+                    </article>
+                    <!-- // 이력 수정 -->
+
+                    <!-- 소셜미디어 -->
+                    <article class="edit-chef__social-media">
+                        <h4>소셜 미디어</h4>
+                        <div class="social-media__sns-link">
+                            <input value={{chef.snsLink}} name="snsLink" type="text" placeholder="인스타그램 아이디">
+                        </div>
+                        <div class="social-media__blog-link">
+                            <input value={{chef.blogLink}} name="blogLink" type="text" placeholder="블로그 주소">
+                        </div>
+                        <div class="social-media__youtube-link">
+                            <input value={{chef.youtubeLink}} name="youtubeLink" type="text" placeholder="유튜브 주소">
+                        </div>
+                    </article>
+                    <!-- // 소셜미디어 -->
+                </div>
+            </div>
+
+            <!-- 다음 버튼 -->
+            <aside class="button">
+                <!-- <div class="submitBtn"><a href="{% url 'registerChef' '2' %}">다음</a></div> -->
+                <div class="submitBtn"><button type="submit">저장</button></div>
+            </aside>
+            <!-- // 다음 버튼 -->
+        </div>
+    </form>
+
+
+{% endblock %}

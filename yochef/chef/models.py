@@ -40,7 +40,7 @@ class Post(models.Model):
 
 	def __str__(self):
 		if len(self.title) > 10 :
-			return self.chef.nickname + ' - ' + self.title[:10] + '...'
+			return self.chef.nickname + ' - ' + self.title[:15] + '...'
 		else:
 			return self.chef.nickname + ' - ' + self.title
 
@@ -69,14 +69,37 @@ class Course(models.Model):
 	price = models.IntegerField()
 
 	def __str__(self):
-		return self.title + ' - ' + str(self.price) + '원'
+		#return self.title + ' - ' + str(self.price) + '원'
+		return self.title
+
+	def print_description(self):
+		if len(self.description) > 20:
+			return self.description[:20] + '...'
+		else:
+			return self.description
 	
 class Schedule(models.Model):	
 	post = models.ForeignKey(Post, on_delete=models.CASCADE)
-	startTime = models.DateTimeField()
-	endTime = models.DateTimeField()
-	# eventDate = models.DateField()
-	status = models.IntegerField()	# 0: 대기  1: 예약 가능  2: 마감  3: 종료  4: 취소
+	eventDate = models.DateField()
+	eventTime = models.CharField(max_length=100, null=True)
+	payment_status = models.IntegerField(default=1)	# 1: 예약가능  2: 예약됨
+	permit_status = models.IntegerField(default=1)	# 1: 승인대기  2: 승인됨
 
 	def __str__(self):
-		return self.post.title + ' [' + turn_strdate(self.startTime) + '~' + turn_strdate(self.endTime) + ']'
+		return self.post.title
+
+	def print_payment_status(self):
+		if self.payment_status == 1:
+			return "예약가능"
+		elif self.payment_status == 2:
+			return "예약됨"
+		else:
+			return "Error"
+
+	def print_permit_status(self):
+		if self.permit_status == 1:
+			return "승인대기"
+		elif self.permit_status == 2:
+			return "승인됨"
+		else:
+			return "Error"
