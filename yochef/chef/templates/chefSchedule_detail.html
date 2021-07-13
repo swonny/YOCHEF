@@ -32,9 +32,9 @@
                     <h4 class="customerInfo__item name">이름 : {{ book.customer.name }}</h4><!-- 백 작업 후 수정 필요 -->
 
                     <!-- 만약 승인이 완료되었다면 승인 완료 출력-->
-                    {% if schedule.permit_status == 1 %}<!-- 백 작업 후 수정 필요 -->
+                    {% if schedule.confirm_status == 1 %}<!-- 백 작업 후 수정 필요 -->
                         <span>승인 대기</span>
-                    {% elif schedule.permit_status == 2 %}
+                    {% elif schedule.confirm_status == 2 %}
                         <span>승인 완료</span>
                     {% else %}
                         <span>Error</span>
@@ -46,7 +46,7 @@
                     <h4 class="customerInfo__item name selectedCourse">선택코스 : {{book.course.title}}</h4><!-- 수정필요 -->
                     <h4 class="customerInfo__item name requirement">요청사항 : {{book.comment}}</h4><!-- 수정필요 -->
                     {% if schedule.permit_status == 1 %}<!-- 만약 승인이 안되었다면 체크박스 생성 -->
-                        <form action="" method="POST">
+                        <form action="{% url 'scheduleConfirm' schedule.id %}" method="POST">
                             {% csrf_token %}
                             <input type="checkbox" name="scheduleConfirm" value="confirm"><!-- value값 수정 -->
                         </form>

@@ -6,7 +6,7 @@ main{
 
 .pageTitle {
     width: 100%;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid #E6E6E6;
     margin-bottom: 50px;
 }
 
@@ -33,7 +33,7 @@ main > div > span {
 
 aside{
     width:140px;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid #E6E6E6;
 }
 
 .profileImgBox > :nth-child(1){
@@ -86,7 +86,7 @@ aside{
 }
 
 .inputbox {
-    border: 1px solid lightgray;
+    border: 1px solid #E6E6E6;
     border-radius: 10px;
     padding: 0 0 20px 0;
 }
@@ -101,7 +101,7 @@ aside{
     font-family: 'Arita-dotum-Bold';
     font-size: 14px;
     line-height: 30px;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid #E6E6E6;
     width: 100%;
 }
 
@@ -113,7 +113,7 @@ li > div > span {
 li > input[type="text"], li > input[type="password"] {
     height: 20px;
     width: 80%;
-    border: 1px solid lightgray;
+    border: 1px solid #E6E6E6;
     border-radius: 10px;
     padding: 10px;
     margin: 5px 0;
@@ -121,7 +121,7 @@ li > input[type="text"], li > input[type="password"] {
 }
 
 li > select {
-    border: 1px solid lightgray;
+    border: 1px solid #E6E6E6;
     border-radius: 10px;
     padding: 10px;
     width: 41%;

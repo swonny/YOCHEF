@@ -82,11 +82,11 @@ class Schedule(models.Model):
 	post = models.ForeignKey(Post, on_delete=models.CASCADE)
 	eventDate = models.DateField()
 	eventTime = models.CharField(max_length=100, null=True)
-	payment_status = models.IntegerField(default=1)	# 1: 예약가능  2: 예약됨
-	permit_status = models.IntegerField(default=1)	# 1: 승인대기  2: 승인됨
+	payment_status = models.IntegerField(default=1)	# 1: 예약가능  2: 예약됨  // 결제완료시 1=>2 // 고객결제취소 및 셰프승인취소시 2=>1
+	confirm_status = models.IntegerField(default=1)	# 1: 승인대기  2: 승인됨  // 셰프승인시 1=>2 // 고객결제취소 및 셰프승인취소시 2=>1
 
 	def __str__(self):
-		return self.post.title
+		return self.post.title + "일정" + str(self.id)
 
 	def print_payment_status(self):
 		if self.payment_status == 1:
@@ -96,10 +96,10 @@ class Schedule(models.Model):
 		else:
 			return "Error"
 
-	def print_permit_status(self):
-		if self.permit_status == 1:
+	def print_confirm_status(self):
+		if self.confirm_status == 1:
 			return "승인대기"
-		elif self.permit_status == 2:
+		elif self.confirm_status == 2:
 			return "승인됨"
 		else:
 			return "Error"

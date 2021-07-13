@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/postList.css' %}">
+{% endblock %}
+{% block content %}
+<main>
+    <span>음식별 카테고리</span>
+    <div class="infoBox">
+        <aside>
+            <a href="/postList" class="{% if category == 0 %} currentCategory{% endif %}">전체보기</a>
+            <a href="/postList?category=1" class="{% if category == 1 %} currentCategory{% endif %}">뷔페/케이터링</a>
+            <a href="/postList?category=2" class="{% if category == 2 %} currentCategory{% endif %}">한식</a>
+            <a href="/postList?category=3" class="{% if category == 3 %} currentCategory{% endif %}">일식</a>
+            <a href="/postList?category=4" class="{% if category == 4 %} currentCategory{% endif %}">중식</a>
+            <a href="/postList?category=5" class="{% if category == 5 %} currentCategory{% endif %}">아시안</a>
+            <a href="/postList?category=6" class="{% if category == 6 %} currentCategory{% endif %}">양식</a>
+            <a href="/postList?category=7" class="{% if category == 7 %} currentCategory{% endif %}">채식</a>
+            <a href="/postList?category=8" class="{% if category == 8 %} currentCategory{% endif %}">기타</a>
+        </aside>
+        <div class="mainContainer">
+            <form method="POST" action="{% url 'postList' %}">
+                {% csrf_token %}
+                <div class="filter">
+                    <input name="filter_used" value=1 hidden>
+                    <input name="category" value={{category}} hidden>
+                    <ul>
+                        <li>
+                            <div>
+                                <span>지역</span>
+                                <select name="residence"></select>
+                                <select class="hide" name="residenceDetail"></select>
+                            </div>
+                            <div>
+                                <span>날짜 선택</span>
+                                <input type="date" name="startDate" value="{{start_date}}"> ~ <input type="date" name="endDate" value="{{end_date}}">
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <span>키워드</span>
+                                <input type="text" name="keyword" value="{{keyword}}" placeholder="음식 또는 셰프 키워드를 입력해보세요.">
+                            </div>
+                            <div>
+                                <span>정렬 방식</span>
+                                <select name="order">
+                                    <option value="1"{% if order == 1 %} selected{% endif %}>등록일순</option>
+                                    <option value="2"{% if order == 2 %} selected{% endif %}>높은 가격순</option>
+                                    <option value="3"{% if order == 3 %} selected{% endif %}>낮은 가격순</option>
+                                    <option value="4"{% if order == 4 %} selected{% endif %}>리뷰 많은순</option>
+                                </select>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="submitBtn">
+                        <div>
+                            <input type="submit" value="필터 적용하여 검색하기">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMi4wMDUgNTEyLjAwNSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGcgdHJhbnNmb3JtPSJtYXRyaXgoMC43MywwLDAsMC43Myw2OS4xMjA3NTgwNTY2NDA2NSw2OS4xMjA4MDc0OTUxMTcyMikiPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgoJPGc+CgkJPHBhdGggZD0iTTUwNS43NDksNDc1LjU4N2wtMTQ1LjYtMTQ1LjZjMjguMjAzLTM0LjgzNyw0NS4xODQtNzkuMTA0LDQ1LjE4NC0xMjcuMzE3YzAtMTExLjc0NC05MC45MjMtMjAyLjY2Ny0yMDIuNjY3LTIwMi42NjcgICAgUzAsOTAuOTI1LDAsMjAyLjY2OXM5MC45MjMsMjAyLjY2NywyMDIuNjY3LDIwMi42NjdjNDguMjEzLDAsOTIuNDgtMTYuOTgxLDEyNy4zMTctNDUuMTg0bDE0NS42LDE0NS42ICAgIGM0LjE2LDQuMTYsOS42MjEsNi4yNTEsMTUuMDgzLDYuMjUxczEwLjkyMy0yLjA5MSwxNS4wODMtNi4yNTFDNTE0LjA5MSw0OTcuNDExLDUxNC4wOTEsNDgzLjkyOCw1MDUuNzQ5LDQ3NS41ODd6ICAgICBNMjAyLjY2NywzNjIuNjY5Yy04OC4yMzUsMC0xNjAtNzEuNzY1LTE2MC0xNjBzNzEuNzY1LTE2MCwxNjAtMTYwczE2MCw3MS43NjUsMTYwLDE2MFMyOTAuOTAxLDM2Mi42NjksMjAyLjY2NywzNjIuNjY5eiIgZmlsbD0iI2U2ZTZlNiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjwvZz48L3N2Zz4=" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="postList">
+                {% if category == 0 %} <span>전체보기</span>
+                {% elif category == 1 %} <span>뷔페/케이터링</span>
+                {% elif category == 2 %} <span>한식</span>
+                {% elif category == 3 %} <span>일식</span>
+                {% elif category == 4 %} <span>중식</span>
+                {% elif category == 5 %} <span>아시안</span>
+                {% elif category == 6 %} <span>양식</span>
+                {% elif category == 7 %} <span>채식</span>
+                {% elif category == 8 %} <span>기타</span>
+                {% endif %}
+                <div class="mainList">
+                    {% if posts %}
+                        {% for post in posts %}
+                        <div class=postList__post id="post{{post.id}}" onclick="location.href = '/detail/{{post.id}}';">
+                            <img src="{{post.cover_img}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                            <div class="postList__post__chefNickname"><span>{{post.chef.nickname}}</span><span>셰프</span></div>
+                            <div class="postList__post__title"><span>{{post.title}}</span></div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="noneResult">
+                            검색 결과가 없습니다.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            getRegion();
+            getRegionDetail(1);
+        });
+
+        document.getElementsByName('residence')[0].addEventListener('change', (event)=>{
+            getRegionDetail(document.getElementsByName('residence')[0].value);
+        });
+    </script>
+{% endblock scripts %}

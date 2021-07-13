@@ -1,78 +1,87 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/detail.css' %}">
+{% endblock %}
 {% block content %}
-
     <main>
         <div class="mainContainer">
         <!-- 상세페이지 상단 -->
-            <div class="mainContainer__intro">
-                <div class="mainContainer__intro_tilte">
+            <div class="mainContainer__profile">
+                <div class="mainContainer__profile__title">
                     <span>{{post.title}}</span>
-                    <!-- 프론트 참고 - 결제하기 버튼 추가하였습니다. -->
-                    <a href="{% url 'apply' %}">결제하기</a>
+                    <!-- <a href="{% url 'apply' %}">결제하기</a> -->
                 </div>
-                <div class="mainContainer__intro_chef">
-                    {{post.chef.image}}
-                    <span>{{post.chef.nickname}}</span>
+                <div class="mainContainer__profile__chef">
+                    <img src="{{profile_imgUrl}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                    <span>{{post.chef.nickname}} 님</span>
                 </div>
                 <!-- 해당 포스트 이미지 -->
-                <div class="mainContainer__intro_dishImages">
-                    {% for image in post.course.images %}
-                    {{image}}
-                    {% endfor %}
+                <div class="mainContainer__profile__dishImages">
+                    <img src="{{post_coverImg}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                    <div class="ectImg">
+                        <img src="{{img}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                        <img src="{{img}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                        {% for img in courseImgs %}
+                            <img src="{{img}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                        {% endfor %}
+                        <img src="{% static 'img/more.png' %}">
+                    </div>
                 </div>
-                
-                <a href="{% url 'main' %}"><span>목록으로</span></a><!-- 추후 카타고리 페이지로 url 변경 -->
+            </div>
+            <!-- 탭 -->
+            <div class="tabs">
+                <a href="#chefInfo">셰프 소개</a>
+                <a href="#courseInfo">코스 정보</a>
+                <a href="#review">리뷰</a>
             </div>
             <!-- 셰프 소개 -->
-            <div class="mainContainer__chefInfo">
-                <div class="mainContainer__chefInfo_title">
-                    <span>셰프 소개</span>
-                </div>
-                <div class="mainContainer__chefInfo_chefImage">
-                    <img src="#" alt="셰프 사진">
-                </div>
-                    <div class="mainContainer__chefInfo_chefDetail">
-                    <ul>
-                        <li>
-                            <span>닉네임</span>
-                            <span>{{post.chef.nickname}}</span>
-                        </li>
-                        <li>
-                            <span>셰프소개</span>
-                            <span>{{post.chef.introduce}}</span><!-- 백엔드 작업 후 수정 필요-->
-                        </li>
-                        <li>
-                            <span>활동지역</span>
-                            {% for region in post.chef.regions %}
-                            <span>{{region}}</span>
-                            {% endfor %}
-                        </li>
-                        <li>
-                            <span>세프이력</span>
-                            <p>{{post.chef.spec}}</p>
-                        </li>
-                        <li>
-                            <span>시그니쳐 메뉴</span>
-                            <span>Magna justo placerat fringilla id magna in. Lacus, vestibulum, ullamcorper est porttitor nullam leo at. Etiam dignissim diam in facilisis tristique mi dictumst vitae. Imperdiet erat semper neque, odio risus, suspendisse.
-                                 Tincidunt egestas volutpat consectetur volutpat.</span><!-- 백엔드 작업 후 수정 필요 -->
-                        </li>
-                        <li>
-                            <span>소셜 미디어</span>
-                            <span>{{post.chef.snsLink}}</span>
-                            <span>{{post.chef.blogLink}}</span>     
-                            <span>{{post.chef.youtubeLink}}</span>
-                        </li>
-                    </ul>
-
+            <div class="mainContainer__chefInfo" id="chefInfo">
+                <span>셰프 소개</span>
+                <div class="mainBox__chefInfo">
+                    <div class="mainBox__chefInfo__chefImage">
+                        <img src="{{profile_imgUrl}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                    </div>
+                    <div class="mainBox__chefInfo__chefDetail">
+                        <ul>
+                            <li>
+                                <span>닉네임</span>
+                                <span>{{post.chef.nickname}}</span>
+                            </li>
+                            <li>
+                                <span>셰프소개</span>
+                                <span>{{post.chef.introduce}}</span><!-- 백엔드 작업 후 수정 필요-->
+                            </li>
+                            <li>
+                                <span>활동지역</span>
+                                {% for region in post.chef.regions %}
+                                <span>{{region}}</span>
+                                {% endfor %}
+                            </li>
+                            <li>
+                                <span>세프이력</span>
+                                <p>{{post.chef.spec}}</p>
+                            </li>
+                            <li>
+                                <span>시그니쳐 메뉴</span>
+                                <span>Magna justo placerat fringilla id magna in. Lacus, vestibulum, ullamcorper est porttitor nullam leo at. Etiam dignissim diam in facilisis tristique mi dictumst vitae. Imperdiet erat semper neque, odio risus, suspendisse.
+                                    Tincidunt egestas volutpat consectetur volutpat.</span><!-- 백엔드 작업 후 수정 필요 -->
+                            </li>
+                            <li>
+                                <span>소셜 미디어</span>
+                                <span>{{post.chef.snsLink}}</span>
+                                <span>{{post.chef.blogLink}}</span>     
+                                <span>{{post.chef.youtubeLink}}</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <!-- 코스 정보 -->
-            <div class="mainContainer__courseInfo">
-                <div class="mainContainer__courseInfo_title">
-                    <span>코스 정보</span>
-                </div>
+            <div class="mainContainer__courseInfo" id="courseInfo">
+                <span>코스 정보</span>
                 {% for course in post.courses %}
-                <div class="mainContainer__courseInfo_course">
+                <div class="mainContainer__courseInfo__course">
                     <span>{{post.course.title}}</span>
                     <p>{{post.course.description}}</p>
                     <div class="mainContainer__courseInfo_course1--images">
@@ -84,10 +93,8 @@
                 {% endfor %}
             </div>
             <!-- 리뷰 -->
-            <div class="mainContainer__review">
-                <div class="mainContainer__review_title">
-                    <span>리뷰</span>
-                </div>
+            <div class="mainContainer__review" id="review">
+                <span>리뷰</span>
                 <div class="mainContainer__review_userReview">   <!--  리뷰 기능 상의 -->
                     {% for review in post.reviews %}
                     <div class="mainContainer__review_userReview--content">

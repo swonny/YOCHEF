@@ -17,8 +17,8 @@
 <body>
   <!-- 네브바 -->
   <nav class="nav-container">
-    <div class="item-container">
-      <div class="nav__item"><a href="{% url 'main' %}">YOCHEF</a></div>  
+    <div class="nav__item nav--left"><a href="{% url 'main' %}">YOCHEF</a></div>
+    <div class="nav__item-container nav--middle">
       <div class="nav__item"><a href="{% url 'main' %}">메인페이지</a></div>    
       <ul class="nav__item-container">
         <!-- 로그인 상태라면 -->
@@ -27,32 +27,32 @@
           {% if user.customer.isChef %}
             <!-- 셰프버전이라면 -->
             {% if user.customer.currentVer == 1 %}
-            <li class="nav__item margin-right"><a href="">셰프 정보 관리</a></li>
-            <li class="nav__item margin-right"><a href="{% url 'logout' %}">로그아웃</a></li>
+            <li class="nav__item"><a href="">셰프 정보 관리</a></li>
+            <li class="nav__item"><a href="{% url 'logout' %}">로그아웃</a></li>
             <!-- 셰프등록 o & 손님버전이라면 -->
             {% else %}
-            <li class="nav-item margin-right"><a href="">마이메뉴</a></li>
-            <li class="nav-item margin-right"><a href="">쿠폰함</a></li>
+            <li class="nav__item"><a href="">마이메뉴</a></li>
+            <li class="nav__item"><a href="">쿠폰함</a></li>
             {% endif %}
             <a id="currentVer" href="{% url 'changePageVer' %}">버전</a>
           <!-- 셰프등록 안돼있다면 -->
           {% else %}
-          <li class="nav-item margin-right"><a href="">마이메뉴</a></li>
-          <li class="nav-item margin-right"><a href="">쿠폰함</a></li>
+          <li class="nav__item"><a href="">마이메뉴</a></li>
+          <li class="nav__item"><a href="">쿠폰함</a></li>
           <!-- 프론트 참고 - 테스트 위해 임의로 추가하였습니다. -->
-          <li class="nav-item margin-right"><a href="{% url 'registerChef' '1'%}">셰프등록</a></li>
+          <li class="nav__item"><a href="{% url 'registerChef' '1'%}">셰프등록</a></li>
           {% endif %}
-        <li class="nav-item margin-right"><a href="{% url 'logout' %}">로그아웃</a></li>
+        <li class="nav__item"><a href="{% url 'logout' %}">로그아웃</a></li>
         <!-- 프론트참고 username -> nickname 변경 -->
-        <li class="nav-item margin-right"><a href="{% url 'mypage' %}">{{user.customer.name}}님</a></li>
+        <li class="nav__item"><a href="{% url 'mypage' %}">{{user.customer.name}}님</a></li>
         <!-- 로그아웃 상태라면 -->
         {% else %}
-        <li class="nav-item margin-right"><a href="{% url 'login' %}">로그인</a></li>
-        <li class="nav-item margin-right"><a href="">아이디/비밀번호 찾기</a></li>
-        <li class="nav-item"><a  href="{% url 'signup' %}">회원가입</a></li>
+        <li class="nav__item"><a href="{% url 'login' %}">로그인</a></li>
+        <li class="nav__item"><a href="">아이디/비밀번호 찾기</a></li>
+        <li class="nav__item"><a  href="{% url 'signup' %}">회원가입</a></li>
         {% endif %}
       </ul>
-    </div> 
+    </div>
   </nav>   
   <div class="contents">
     {% block content %}

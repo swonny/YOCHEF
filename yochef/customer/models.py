@@ -62,7 +62,7 @@ class Book(models.Model):
 	customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
 	coupon = models.ForeignKey(Coupon, null=True, on_delete=models.SET_NULL)
 	schedule = models.OneToOneField('chef.Schedule', on_delete=models.CASCADE)
-	status = models.IntegerField()
+	status = models.IntegerField() # 1:결제대기 2:결제완료 3:결제취소 // 고객결제취소 및 셰프승인취소시 3
 	phoneNum = models.CharField(max_length=11)
 	usedPoint = models.IntegerField()
 	payMethod = models.IntegerField()

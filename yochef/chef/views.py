@@ -4,7 +4,9 @@ from public.models import *
 from customer.models import *
 
 # Create your views here.
+# CRUD : Cread Read Update Delete
 
+# registerChef_1~4.html READ & UPDATE
 def registerChef(request, page_num=1):
     customer = request.user.customer
     if page_num == 1:
@@ -118,6 +120,7 @@ def registerChef(request, page_num=1):
         return redirect('/')
 
 
+# chefSchedule.html READ
 def chefSchedule(request):
     chef = request.user.customer.chef
     post = Post.objects.get(chef=chef)
@@ -131,7 +134,7 @@ def chefSchedule(request):
         scheduleInfo['eventDate'] = schedule.eventDate
         scheduleInfo['eventTime'] = schedule.eventTime
         scheduleInfo['payment_status'] = schedule.print_payment_status
-        scheduleInfo['permit_status'] = schedule.print_permit_status
+        scheduleInfo['confirm_status'] = schedule.print_confirm_status
         scheduleInfo['course'] = book.course
         scheduleInfo['personNum'] = book.personNum
         scheduleInfo['totalPrice'] = book.totalPrice
@@ -146,6 +149,7 @@ def chefSchedule(request):
     return render(request, 'chefSchedule.html', context)
 
 
+# chefSchedule_detail.html READ
 def chefScheduleDetail(request, schedule_id):
     chef = request.user.customer.chef
     post = Post.objects.get(chef=chef)
@@ -161,22 +165,58 @@ def chefScheduleDetail(request, schedule_id):
     return render(request, 'chefSchedule_detail.html', context)
 
 
-def chefProfile(request):
+# chefSchedule_detail.html UPDATE
+def scheduleConfirm(request, schedule_id):
+    schedule = Schedule.objects.get(id=schedule_id)
+    if request.POST.get('scheduleConfirm'):
+        schedule.confirm_status = 2
+        schedule.save()
+    return redirect('/chef/chefSchedule/' + str(schedule_id))
+
+
+# chefSchedule_detail.html UPDATE
+## 일정(예약) 승인 취소
+def scheduleCancel(request, schedule_id):
+    return
+
+
+# editChefProfile_1.html READ
+def editChefProfile(request):
     chef = request.user.customer.chef
     chefProfileImage = File.objects.get(chef=chef)
 
     context = {}
     context['chef'] = chef
     context['chefProfileImage'] = chefProfileImage
+
     return render(request, 'editChefProfile_1.html', context)
 
 
-def chefProfileSave(request):
-    chef = request.user.customer.chef
+# editChefProfile_1.html UPDATE
+def updateChefProfile(request, chef_id):
+    chef = Chef.objects.get(id=chef_id)
+    chefProfileImage = File.objects.get(chef=chef, category=1)
+
+    chefProfileImage.attachment = request.POST.get('profileImage')
     chef.nickname = request.POST.get('nickname')
     chef.spec = request.POST.get('spec')
     chef.snsLink = request.POST.get('snsLink')
     chef.blogLink = request.POST.get('blogLink')
     chef.youtubeLink = request.POST.get('youtubeLink')
+
+    chefProfileImage.save()
     chef.save()
-    return redirect('/chefProfile/')
+
+    return redirect('/chef/editChefProfile/')
+
+
+## 예약글 수정 페이지
+# editChefProfile.html READ
+def editPost(request):
+    return
+
+
+## 예약글 수정 내용 저장
+# editChefProfile.html UPDATE
+def updatePost(request):
+    return

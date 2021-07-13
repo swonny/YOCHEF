@@ -283,3 +283,9 @@
 - ** 키위 확인 필요 ** 
 	계정 관련 페이지 전부 백엔드 작업 가능하도록 세팅 완료. 시트 참고바람
 
+21.07.13 제우스
+- FE 작업 내용을 근거로 .permit_staus => .confirm_status 변경 및 관련 문서 모두 변경
+- chefSchedule_detail.html line 49~52 <form> 템플릿 태그 작성
+- chef/views.py
+	- 오타 및  내용 작성
+	- scheduleConfirm() 함수 작성

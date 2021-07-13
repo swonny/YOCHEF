@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form name="editChefProfile_1" action="{% url 'editChefProfile' '1' %}" method="POST" ><!--백참고-->
+    <form name="editChefProfile_1" action="{% url 'updateChefProfile' chef.id %}" method="POST" >
     {% csrf_token %}
         <div class="edit-chef-wrapper">
             <!-- section header -->
@@ -13,7 +13,7 @@
                     <!-- 셰프 등록 nav -->
                     <ul class="regiContent__navContainer">
                         <li class="regiContent__navItem">
-                            <a href="#">셰프 소개</a>
+                            <a href="">셰프 소개</a>
                         </li>
                         <li class="regiContent__navItem">
                             <a href="">예약글 등록</a>
@@ -41,7 +41,7 @@
                     <article class="edit-chef__nickname">
                         <h4>닉네임</h4>
                         <div class="nickname-edit-wrapper">
-                            {% if chef.nickname %}
+                            {% if not chef.nickname %}
                             <input name="nickname" type="text" placeholder="사용하실 닉네임을 입력해주세요.">
                             {% else %}
                             <input name="nickname" type="text" value={{chef.nickname}}>
