@@ -27,7 +27,13 @@ def changePageVer(request):
 # 예약글 상세 페이지를 반환해주는 함수
 def detail(request, post_id):
     post = Post.objects.get(id = post_id)
-    return render(request, 'detail.html', {'post': post})
+    courses = Course.objects.filter(post = post)
+    reviews = Review.objects.filter(post = post)
+    is_review_over = False
+    if len(reviews) > 4 : is_review_over = True
+    reviews = reviews[:4]
+    schedules = Schedule.objects.filter(paymentStatus = 1).order_by('eventDate', 'id')
+    return render(request, 'detail.html', {'post': post, 'courses':courses, 'reviews': reviews, 'is_review_over': is_review_over, 'schedules':schedules})
 
 # 지역을 반환해주는 함수
 def getRegionAPI(request):
@@ -60,7 +66,6 @@ def postList(request, category=0, order=0):
     if category == 0:
         category = int(request.POST.get('category', 0))
     order = int(request.POST.get('order', 0))
-    filter_used = int(request.POST.get('filter_used', 0))
     start_date = request.POST.get('startDate', "")
     end_date = request.POST.get('endDate', "")
     region = int(request.POST.get('residence', 0))
@@ -70,7 +75,7 @@ def postList(request, category=0, order=0):
     else: start_date = parse_date(start_date)
     if end_date == "" : end_date = date.today()+timedelta(days=7)
     else: end_date = parse_date(end_date)
-    posts = Post.objects.filter(isOpen=True, schedule__eventDate__range=[start_date, end_date], region=region)
+    posts = Post.objects.filter(isOpen=True, schedule__eventDate__range=[start_date, end_date], schedule__paymentStatus = 1, region=region)
     posts = posts.filter(Q(title__icontains = keyword) or Q(chef__nickname__icontains = keyword))
     if category:
         posts = posts.filter(category = category)

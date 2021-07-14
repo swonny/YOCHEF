@@ -300,4 +300,18 @@
 - chef/models.py Schedule()
 	- .payment_status, .confirm_status 필드 주석에 승인 취소시 입력값 설명 추가했습니다. 
 - customer/models.py Book() 
-	- .status 필드 주석에 결제 취소시 입력값 설명 추가했습니다. 
+	- .status 필드 주석에 결제 취소시 입력값 설명 추가
+- DB에 테스트용 데이터 추가
+	- user 6개 추가 : 테스트셰프 3, 테스트고객 3
+	- 셰프 등록은 아직 안 되어 있습니다. 
+
+21.07.14 블루
+- chef/models.py Schedule()
+	- payment_status, confirm_status -> paymentStatus, confirmStatus로 수정
+	- 관련 함수들도 모두 수정 완료
+- public/views.py detail()
+	- 함수 작성
+- public/static/css/detail.css
+	- 관련 css 추가 작성
+- yochef/static/css/base.css 
+	- 반응형 관련 main margin 설정

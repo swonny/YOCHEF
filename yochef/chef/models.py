@@ -20,8 +20,6 @@ class Chef(models.Model):
 	isLicensed = models.BooleanField(default=False)
 	isSubmitted = models.BooleanField(default=False)
 
-	def __str__(self):
-		return self.nickname
 	def like_count(self) :
 		return Like.objects.filter(chef=self).count()
 
@@ -36,12 +34,6 @@ class Post(models.Model):
 	movingPrice = models.IntegerField(default=0)
 	isOpen = models.BooleanField(default=True)
 	registerDate = models.DateTimeField(auto_now=True)
-
-	def __str__(self):
-		if len(self.title) > 10 :
-			return self.chef.nickname + ' - ' + self.title[:15] + '...'
-		else:
-			return self.chef.nickname + ' - ' + self.title
 
 	def category_name(self):
 		if self.category == 1 :
@@ -81,24 +73,28 @@ class Schedule(models.Model):
 	post = models.ForeignKey(Post, on_delete=models.CASCADE)
 	eventDate = models.DateField()
 	eventTime = models.CharField(max_length=100, null=True)
-	payment_status = models.IntegerField(default=1)	# 1: 예약가능  2: 예약됨  3. 취소됨
-	confirm_status = models.IntegerField(default=1)	# 1: 승인대기  2: 승인됨  3. 취소됨
+	paymentStatus = models.IntegerField(default=1)	# 1: 예약가능  2: 예약됨  3. 취소됨
+	confirmStatus = models.IntegerField(default=1)	# 1: 승인대기  2: 승인됨  3. 취소됨
 
 	def __str__(self):
 		return self.post.title + "일정" + str(self.id)
 
-	def print_payment_status(self):
-		if self.payment_status == 1:
+	def print_paymentStatus(self):
+		if self.paymentStatus == 1:
 			return "예약가능"
-		elif self.payment_status == 2:
+		elif self.paymentStatus == 2:
 			return "예약됨"
 		else:
 			return "Error"
 
-	def print_confirm_status(self):
-		if self.confirm_status == 1:
+	def print_confirmStatus(self):
+		if self.confirmStatus == 1:
 			return "승인대기"
-		elif self.confirm_status == 2:
+		elif self.confirmStatus == 2:
 			return "승인됨"
 		else:
 			return "Error"
+
+	def print_eventDateDay(self):
+		t = ['일', '월', '화', '수', '목', '금', '토']
+		return t[int(self.eventDate.strftime("%w"))]

@@ -12,12 +12,14 @@ def registerChef(request, page_num=1):
     if page_num == 1:
         if Chef.objects.filter(customer=customer).exists():
             chef = customer.chef
-            if File.objects.filter(chef=chef).exists():
-                profileImage = File.objects.get(chef=chef)
         else:
             chef = Chef(customer=customer)
-            profileImage = File(chef=chef, category=1)
             chef.save()
+
+        if File.objects.filter(chef=chef).exists():
+            profileImage = File.objects.get(chef=chef)
+        else:
+            profileImage = File(chef=chef, category=1)
             profileImage.save()
 
         if Post.objects.filter(chef=chef).exists():
@@ -135,8 +137,8 @@ def chefSchedule(request):
         scheduleInfo = {}
         scheduleInfo['eventDate'] = schedule.eventDate
         scheduleInfo['eventTime'] = schedule.eventTime
-        scheduleInfo['payment_status'] = schedule.print_payment_status
-        scheduleInfo['confirm_status'] = schedule.print_confirm_status
+        scheduleInfo['paymentStatus'] = schedule.print_paymentStatus
+        scheduleInfo['confirmStatus'] = schedule.print_confirmStatus
         scheduleInfo['course'] = book.course
         scheduleInfo['personNum'] = book.personNum
         scheduleInfo['totalPrice'] = book.totalPrice
@@ -171,9 +173,9 @@ def chefScheduleDetail(request, schedule_id):
 def scheduleConfirm(request, schedule_id):
     schedule = Schedule.objects.get(id=schedule_id)
     if request.POST['scheduleConfirm']:
-        schedule.confirm_status = 2	# 1: 승인대기  2: 승인됨
+        schedule.confirmStatus = 2	# 1: 승인대기  2: 승인됨
         schedule.save()
-    return redirect('/chef/chefSchedule/' + str(schedule_id))
+    return redirect('/chef/chefschedule/' + str(schedule_id))
 
 
 # chefSchedule_detail.html UPDATE
@@ -181,12 +183,12 @@ def scheduleCancel(request, schedule_id):
     schedule = Schedule.objects.get(id=schedule_id)
     book = Book.objects.get(schedule=schedule)
     if request.POST['scheduleCancel']:
-        schedule.payment_status = 3	# 1: 예약가능  2: 예약됨  3. 취소됨
-        schedule.confirm_status = 3	# 1: 승인대기  2: 승인됨  3. 취소됨
+        schedule.paymentStatus = 3	# 1: 예약가능  2: 예약됨  3. 취소됨
+        schedule.confirmStatus = 3	# 1: 승인대기  2: 승인됨  3. 취소됨
         book.status = 3 # 1:결제대기 2:결제완료 3:결제취소
         schedule.save()
         book.save()
-    return redirect('/chef/chefSchedule/' + str(schedule_id))
+    return redirect('/chef/chefschedule/' + str(schedule_id))
 
 
 # editChefProfile_1.html READ
@@ -216,7 +218,7 @@ def updateChefProfile(request):
     chefProfileImage.save()
     chef.save()
 
-    return redirect('/chef/editChefProfile/')
+    return redirect('/chef/editchefprofile/')
 
 
 # editChefProfile_2.html READ
@@ -273,7 +275,7 @@ def updatePost(request):
     for course in courses:
         course.save()
 
-    return redirect('/chef/editPost/')
+    return redirect('/chef/editpost/')
 
 
 # editChefProfile_3.html READ
@@ -287,4 +289,4 @@ def updateMovingPrice(request):
     post = request.user.customer.chef.post
     post.movingPrice = request.POST['movingPrice']
     post.save()
-    return redirect('/chef/editMovingPrice/')
+    return redirect('/chef/editmovingprice/')

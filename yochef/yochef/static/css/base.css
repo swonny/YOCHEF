@@ -62,11 +62,20 @@ select:focus {
 main {
     margin: 90px 300px; /* 수정 필요 - 기본 마진*/
 }
-@media screen and (min-width: 900) and (max-width: 1440){
+
+/* 반응형 */
+@media screen and (min-width: 1100px) and (max-width: 1440px){
     main{
-        margin: 90px 120px;
+        margin: 90px 200px;
     }
 }
+
+@media screen and (max-width: 1100px){
+    main{
+        margin: 90px 30px;
+    }
+}
+
 img { border: 0; }
 
 

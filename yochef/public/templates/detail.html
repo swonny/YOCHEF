@@ -46,32 +46,49 @@
                         <ul>
                             <li>
                                 <span>닉네임</span>
+                                <span>|</span>
                                 <span>{{post.chef.nickname}}</span>
                             </li>
                             <li>
                                 <span>셰프소개</span>
+                                <span>|</span>
                                 <span>{{post.chef.introduce}}</span><!-- 백엔드 작업 후 수정 필요-->
                             </li>
                             <li>
                                 <span>활동지역</span>
+                                <span>|</span>
                                 {% for region in post.chef.regions %}
                                 <span>{{region}}</span>
                                 {% endfor %}
                             </li>
                             <li>
                                 <span>세프이력</span>
+                                <span>|</span>
                                 <p>{{post.chef.spec}}</p>
                             </li>
                             <li>
                                 <span>시그니쳐 메뉴</span>
+                                <span>|</span>
                                 <span>Magna justo placerat fringilla id magna in. Lacus, vestibulum, ullamcorper est porttitor nullam leo at. Etiam dignissim diam in facilisis tristique mi dictumst vitae. Imperdiet erat semper neque, odio risus, suspendisse.
                                     Tincidunt egestas volutpat consectetur volutpat.</span><!-- 백엔드 작업 후 수정 필요 -->
                             </li>
                             <li>
                                 <span>소셜 미디어</span>
-                                <span>{{post.chef.snsLink}}</span>
-                                <span>{{post.chef.blogLink}}</span>     
-                                <span>{{post.chef.youtubeLink}}</span>
+                                <span>|</span>
+                                <span>
+                                    {% if post.chef.snsLink is not None %}
+                                    <img src="data:image/svg+xml;base64,PHN2ZyBpZD0iQ2FwYV8xIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHdpZHRoPSI1MTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGc+PGc+PHBhdGggZD0ibTQxNC44NDMgMjYzLjVoMjIuMjk4YzMuNDg5IDE3LjI2NSAxOC43NzcgMzAuMzA1IDM3LjA1NSAzMC4zMDUgMjAuODQ1IDAgMzcuODA0LTE2Ljk1OSAzNy44MDQtMzcuODA1cy0xNi45NTktMzcuODA1LTM3LjgwNS0zNy44MDVjLTE4LjI3OCAwLTMzLjU2NiAxMy4wNC0zNy4wNTUgMzAuMzA1aC0yMi4yOThjLTEuNzgzLTM4LjIwMy0xNy4xMDMtNzIuOTI3LTQxLjI3LTk5LjQ2Nmw0MC4xNjQtNDAuMTYzYzcuOTA2IDUuNzU3IDE3LjYyNyA5LjE2NiAyOC4xMzQgOS4xNjYgMjYuNDE2IDAgNDcuOTA2LTIxLjQ5MSA0Ny45MDYtNDcuOTA3cy0yMS40OS00Ny45MDYtNDcuOTA2LTQ3LjkwNi00Ny45MDYgMjEuNDkxLTQ3LjkwNiA0Ny45MDZjMCAxMC41MDcgMy40MDggMjAuMjI4IDkuMTY2IDI4LjEzNGwtNDAuMTY0IDQwLjE2M2MtMjYuNTM5LTI0LjE2Ni02MS4yNjMtMzkuNDg3LTk5LjQ2Ni00MS4yNjl2LTIyLjI5OGMxNy4yNjUtMy40ODkgMzAuMzA1LTE4Ljc3NyAzMC4zMDUtMzcuMDU1IDAtMjAuODQ2LTE2Ljk1OS0zNy44MDUtMzcuODA1LTM3LjgwNXMtMzcuODA1IDE2Ljk1OS0zNy44MDUgMzcuODA1YzAgMTguMjc4IDEzLjA0IDMzLjU2NiAzMC4zMDUgMzcuMDU1djIyLjI5N2MtMzguMjAzIDEuNzgzLTcyLjkyNyAxNy4xMDMtOTkuNDY2IDQxLjI2OWwtNDAuMTYxLTQwLjE2YzUuNzU4LTcuOTA3IDkuMTY3LTE3LjYyOSA5LjE2Ny0yOC4xMzYgMC0xNS45NTItNy45MDEtMzAuODA3LTIxLjEzNS0zOS43MzctMy40MzYtMi4zMTYtOC4wOTctMS40MTItMTAuNDEyIDIuMDIyLTIuMzE3IDMuNDM0LTEuNDEyIDguMDk1IDIuMDIxIDEwLjQxMiA5LjA5NiA2LjEzNyAxNC41MjUgMTYuMzQ0IDE0LjUyNSAyNy4zMDMgMCAxOC4xNDYtMTQuNzY0IDMyLjkxLTMyLjkxIDMyLjkxcy0zMi45MDktMTQuNzY0LTMyLjkwOS0zMi45MWMwLTE0LjY1NCA5LjgzNS0yNy42NzkgMjMuOTE3LTMxLjY3NCAzLjk4NS0xLjEzMSA2LjI5OS01LjI3OCA1LjE2OC05LjI2M3MtNS4yOC02LjI5Ni05LjI2Mi01LjE2OGMtMjAuNTA0IDUuODE4LTM0LjgyMyAyNC43NzctMzQuODIzIDQ2LjEwNSAwIDI2LjQxOCAyMS40OTIgNDcuOTEgNDcuOTEgNDcuOTEgMTAuNTA4IDAgMjAuMjMtMy40MDkgMjguMTM2LTkuMTY3bDQwLjE2MSA0MC4xNmMtMjQuMTY3IDI2LjUzOS0zOS40ODcgNjEuMjYzLTQxLjI3IDk5LjQ2NmgtMjIuMjk3Yy0zLjQ4OS0xNy4yNjUtMTguNzc3LTMwLjMwNS0zNy4wNTUtMzAuMzA1LTIwLjg0Ni4wMDEtMzcuODA1IDE2Ljk2LTM3LjgwNSAzNy44MDZzMTYuOTU5IDM3LjgwNSAzNy44MDUgMzcuODA1YzE4LjI3OCAwIDMzLjU2Ni0xMy4wNCAzNy4wNTUtMzAuMzA1aDIyLjI5OGMxLjc4MyAzOC4yMDMgMTcuMTAzIDcyLjkyNyA0MS4yNyA5OS40NjZsLTQwLjE2NCA0MC4xNjNjLTcuOTA2LTUuNzU3LTE3LjYyNy05LjE2Ni0yOC4xMzQtOS4xNjYtMjYuNDE2IDAtNDcuOTA2IDIxLjQ5MS00Ny45MDYgNDcuOTA3czIxLjQ5IDQ3LjkwNiA0Ny45MDYgNDcuOTA2IDQ3LjkwNi0yMS40OTEgNDcuOTA2LTQ3LjkwNmMwLTEwLjUwNy0zLjQwOC0yMC4yMjgtOS4xNjYtMjguMTM0bDQwLjE2NC00MC4xNjNjMjYuNTM5IDI0LjE2NiA2MS4yNjMgMzkuNDg3IDk5LjQ2NiA0MS4yNjl2MjIuMjk3Yy0xNy4yNjUgMy40ODktMzAuMzA1IDE4Ljc3Ny0zMC4zMDUgMzcuMDU1IDAgMjAuODQ3IDE2Ljk1OSAzNy44MDYgMzcuODA1IDM3LjgwNnMzNy44MDUtMTYuOTU5IDM3LjgwNS0zNy44MDVjMC0xOC4yNzgtMTMuMDQtMzMuNTY2LTMwLjMwNS0zNy4wNTV2LTIyLjI5N2MzOC4yMDMtMS43ODMgNzIuOTI3LTE3LjEwMyA5OS40NjYtNDEuMjY5bDQwLjE2MSA0MC4xNmMtNS43NTggNy45MDctOS4xNjcgMTcuNjI5LTkuMTY3IDI4LjEzNiAwIDI2LjQxNyAyMS40OTIgNDcuOTEgNDcuOTEgNDcuOTFzNDcuOTEtMjEuNDkyIDQ3LjkxLTQ3LjkxYzAtNS4xODYtLjgyNi0xMC4yOTMtMi40NTUtMTUuMTgyLTEuMzExLTMuOTI5LTUuNTYtNi4wNTMtOS40ODYtNC43NDQtMy45MyAxLjMxLTYuMDU0IDUuNTU3LTQuNzQ0IDkuNDg3IDEuMTE4IDMuMzU1IDEuNjg2IDYuODY4IDEuNjg2IDEwLjQzOCAwIDE4LjE0Ni0xNC43NjQgMzIuOTEtMzIuOTEgMzIuOTFzLTMyLjkxLTE0Ljc2My0zMi45MS0zMi45MSAxNC43NjQtMzIuOTEgMzIuOTEtMzIuOTFjNC4xNTMgMCA4LjIwMy43NjQgMTIuMDM3IDIuMjcxIDMuODUxIDEuNTE1IDguMjA4LS4zODIgOS43MjQtNC4yMzcgMS41MTUtMy44NTUtLjM4Mi04LjIwOC00LjIzNy05LjcyNC01LjU4OS0yLjE5Ni0xMS40ODQtMy4zMS0xNy41MjMtMy4zMS0xMC41MDggMC0yMC4yMyAzLjQwOS0yOC4xMzYgOS4xNjdsLTQwLjE2MS00MC4xNmMyNC4xNjQtMjYuNTM5IDM5LjQ4NS02MS4yNjMgNDEuMjY4LTk5LjQ2NnptNTkuMzUyLTMwLjMwNWMxMi41NzUgMCAyMi44MDUgMTAuMjMgMjIuODA1IDIyLjgwNXMtMTAuMjMgMjIuODA1LTIyLjgwNSAyMi44MDUtMjIuODA1LTEwLjIzLTIyLjgwNS0yMi44MDUgMTAuMjMxLTIyLjgwNSAyMi44MDUtMjIuODA1em0tMzIuMzI1LTE5NS45NzFjMTguMTQ1IDAgMzIuOTA2IDE0Ljc2MiAzMi45MDYgMzIuOTA2IDAgMTguMTQ1LTE0Ljc2MiAzMi45MDctMzIuOTA2IDMyLjkwN3MtMzIuOTA2LTE0Ljc2Mi0zMi45MDYtMzIuOTA3IDE0Ljc2Mi0zMi45MDYgMzIuOTA2LTMyLjkwNnptLTIwOC42NzUuNTgxYzAtMTIuNTc1IDEwLjIzMS0yMi44MDUgMjIuODA1LTIyLjgwNXMyMi44MDUgMTAuMjMgMjIuODA1IDIyLjgwNS0xMC4yMzEgMjIuODA1LTIyLjgwNSAyMi44MDUtMjIuODA1LTEwLjIzMS0yMi44MDUtMjIuODA1em0tMTk1LjM5IDI0MWMtMTIuNTc1IDAtMjIuODA1LTEwLjIzLTIyLjgwNS0yMi44MDVzMTAuMjMtMjIuODA1IDIyLjgwNS0yMi44MDUgMjIuODA0IDEwLjIzIDIyLjgwNCAyMi44MDUtMTAuMjMgMjIuODA1LTIyLjgwNCAyMi44MDV6bTIxOC4xOTUtMTY2LjgyOWM3OS40MTUgMCAxNDQuMDI0IDY0LjYwOSAxNDQuMDI0IDE0NC4wMjRzLTY0LjYwOSAxNDQuMDI0LTE0NC4wMjQgMTQ0LjAyNC0xNDQuMDI0LTY0LjYwOC0xNDQuMDI0LTE0NC4wMjQgNjQuNjA5LTE0NC4wMjQgMTQ0LjAyNC0xNDQuMDI0em0tMTg1Ljg3IDM2Mi44Yy0xOC4xNDUgMC0zMi45MDYtMTQuNzYyLTMyLjkwNi0zMi45MDYgMC0xOC4xNDUgMTQuNzYyLTMyLjkwNyAzMi45MDYtMzIuOTA3czMyLjkwNiAxNC43NjIgMzIuOTA2IDMyLjkwNy0xNC43NjIgMzIuOTA2LTMyLjkwNiAzMi45MDZ6bTIwOC42NzUtLjU4MWMwIDEyLjU3NS0xMC4yMzEgMjIuODA1LTIyLjgwNSAyMi44MDVzLTIyLjgwNS0xMC4yMy0yMi44MDUtMjIuODA1IDEwLjIzMS0yMi44MDUgMjIuODA1LTIyLjgwNSAyMi44MDUgMTAuMjMxIDIyLjgwNSAyMi44MDV6Ii8+PHBhdGggZD0ibTE3MS4xNSAzNDguMzVoNDIuMzU1Yy4wMjMgMCAuMDQ1LjAwMy4wNjguMDAzcy4wNDUtLjAwMy4wNjgtLjAwM2gyNC44NTljNC4xNDMgMCA3LjUtMy4zNTggNy41LTcuNXMtMy4zNTctNy41LTcuNS03LjVoLTE3LjQyN3YtMTIuN2MwLTQuMTQyLTMuMzU3LTcuNS03LjUtNy41cy03LjUgMy4zNTgtNy41IDcuNXYxMi43aC0yNy40MjN2LTM2Ljk0YzAtMTguMTQ2IDE0Ljc1OS0zMi45MSAzMi44OTktMzIuOTFoODguOWMxOC4xNDEgMCAzMi44OTkgMTQuNzY0IDMyLjg5OSAzMi45MXYzNi45NGgtMjcuNDIzdi0xMi43YzAtNC4xNDItMy4zNTctNy41LTcuNS03LjVzLTcuNSAzLjM1OC03LjUgNy41djEyLjdoLTE3LjQyNWMtNC4xNDMgMC03LjUgMy4zNTgtNy41IDcuNXMzLjM1NyA3LjUgNy41IDcuNWgyNC44NTljLjAyMyAwIC4wNDUuMDAzLjA2OC4wMDNzLjA0NS0uMDAzLjA2OC0uMDAzaDQyLjM1NWM0LjE0MyAwIDcuNS0zLjM1OCA3LjUtNy41di00NC40NGMwLTI2LjQxOC0yMS40ODctNDcuOTEtNDcuODk5LTQ3LjkxaC01LjU2OGMxMS43MzgtMTAuNjIyIDE5LjEyNi0yNS45NjggMTkuMTI2LTQzLjAwOCAwLTMxLjk4Ni0yNi4wMjItNTguMDA4LTU4LjAwOC01OC4wMDhzLTU4LjAwOCAyNi4wMjItNTguMDA4IDU4LjAwOGMwIDE3LjA0IDcuMzg4IDMyLjM4NiAxOS4xMjYgNDMuMDA4aC01LjU2OGMtMjYuNDEyIDAtNDcuODk5IDIxLjQ5Mi00Ny44OTkgNDcuOTF2NDQuNDRjLS4wMDIgNC4xNDIgMy4zNTYgNy41IDcuNDk4IDcuNXptNDEuODQyLTE0Mi44NThjMC0yMy43MTQgMTkuMjkzLTQzLjAwOCA0My4wMDgtNDMuMDA4czQzLjAwOCAxOS4yOTMgNDMuMDA4IDQzLjAwOC0xOS4yOTMgNDMuMDA4LTQzLjAwOCA0My4wMDgtNDMuMDA4LTE5LjI5My00My4wMDgtNDMuMDA4eiIvPjwvZz48L2c+PC9zdmc+" />
+                                    <a href="{{post.chef.snsLink}}">SNS</a>
+                                    {% endif %}
+                                    {% if post.chef.blogLink is not None %}
+                                    <img src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIC0yMCA1MTIgNTExIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Im02Ny4xNzk2ODggNDguMzk0NTMxaC0uMTAxNTYzYy01LjUyMzQzNyAwLTEwIDQuNDc2NTYzLTEwIDEwIDAgNS41MjM0MzggNC40NzY1NjMgMTAgMTAgMTBoLjEwMTU2M2M1LjUyMzQzNyAwIDEwLTQuNDc2NTYyIDEwLTEwIDAtNS41MjM0MzctNC40NzY1NjMtMTAtMTAtMTB6bTAgMCIvPjxwYXRoIGQ9Im0xMTYuNzEwOTM4IDQ4LjM5NDUzMWgtLjEwMTU2M2MtNS41MjM0MzcgMC0xMCA0LjQ3NjU2My0xMCAxMCAwIDUuNTIzNDM4IDQuNDc2NTYzIDEwIDEwIDEwaC4xMDE1NjNjNS41MjM0MzcgMCAxMC00LjQ3NjU2MiAxMC0xMCAwLTUuNTIzNDM3LTQuNDc2NTYzLTEwLTEwLTEwem0wIDAiLz48cGF0aCBkPSJtMTY2LjI0MjE4OCA0OC4zOTQ1MzFoLS4xMDE1NjNjLTUuNTIzNDM3IDAtMTAgNC40NzY1NjMtMTAgMTAgMCA1LjUyMzQzOCA0LjQ3NjU2MyAxMCAxMCAxMGguMTAxNTYzYzUuNTIzNDM3IDAgMTAtNC40NzY1NjIgMTAtMTAgMC01LjUyMzQzNy00LjQ3NjU2My0xMC0xMC0xMHptMCAwIi8+PHBhdGggZD0ibTQ0NC4zMDg1OTQgNDguMzk0NTMxaC0xOTIuOTI5Njg4Yy01LjUyMzQzNyAwLTEwIDQuNDc2NTYzLTEwIDEwIDAgNS41MTk1MzEgNC40NzY1NjMgMTAgMTAgMTBoMTkyLjkyOTY4OGM1LjUyMzQzNyAwIDEwLTQuNDgwNDY5IDEwLTEwIDAtNS41MjM0MzctNC40NzY1NjMtMTAtMTAtMTB6bTAgMCIvPjxwYXRoIGQ9Im0yNjIuODkwNjI1IDQ1Mi40Mzc1Yy0yLjYyODkwNiAwLTUuMTk5MjE5IDEuMDcwMzEyLTcuMDcwMzEzIDIuOTI5Njg4LTEuODU5Mzc0IDEuODU5Mzc0LTIuOTI5Njg3IDQuNDQxNDA2LTIuOTI5Njg3IDcuMDcwMzEyczEuMDcwMzEzIDUuMjEwOTM4IDIuOTI5Njg3IDcuMDcwMzEyYzEuODcxMDk0IDEuODU5Mzc2IDQuNDQxNDA3IDIuOTI5Njg4IDcuMDcwMzEzIDIuOTI5Njg4czUuMjEwOTM3LTEuMDcwMzEyIDcuMDcwMzEzLTIuOTI5Njg4YzEuODY3MTg3LTEuODU5Mzc0IDIuOTI5Njg3LTQuNDQxNDA2IDIuOTI5Njg3LTcuMDcwMzEycy0xLjA2MjUtNS4yMTA5MzgtMi45Mjk2ODctNy4wNzAzMTJjLTEuODU5Mzc2LTEuODU5Mzc2LTQuNDQxNDA3LTIuOTI5Njg4LTcuMDcwMzEzLTIuOTI5Njg4em0wIDAiLz48cGF0aCBkPSJtNDgwLjIzMDQ2OS41aC00NDguNDYwOTM4Yy0xNy41MTU2MjUgMC0zMS43Njk1MzEgMTQuMjUzOTA2LTMxLjc2OTUzMSAzMS43Njk1MzF2NDA4LjM5ODQzOGMwIDE3LjUxOTUzMSAxNC4yNTM5MDYgMzEuNzY5NTMxIDMxLjc2OTUzMSAzMS43Njk1MzFoMTg5LjIzMDQ2OWM1LjUyMzQzOCAwIDEwLTQuNDc2NTYyIDEwLTEwcy00LjQ3NjU2Mi0xMC0xMC0xMGgtMTg5LjIzMDQ2OWMtNi40ODgyODEgMC0xMS43Njk1MzEtNS4yNzczNDQtMTEuNzY5NTMxLTExLjc2OTUzMXYtMzI0LjM3ODkwN2g0NzJ2MzI0LjM3ODkwN2MwIDYuNDg4MjgxLTUuMjgxMjUgMTEuNzY5NTMxLTExLjc2OTUzMSAxMS43Njk1MzFoLTE3Ni41NjI1Yy01LjUyMzQzOCAwLTEwIDQuNDc2NTYyLTEwIDEwczQuNDc2NTYyIDEwIDEwIDEwaDE3Ni41NjI1YzE3LjUxNTYyNSAwIDMxLjc2OTUzMS0xNC4yNSAzMS43Njk1MzEtMzEuNzY5NTMxdi00MDguMzk4NDM4YzAtMTcuNTE1NjI1LTE0LjI1MzkwNi0zMS43Njk1MzEtMzEuNzY5NTMxLTMxLjc2OTUzMXptLTQ2MC4yMzA0NjkgOTUuNzg1MTU2di02NC4wMTU2MjVjMC02LjQ4ODI4MSA1LjI4MTI1LTExLjc2OTUzMSAxMS43Njk1MzEtMTEuNzY5NTMxaDQ0OC40NjA5MzhjNi40ODgyODEgMCAxMS43Njk1MzEgNS4yODEyNSAxMS43Njk1MzEgMTEuNzY5NTMxdjY0LjAxOTUzMWgtNDcyem0wIDAiLz48cGF0aCBkPSJtMTc4LjAzOTA2MiAyMzAuNWMwLTE5Ljg1MTU2Mi0xNi4xNDg0MzctMzYtMzYtMzZoLTMzLjY2Nzk2OGMtNS41MjM0MzggMC0xMCA0LjQ3NjU2Mi0xMCAxMHYxMDRjMCA1LjUyMzQzOCA0LjQ3NjU2MiAxMCAxMCAxMGgzMy42Njc5NjhjMTkuODUxNTYzIDAgMzYtMTYuMTQ4NDM4IDM2LTM2IDAtMTAuMjE0ODQ0LTQuMjgxMjUtMTkuNDQxNDA2LTExLjE0MDYyNC0yNiA2Ljg1OTM3NC02LjU1ODU5NCAxMS4xNDA2MjQtMTUuNzg1MTU2IDExLjE0MDYyNC0yNnptLTIwIDUyYzAgOC44MjAzMTItNy4xNzk2ODcgMTYtMTYgMTZoLTIzLjY2Nzk2OHYtMzJoMjMuNjY3OTY4YzguODIwMzEzIDAgMTYgNy4xNzU3ODEgMTYgMTZ6bS0zOS42Njc5NjgtMzZ2LTMyaDIzLjY2Nzk2OGM4LjgyNDIxOSAwIDE2IDcuMTc5Njg4IDE2IDE2cy03LjE3NTc4MSAxNi0xNiAxNnptMCAwIi8+PHBhdGggZD0ibTIwNi42NDg0MzggMTk0LjVjLTUuNTIzNDM4IDAtMTAgNC40NzY1NjItMTAgMTB2ODAuODcxMDk0YzAgMTguMjY5NTMxIDE0Ljg2MzI4MSAzMy4xMjg5MDYgMzMuMTI4OTA2IDMzLjEyODkwNiA1LjUyMzQzNyAwIDEwLTQuNDc2NTYyIDEwLTEwcy00LjQ3NjU2My0xMC0xMC0xMGMtNy4yMzgyODIgMC0xMy4xMjg5MDYtNS44OTA2MjUtMTMuMTI4OTA2LTEzLjEyODkwNnYtODAuODcxMDk0YzAtNS41MjM0MzgtNC40NzY1NjMtMTAtMTAtMTB6bTAgMCIvPjxwYXRoIGQ9Im0zMjQuODY3MTg4IDI4Mi4yODkwNjJjMC0xOS45Njg3NS0xNi4yNDIxODgtMzYuMjE0ODQzLTM2LjIxMDkzOC0zNi4yMTQ4NDNzLTM2LjIxMDkzOCAxNi4yNDYwOTMtMzYuMjEwOTM4IDM2LjIxNDg0MyAxNi4yNDYwOTQgMzYuMjEwOTM4IDM2LjIxMDkzOCAzNi4yMTA5MzhjMTkuOTY4NzUgMCAzNi4yMTA5MzgtMTYuMjQyMTg4IDM2LjIxMDkzOC0zNi4yMTA5Mzh6bS01Mi40MjE4NzYgMGMwLTguOTQxNDA2IDcuMjczNDM4LTE2LjIxNDg0MyAxNi4yMTA5MzgtMTYuMjE0ODQzczE2LjIxMDkzOCA3LjI3MzQzNyAxNi4yMTA5MzggMTYuMjE0ODQzYzAgOC45Mzc1LTcuMjY5NTMyIDE2LjIxMDkzOC0xNi4yMTA5MzggMTYuMjEwOTM4cy0xNi4yMTA5MzgtNy4yNzM0MzgtMTYuMjEwOTM4LTE2LjIxMDkzOHptMCAwIi8+PHBhdGggZD0ibTM3Ny40MTQwNjIgMzQ2LjVjLTguOTM3NSAwLTE2LjIxMDkzNy03LjI3MzQzOC0xNi4yMTA5MzctMTYuMjEwOTM4IDAtNS41MjM0MzctNC40NzY1NjMtMTAtMTAtMTBzLTEwIDQuNDc2NTYzLTEwIDEwYzAgMTkuOTY4NzUgMTYuMjQ2MDk0IDM2LjIxMDkzOCAzNi4yMTA5MzcgMzYuMjEwOTM4IDE5Ljk2ODc1IDAgMzYuMjE0ODQ0LTE2LjI0MjE4OCAzNi4yMTQ4NDQtMzYuMjEwOTM4di00OGMwLTE5Ljk2ODc1LTE2LjI0NjA5NC0zNi4yMTQ4NDMtMzYuMjE0ODQ0LTM2LjIxNDg0My0xOS45NjQ4NDMgMC0zNi4yMTA5MzcgMTYuMjQ2MDkzLTM2LjIxMDkzNyAzNi4yMTQ4NDNzMTYuMjQ2MDk0IDM2LjIxMDkzOCAzNi4yMTA5MzcgMzYuMjEwOTM4YzUuODI4MTI2IDAgMTEuMzMyMDMyLTEuMzkwNjI1IDE2LjIxNDg0NC0zLjg0NzY1NnYxNS42MzY3MThjMCA4LjkzNzUtNy4yNzM0MzcgMTYuMjEwOTM4LTE2LjIxNDg0NCAxNi4yMTA5Mzh6bTAtNDhjLTguOTM3NSAwLTE2LjIxMDkzNy03LjI3MzQzOC0xNi4yMTA5MzctMTYuMjEwOTM4IDAtOC45NDE0MDYgNy4yNzM0MzctMTYuMjE0ODQzIDE2LjIxMDkzNy0xNi4yMTQ4NDMgOC45NDE0MDcgMCAxNi4yMTQ4NDQgNy4yNzM0MzcgMTYuMjE0ODQ0IDE2LjIxNDg0MyAwIDguOTM3NS03LjI3MzQzNyAxNi4yMTA5MzgtMTYuMjE0ODQ0IDE2LjIxMDkzOHptMCAwIi8+PHBhdGggZD0ibTEwOC4zNzEwOTQgNDE2LjVoMjk1LjI1NzgxMmM1LjUyMzQzOCAwIDEwLTQuNDc2NTYyIDEwLTEwcy00LjQ3NjU2Mi0xMC0xMC0xMGgtMjk1LjI1NzgxMmMtNS41MTk1MzIgMC0xMCA0LjQ3NjU2Mi0xMCAxMHM0LjQ4MDQ2OCAxMCAxMCAxMHptMCAwIi8+PC9zdmc+" />
+                                    <a href="{{post.chef.blogLink}}">블로그</a>
+                                    {% endif %}
+                                    {% if post.chef.youtubeLink is not None %}
+                                    <img src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIC02MiA1MTIuMDAxOTkgNTEyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Im0zMzQuODA4NTk0IDE3MC45OTIxODgtMTEzLjExMzI4Mi02MS44OTA2MjZjLTYuNTAzOTA2LTMuNTU4NTkzLTE0LjE5MTQwNi0zLjQyNTc4MS0yMC41NjY0MDYuMzUxNTYzLTYuMzc4OTA2IDMuNzgxMjUtMTAuMTgzNTk0IDEwLjQ2MDkzNy0xMC4xODM1OTQgMTcuODc1djEyMi43MTg3NWMwIDcuMzc4OTA2IDMuNzgxMjUgMTQuMDQ2ODc1IDEwLjExNzE4OCAxNy44MzIwMzEgMy4zMDg1OTQgMS45NzY1NjMgNi45NzY1NjIgMi45Njg3NSAxMC42NTIzNDQgMi45Njg3NSAzLjM2NzE4NyAwIDYuNzQyMTg3LS44MzIwMzEgOS44NDc2NTYtMi41MDM5MDZsMTEzLjExNzE4OC02MC44MjQyMTljNi43MTQ4NDMtMy42MTMyODEgMTAuOTA2MjUtMTAuNTkzNzUgMTAuOTM3NS0xOC4yMjI2NTYuMDI3MzQzLTcuNjI4OTA2LTQuMTEzMjgyLTE0LjY0MDYyNS0xMC44MDg1OTQtMTguMzA0Njg3em0tMTEzLjg1OTM3NSA2My42MTcxODd2LTkxLjcxODc1bDg0LjUzOTA2MiA0Ni4yNTc4MTN6bTAgMCIvPjxwYXRoIGQ9Im01MDguMjM0Mzc1IDkxLjUyNzM0NC0uMDIzNDM3LS4yMzQzNzVjLS40MzM1OTQtNC4xMjEwOTQtNC43NS00MC43NzczNDQtMjIuNTcwMzEzLTU5LjQyMTg3NS0yMC41OTc2NTYtMjEuOTI5Njg4LTQzLjk0OTIxOS0yNC41OTM3NS01NS4xNzk2ODctMjUuODcxMDk0LS45Mjk2ODgtLjEwNTQ2OS0xLjc4MTI1LS4yMDMxMjUtMi41NDI5NjktLjMwNDY4OGwtLjg5NDUzMS0uMDkzNzVjLTY3LjY4NzUtNC45MjE4NzQtMTY5LjkxMDE1Ny01LjU5Mzc0OTUtMTcwLjkzMzU5NC01LjU5NzY1NTc1bC0uMDg5ODQ0LS4wMDM5MDYyNS0uMDg5ODQ0LjAwMzkwNjI1Yy0xLjAyMzQzNy4wMDM5MDYyNS0xMDMuMjQ2MDk0LjY3NTc4MTc1LTE3MS41NDI5NjggNS41OTc2NTU3NWwtLjkwMjM0NC4wOTM3NWMtLjcyNjU2My4wOTc2NTctMS41MjczNDQuMTg3NS0yLjM5ODQzOC4yODkwNjMtMTEuMTAxNTYyIDEuMjgxMjUtMzQuMjAzMTI1IDMuOTQ5MjE5LTU0Ljg1OTM3NSAyNi42NzE4NzUtMTYuOTcyNjU2IDE4LjQ0NTMxMi0yMS44Nzg5MDYgNTQuMzE2NDA2LTIyLjM4MjgxMiA1OC4zNDc2NTZsLS4wNTg1OTQuNTIzNDM4Yy0uMTUyMzQ0IDEuNzE0ODQ0LTMuNzY1NjI1IDQyLjUzOTA2Mi0zLjc2NTYyNSA4My41MjM0Mzd2MzguMzEyNWMwIDQwLjk4NDM3NSAzLjYxMzI4MSA4MS44MDg1OTQgMy43NjU2MjUgODMuNTI3MzQ0bC4wMjczNDQuMjU3ODEzYy40MzM1OTMgNC4wNTQ2ODcgNC43NDYwOTMgNDAuMDM5MDYyIDIyLjQ4NDM3NSA1OC42OTE0MDYgMTkuMzY3MTg3IDIxLjE5NTMxMiA0My44NTU0NjggMjQgNTcuMDI3MzQ0IDI1LjUwNzgxMiAyLjA4MjAzMS4yMzgyODIgMy44NzUuNDQxNDA2IDUuMDk3NjU2LjY1NjI1bDEuMTgzNTk0LjE2NDA2M2MzOS4wODIwMzEgMy43MTg3NSAxNjEuNjE3MTg3IDUuNTUwNzgxIDE2Ni44MTI1IDUuNjI1bC4xNTYyNS4wMDM5MDYuMTU2MjUtLjAwMzkwNmMxLjAyMzQzNy0uMDAzOTA3IDEwMy4yNDIxODctLjY3NTc4MSAxNzAuOTI5Njg3LTUuNTk3NjU3bC44OTQ1MzEtLjA5Mzc1Yy44NTU0NjktLjExMzI4MSAxLjgxNjQwNi0uMjE0ODQzIDIuODcxMDk0LS4zMjQyMTggMTEuMDM5MDYyLTEuMTcxODc1IDM0LjAxNTYyNS0zLjYwNTQ2OSA1NC4zODY3MTktMjYuMDE5NTMyIDE2Ljk3MjY1Ni0xOC40NDkyMTggMjEuODgyODEyLTU0LjMyMDMxMiAyMi4zODI4MTItNTguMzQ3NjU2bC4wNTg1OTQtLjUyMzQzN2MuMTUyMzQ0LTEuNzE4NzUgMy43Njk1MzEtNDIuNTM5MDYzIDMuNzY5NTMxLTgzLjUyMzQzOHYtMzguMzEyNWMtLjAwMzkwNi00MC45ODQzNzUtMy42MTcxODctODEuODA0Njg3LTMuNzY5NTMxLTgzLjUyMzQzN3ptLTI2LjIzODI4MSAxMjEuODM1OTM3YzAgMzcuOTMzNTk0LTMuMzEyNSA3Ny0zLjYyNSA4MC41ODU5MzgtMS4yNzM0MzggOS44Nzg5MDYtNi40NDkyMTkgMzIuNTc0MjE5LTE0LjcxODc1IDQxLjU2MjUtMTIuNzUgMTQuMDI3MzQzLTI1Ljg0NzY1NiAxNS40MTc5NjktMzUuNDEwMTU2IDE2LjQyOTY4Ny0xLjE1NjI1LjEyMTA5NC0yLjIyNjU2My4yMzgyODItMy4xOTUzMTMuMzU5Mzc1LTY1LjQ2ODc1IDQuNzM0Mzc1LTE2My44MzIwMzEgNS40NjA5MzgtMTY4LjM2MzI4MSA1LjQ4ODI4MS01LjA4MjAzMi0uMDc0MjE4LTEyNS44MjQyMTktMS45MjE4NzQtMTYzLjcxNDg0NC01LjQ0MTQwNi0xLjk0MTQwNi0uMzE2NDA2LTQuMDM5MDYyLS41NTg1OTQtNi4yNS0uODA4NTk0LTExLjIxNDg0NC0xLjI4NTE1Ni0yNi41NjY0MDYtMy4wNDI5NjgtMzguMzcxMDk0LTE2LjAyNzM0M2wtLjI3NzM0NC0uMjk2ODc1Yy04LjEyNS04LjQ2NDg0NC0xMy4xNTIzNDMtMjkuNjg3NS0xNC40Mjk2ODctNDEuMTQ4NDM4LS4yMzgyODEtMi43MTA5MzctMy42MzY3MTktNDIuMjM4MjgxLTMuNjM2NzE5LTgwLjcwMzEyNXYtMzguMzEyNWMwLTM3Ljg5MDYyNSAzLjMwNDY4OC03Ni45MTQwNjIgMy42MjUtODAuNTc0MjE5IDEuNTE5NTMyLTExLjYzNjcxOCA2Ljc5Mjk2OS0zMi45NTcwMzEgMTQuNzE4NzUtNDEuNTc0MjE4IDEzLjE0MDYyNS0xNC40NTMxMjUgMjYuOTk2MDk0LTE2LjA1NDY4OCAzNi4xNjAxNTYtMTcuMTEzMjgyLjg3NS0uMTAxNTYyIDEuNjkxNDA3LS4xOTUzMTIgMi40NDUzMTMtLjI5Mjk2OCA2Ni40MjE4NzUtNC43NTc4MTMgMTY1LjQ5MjE4Ny01LjQ2NDg0NCAxNjkuMDQ2ODc1LTUuNDkyMTg4IDMuNTU0Njg4LjAyMzQzOCAxMDIuNTg5ODQ0LjczNDM3NSAxNjguNDIxODc1IDUuNDkyMTg4LjgwODU5NC4xMDE1NjIgMS42OTE0MDYuMjAzMTI1IDIuNjQwNjI1LjMxMjUgOS40MjU3ODEgMS4wNzQyMTggMjMuNjcxODc1IDIuNjk5MjE4IDM2Ljc0NjA5NCAxNi42NDQ1MzFsLjEyMTA5NC4xMjg5MDZjOC4xMjUgOC40NjQ4NDQgMTMuMTUyMzQzIDMwLjA1ODU5NCAxNC40Mjk2ODcgNDEuNzUuMjI2NTYzIDIuNTU4NTk0IDMuNjM2NzE5IDQyLjE3MTg3NSAzLjYzNjcxOSA4MC43MTg3NXptMCAwIi8+PC9zdmc+" />
+                                    <a  href="{{post.chef.youtubeLink}}">유튜브</a>
+                                </span>
+                                {% endif %}
                             </li>
                         </ul>
                     </div>
@@ -80,13 +97,13 @@
             <!-- 코스 정보 -->
             <div class="mainContainer__courseInfo" id="courseInfo">
                 <span>코스 정보</span>
-                {% for course in post.courses %}
-                <div class="mainContainer__courseInfo__course">
-                    <span>{{post.course.title}}</span>
-                    <p>{{post.course.description}}</p>
-                    <div class="mainContainer__courseInfo_course1--images">
-                        {% for image in post.course.images %}
-                        {{image}}
+                {% for course in courses %}
+                <div class="mainBox__courseInfo" id="course{{forloop.counter}}">
+                    <span>{{course.title}}</span>
+                    <p>{{course.description}}</p>
+                    <div class="mainBox__courseInfo_imgs">
+                        {% for img in courseImgs %}
+                            <img src="{{img}}" onerror="this.src=`{% static 'img/default.png' %}`">
                         {% endfor %}
                     </div>
                 </div>
@@ -95,19 +112,45 @@
             <!-- 리뷰 -->
             <div class="mainContainer__review" id="review">
                 <span>리뷰</span>
-                <div class="mainContainer__review_userReview">   <!--  리뷰 기능 상의 -->
-                    {% for review in post.reviews %}
-                    <div class="mainContainer__review_userReview--content">
-                        <ul>
-                            <li><span>{{review.customer.nickname}}</span></li>
-                            <li><span>{{review.pubdate}}</span></li>
-                            <li><p>{{review.description}}</p></li>
-                        </ul>
+                <div class="mainBox__review">   <!--  리뷰 기능 상의 -->
+                    {% for review in reviews %}
+                    <div class="mainBox__review__detail" id="review{{review.id}}">
+                        <img src="{{review.customer.profileImg}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                        <div class="userInfo__text">
+                            <span>{{review.customer.name}}</span>
+                            <span>{{review.pubdate|date:'Y-m-d H:i'}}</span>
+                            <span>{{review.description}}</span>
+                        </div>
                     </div>
                     {% endfor %}
                 </div>
+                {% if is_review_over %}
+                <input type="button" onclick="location.href='/reviewDetail/{{post.id}}'" value="리뷰 더 보기">
+                {% endif %}
             </div>
         </div>
     </main>
+    <aside>
+        <img src="{% static 'img/default.png' %}" >
+        <div class="scheduleSelector">
+            <span>일정</span>
+            <div class="schduleBox">
+                {% for schedule in schedules %}
+                <span>날짜 : {{schedule.eventDate|date:'y년 m월 d일'}} ({{schedule.print_eventDateDay}})</span>
+                <span>시간 :
+                    {% if schedule.eventTime %}
+                    {{schedule.eventTime}}
+                    {% else %}
+                    논의 필요
+                    {% endif %}
+                </span>
+                <span>
+                    장소: {{ schedule.post.regionDetail.detailName}}
+                </span>
+                <input type="button" value="선택">
+                {% endfor %}
+            </div>
+        </div>
+    </aside>
 
 {% endblock %}
