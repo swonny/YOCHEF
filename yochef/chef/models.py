@@ -31,7 +31,6 @@ class Post(models.Model):
 	regionDetail = models.ForeignKey(RegionDetail, null=True, on_delete=models.SET_NULL)
 	title = models.TextField(max_length=255, null=True)
 	introduce = models.TextField(max_length=5000, null=True)
-	spec = models.TextField(max_length=5000, null=True)
 	category = models.IntegerField(null=True)		# 한식, 일식, 중식, 아시안, 양식, 채식
 	notice = models.TextField(max_length=5000, null=True)
 	movingPrice = models.IntegerField(default=0)
@@ -82,8 +81,8 @@ class Schedule(models.Model):
 	post = models.ForeignKey(Post, on_delete=models.CASCADE)
 	eventDate = models.DateField()
 	eventTime = models.CharField(max_length=100, null=True)
-	payment_status = models.IntegerField(default=1)	# 1: 예약가능  2: 예약됨  // 결제완료시 1=>2 // 고객결제취소 및 셰프승인취소시 2=>1
-	confirm_status = models.IntegerField(default=1)	# 1: 승인대기  2: 승인됨  // 셰프승인시 1=>2 // 고객결제취소 및 셰프승인취소시 2=>1
+	payment_status = models.IntegerField(default=1)	# 1: 예약가능  2: 예약됨  3. 취소됨
+	confirm_status = models.IntegerField(default=1)	# 1: 승인대기  2: 승인됨  3. 취소됨
 
 	def __str__(self):
 		return self.post.title + "일정" + str(self.id)

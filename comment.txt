@@ -287,10 +287,13 @@
 - FE 작업 내용을 근거로 .permit_staus => .confirm_status 변경 및 관련 문서 모두 변경
 - chefSchedule_detail.html line 49~52 <form> 템플릿 태그 작성
 - chef/views.py
-	- 오타 및  내용 작성
+	- 오타 수정
 	- scheduleConfirm() 함수 작성
 
 21.07.13 블루
 - 카테고리 상세보기 페이지 완료, 상세페이지 작업중
 - 카테고리 상세 페이지 url, 및 views.py 작업 완료
 - 상세페이지 관련 views.py 작업 예정
+
+21.07.14 제우스
+- editChefProfile_1~3.html에 필요한 view 작성 및 url 연결 완료. 

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form name="editChefProfile_1" action="{% url 'updateChefProfile' chef.id %}" method="POST" >
+    <form name="editChefProfile_1" action="{% url 'updateChefProfile' %}" method="POST" >
     {% csrf_token %}
         <div class="edit-chef-wrapper">
             <!-- section header -->
@@ -29,7 +29,7 @@
                         <div class="profile-edit-wrapper">
                             <h4 class="profile__title">프로필 사진 </h4>
                             <div class="profile__img-container">
-                                <input value="" name="profileImage" type="file"><!--백참고:-->
+                                <input value="{{chefProfileImage.attachment}}" name="profileImage" type="file"><!--백참고:-->
                                 <button type="submit">수정</button>
                             </div>
                         </div>

@@ -168,8 +168,8 @@ def chefScheduleDetail(request, schedule_id):
 # chefSchedule_detail.html UPDATE
 def scheduleConfirm(request, schedule_id):
     schedule = Schedule.objects.get(id=schedule_id)
-    if request.POST.get('scheduleConfirm'):
-        schedule.confirm_status = 2
+    if request.POST['scheduleConfirm']:
+        schedule.confirm_status = 2	# 1: 승인대기  2: 승인됨
         schedule.save()
     return redirect('/chef/chefSchedule/' + str(schedule_id))
 
@@ -177,7 +177,15 @@ def scheduleConfirm(request, schedule_id):
 # chefSchedule_detail.html UPDATE
 ## 일정(예약) 승인 취소
 def scheduleCancel(request, schedule_id):
-    return
+    schedule = Schedule.objects.get(id=schedule_id)
+    book = Book.objects.get(schedule=schedule)
+    if request.POST['scheduleCancel']:
+        schedule.payment_status = 3	# 1: 예약가능  2: 예약됨  3. 취소됨
+        schedule.confirm_status = 3	# 1: 승인대기  2: 승인됨  3. 취소됨
+        book.status = 3 # 1:결제대기 2:결제완료 3:결제취소
+        schedule.save()
+        book.save()
+    return redirect('/chef/chefSchedule/' + str(schedule_id))
 
 
 # editChefProfile_1.html READ
@@ -193,16 +201,16 @@ def editChefProfile(request):
 
 
 # editChefProfile_1.html UPDATE
-def updateChefProfile(request, chef_id):
-    chef = Chef.objects.get(id=chef_id)
+def updateChefProfile(request):
+    chef = request.user.customer.chef
     chefProfileImage = File.objects.get(chef=chef, category=1)
 
-    chefProfileImage.attachment = request.POST.get('profileImage')
-    chef.nickname = request.POST.get('nickname')
-    chef.spec = request.POST.get('spec')
-    chef.snsLink = request.POST.get('snsLink')
-    chef.blogLink = request.POST.get('blogLink')
-    chef.youtubeLink = request.POST.get('youtubeLink')
+    chefProfileImage.attachment = request.POST['profileImage']
+    chef.nickname = request.POST['nickname']
+    chef.spec = request.POST['spec']
+    chef.snsLink = request.POST['snsLink']
+    chef.blogLink = request.POST['blogLink']
+    chef.youtubeLink = request.POST['youtubeLink']
 
     chefProfileImage.save()
     chef.save()
@@ -210,13 +218,72 @@ def updateChefProfile(request, chef_id):
     return redirect('/chef/editChefProfile/')
 
 
-## 예약글 수정 페이지
-# editChefProfile.html READ
+# editChefProfile_2.html READ
 def editPost(request):
-    return
+    chef = request.user.customer.chef
+    post = Post.objects.get(chef=chef)
+    coverImages = File.objects.filter(post=post, category=4)
+    courses = Course.objects.filter(post=post)
+    courseImageList = []
+    for course in courses:
+        courseImages = File.objects.filter(course=course, category=3)
+        courseImageList.append(courseImages)
+    region = post.region
+    regionDetail = post.regionDetail
+
+    context = {}
+    context['chef'] = chef
+    context['post'] = post
+    context['coverImages'] = coverImages
+    context['courses'] = courses
+    context['courseImageList'] = courseImageList
+    context['region'] = region
+    context['regionDetail'] = regionDetail
+
+    return render(request, 'editChefProfile_2.html', context)
 
 
-## 예약글 수정 내용 저장
-# editChefProfile.html UPDATE
+# editChefProfile_2.html UPDATE
 def updatePost(request):
-    return
+    post = request.user.customer.chef.post
+    coverImages = File.objects.filter(post, category=4)
+    courses = Course.objects.filter(post=post)
+
+    post.category = request.POST['category']
+    post.region = request.POST['region']
+    post.regionDetail = request.POST['regionDetail']
+    post.title = request.POST['title']
+    post.intoruce = request.POST['introduce']
+    post.notice = request.POST['notice']
+
+    # 파일 여러 개 입력 받는 방법?
+    # coverImages1.attachment = request.POST['coverImage']
+    # coverImages2.attachment = request.POST['coverImage']
+    # coverImages3.attachment = request.POST['coverImage']
+    
+    # 코스 수정사항 입력 받는 방법?
+    # course1
+    # course2
+    # course3
+
+    post.save()
+    for coverImage in coverImages:
+        coverImage.save()
+    for course in courses:
+        course.save()
+
+    return redirect('/chef/editPost/')
+
+
+# editChefProfile_3.html READ
+def editMovingPrice(request):
+    post = request.user.customer.chef.post
+    return render(request, 'editChefProfile_3.html', {'post':post})
+
+
+# editChefProfile_3.html UPDATE
+def updateMovingPrice(request):
+    post = request.user.customer.chef.post
+    post.movingPrice = request.POST['movingPrice']
+    post.save()
+    return redirect('/chef/editMovingPrice/')
