@@ -18,6 +18,8 @@ def registerChef(request, page_num=1):
             chef = Chef(customer=customer)
             profileImage = File(chef=chef, category=1)
             chef.save()
+            profileImage.save()
+
         if Post.objects.filter(chef=chef).exists():
             post = chef.post
         else:
@@ -175,7 +177,6 @@ def scheduleConfirm(request, schedule_id):
 
 
 # chefSchedule_detail.html UPDATE
-## 일정(예약) 승인 취소
 def scheduleCancel(request, schedule_id):
     schedule = Schedule.objects.get(id=schedule_id)
     book = Book.objects.get(schedule=schedule)

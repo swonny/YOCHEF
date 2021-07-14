@@ -62,6 +62,11 @@ select:focus {
 main {
     margin: 90px 300px; /* 수정 필요 - 기본 마진*/
 }
+@media screen and (min-width: 900) and (max-width: 1440){
+    main{
+        margin: 90px 120px;
+    }
+}
 img { border: 0; }
 
 

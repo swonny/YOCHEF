@@ -30,3 +30,6 @@ class File(models.Model):
 	course = models.ForeignKey('chef.Course', on_delete=models.CASCADE, null=True)
 	specOrder = models.IntegerField(null=True)
 	uploadDate = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return str(self.id)
