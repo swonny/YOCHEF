@@ -15,10 +15,11 @@ class Chef(models.Model):
 	blogLink = models.TextField(max_length = 500, null=True)
 	youtubeLink = models.TextField(max_length = 500, null=True)
 	registerDate = models.DateTimeField(auto_now_add=True)
-	region = models.IntegerField(null=True)
-	regionDetail = models.ForeignKey(RegionDetail, null=True, on_delete=models.SET_NULL)
 	isLicensed = models.BooleanField(default=False)
 	isSubmitted = models.BooleanField(default=False)
+
+	# def __str__(self):
+	# 	return 
 
 	def like_count(self) :
 		return Like.objects.filter(chef=self).count()
@@ -73,7 +74,6 @@ class Schedule(models.Model):
 	post = models.ForeignKey(Post, on_delete=models.CASCADE)
 	eventDate = models.DateField()
 	eventTime = models.CharField(max_length=100, null=True)
-	paymentStatus = models.IntegerField(default=1)	# 1: 예약가능  2: 예약됨  3. 취소됨
 	confirmStatus = models.IntegerField(default=1)	# 1: 승인대기  2: 승인됨  3. 취소됨
 
 	def __str__(self):

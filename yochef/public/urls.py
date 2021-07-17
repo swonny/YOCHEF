@@ -5,6 +5,7 @@ urlpatterns = [
 	path('changePageVer/', changePageVer, name='changePageVer'),
 	path('postList', postList, name="postList"),
 	path('detail/<int:post_id>', detail, name="detail"),
+	path('reviewDetail/<int:post_id>', reviewDetail, name="reviewDetail"),
 	path('getRegion', getRegionAPI, name="getRegion"),
 	path('getRegionDetail', getRegionDetailAPI, name="getRegionDetail"),
 	path('changeFile', changeFile, name="changeFile")

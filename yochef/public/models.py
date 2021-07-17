@@ -28,7 +28,7 @@ class File(models.Model):
 	chef = models.ForeignKey('chef.Chef', on_delete=models.CASCADE, null=True)
 	post = models.ForeignKey('chef.Post', on_delete=models.CASCADE, null=True)
 	course = models.ForeignKey('chef.Course', on_delete=models.CASCADE, null=True)
-	specOrder = models.IntegerField(null=True)
+	order = models.IntegerField(null=True) # 파일 입력 순서
 	uploadDate = models.DateTimeField(auto_now=True)
 
 	def __str__(self):

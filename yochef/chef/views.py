@@ -38,20 +38,20 @@ def registerChef(request, page_num=1):
     elif page_num == 2: # 1page 다음 버튼
         chef = customer.chef
         
-        chef.nickname = request.POST['nickname']
-        chef.spec = request.POST['spec']
-        chef.snsLink = request.POST['snsLink']
-        chef.blogLink = request.POST['blogLink']
-        chef.youtubeLink = request.POST['youtubeLink']
+        chef.nickname = request.POST.get('nickname')
+        chef.spec = request.POST.get('spec')
+        chef.snsLink = request.POST.get('snsLink')
+        chef.blogLink = request.POST.get('blogLink')
+        chef.youtubeLink = request.POST.get('youtubeLink')
         chef.save()
 
         if File.objects.filter(chef=chef).exists():
             profileImage = File.objects.get(chef=chef)
-            profileImage.attachment = request.POST['profileImage']
+            profileImage.attachment = request.POST.get('profileImage')
         else:
-            if request.POST['profileImage']:
+            if request.POST.get('profileImage'):
                 profileImage = File(chef=chef, category=1)
-                profileImage.attachment = request.POST['profileImage']
+                profileImage.attachment = request.POST.get('profileImage')
         profileImage.save()
         
         context = {}
@@ -64,9 +64,9 @@ def registerChef(request, page_num=1):
     elif page_num == 3: # 2page 다음 버튼
         chef = customer.chef
         post = chef.post
-        post.category = request.POST['category']
-        post.region = request.POST['region']
-        post.regionDetail = request.POST['regionDetail']
+        post.category = request.POST.get('category')
+        post.region = request.POST.get('region')
+        post.regionDetail = request.POST.get('regionDetail')
         post.save()
 
         context = {}
@@ -79,32 +79,30 @@ def registerChef(request, page_num=1):
         chef = customer.chef
         post = chef.post
 
-        post.title = request.POST['title']
+        post.title = request.POST.get('title')
         if File.objects.filter(post=post).exists():
             postCoverImage = File.objects.get(post=post)
-            postCoverImage.attachment = request.POST['coverImage']
+            postCoverImage.attachment = request.POST.get('coverImage')
         else:
-            if request.POST['coverImage']:
+            if request.POST.get('coverImage'):
                 postCoverImage = File(post=post, category=4)
-                postCoverImage.attachment = request.POST['coverImage']
-        post.introduce = request.POST['introduce']
+                postCoverImage.attachment = request.POST.get('coverImage')
+        post.introduce = request.POST.get('introduce')
 
         # 코스 추가 : FE와 JS 활용 방식 논의 후 작성
-        #if Course.objects.filter(post=post).exists():   
-        #    course = Course.objects.filter(post=post).first()
-        #else:
-        course = Course(post=post)
-        course.title = request.POST['courseTitle']
-        course.price = request.POST['coursePrice']
-        course.description = request.POST['courseDescribe']
+        # course = Course(post=post)
+        # course.title = request.POST.get('courseTitle')
+        # course.price = request.POST.get('coursePrice')
+        # course.description = request.POST.get('courseDescribe')
+        # course.save()
 
-        post.notice = request.POST['notice']
+        post.notice = request.POST.get('notice')
         post.save()
-        course.save()
 
         context = {}
         context['chef'] = chef
         context['post'] = post
+        # context['course'] = course
         if chef.isSubmitted:
             context['message'] = "수정"
         else:
@@ -115,7 +113,7 @@ def registerChef(request, page_num=1):
     elif page_num == 5: # 4page 제출 버튼
         chef = customer.chef
 
-        chef.movingPrice = request.Post['movingPrice']
+        chef.movingPrice = request.POST.get('movingPrice')
         chef.save()
 
         customer.isChef = True      # 셰프등록 승인 절차 기획 전까지 유지
@@ -208,12 +206,12 @@ def updateChefProfile(request):
     chef = request.user.customer.chef
     chefProfileImage = File.objects.get(chef=chef, category=1)
 
-    chefProfileImage.attachment = request.POST['profileImage']
-    chef.nickname = request.POST['nickname']
-    chef.spec = request.POST['spec']
-    chef.snsLink = request.POST['snsLink']
-    chef.blogLink = request.POST['blogLink']
-    chef.youtubeLink = request.POST['youtubeLink']
+    chefProfileImage.attachment = request.POST.get('profileImage')
+    chef.nickname = request.POST.get('nickname')
+    chef.spec = request.POST.get('spec')
+    chef.snsLink = request.POST.get('snsLink')
+    chef.blogLink = request.POST.get('blogLink')
+    chef.youtubeLink = request.POST.get('youtubeLink')
 
     chefProfileImage.save()
     chef.save()
@@ -252,17 +250,17 @@ def updatePost(request):
     coverImages = File.objects.filter(post, category=4)
     courses = Course.objects.filter(post=post)
 
-    post.category = request.POST['category']
-    post.region = request.POST['region']
-    post.regionDetail = request.POST['regionDetail']
-    post.title = request.POST['title']
-    post.intoruce = request.POST['introduce']
-    post.notice = request.POST['notice']
+    post.category = request.POST('category')
+    post.region = request.POST('region')
+    post.regionDetail = request.POST.get('regionDetail')
+    post.title = request.POST.get('title')
+    post.intoruce = request.POST.get('introduce')
+    post.notice = request.POST.get('notice')
 
     # 파일 여러 개 입력 받는 방법?
-    # coverImages1.attachment = request.POST['coverImage']
-    # coverImages2.attachment = request.POST['coverImage']
-    # coverImages3.attachment = request.POST['coverImage']
+    # coverImages1.attachment = request.POST.get['coverImage']
+    # coverImages2.attachment = request.POST.get['coverImage']
+    # coverImages3.attachment = request.POST.get['coverImage']
     
     # 코스 수정사항 입력 받는 방법?
     # course1
@@ -287,6 +285,6 @@ def editMovingPrice(request):
 # editChefProfile_3.html UPDATE
 def updateMovingPrice(request):
     post = request.user.customer.chef.post
-    post.movingPrice = request.POST['movingPrice']
+    post.movingPrice = request.POST.get['movingPrice']
     post.save()
     return redirect('/chef/editmovingprice/')

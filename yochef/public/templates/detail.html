@@ -13,19 +13,21 @@
                     <!-- <a href="{% url 'apply' %}">결제하기</a> -->
                 </div>
                 <div class="mainContainer__profile__chef">
-                    <img src="{{profile_imgUrl}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                    <img src="{{profile_imgurl}}" onerror="this.src=`{% static 'img/default.png' %}`">
                     <span>{{post.chef.nickname}} 님</span>
                 </div>
                 <!-- 해당 포스트 이미지 -->
                 <div class="mainContainer__profile__dishImages">
-                    <img src="{{post_coverImg}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                    <img src="{{post_cover_imgurl}}" onerror="this.src=`{% static 'img/default.png' %}`">
                     <div class="ectImg">
-                        <img src="{{img}}" onerror="this.src=`{% static 'img/default.png' %}`">
-                        <img src="{{img}}" onerror="this.src=`{% static 'img/default.png' %}`">
-                        {% for img in courseImgs %}
-                            <img src="{{img}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                        {% for img in post_imgs_uptotwo %}
+                            <img src="{{img.attachment.url}}" onerror="this.src=`{% static 'img/default.png' %}`">
                         {% endfor %}
-                        <img src="{% static 'img/more.png' %}">
+                        {% if more_img == 1 %}
+                            <img src="{% static 'img/more.png' %}">
+                        {% else %}
+                            <img src="{{more_img.attachment.url}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -40,7 +42,7 @@
                 <span>셰프 소개</span>
                 <div class="mainBox__chefInfo">
                     <div class="mainBox__chefInfo__chefImage">
-                        <img src="{{profile_imgUrl}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                        <img src="{{profile_imgurl}}" onerror="this.src=`{% static 'img/default.png' %}`">
                     </div>
                     <div class="mainBox__chefInfo__chefDetail">
                         <ul>
@@ -52,7 +54,7 @@
                             <li>
                                 <span>셰프소개</span>
                                 <span>|</span>
-                                <span>{{post.chef.introduce}}</span><!-- 백엔드 작업 후 수정 필요-->
+                                <span>{{post.introduce}}</span>
                             </li>
                             <li>
                                 <span>활동지역</span>
@@ -102,7 +104,7 @@
                     <span>{{course.title}}</span>
                     <p>{{course.description}}</p>
                     <div class="mainBox__courseInfo_imgs">
-                        {% for img in courseImgs %}
+                        {% for img in course.course_imgs %}
                             <img src="{{img}}" onerror="this.src=`{% static 'img/default.png' %}`">
                         {% endfor %}
                     </div>
@@ -130,27 +132,151 @@
             </div>
         </div>
     </main>
+    <!-- 일정 선택기 -->
     <aside>
-        <img src="{% static 'img/default.png' %}" >
+        <img src="{% static 'img/logo.png' %}" >
         <div class="scheduleSelector">
             <span>일정</span>
-            <div class="schduleBox">
-                {% for schedule in schedules %}
-                <span>날짜 : {{schedule.eventDate|date:'y년 m월 d일'}} ({{schedule.print_eventDateDay}})</span>
-                <span>시간 :
-                    {% if schedule.eventTime %}
-                    {{schedule.eventTime}}
-                    {% else %}
-                    논의 필요
-                    {% endif %}
-                </span>
-                <span>
-                    장소: {{ schedule.post.regionDetail.detailName}}
-                </span>
-                <input type="button" value="선택">
-                {% endfor %}
+            {% for schedule in schedules %}
+            <div class="scheduleBox" id="schedule{{schedule.id}}" value="{{schedule.id}}">
+                <div class="scheduleBox__textInfo">
+                    <span>날짜 : {{schedule.eventDate|date:'y년 m월 d일'}} ({{schedule.print_eventDateDay}})</span>
+                    <span>시간 :
+                        {% if schedule.eventTime %}
+                        {{schedule.eventTime}}
+                        {% else %}
+                        논의 필요
+                        {% endif %}
+                    </span>
+                    <span>
+                        장소: {{ schedule.post.regionDetail.detailName}}
+                    </span>
+                </div>
+                <input type="button" id="{{schedule.id}}" status='0' value="선택" class="scheduleBtn">
             </div>
+            {% endfor %}
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="text" name="schedule" hidden>
+                <div>
+                    <span>수량 선택</span>
+                    <div>
+                        <select name="course" id="course">
+                            {% for course in courses %}
+                                <option value="{{course.id}}" price="{{course.price}}">{{course.title}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <span>인원수</span>
+                    <div>
+                        <div>
+                            <input type="button" value="-" onclick="numChange(0);">
+                            <input type="number" name="peopleNum" min=0 value="1">
+                            <input type="button" value="+" onclick="numChange(1);">
+                        </div>
+                        <span class="course__price">0 원</span>
+                    </div>
+                </div>
+                <div>
+                    <span>출장비</span>
+                    <div>
+                        <span>{{post.movingPrice}} 원</span>
+                    </div>
+                </div>
+                <div>
+                    <span>합계</span>
+                    <div>
+                        <span class="course__totalPrice">0 원</span>
+                    </div>
+                </div>
+            </form>
         </div>
     </aside>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+        priceChange();
+        document.querySelector('aside > img').value = "0";
+    })
+
+    let peopleNum = document.getElementsByName('peopleNum')[0];
+
+    // 일정 선택기 버튼 함수
+    document.querySelector('aside > img').addEventListener('click', (e)=>{
+        if (e.target.value == "0"){
+            document.querySelector('aside > div').setAttribute('style', 'display: block;');
+            e.target.setAttribute('src', "{% static 'img/close.png' %}");
+            e.target.setAttribute('style', 'background-color: var(--main-color); width: 30px; top: -20px;');
+            e.target.value = "1";
+        }else {
+            document.querySelector('aside > div').setAttribute('style', 'display: none;');
+            e.target.setAttribute('src', "{% static 'img/logo.png' %}");
+            e.target.setAttribute('style', '');
+            e.target.value = "0";
+        }
+    })
+
+    peopleNum.addEventListener('keyup', priceChange);
+
+    document.getElementsByName('course')[0].addEventListener('change', priceChange);
+
+
+    Array.from(document.getElementsByClassName('scheduleBtn')).forEach(function(element) {
+        element.addEventListener('click', scheduleSelected);
+    });
+
+    function scheduleSelected(e){
+        let status = e.target.getAttribute('status');
+        let scheduleId = e.target.getAttribute('id');
+        if (status == 0){
+            let scheduleBtns = document.getElementsByClassName('scheduleBtn');
+            for (element of scheduleBtns){
+                if (element.getAttribute('status') == 1){
+                    element.setAttribute('style', '');
+                    element.value = '선택';
+                    element.setAttribute('status', '0');
+                    break;
+                }
+            };
+            document.getElementsByName('schedule')[0].value = scheduleId;
+            e.target.setAttribute('style', "color: var(--main-color); background-color:white;")
+            e.target.value = '선택 해제';
+            e.target.setAttribute('status', '1');
+        }else{
+            document.getElementsByName('schedule')[0].value = '';
+            e.target.setAttribute('style', '');
+            e.target.value = '선택';
+            e.target.setAttribute('status', '0');
+        }
+    }
+
+    function priceChange(){
+        let selectedCourseId = document.getElementsByName('course')[0].value;
+        let price = document.querySelector(`option[value="${selectedCourseId}"]`).getAttribute('price');
+        let totalPriceElement = document.getElementsByClassName('course__totalPrice')[0]
+        let totalPrice = parseInt(price) * parseInt(peopleNum.value);
+        try{
+            document.getElementsByClassName('course__price')[0].innerText = String(totalPrice) + ' 원';
+        }catch(e){
+            document.getElementsByClassName('course__price')[0].innerText = '0 원'
+        }
+        totalPriceElement.innerText = String(totalPrice + parseInt('{{post.movingPrice}}')) + ' 원';
+
+    }
+
+    function numChange(type){
+        if (type == 0){
+            if (peopleNum.value > 0) peopleNum.value = parseInt(peopleNum.value) - 1;
+        }else {
+            peopleNum.value = parseInt(peopleNum.value) + 1;
+        }
+        priceChange();
+    }
+
+</script>
 {% endblock %}

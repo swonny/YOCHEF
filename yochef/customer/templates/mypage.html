@@ -51,11 +51,6 @@
                         <div><span>전화번호</span></div>
                         <input class="inputbox__userEmail" name="phoneNum" type="text" placeholder="전화번호" value="{{ user.customer.phoneNum }}">
                     </li>
-                    <li>
-                        <div><span>거주지</span></div>
-                        <select name="residence"></select>
-                        <select class="hide" name="residenceDetail"></select>
-                    </li>           
                     <li><input class="inputTitle__submit last__button" type="submit" value="변경"></li>
                 </ul>
             </form>
@@ -84,15 +79,6 @@
 {% endblock %}
 {% block scripts %}
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", () => {
-            getRegion();
-            getRegionDetail(1);
-        });
-
-        document.getElementsByName('residence')[0].addEventListener('change', (event)=>{
-            getRegionDetail(document.getElementsByName('residence')[0].value);
-        });
-
         if ('{{ user.customer.currentVer }}' == 1) {
             document.getElementsByClassName('profileImgBox')[0].addEventListener('click', ()=>{
                 document.querySelector('input[name="profileImg"]').click();

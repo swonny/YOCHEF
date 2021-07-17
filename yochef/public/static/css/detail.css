@@ -87,6 +87,11 @@
     text-align: center;
 }
 
+.mainContainer__review.reviewDetail > span{
+    border : none;
+    font-family: 'Arita-dotum-Bold';
+}
+
 .mainBox__chefInfo {
     display: flex;
     margin: 30px;
@@ -181,13 +186,15 @@
 .mainBox__review {
     margin: 30px 0 0 80px;
 }
+.mainBox__review.reviewDetail {
+    margin: 30px 0 0 20px;
+}
 
 .mainBox__review__detail {
     margin: 10px 0;
     border-bottom: 1px solid #e6e6e6;
     display: flex;
 }
-
 .mainBox__review__detail > img {
     border-radius: 35px;
     width: 35px;
@@ -233,26 +240,34 @@ aside{
 
 aside > img {
     display: none;
+    float: right;
+    position: relative;
+    top: -30px;
+    right: -20px;
     width: 50px;
+    max-height: 50px;
+    object-fit: scale-down;
     border-radius: 50px;
+    background-color: white;
+    border: 2px solid var(--main-color)
 }
+
+aside > div {
+    border: 1px solid #e6e6e6;
+    background-color: white;
+    padding: 10px;
+}
+
 @media screen and (max-width: 1200px){
     aside > div {
         display: none;
     }
     aside > img {
         display: block;
-        width: 50px;
-    }
-    aside{
-        width: 50px;
     }
 }
 
 @media screen and (max-width: 900px){
-    aside{
-
-    }
     .mainContainer__profile__dishImages > img{
         margin-left: auto;
         width: 400px;
@@ -267,9 +282,6 @@ aside > img {
 }
 
 @media screen and (max-width: 700px){
-    aside{
-
-    }
     .mainContainer__profile__dishImages > img{
         margin-left: auto;
         width: 400px;
@@ -278,4 +290,101 @@ aside > img {
     .ectImg > img{
         display: none;
     }
+}
+
+aside > div > span {
+    font-size: 18px;
+    font-family: 'Arita-dotum-Bold';
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.scheduleBox {
+    border: 1px solid #e6e6e6;
+    padding: 7px;
+    font-size: 13px;
+    display: flex;
+    width: calc(100% - 14px);
+    margin-bottom: 10px;
+}
+
+.scheduleBox__textInfo {
+    width: 65%;
+    margin-right: auto;
+}
+
+.scheduleBox__textInfo > span {
+    display: inline-block;
+    width: 100%;
+    margin: 5px;
+}
+
+.scheduleBox > input {
+    width: 30%;
+    height: 25px;
+    color: white;
+    border-radius: 5px;
+    margin: auto 0 auto auto;
+    background-color: var(--main-color);
+    border: 1px solid var(--main-color)
+}
+
+aside > div > form {
+    margin: 30px 0 10px 0;
+    border: 1px solid #e6e6e6;
+    font-size: 14px;
+}
+
+aside > div > form > :nth-child(4) {
+    border-bottom: none;
+}
+
+aside > div > form > div {
+    display: flex;
+    width: calc(100% - 10px);
+    padding: 3px 5px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+aside > div > form > div > :nth-child(1){
+    width: 25%;
+    margin-right: auto;
+    line-height: 17px;
+}
+
+
+aside > div > form > div > :nth-child(2){
+    width: 70%;
+    margin-left: auto;
+    float: right;
+}
+
+select[name="course"] {
+    width: 100%;
+    border: 1px solid #e6e6e6;
+}
+
+input[name="peopleNum"]{
+    width: 40%;
+    text-align: center;
+    appearance: textfield;
+    border-top: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+}
+
+form > div > div > div > input[type="button"] {
+    width: 25%;
+    border: 1px solid #e6e6e6;
+    background-color: #C4C4C4;
+    margin-bottom: 10px;
+}
+
+
+aside > div > form > div > div >span {
+    float: right;
 }

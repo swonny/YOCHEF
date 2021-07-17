@@ -18,6 +18,7 @@
   <!-- 네브바 -->
   <nav class="nav-container">
     <div class="nav__item nav--left"><a href="{% url 'main' %}">YOCHEF</a></div>
+    <img src="" alt="">
     <!-- 로그인 상태라면 -->
     {% if user.is_authenticated %}
       <!-- 셰프등록 돼있다면 -->
@@ -38,11 +39,13 @@
           <li class="nav__item"><a href="{% url 'logout' %}">로그아웃</a></li>
         </ul>
         {% endif %}
-        <li class="nav__item nav--right"><a href="{% url 'mypage' %}">{{user.customer.name}} 셰프님</a></li>
-        <a class="nav__item nav--right" id="currentVer" href="{% url 'changePageVer' %}">버전</a>
+        <div class="nav__item-wrapper nav--right">
+          <li class="nav__item"><a href="{% url 'mypage' %}">{{user.customer.name}} 셰프님</a></li>
+          <a class="nav__item" id="currentVer" href="{% url 'changePageVer' %}">버전</a>
+        </div>
       <!-- 셰프등록 안돼있다면 -->
       {% else %}
-      <ul class="nav__item-container nav--middle">
+      <ul class="nav__item-container customer">
         <li class="nav__item"><a href="{% url 'main' %}">메인페이지</a></li>    
         <li class="nav__item"><a href="">마이메뉴</a></li>
         <li class="nav__item"><a href="">쿠폰함</a></li>
@@ -53,12 +56,13 @@
       {% endif %}
     <!-- 로그아웃 상태라면 -->
     {% else %}
-    <ul class="nav__item-container nav--middle">
+    <ul class="nav__item-container log-out">
       <li class="nav__item"><a href="{% url 'main' %}">메인페이지</a></li>    
-      <li class="nav__item"><a href="{% url 'login' %}">로그인</a></li>
       <li class="nav__item"><a href="">아이디/비밀번호 찾기</a></li>
       <li class="nav__item"><a  href="{% url 'signup' %}">회원가입</a></li>
+      <li class="nav__item"><a href="{% url 'login' %}">로그인</a></li>
     </ul>
+    <div class="nav__item nav--right"></div>
     {% endif %}
   </nav>   
   <div class="contents">

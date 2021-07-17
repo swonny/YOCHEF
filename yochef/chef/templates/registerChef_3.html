@@ -94,7 +94,7 @@
 
                                     <div class="courseInfo__price">
                                         <h4 class="courseInfo__price__title">가격</h4>
-                                        <input name="coursePrice" type="text" class="courseInfo__price" placeholder="인당 가격" value="원">
+                                        <input name="coursePrice" type="text" class="courseInfo__price" placeholder="인당 가격" value="">
                                     </div>
 
                                     <div class="courseInfo__menuDscr">
@@ -164,4 +164,20 @@
         </div>
     </form>
 
+{% endblock %}
+{% block scripts %}
+<script>
+    다음.addEventListener('click', ()=>{
+        let formData = new FormData();
+        let chefIntroduce = document.getElementsByName('introduce')[0].value;
+        let courses = Array();
+        if (chefIntroduce == '') {
+            alert("셰프소개란이 비어있어요")
+            return;
+        }
+        formData.append('chef_introduce', chefIntroduce);
+        formData.append('courses', courses);
+        sendAjax('POST', '/registerChef_4', ()=>{}, formData)
+    })
+</script>
 {% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!-- 마이메뉴 네브바 -->
+    <nav class="my-menu__nav">
+        <h3>마이 메뉴</h3>
+        <ul class="my-menu__nav-wrapper">
+            <li><a href="">내 예약 확인</a></li>
+            <li><a href="">찜한 셰프 보기</a></li>
+        </ul>
+    </nav>
+    <!-- // 마이메뉴 네브바 -->
+
+    <!-- 전체메뉴 버튼 -->
+    <aside class="category-all-button"><button>새로운 셰프 보러가기</button></aside>
+    <!-- // 전체메뉴 버튼 -->
+
+    {% if book == None %}
+    <div>등록된 예약이 없습니다.</div>
+    <h3>마음에 드는 세프를 예약해주세요!</h3>
+    <div><a href="/postList" class="{% if category == 0 %} currentCategory{% endif %}">셰프 구경하러 가기</a></div>
+    {% endif %}
+    <!-- 예약한 메뉴 정보 -->
+    <form action="" method="">
+        <article class="my-menu__content">
+            {% for book in books %}
+                <div class="content__header">
+                    <h4>예약 완료</h4>
+                    <div>예약 날짜: {{book.registerDate}}</div>
+                </div>
+                <div class="content__menu-info">
+                    <div class="content__image-wrapper">
+                        <img src="" alt=""><!-- 수정 필요 -->
+                        <div>디데이</div><!-- js 수정 필요 -->
+                        <div>예약 완료</div>
+                    </div>
+                    <div class="content__description">
+                        <h4>{{book.schedule.post.title}}</h4>
+                        <h4>{{book.course.title}}</h4>
+                        <p>{{book.course.description}}</p>
+                    </div>
+                </div>
+                {% if book.status == 1 %}<!-- 백수정 이후 수정 필요 -->
+                    <button>예약 취소</button>
+                    {% else %}
+                    <button disabled>예약 취소</button>
+                {% endif %}
+                <button>상세 페이지</button>
+            {% endfor %}
+        </article>
+    </form>
+    <!-- // 예약한 메뉴 정보 -->
+{% endblock %}

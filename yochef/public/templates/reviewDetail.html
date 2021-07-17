@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+{% endblock %}
+{% block content %}
+    <main>
+        <div class="mainContainer__review reviewDetail">
+            <span>리뷰</span>
+            <div class="mainBox__review reviewDetail">   <!--  리뷰 기능 상의 -->
+                {% for review in reviews %}
+                <div class="mainBox__review__detail" id="review{{review.id}}">
+                    <img src="{{review.customer.profileImg}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                    <div class="userInfo__text">
+                        <span>{{review.customer.name}}</span>
+                        <span>{{review.pubdate|date:'Y-m-d H:i'}}</span>
+                        <span>{{review.description}}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+    <!-- 수정 필요 - 페이지네이션 추후 구현 -->
+{% endblock %}

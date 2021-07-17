@@ -2,7 +2,7 @@ from django.db.models import Q
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 from chef.models import *
-from customer.models import Review
+from customer.models import Review, Book
 from .models import *
 from datetime import date, timedelta
 from django.utils.dateparse import parse_date
@@ -32,8 +32,38 @@ def detail(request, post_id):
     is_review_over = False
     if len(reviews) > 4 : is_review_over = True
     reviews = reviews[:4]
-    schedules = Schedule.objects.filter(paymentStatus = 1).order_by('eventDate', 'id')
-    return render(request, 'detail.html', {'post': post, 'courses':courses, 'reviews': reviews, 'is_review_over': is_review_over, 'schedules':schedules})
+    # 회원 이미지 논의 필요 - 수정 필요
+    schedules = Schedule.objects.all().order_by('eventDate', 'id')
+    try:
+        post_cover_imgurl = File.objects.get(post=post, category=4).attachment.url
+    except:
+        post_cover_imgurl = None
+    post_imgs = File.objects.filter(post=post, category=3).order_by('order')
+    if post_imgs.count() < 3 :
+        more_img = 1
+    else :
+        more_img = post_imgs[2]
+    try:
+        profile_imgurl = File.objects.get(chef=request.user.customer.chef, category=1).attachment.url
+    except:
+        profile_imgurl = None
+
+    for idx in range(len(courses)):
+        courses[idx].course_imgs = File.objects.filter(course=courses[idx], category=3)
+
+    # book - paymentStatus 관련 필터 추가
+    available_schedules = []
+    for schedule in schedules :
+        if not Book.objects.filter(schedule = schedule, paymentStatus = 2).exists() : 
+            available_schedules.append(schedule)
+    
+    return render(request, 'detail.html', {'post': post, 'courses':courses, 'reviews': reviews, 'is_review_over': is_review_over, 'schedules':available_schedules
+    , 'post_cover_imgurl': post_cover_imgurl, 'post_imgs_uptotwo': post_imgs[:2], 'more_img': more_img, 'post_imgs': post_imgs,
+    'profile_imgurl':profile_imgurl})
+
+def reviewDetail(request, post_id):
+    reviews = Review.objects.filter(post_id=post_id)
+    return render(request, 'reviewDetail.html', {'reviews': reviews})
 
 # 지역을 반환해주는 함수
 def getRegionAPI(request):
@@ -75,7 +105,8 @@ def postList(request, category=0, order=0):
     else: start_date = parse_date(start_date)
     if end_date == "" : end_date = date.today()+timedelta(days=7)
     else: end_date = parse_date(end_date)
-    posts = Post.objects.filter(isOpen=True, schedule__eventDate__range=[start_date, end_date], schedule__paymentStatus = 1, region=region)
+    posts = Post.objects.filter(isOpen=True, schedule__eventDate__range=[start_date, end_date], region=region)
+    schedules = Schedule.objects.filter(post__in = posts)
     posts = posts.filter(Q(title__icontains = keyword) or Q(chef__nickname__icontains = keyword))
     if category:
         posts = posts.filter(category = category)
@@ -85,23 +116,34 @@ def postList(request, category=0, order=0):
     # 순서 적용 잘되는지 확인 필요
     if order == 1:
         posts = posts.order_by('-registerDate')
-    elif order == 2 or order == 3:
+
+    # paymentStatus 관련 필터
+    available_posts = []
+    for schedule in schedules :
+        if Book.objects.filter(schedule = schedule, paymentStatus = 2).exists() :
+            continue
+        else: 
+            if schedule.post not in available_posts :
+                available_posts.append(schedule.post)
+    
+    if order == 2 or order == 3:
         if order == 2 : order_by = '-price'
         else : order_by = 'price'
-        for post in posts :
+        for post in available_posts :
             post.order_price = Course.objects.filter(post = post).order_by(order_by).first().price
         if order == 2:
-            posts = sorted(posts, key=(lambda x: x.order_price), reverse=True)
+            posts = sorted(available_posts, key=(lambda x: x.order_price), reverse=True)
         else :
-            posts = sorted(posts, key=(lambda x: x.order_price))
-    else :
-        for post in posts :
+            posts = sorted(available_posts, key=(lambda x: x.order_price))
+    elif order == 4 :
+        for post in available_posts :
             post.review_cnt = len(Review.objects.filter(post_id = post.id))
-        posts = sorted(posts, key=(lambda x: x.review_cnt), reverse=True)
-    for post in posts :
+        posts = sorted(available_posts, key=(lambda x: x.review_cnt), reverse=True)
+    
+    for post in available_posts :
         if File.objects.filter(post_id = post.id, category = 3).exists():
             post.cover_img = File.objects.get(post_id = post.id, category = 3).attachment.url
 
     start_date = start_date.strftime("%Y-%m-%d")
     end_date = end_date.strftime("%Y-%m-%d")
-    return render(request, 'postList.html', {'posts': posts, 'category': category, 'order': order, 'start_date': start_date, 'end_date': end_date, 'keyword':keyword})
+    return render(request, 'postList.html', {'posts': available_posts, 'category': category, 'order': order, 'start_date': start_date, 'end_date': end_date, 'keyword':keyword})

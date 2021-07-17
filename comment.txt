@@ -315,3 +315,40 @@
 	- 관련 css 추가 작성
 - yochef/static/css/base.css 
 	- 반응형 관련 main margin 설정
+
+21.07.15 제우스
+- chef/views.py
+	- 1. registerChef에서는 다음 버튼을 누를 때 임시저장처럼 사용자측에서 입력한 데이터를 DB에 저장함
+	- 2. request.POST 방식은 입력값이 없을 때 TypeError raise
+	- 3. 등록하고자 하는 셰프의 편의를 위해 입력값이 없더라도 저장되어야 함
+	- 4. 그래서 모든 request.POST => request.POST.get('data') 방식으로 변경
+
+
+21.07.17 블루
+- mypage.html, mypage.css
+	- 거주지 관련 부분 제거
+- detail(), postList()함수 book모델 paymentStatus 관련 필터 추가
+- detail() file관련 기능 추가 구현 완료
+	- detail페이지 나머지 기능은 file관련 기능들이 구현되고 난 후 구현할 예정
+	- 신청 관련 form 구현 완료. 요청 시트에 작성해둠
+- reviewDetail페이지 구현 
+
+
+
+21.07.18 워니
+- base.css
+	- 네브바 로그아웃버전 수정
+- editChefProfile_3 구현
+	- 메뉴 option태그 수정 필요
+	- 가격 불러오기 수정 필요
+	-백 참고
+		- course.title과 course.price를 불러올 수 있는 context를 추가해주세요!
+- myMenu_reservation.html (일반회원용 예약관리 페이지) 추가
+	- 예약취소버튼 정보 백에게 전달하는 부분 수정 필요
+	- 42번째 줄 백에서 course status 수정 이후 반영하여 수정 필요
+	-백 참고
+		- customer > views.py && urls.py 부분 html 확인 위해 작성했습니다. (주석 참고)
+- myMenu_likedMenu.html (일반회원용 좋아요 관리 페이지) 추가
+	-백 참고
+		- customer > views.py && urls.py 부분 html 확인 위해 작성했습니다. (주석 참고)
+

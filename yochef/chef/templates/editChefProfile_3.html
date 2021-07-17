@@ -1,0 +1,76 @@
+{% extends 'base_editChef.html' %}
+{% block content %}
+    <form action="">
+        <section class="moving-price">
+            <!-- 출장비 입력 -->
+            <article class="moving-price__input-wrapper">
+                <div class="price-input-wrapper">
+                    <h4>출장비</h4>
+                    <div>
+                        <input name="movingPrice" type="int" placeholder="(입력)">
+                        <span class="unit">원</span>
+                    </div>
+                </div>
+                <span class="plus">+</span>
+                <div class="price-input-select">
+                    <h4>코스별 금액</h4>
+                    <select name="" id="">
+                        {% for course in courses %}<!-- 수정 필요 -->
+                        <option value="{{course.price}}">{{course.title}}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="unit">{{course.price}}원</div><!-- 수정 필요 -->
+                </div>
+
+                <div class="plus">=</div>
+                
+                <div class="total-price">
+                    <h4>최종 금액</h4>
+                    <input type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
+                    <span class="unit">원</span>
+                </div>
+            </article>
+            <!-- // 출장비 입력 -->
+
+
+            <article class="priceArea__finalPrice">
+                <h3 class="">최종 정산금 안내</h3>
+                <p>예약 일정 1회에 셰프님에게 마지막으로 정산될 금액입니다.</p>
+            </article>
+
+            <!-- 최종 정산금 안내 -->
+            <article class="priceInfo__final">
+                <div class="priceArea">
+                    <div>
+                        <h4 class="priceArea__title">최종 금액</h4>
+                        <input class="priceArea__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
+                        <span class="unit">원</span>
+                    </div>
+                    <div>
+                        <h4 class="priceArea__title">VAT 10%</h4>
+                        <input class="priceArea__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
+                        <span class="unit">원</span>
+                    </div>
+                    <div>
+                        <h4 class="priceArea__title">서비스 수수료</h4>
+                        <input class="priceArea__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
+                        <span class="unit">원</span>
+                    </div>
+                </div>
+                <div class="priceTotal">
+                    <h4 class="priceTotal__title">최종 정산금</h4>
+                        <input class="priceTotal__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
+                        <span class="unit">원</span>
+                </div>
+            </article>
+            <!-- // 최종 정산금 안내 -->
+            </section>
+            <!-- 저장 버튼 -->
+            <aside class="button">
+                <button type="submit">저장</button>
+            </aside>
+            <!-- // 저장 버튼 -->
+        </section>
+    </form>
+    
+{% endblock %}

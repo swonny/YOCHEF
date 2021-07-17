@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import *
+from chef.models import *
 
 # Create your views here.
 def signup(request):
@@ -76,6 +77,14 @@ def createAccount(request):
     return render(request, "customer_signup.html")
 
 def apply(request):
+    customer = request.user.customer
+    chef = request.user.customer.chef
+    post = Post.objects.get(chef=chef)
+    schedules = Schedule.objects.filter(post=post)
+    for schedule in schedules:
+        book = Book.objects.get(schedule=schedule)
+        
+        book.course
     return render(request, 'pay_apply.html')
 
 def payment(request):
@@ -85,3 +94,8 @@ def payment(request):
 def mypage(request):
     return render(request, 'mypage.html')
 
+def mymenuLikedmenu(request): #백참고 : html 확인을 위해 작성했습니다.
+    return render(request, 'myMenu_likedMenu.html')
+
+def mymenuReservation(request): #백참고 : html 확인을 위해 작성했습니다.
+    return render(request, 'myMenu_reservation.html')

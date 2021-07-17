@@ -3,8 +3,8 @@ from .models import *
 
 @admin.register(Chef)
 class ChefAdmin(admin.ModelAdmin):
-    list_display = ['id', 'customer', 'nickname', 'region']
-    list_display_links = ['customer', 'nickname', 'region']
+    list_display = ['id', 'customer', 'nickname']
+    list_display_links = ['customer', 'nickname']
     list_per_page = 20
 
 @admin.register(Post)
