@@ -173,7 +173,7 @@
                     <div>
                         <div>
                             <input type="button" value="-" onclick="numChange(0);">
-                            <input type="number" name="peopleNum" min=0 value="1">
+                            <input type="number" name="peopleNum" min=1 value="1">
                             <input type="button" value="+" onclick="numChange(1);">
                         </div>
                         <span class="course__price">0 원</span>
@@ -271,7 +271,7 @@
 
     function numChange(type){
         if (type == 0){
-            if (peopleNum.value > 0) peopleNum.value = parseInt(peopleNum.value) - 1;
+            if (peopleNum.value > 1) peopleNum.value = parseInt(peopleNum.value) - 1;
         }else {
             peopleNum.value = parseInt(peopleNum.value) + 1;
         }
