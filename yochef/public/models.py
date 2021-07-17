@@ -20,7 +20,7 @@ class RegionDetail(models.Model):
 
 	def __str__(self):
 		# 지역 번호별 항목 확정 시 수정
-		return str(self.region) + ' - ' + self.detailName
+		return str(self.region) + ' - ' + self.detailName 
 
 class File(models.Model):
 	attachment = models.FileField(upload_to='media')

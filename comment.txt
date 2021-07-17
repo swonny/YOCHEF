@@ -352,3 +352,6 @@
 	-백 참고
 		- customer > views.py && urls.py 부분 html 확인 위해 작성했습니다. (주석 참고)
 
+21.07.18 블루
+- git no anonymous write access 에러 해결 
+	- 이것저것 해보다가 vs코드를 껐다 키니 해결됨.
