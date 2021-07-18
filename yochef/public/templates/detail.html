@@ -155,7 +155,7 @@
                 <input type="button" id="{{schedule.id}}" status='0' value="선택" class="scheduleBtn">
             </div>
             {% endfor %}
-            <form method="POST" action="">
+            <form method="POST" action="{% url 'apply' %}">
                 {% csrf_token %}
                 <input type="text" name="schedule" hidden>
                 <div>
@@ -191,6 +191,11 @@
                         <span class="course__totalPrice">0 원</span>
                     </div>
                 </div>
+                <div>
+                    <input type="button" class="{% if is_like %}fillLike{% else %}emptyLike {% endif %}" name="likeBtn">
+                    <input type="button" value="예약하기" name="fakeSubmit">
+                    <input type="submit" value="예약하기" hidden>
+                </div>
             </form>
         </div>
     </aside>
@@ -202,6 +207,15 @@
     document.addEventListener('DOMContentLoaded', ()=>{
         priceChange();
         document.querySelector('aside > img').value = "0";
+    })
+
+    document.querySelector('input[name="fakeSubmit"]').addEventListener('click', ()=>{
+        if (document.getElementsByName('schedule')[0].value == ''){
+            alert('일정을 선택해주세요');
+            return;
+        }else{
+            document.querySelector('input[type="submit"]').click()
+        }
     })
 
     let peopleNum = document.getElementsByName('peopleNum')[0];
@@ -225,6 +239,7 @@
 
     document.getElementsByName('course')[0].addEventListener('change', priceChange);
 
+    document.getElementsByName('likeBtn')[0].addEventListener('click', postLike);
 
     Array.from(document.getElementsByClassName('scheduleBtn')).forEach(function(element) {
         element.addEventListener('click', scheduleSelected);
@@ -252,6 +267,20 @@
             e.target.setAttribute('style', '');
             e.target.value = '선택';
             e.target.setAttribute('status', '0');
+        }
+    }
+
+    function postLike(e){
+        let formdata = new FormData();
+        formdata.append('postId', '{{post.id}}')
+        if (e.target.classList.contains('emptyLike')){
+            e.target.classList.replace('emptyLike', 'fillLike');
+            formdata.append('status', 1);
+            sendAjax('POST', '/postLike', ()=>{}, formdata);
+        }else{
+            e.target.classList.replace('fillLike', 'emptyLike');
+            formdata.append('status', 0);
+            sendAjax('POST', '/postLike', ()=>{}, formdata);
         }
     }
 

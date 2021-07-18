@@ -59,6 +59,7 @@ class Course(models.Model):
 	title = models.TextField(max_length=1000)
 	description = models.TextField(max_length=5000, null=True)
 	price = models.IntegerField()
+	# order = models.IntegerField(null=True)  # 추후 필요시 추가
 
 	def __str__(self):
 		#return self.title + ' - ' + str(self.price) + '원'

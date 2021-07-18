@@ -63,10 +63,10 @@ class Book(models.Model):
 	paymentStatus = models.IntegerField(default=1)	# 1: 예약가능  2: 예약됨  3. 취소됨
 	# status = models.IntegerField() # 1:결제대기 2:결제완료 3:결제취소 // 고객결제취소 및 셰프승인취소시 3
 	phoneNum = models.CharField(max_length=11)
-	usedPoint = models.IntegerField()
-	payMethod = models.IntegerField()
+	usedPoint = models.IntegerField(null=True)
+	payMethod = models.IntegerField(null=True)
 	course = models.ForeignKey('chef.Course', null=True, on_delete=models.SET_NULL)
-	totalPrice = models.IntegerField()
+	totalPrice = models.IntegerField(null=True)
 	personNum = models.IntegerField()
 	comment = models.TextField(max_length=1000, null=True)
 	registerDate = models.DateTimeField(auto_now=True) 

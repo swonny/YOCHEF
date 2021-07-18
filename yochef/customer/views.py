@@ -78,18 +78,32 @@ def createAccount(request):
 
 def apply(request):
     customer = request.user.customer
-    chef = request.user.customer.chef
-    post = Post.objects.get(chef=chef)
-    schedules = Schedule.objects.filter(post=post)
-    for schedule in schedules:
-        book = Book.objects.get(schedule=schedule)
+    # chef = request.user.customer.chef
+    # post = Post.objects.get(chef=chef)
+
+    # 테스트 위해 블루 추가
+    schedule_id = int(request.POST['schedule'])
+    schedule = Schedule.objects.get(id = schedule_id)
+    course = Course.objects.get(id = int(request.POST['course']))
+    book = Book()
+    book.course = course
+    book.schedule = schedule
+    book.personNum = int(request.POST['peopleNum'])
+    book.totalPrice = schedule.post.movingPrice + (course.price * book.personNum)
+    book.save()
+
+    # schedules = Schedule.objects.filter(post=post)
+    # for schedule in schedules:
+    #     book = Book.objects.get(schedule=schedule)
         
-        book.course
-    return render(request, 'pay_apply.html')
+    #     book.course
+    return render(request, 'pay_apply.html', {'course': course, 'book':book})
 
 def payment(request):
-    coupons = HasCoupon.objects.filter(customer = request.user.customer)
-    return render(request, 'pay_payment.html', {'coupons' : coupons})
+    book_id = int(request.POST['book'])
+    book = Book.objects.get(id = book_id)
+    coupons = HasCoupon.objects.filter(customer = request.user.customer, isUsed=False)
+    return render(request, 'pay_payment.html', {'book':book, 'coupons' : coupons})
 
 def mypage(request):
     return render(request, 'mypage.html')

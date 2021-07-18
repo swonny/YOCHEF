@@ -8,5 +8,6 @@ urlpatterns = [
 	path('reviewDetail/<int:post_id>', reviewDetail, name="reviewDetail"),
 	path('getRegion', getRegionAPI, name="getRegion"),
 	path('getRegionDetail', getRegionDetailAPI, name="getRegionDetail"),
-	path('changeFile', changeFile, name="changeFile")
+	path('changeFile', changeFile, name="changeFile"),
+	path('postLike', postLikeAPI, name="postLike"),
 ]

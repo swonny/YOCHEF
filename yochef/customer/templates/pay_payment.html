@@ -1,92 +1,220 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/pay.css' %}">
+{% endblock %}
 {% block content %}
     <main>
-        <div class="mainContainer">
-            <div class="mainContainer__title">
+        <form action="POST" action="">
+            {% csrf_token %}
+            <div class="mainContainer">
                 <span>요리 예약</span>
-            </div>
-            <div class="mainContainer__left">
-                <div class="mainContainer__left_thumbnail">
-                    <img src="#" alt="요리 이미지입니다.">
-                    <span>요리 제목 또는 간단 소개</span>
-                </div>
-                <div class="mainContainer__left_detail">
-                    <form action="#">
-                        <div class="mainContainer__left_detail--coupon">
-                            <li><span>쿠폰</span></li>
-                            <li>
-                                <select name="coupon">
-                                    <option value="none">==== 쿠폰 사용 ====</option>
-                                    <!-- 프론트 참고 - 아이디어톤을 위해 임시로 주석처리 해뒀습니다. -->
-                                    {% if coupons %}
-                                        <option value="사용안함">++++ 사용안함 ++++</option>
-                                        <option value="10%">정규 10% 할인 쿠폰</option>
-                                        <option value="10%">신규회원 10% 할인 쿠폰</option>
-                                        <option value="10%">오픈 이벤트 10%할인 쿠폰</option>
-                                    {% else %}
-                                        <option value="none">보유하신 쿠폰이 없습니다. </option>
-                                    {% endif %}
-                                </select>
-                            </li>
+                <div class="mainContainer__book">
+                    <div class="mainContainer__book__pay">
+                        <div class="pay__bookInfo">
+                            <img src="{{ post_coverimg_url}}" alt="요리 이미지" onerror="this.src=`{% static 'img/default.png' %}`">
+                            <div>
+                                <div>
+                                    <span>{{book.schedule.post.title}}</span>
+                                    <span><span>{{book.course.title}}</span> 코스 | 총 <span>{{book.personNum}}</span>인</span>
+                                </div>
+                                <span>총 <span>{{book.totalPrice}}</span>원</span>
+                            </div>
                         </div>
-                        <div class="mainContainer__left_detail--point">
-                            <li><span>포인트</span></li>
-                            <li>
-                                <span>보유</span>
-                                <span>0 원</span>
-                            </li>
-                            <li>
-                                <span>사용</span>
-                                <input type="text" placeholder="0원">
-                                <input type="button" value="전액사용">
-                            </li>
+                        <div class="pay__coupon">
+                            <span>쿠폰</span>
+                            <input type="button" name="openCoupneBox" value="쿠폰 선택" onclick="openCloseCouponBox(0);">
                         </div>
-                        <div class="mainContainer__left_detail--howPay">
-                            <li><span>결제 수단</span></li>
-                            <li>
-                                <input type="button" value="신용 / 체크카드">
-                                <input type="button" value="무통장">
-                            </li>
+                        <div class="couponBox" value='' style="display: none;">
+                            {% if coupons %}
+                                {% for coupon in coupons %}
+                                <div class="coupon" value="{{coupon.coupon.id}}">
+                                    <div class="coupon__info">
+                                        <span>{{coupon.coupon.title}} <span> - {{coupon.coupon.offrate}}% 할인</span></span>
+                                        <span>{{coupon.coupon.description}}</span>
+                                    </div>
+                                    <input name="couponSelect" type="button" value="선택" id="{{coupon.coupon.id}}" offrate="{{coupon.coupon.offrate}}" class="buttonUnchecked" status="0">
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                            <span>보유한 쿠폰이 없습니다.</span>
+                            {% endif %}
+                            <div class="couponBox_btns">
+                                <input type="button" value="적용" onclick="applyCoupon();">
+                                <input type="button" value="닫기" onclick="openCloseCouponBox(1);">
+                            </div>
+                            <input type="text" name="selectedCoupon" hidden>
                         </div>
-                    </form>
-                </div>
-            </div>
-            <div class="mainContainer__right">
-                <div class="mainContainer__right_title"><h2>최종 결제 금액</h2></div>
-                <div class="mainContainer__right_payDetail">
-                    <ul>
-                        <li>
-                            <span>비용</span>
-                            <span>0원</span>
-                        </li>
-                        <li>
-                            <span>신청 인원</span>
-                            <span>1명</span>
-                        </li>
-                        <li>
-                            <span>쿠폰 사용</span>
-                            <span>(-) 0원</span>
-                        </li>
-                        <li>
-                            <span>포인트 할인</span>
-                            <span>(-) 0원</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="mainContainer__right_totalPrice">
-                    <span>총 결제 금액</span>
-                    <span> 원</span>
-                </div>
-                <div class="mainConatainer__right_payButton">
-                    <form method="POST"action="{% url 'main' %}">
-                        <!-- 프론트 참고 - input => button type = submit로 변경 후 csrf 토큰 추가하였습니다. -->
-                        {% csrf_token %}
-                        <!-- <input name="payYes"type="button" value="18,000원 결제하기"> -->
-                        <button name="payYes" type="submit">18,000원 결제하기</button>
-                    </form>
-                </div>
+                        <div class="pay__point">
+                            <span>포인트</span>
+                            <div class="pay__point__using">
+                                <div>
+                                    <span>보유</span>
+                                    <div>
+                                        <input type="text" name="" value="{{request.user.customer.point}}" id="" disabled>
+                                        <span>원</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>사용</span>
+                                    <div>
+                                        <input type="text" name="usingPoint" placeholder="0">
+                                        <span>원</span>
+                                    </div>
+                                </div>
+                                <!-- <input type="button" value="전액사용"> -->
+                            </div>
+                        </div>
+                        <span>결제 수단</span>
+                        <div class="pay__payment" value="">
+                            <input type="button" value="무통장" id="1" status="0" class="buttonUnchecked">
+                            <input type="button" value="신용 / 체크카드" id="2" status="0" class="buttonUnchecked">
+                        </div>
+                        <input type="text" name="payment" hidden>
+                        <input type="text" name="book" value="{{book.id}}" hidden>
+                    </div>
+                    <div class="mainContainer__book__receipt">
+                        <span>최종 결제 금액</span>
+                        <div class="receipt__payDetail">
+                            <div>
+                                <span>비용</span>
+                                <span>{{book.totalPrice}} 원</span>
+                            </div>
+                            <div>
+                                <span>신청 인원</span>
+                                <span>{{book.personNum}} 명</span>
+                            </div>
+                            <div>
+                                <span>쿠폰 사용</span>
+                                <span>(-) 0원</span>
+                            </div>
+                            <div>
+                                <span>포인트 할인</span>
+                                <span>(-) 0원</span>
+                            </div>
+                        </div>
+                        <div class="receipt__totalPrice">
+                            <span>총 결제 금액</span>
+                            <span>{{book.totalPrice}}원</span>
+                        </div>
+                        <input type="submit" value="결제하기">
+                    </div>
+                </form>
             </div>
         </div>
-        
     </main>
+{% endblock %}
+{% block scripts %}
+<script>
+
+    document.getElementsByName('usingPoint')[0].addEventListener('keyup', applyPoint);
+    
+    Array.from(document.getElementsByName('couponSelect')).forEach(function(element) {
+        element.addEventListener('click', selectCoupon);
+    });
+
+    Array.from(document.querySelectorAll('.pay__payment input[type="button"]')).forEach(function(element) {
+        element.addEventListener('click', selectPayment);
+    });
+
+    function selectCoupon(e) {
+        let status = e.target.getAttribute('status');
+        let couponId = e.target.getAttribute('id');
+        if (status == 0){
+            let couponSelectBtns = document.getElementsByName('couponSelect');
+            for (element of couponSelectBtns){
+                if (element.getAttribute('status') == 1){
+                    element.value = '선택';
+                    element.setAttribute('status', '0');
+                    element.classList.replace('buttonChecked', 'buttonUnchecked');
+                    break;
+                }
+            };
+            document.getElementsByName('selectedCoupon')[0].value = couponId;
+            element.classList.replace('buttonUnchecked', 'buttonChecked');
+            e.target.value = '선택 해제';
+            e.target.setAttribute('status', '1');
+        }else{
+            document.getElementsByName('selectedCoupon')[0].value = '';
+            element.classList.replace('buttonChecked', 'buttonUnchecked');
+            e.target.value = '선택';
+            e.target.setAttribute('status', '0');
+        }
+    }
+
+    function openCloseCouponBox(type){
+        if (type == 0){
+            document.getElementsByClassName('couponBox')[0].setAttribute('style','');
+            document.getElementsByName('openCoupneBox')[0].setAttribute('onclick', "openCloseCouponBox(1);");
+        }else{
+            document.getElementsByClassName('couponBox')[0].setAttribute('style','display:none;');
+            document.getElementsByName('openCoupneBox')[0].setAttribute('onclick', "openCloseCouponBox(0);");
+        }
+    }
+
+    function applyCoupon(){
+        let couponId = document.getElementsByName('selectedCoupon')[0].value;
+        if (couponId == undefined || couponId == '') {
+            alert('쿠폰을 선택해주세요.');
+            return;
+        } else{
+            let offrate = parseInt(document.querySelector(`input[id="${couponId}"]`).getAttribute('offrate'));
+            let price = parseInt('{{book.totalPrice}}');
+            let offPrice = price * (offrate / 100);
+            let totalPrice = price - offPrice;
+            document.querySelector('.receipt__payDetail > :nth-child(3) > :nth-child(2)').innerText = `(-) ${offPrice}원`;
+            document.querySelector('.receipt__totalPrice > :nth-child(2)').innerText = `${totalPrice}원`;
+            applyPoint();
+            openCloseCouponBox(1);
+        }
+    }
+
+    function applyPoint(){
+        let usingPoint = document.getElementsByName('usingPoint')[0].value;
+        usingPoint = usingPoint.replace(/[^0-9]/g,'');
+        document.getElementsByName('usingPoint')[0].value = usingPoint;
+        if (usingPoint == undefined || usingPoint == '') {
+            usingPoint = 0;
+        }else{
+            usingPoint = parseInt(usingPoint)
+        }
+
+        if (usingPoint > parseInt('{{request.user.customer.point}}')){
+            document.getElementsByName('usingPoint')[0].value = "{{request.user.customer.point}}";
+            usingPoint = parseInt('{{request.user.customer.point}}');
+        }
+        let price = parseInt('{{book.totalPrice}}');
+        let offPrice = parseInt(document.querySelector('.receipt__payDetail > :nth-child(3) > :nth-child(2)').innerText.replace('원','').replace('(-) ',''));
+        let totalPrice = price - usingPoint - offPrice;
+
+        if (totalPrice < 0){
+            let maxPoint = price - offPrice;
+            document.getElementsByName('usingPoint')[0].value = `${maxPoint}`;
+            usingPoint = maxPoint;
+            totalPrice = price - usingPoint - offPrice;
+        }
+        document.querySelector('.receipt__payDetail > :nth-child(4) > :nth-child(2)').innerText = `(-) ${usingPoint}원`;
+        document.querySelector('.receipt__totalPrice > :nth-child(2)').innerText = `${totalPrice}원`;
+    }
+
+    function selectPayment(e){
+        let paymentId = e.target.getAttribute('id');
+        let status = e.target.getAttribute('status');
+        if (status == 0){
+            Array.from(document.querySelectorAll('.pay__payment input[type="button"]')).forEach(function(element) {
+                element.setAttribute('status', "0");
+                element.classList.replace('buttonChecked', 'buttonUnchecked');
+            });
+            e.target.setAttribute('status', '1');
+            document.getElementsByName('payment')[0].value = paymentId;
+            e.target.classList.replace('buttonUnchecked', 'buttonChecked');
+        }
+        else{
+            e.target.setAttribute('status', '0');
+            document.getElementsByName('payment')[0].value = '';
+            e.target.classList.replace('buttonChecked', 'buttonUnchecked');
+        }
+    }
+
+</script>
 {% endblock %}

@@ -19,7 +19,7 @@ def registerChef(request, page_num=1):
         if File.objects.filter(chef=chef).exists():
             profileImage = File.objects.get(chef=chef)
         else:
-            profileImage = File(chef=chef, category=1)
+            profileImage = File(chef=chef, attachment="static/image/default_chef_profile.png", category=1)
             profileImage.save()
 
         if Post.objects.filter(chef=chef).exists():
@@ -37,6 +37,7 @@ def registerChef(request, page_num=1):
 
     elif page_num == 2: # 1page 다음 버튼
         chef = customer.chef
+        profileImage = File.objects.get(chef=chef, category=1)
         
         chef.nickname = request.POST.get('nickname')
         chef.spec = request.POST.get('spec')
@@ -45,13 +46,7 @@ def registerChef(request, page_num=1):
         chef.youtubeLink = request.POST.get('youtubeLink')
         chef.save()
 
-        if File.objects.filter(chef=chef).exists():
-            profileImage = File.objects.get(chef=chef)
-            profileImage.attachment = request.POST.get('profileImage')
-        else:
-            if request.POST.get('profileImage'):
-                profileImage = File(chef=chef, category=1)
-                profileImage.attachment = request.POST.get('profileImage')
+        profileImage.attachment = request.POST.get('profileImage')
         profileImage.save()
         
         context = {}
@@ -63,7 +58,13 @@ def registerChef(request, page_num=1):
 
     elif page_num == 3: # 2page 다음 버튼
         chef = customer.chef
-        post = chef.post
+        post = Post(chef=chef)
+        courses = Course.objects.filter(post=post)
+        courseImageList = []
+        for course in courses:
+            courseImages = File.objects.filter(course=course, category=3)
+            courseImageList.append(courseImages)
+
         post.category = request.POST.get('category')
         post.region = request.POST.get('region')
         post.regionDetail = request.POST.get('regionDetail')
@@ -72,6 +73,8 @@ def registerChef(request, page_num=1):
         context = {}
         context['chef'] = chef
         context['post'] = post
+        context['courses'] = courses
+        context['courseImageList'] = courseImageList
 
         return render(request, 'registerChef_3.html', context)
 
@@ -80,33 +83,33 @@ def registerChef(request, page_num=1):
         post = chef.post
 
         post.title = request.POST.get('title')
-        if File.objects.filter(post=post).exists():
-            postCoverImage = File.objects.get(post=post)
-            postCoverImage.attachment = request.POST.get('coverImage')
-        else:
-            if request.POST.get('coverImage'):
-                postCoverImage = File(post=post, category=4)
-                postCoverImage.attachment = request.POST.get('coverImage')
+
+        File.objects.filter(post=post, category=4).delete()         # 직접 수정이 불가능하니 기존에 입력된 DB 삭제 후 재입력 하는 방식
+        postCoverImages = request.POST.get('postCoverImages')       # list(또는 array)로 받아옴
+        for image in postCoverImages:
+            postCoverImage = File(post=post, attachment=image, category=4)
+            postCoverImage.save()
+
         post.introduce = request.POST.get('introduce')
 
-        # 코스 추가 : FE와 JS 활용 방식 논의 후 작성
-        # course = Course(post=post)
-        # course.title = request.POST.get('courseTitle')
-        # course.price = request.POST.get('coursePrice')
-        # course.description = request.POST.get('courseDescribe')
-        # course.save()
+        # FE에서 JS작성 후 수정
+        # Course.objects.filter(post=post).delete()   # 직접 수정이 불가능하니 기존에 입력된 DB 삭제 후 재입력 하는 방식
+        # courses = request.POST.get('courses')
+        # for course in courses:
+        #     course = Course(post=post)
+        #     course.title = request.POST.get('courseTitle')
+        #     course.price = request.POST.get('coursePrice')
+        #     course.description = request.POST.get('courseDescribe')
+        #     course.save()
 
         post.notice = request.POST.get('notice')
         post.save()
-
+        
         context = {}
         context['chef'] = chef
         context['post'] = post
-        # context['course'] = course
-        if chef.isSubmitted:
-            context['message'] = "수정"
-        else:
-            context['message'] = "제출"
+        context['courses'] = Course.objects.filter(post=post)
+        context['message'] = "제출"
 
         return render(request, 'registerChef_4.html', context)
 
@@ -114,6 +117,7 @@ def registerChef(request, page_num=1):
         chef = customer.chef
 
         chef.movingPrice = request.POST.get('movingPrice')
+        chef.isSubmitted = True
         chef.save()
 
         customer.isChef = True      # 셰프등록 승인 절차 기획 전까지 유지
@@ -167,11 +171,11 @@ def chefScheduleDetail(request, schedule_id):
     return render(request, 'chefSchedule_detail.html', context)
 
 
-# chefSchedule_detail.html UPDATE
+# chefSchedule_detail.html UPDATE 1
 def scheduleConfirm(request, schedule_id):
     schedule = Schedule.objects.get(id=schedule_id)
     if request.POST['scheduleConfirm']:
-        schedule.confirmStatus = 2	# 1: 승인대기  2: 승인됨
+        schedule.confirmStatus = 2	# 1: 승인대기  2: 승인됨  3. 취소됨
         schedule.save()
     return redirect('/chef/chefschedule/' + str(schedule_id))
 
@@ -181,9 +185,8 @@ def scheduleCancel(request, schedule_id):
     schedule = Schedule.objects.get(id=schedule_id)
     book = Book.objects.get(schedule=schedule)
     if request.POST['scheduleCancel']:
-        schedule.paymentStatus = 3	# 1: 예약가능  2: 예약됨  3. 취소됨
         schedule.confirmStatus = 3	# 1: 승인대기  2: 승인됨  3. 취소됨
-        book.status = 3 # 1:결제대기 2:결제완료 3:결제취소
+        book.paymentStatus = 3 # 1:결제대기 2:결제완료 3:결제취소s
         schedule.save()
         book.save()
     return redirect('/chef/chefschedule/' + str(schedule_id))
@@ -192,7 +195,7 @@ def scheduleCancel(request, schedule_id):
 # editChefProfile_1.html READ
 def editChefProfile(request):
     chef = request.user.customer.chef
-    chefProfileImage = File.objects.get(chef=chef)
+    chefProfileImage = File.objects.get(chef=chef, category=1)
 
     context = {}
     context['chef'] = chef
@@ -279,7 +282,13 @@ def updatePost(request):
 # editChefProfile_3.html READ
 def editMovingPrice(request):
     post = request.user.customer.chef.post
-    return render(request, 'editChefProfile_3.html', {'post':post})
+    courses = Course.objects.filter(post=post)
+
+    context = {}
+    context['post'] = post
+    context['courses'] = courses
+
+    return render(request, 'editChefProfile_3.html', context)
 
 
 # editChefProfile_3.html UPDATE

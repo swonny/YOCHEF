@@ -1,50 +1,54 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/pay.css' %}">
+{% endblock %}
 {% block content %}
     <main>
         <div class="mainContainer">
-            <div class="mainContainer__title">
-                <span>요리 예약</span>
-            </div>
+            <span>요리 예약</span>
             <div class="mainContainer__book">
-                <div class="mainContainer__book_detail">
-                    <img src="#" alt="요리 이미지">
-                    <span>요리 제목 또는 간단 소개</span>
+                <div class="mainContainer__book__detail">
+                    <img src="{{ post_coverimg_url}}" alt="요리 이미지" onerror="this.src=`{% static 'img/default.png' %}`">
+                    <div>
+                        <div>
+                            <span>{{book.schedule.post.title}}</span>
+                            <span><span>{{course.title}}</span> 코스 | 총 <span>{{book.personNum}}</span>인</span>
+                        </div>
+                        <span>총 <span>{{book.totalPrice}}</span>원</span>
+                    </div>
                 </div>
-                <div class="mainContainer__book_applyForm">
-                    <!-- 프론트 참고 - action url 지정해뒀습니다. -->
-                    <form action="{% url 'payment' %}">
-                        <ul>
-                            <li><span>신청인원</span></li>
-                            <li><span>연락 받으실 전화번호</span></li>
-                            <li><span>번호 인증은 최초 결제 시에만 해당됩니다.</span></li>
-                            <div class="mainContainer__book_applyForm--phoneNum">
-                                <li><span>휴대폰 번호</span></li>
-                                <div>
-                                    <li><input type="text" placeholder="휴대폰 번호를 -없이 입력해주세요"></li>
-                                    <li><input type="submit" value="SMS전송"></li>
-                                </div>
+                <div class="mainContainer__book__applyBox">
+                    <form method="POST" action="{% url 'payment' %}">
+                        {% csrf_token %}
+                        <span>연락 받으실 전화번호</span>
+                        <input type="text" name="book" value="{{book.id}}" hidden>
+                        <div class="applyBox__phoneNum">
+                            <span>휴대폰 번호</span>
+                            <div>
+                                <input name="phoneNum" type="text" value="{{request.user.customer.phoneNum}}" placeholder="휴대폰 번호를 -없이 입력해주세요">
+                                <!-- <input name="phoneNumChange" type="button" value="변경"> -->
                             </div>
-                            <div class="mainContainer__book_applyForm--certificationNum">
-                                <li><span>인증번호</span></li>
-                                <div>
-                                    <li><input type="text" placeholder="인증번호 4자리를 입력해주세요"></li>
-                                    <li><input type="submit" value="인증"></li>
-                                    <li><span>3분 0초</span></li>
-                                </div>
-                            </div>
-                            <div class="mainContainer__book_applyForm--communication">
-                                <li><span>셰프에게 전하는 말!</span></li>
-                                <li><span>셰프에게 간단히 자신을 소개하고, 못 먹는 음식 등을 알려주세요.</span></li>
-                                <li><input type="text" placeholder="예) 땅콩 알레르기가 있어요."></li>
-                                <li>
-                                    <!-- 프론트 참고 - input -> button으로 변경해뒀습니다. -->
-                                    <!--<input name="submit" type="submit" value="다음"></li>-->
-                                    <button name="submit" type="submit" value="다음">다음</button></li>
-                            </div>
-                        </ul>
+                        </div>
+                        <span>셰프에게 전하는 말</span>
+                        <div class="applyBox__communication">
+                            <span>셰프에게 간단히 자신을 소개하고, 못 먹는 음식 등을 알려주세요.</span>
+                            <textarea name="comment" type="text" placeholder="예) 땅콩 알레르기가 있어요." rows="5"></textarea>
+                        </div>
+                        <input type="submit" value="다음">
                     </form>
                 </div>
             </div>
         </div>
     </main>
+{% endblock %}
+{% block scripts %}
+<script>
+    // phoneNum 변경 관련 함수 - 논의 후 반영 필요
+    // document.getElementsByName('phoneNumChange')[0].addEventListener('click', (e)=>{
+    //     e.target.setAttribute('hidden', 'true')
+    //     document.getElementsByName('phoneNum')[0].removeAttribute('disabled');
+    //     document.getElementsByName('phoneNum')[0].setAttribute('style', 'width:100%;')
+    // })
+</script>
 {% endblock %}

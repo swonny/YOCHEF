@@ -2,7 +2,7 @@ from django.db.models import Q
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 from chef.models import *
-from customer.models import Review, Book
+from customer.models import Customer, Review, Book
 from .models import *
 from datetime import date, timedelta
 from django.utils.dateparse import parse_date
@@ -57,9 +57,15 @@ def detail(request, post_id):
         if not Book.objects.filter(schedule = schedule, paymentStatus = 2).exists() : 
             available_schedules.append(schedule)
     
+    #postLike 유무
+    if Like.objects.filter(customer=request.user.customer, chef=post.chef).exists():
+        is_like = True
+    else: 
+        is_like = False
+    
     return render(request, 'detail.html', {'post': post, 'courses':courses, 'reviews': reviews, 'is_review_over': is_review_over, 'schedules':available_schedules
     , 'post_cover_imgurl': post_cover_imgurl, 'post_imgs_uptotwo': post_imgs[:2], 'more_img': more_img, 'post_imgs': post_imgs,
-    'profile_imgurl':profile_imgurl})
+    'profile_imgurl':profile_imgurl, 'is_like': is_like})
 
 def reviewDetail(request, post_id):
     reviews = Review.objects.filter(post_id=post_id)
@@ -147,3 +153,17 @@ def postList(request, category=0, order=0):
     start_date = start_date.strftime("%Y-%m-%d")
     end_date = end_date.strftime("%Y-%m-%d")
     return render(request, 'postList.html', {'posts': available_posts, 'category': category, 'order': order, 'start_date': start_date, 'end_date': end_date, 'keyword':keyword})
+
+
+def postLikeAPI(request):
+    status = int(request.POST['status'])
+    post_id = int(request.POST['postId'])
+    chef = Post.objects.get(id=post_id).chef
+    if status :
+        like = Like()
+        like.customer = request.user.customer
+        like.chef = chef
+        like.save()
+    else :
+        Like.objects.filter(customer=request.user.customer, chef=chef).delete()
+    return JsonResponse({}, status=200)
