@@ -16,7 +16,9 @@
 </head>
 <body>
   <!-- 네브바 -->
+  
   <nav class="nav-container">
+    <img src="{% static 'image/navlog.jpg' %}" alt="">
     <div class="nav__item nav--left"><a href="{% url 'main' %}">YOCHEF</a></div>
     <!-- 로그인 상태라면 -->
     {% if user.is_authenticated %}

@@ -369,3 +369,8 @@
 - chef/views.py registerChef.html 관련 작업
 	- 다음의 코드는 JS 작성 후 테스트가 필요합니다.
 	- line 22, line 59~79, line 81~114
+
+21.07.19 워니
+- 네브바 버튼 추가
+- main.html css 수정
+- editChefProfile_3 html 완료

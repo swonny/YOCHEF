@@ -9,24 +9,25 @@
         <header class="main-header">
             <!-- 메인페이지 가장 큰 이미지 -->
             <div class="main-image">
-                <div class="main-img-desc">당신을 위한</div>
-                <div class="main-img-desc">프리미엄</div>
-                <img src="https://media.istockphoto.com/photos/steaks-from-fresh-meat-picture-id981092168?k=6&m=981092168&s=612x612&w=0&h=jkWiCUuYwNbGEI-P8Ku5ARi0ImfoRAuSTyCQaobsk-Y=">
+                <div class="main-img-desc">프리미엄 <br><br>당신을 위한 ─── </div>
+=                <img src="{% static 'img/main.png' %}" >
             </div>
             <!-- 메인페이지 카테고리 네브바 -->
-            <nav class="main-category-container">
-                <ul class="main-category-item-container">
-                    <li class="main-category-item"><a href="/postList" class="{% if category == 0 %} currentCategory{% endif %}">전체보기</a></li>
-                    <li class="main-category-item"><a href="/postList?category=1" class="{% if category == 1 %} currentCategory{% endif %}">뷔페/<br>케이터링</a></li>
-                    <li class="main-category-item"><a href="/postList?category=2" class="{% if category == 2 %} currentCategory{% endif %}">한식</a></li>
-                    <li class="main-category-item"><a href="/postList?category=3" class="{% if category == 3 %} currentCategory{% endif %}">일식</a></li>
-                    <li class="main-category-item"><a href="/postList?category=4" class="{% if category == 4 %} currentCategory{% endif %}">중식</a></li>
-                    <li class="main-category-item"><a href="/postList?category=5" class="{% if category == 5 %} currentCategory{% endif %}">아시안</a></li>
-                    <li class="main-category-item"><a href="/postList?category=6" class="{% if category == 6 %} currentCategory{% endif %}">양식</a></li>
-                    <li class="main-category-item"><a href="/postList?category=7" class="{% if category == 7 %} currentCategory{% endif %}">채식</a></li>
-                    <li class="main-category-item"><a href="/postList?category=8" class="{% if category == 8 %} currentCategory{% endif %}">기타</a></li>
-                </ul>
-            </nav>
+            <!-- <div id="octagon"> -->
+                <nav id="octagon" class="main-category-container">
+                    <ul class="main-category-item-container">
+                        <li class="main-category-item"><a href="/postList" class="{% if category == 0 %} currentCategory{% endif %}">전체보기</a></li>
+                        <li class="main-category-item"><a href="/postList?category=1" class="{% if category == 1 %} currentCategory{% endif %}">뷔페/<br>케이터링</a></li>
+                        <li class="main-category-item"><a href="/postList?category=2" class="{% if category == 2 %} currentCategory{% endif %}">한식</a></li>
+                        <li class="main-category-item"><a href="/postList?category=3" class="{% if category == 3 %} currentCategory{% endif %}">일식</a></li>
+                        <li class="main-category-item"><a href="/postList?category=4" class="{% if category == 4 %} currentCategory{% endif %}">중식</a></li>
+                        <li class="main-category-item"><a href="/postList?category=5" class="{% if category == 5 %} currentCategory{% endif %}">아시안</a></li>
+                        <li class="main-category-item"><a href="/postList?category=6" class="{% if category == 6 %} currentCategory{% endif %}">양식</a></li>
+                        <li class="main-category-item"><a href="/postList?category=7" class="{% if category == 7 %} currentCategory{% endif %}">채식</a></li>
+                        <li class="main-category-item"><a href="/postList?category=8" class="{% if category == 8 %} currentCategory{% endif %}">기타</a></li>
+                    </ul>
+                </nav>
+            <!-- </div> -->
         </header>
 
         <section class="main-section-container">

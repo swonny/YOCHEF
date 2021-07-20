@@ -19,7 +19,7 @@ def registerChef(request, page_num=1):
         if File.objects.filter(chef=chef).exists():
             profileImage = File.objects.get(chef=chef)
         else:
-            profileImage = File(chef=chef, attachment="static/image/default_chef_profile.png", category=1)
+            profileImage = File(chef=chef, category=1)
             profileImage.save()
 
         if Post.objects.filter(chef=chef).exists():
@@ -37,6 +37,7 @@ def registerChef(request, page_num=1):
 
     elif page_num == 2: # 1page 다음 버튼
         chef = customer.chef
+        post = Post.objects.get(chef=chef)
         profileImage = File.objects.get(chef=chef, category=1)
         
         chef.nickname = request.POST.get('nickname')
@@ -52,13 +53,13 @@ def registerChef(request, page_num=1):
         context = {}
         context['customer'] = customer
         context['chef'] = chef
-        context['profileImage'] = profileImage
+        context['post'] = post
 
         return render(request, 'registerChef_2.html', context)
 
     elif page_num == 3: # 2page 다음 버튼
         chef = customer.chef
-        post = Post(chef=chef)
+        post = Post.objects.get(chef=chef)
         courses = Course.objects.filter(post=post)
         courseImageList = []
         for course in courses:
@@ -84,11 +85,11 @@ def registerChef(request, page_num=1):
 
         post.title = request.POST.get('title')
 
-        File.objects.filter(post=post, category=4).delete()         # 직접 수정이 불가능하니 기존에 입력된 DB 삭제 후 재입력 하는 방식
-        postCoverImages = request.POST.get('postCoverImages')       # list(또는 array)로 받아옴
+        File.objects.filter(post=post, category=4).delete()              # 직접 수정이 불가능하니 기존에 입력된 DB 삭제 후 재입력 하는 방식
+        postCoverImages = request.FILES.getlist('postCoverImages[]')       # list(또는 array)로 받아옴
+        print(postCoverImages)
         for image in postCoverImages:
-            postCoverImage = File(post=post, attachment=image, category=4)
-            postCoverImage.save()
+            File.objects.create(post=post, attachment=image, category=4)
 
         post.introduce = request.POST.get('introduce')
 
@@ -177,7 +178,7 @@ def scheduleConfirm(request, schedule_id):
     if request.POST['scheduleConfirm']:
         schedule.confirmStatus = 2	# 1: 승인대기  2: 승인됨  3. 취소됨
         schedule.save()
-    return redirect('/chef/chefschedule/' + str(schedule_id))
+    return redirect('/chef/chefSchedule/' + str(schedule_id))
 
 
 # chefSchedule_detail.html UPDATE
@@ -189,7 +190,7 @@ def scheduleCancel(request, schedule_id):
         book.paymentStatus = 3 # 1:결제대기 2:결제완료 3:결제취소s
         schedule.save()
         book.save()
-    return redirect('/chef/chefschedule/' + str(schedule_id))
+    return redirect('/chef/chefSchedule/' + str(schedule_id))
 
 
 # editChefProfile_1.html READ
@@ -219,7 +220,7 @@ def updateChefProfile(request):
     chefProfileImage.save()
     chef.save()
 
-    return redirect('/chef/editchefprofile/')
+    return redirect('/chef/editChefProfile/')
 
 
 # editChefProfile_2.html READ
@@ -276,7 +277,7 @@ def updatePost(request):
     for course in courses:
         course.save()
 
-    return redirect('/chef/editpost/')
+    return redirect('/chef/editPost/')
 
 
 # editChefProfile_3.html READ
@@ -296,4 +297,4 @@ def updateMovingPrice(request):
     post = request.user.customer.chef.post
     post.movingPrice = request.POST.get['movingPrice']
     post.save()
-    return redirect('/chef/editmovingprice/')
+    return redirect('/chef/editMovingPrice/')

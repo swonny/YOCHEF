@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <form name="registerChef_3" method="POST" action="{% url 'registerChef' '4' %}">
+    <form name="registerChef_3" method="POST" action="{% url 'registerChef' '4' %}" enctype="multipart/form-data">
     {% csrf_token %}
         <div id="regiFrmWrap">>
         <div class="regiFrmWrap">
@@ -19,7 +19,7 @@
                             <a href="">셰프 소개</a>
                         </li>
                         <li class="regiContent__navItem">
-                            <a href="#">예약글 등록</a>
+                            <a href="">예약글 등록</a>
                         </li>
                         <li class="regiContent__navItem">
                             <a href="">출장비 등록</a>
@@ -52,8 +52,7 @@
                                 <h4 class="coverImg__title">커버 이미지</h4>
                                 <div class="coverImg__container">
                                     <div class="coverImg__img">
-                                        <!-- !!!!프로필 사진 등록? -->
-                                        <input name="coverImage" type="image">
+                                        <input multiple="multiple" name="postCoverImages[]" type="file" accept="image/*">
                                     </div>
                                 </div>
                             </div>
@@ -70,8 +69,6 @@
                                 </div>
 
                                 <div class="chefRegiThird__chefInfo__inputContainer">
-                                    <!-- 프론트 참고 - textarea가 너무 커 테스트 시 불편해 cols와 rows값 수정하였습니다-->
-                                    <!-- <textarea name="introduce" class="chefInfoInput" maxlength="500" cols="136" rows="609"></textarea><br> -->
                                     <textarea name="introduce" class="chefInfoInput" maxlength="500" cols="100" rows="10"></textarea><br>
                                 </div>
                             </div>
@@ -169,6 +166,7 @@
 <script>
     다음.addEventListener('click', ()=>{
         let formData = new FormData();
+        let coverImages = document.getElementBy
         let chefIntroduce = document.getElementsByName('introduce')[0].value;
         let courses = Array();
         if (chefIntroduce == '') {
