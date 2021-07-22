@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form name="registerChef_1" action="{% url 'registerChef' '2' %}" method="POST" enctype="multipart/form-data" >
+    <form name="registerChef_1" action="{% url 'registerChef' '2' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div id="regiFrmWrap">
             <!-- section header -->
@@ -43,9 +43,7 @@
                                 <h4 class="chefProfile__title">프로필 사진 </h4>
                                 <div class="chefProfile__container">
                                     <div class="chefProfile__img">
-                                        {% if profileImage.attachment %}
                                         <img name="uploadImage" src="{{profileImage.attachment.url}}" style="width: 100px; height: 100px;">
-                                        {% endif %}
                                         <input name="profileImage" type="file" accept="image/*">
                                     </div>
                                 </div>
@@ -59,7 +57,7 @@
                         <article class="regiMainInput">
                             <h4>닉네임</h4>
                             <div class="regiMainInput__nickname">
-                                <input name="nickname" type="text" placeholder="사용하실 닉네임을 입력해주세요." value={{chef.nickname}}>
+                                <input name="nickname" type="text" placeholder="사용하실 닉네임을 입력해주세요." value={{chef.nickname|default:""}}>
                             </div>
                         </article>
                         <!-- // 닉네임 등록 -->
@@ -71,7 +69,7 @@
                                 <p>셰프님과 메뉴에 대한 정보를 알 수 있는 이력을 입력해주세요!</p>
                             </div>
                             <div class="regiMainInput__spec">
-                                <input name="spec" type="text" value="{{chef.spec}}">
+                                <input name="spec" type="text" placeholder="이력 상세" value="{{chef.spec|default:""}}">
                             </div>
                         </article>
                         <!-- // 이력 입력 -->
@@ -81,14 +79,14 @@
                             <!-- 프론트 참고 - UI와 기획이 일부 달라 sns, blog, youtube로 수정하였습니다-->
                             <h4>소셜 미디어</h4>
                             <div class="regiMainInput__snsLink">
-                                <input name="snsLink" type="text" placeholder="인스타그램 아이디" value="{{chef.snsLink}}">
+                                <input name="snsLink" type="text" placeholder="인스타그램 아이디" value="{{chef.snsLink|default:""}}">
                             </div>
                             <div class="regiMainInput__blogLink">
-                                <input name="blogLink" type="text" placeholder="블로그 주소" value="{{chef.blogLink}}">
+                                <input name="blogLink" type="text" placeholder="블로그 주소" value="{{chef.blogLink|default:""}}">
                             </div>
                             <div class="regiMainInput__youtubeLink">
-                                <input name="youtubeLink" type="text" placeholder="유튜브 주소" value="{{chef.youtubeLink}}">
-                           </div>
+                                <input name="youtubeLink" type="text" placeholder="유튜브 주소" value="{{chef.youtubeLink|default:""}}">
+                            </div>
                         </article>
                         <!-- // 소셜미디어 -->
                     </section>
@@ -102,36 +100,42 @@
         </div>
     </form>
 
-{% endblock %}
 <script>
-function readImage(input) {
-    const reader = new FileReader()
 
-    reader.onload = e => {
-        const previewImage = document.getElementsByName("uploadImage")[0]
-        previewImage.src = e.target.result;
+    const imageElement = document.getElementsByName("uploadImage")[0];
+    const inputElement = document.getElementsByName("profileImage")[0];
+
+    inputElement.addEventListener("change", handleFiles, false);
+    function handleFiles() {
+        const imageFile = this.files[0];
+        
+        const img = imageElement
+        img.file = imageFile;
+
+        const reader = new FileReader();
+        reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+    reader.readAsDataURL(imageFile);
     }
 
-    reader.readAsDataURL(input.files[0]);
-}
 
-const submitButton = document.getElementById("submitButton")
+    // const submitButton = document.getElementById("submitButton")
 
-submitButton.addEventListner('click', () => {
-    let formData = new FormData();
-    const textInputs = JSON.stringify({
-        pageNum : 2,
-        nickname : document.getElementsByName("nickname")[0].value(),
-        spec : document.getElementsByName("spec")[0].value(),
-        snsLink : document.getElementsByName("snsLink")[0].value(),
-        blogLink : document.getElementsByName("blogLink")[0].value(),
-        youtubeLink : document.getElementsByName("youtubeLink")[0].value(),
-    });
+    // submitButton.addEventListner('click', () => {
+    //     let formData = new FormData();
+    //     const textInputs = JSON.stringify({
+    //         pageNum : 2,
+    //         nickname : document.getElementsByName("nickname")[0].value(),
+    //         spec : document.getElementsByName("spec")[0].value(),
+    //         snsLink : document.getElementsByName("snsLink")[0].value(),
+    //         blogLink : document.getElementsByName("blogLink")[0].value(),
+    //         youtubeLink : document.getElementsByName("youtubeLink")[0].value(),
+    //     });
 
-    formData.append('textInputs', textInputs);
-    formData.append('profileImage', profileImage);
+    //     formData.append('textInputs', textInputs);
+    //     formData.append('profileImage', profileImage);
 
-    sendAjax('POST', '')
-})
+    //     sendAjax('POST', '') form 데이터 보내는 방법, url, view 함수와 연관지어서
+// })
 
 </script>
+{% endblock %}

@@ -410,3 +410,11 @@
 21.07.21 워니
 - main.html
 	- 디테일페이지 연결 완료
+
+21.07.22 제우스
+- registerChef_1.html
+	- chef.nickname, .spec, .snsLink, .blogLink, .youtubeLink 템플릿 변수 기본값 "" 적용
+	- (JS) 프로필 이미지 업로드 미리보기 구현 (출처: https://developer.mozilla.org/ko/docs/Web/API/File/Using_files_from_web_applications)
+- editChefProfile_1.html
+	- 셰프 프로필 이미지 구현
+	- (JS) 프로필 이미지 업로드 미리보기 구현

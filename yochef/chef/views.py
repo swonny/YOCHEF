@@ -38,7 +38,6 @@ def registerChef(request, page_num=1):
     elif page_num == 2: # save registerchef/1, load registerchef/2
         chef = customer.chef
         post = Post.objects.get(chef=chef)
-        profileImage = File.objects.get(chef=chef, category=1)
         
         chef.nickname = request.POST.get('nickname')
         chef.spec = request.POST.get('spec')
@@ -47,8 +46,10 @@ def registerChef(request, page_num=1):
         chef.youtubeLink = request.POST.get('youtubeLink')
         chef.save()
 
-        profileImage.attachment = request.FILES.get('profileImage')
-        profileImage.save()
+        if request.FILES.get('profileImage'):
+            profileImage = File.objects.get(chef=chef, category=1)
+            profileImage.attachment = request.FILES.get('profileImage')
+            profileImage.save()
         
         context = {}
         context['customer'] = customer
@@ -196,11 +197,11 @@ def scheduleCancel(request, schedule_id):
 # editChefProfile_1.html READ
 def editChefProfile(request):
     chef = request.user.customer.chef
-    chefProfileImage = File.objects.get(chef=chef, category=1)
+    profileImage = File.objects.get(chef=chef, category=1)
 
     context = {}
     context['chef'] = chef
-    context['chefProfileImage'] = chefProfileImage
+    context['profileImage'] = profileImage
 
     return render(request, 'editChefProfile_1.html', context)
 
@@ -208,16 +209,17 @@ def editChefProfile(request):
 # editChefProfile_1.html UPDATE
 def updateChefProfile(request):
     chef = request.user.customer.chef
-    chefProfileImage = File.objects.get(chef=chef, category=1)
-
-    chefProfileImage.attachment = request.POST.get('profileImage')
+    
+    if request.FILES.get('profileImage'):
+        profileImage = File.objects.get(chef=chef, category=1)
+        profileImage.attachment = request.FILES.get('profileImage')
+        profileImage.save()
+        
     chef.nickname = request.POST.get('nickname')
     chef.spec = request.POST.get('spec')
     chef.snsLink = request.POST.get('snsLink')
     chef.blogLink = request.POST.get('blogLink')
     chef.youtubeLink = request.POST.get('youtubeLink')
-
-    chefProfileImage.save()
     chef.save()
 
     return redirect('/chef/editChefProfile/')
