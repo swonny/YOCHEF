@@ -9,7 +9,7 @@ from customer.models import *
 # registerChef_1~4.html READ & UPDATE
 def registerChef(request, page_num=1):
     customer = request.user.customer
-    if page_num == 1:
+    if page_num == 1:   # Load registerchef/1
         if Chef.objects.filter(customer=customer).exists():
             chef = customer.chef
         else:
@@ -19,7 +19,7 @@ def registerChef(request, page_num=1):
         if File.objects.filter(chef=chef).exists():
             profileImage = File.objects.get(chef=chef)
         else:
-            profileImage = File(chef=chef, category=1)
+            profileImage = File(chef=chef, attachment="../media/media/default_chef_profile_image.png", category=1)
             profileImage.save()
 
         if Post.objects.filter(chef=chef).exists():
@@ -35,7 +35,7 @@ def registerChef(request, page_num=1):
 
         return render(request, 'registerChef_1.html', context)
 
-    elif page_num == 2: # 1page 다음 버튼
+    elif page_num == 2: # save registerchef/1, load registerchef/2
         chef = customer.chef
         post = Post.objects.get(chef=chef)
         profileImage = File.objects.get(chef=chef, category=1)
@@ -47,7 +47,7 @@ def registerChef(request, page_num=1):
         chef.youtubeLink = request.POST.get('youtubeLink')
         chef.save()
 
-        profileImage.attachment = request.POST.get('profileImage')
+        profileImage.attachment = request.FILES.get('profileImage')
         profileImage.save()
         
         context = {}
@@ -57,7 +57,7 @@ def registerChef(request, page_num=1):
 
         return render(request, 'registerChef_2.html', context)
 
-    elif page_num == 3: # 2page 다음 버튼
+    elif page_num == 3: # save registerchef/2, load registerchef/3
         chef = customer.chef
         post = Post.objects.get(chef=chef)
         courses = Course.objects.filter(post=post)
@@ -79,7 +79,7 @@ def registerChef(request, page_num=1):
 
         return render(request, 'registerChef_3.html', context)
 
-    elif page_num == 4: # 3page 다음 버튼
+    elif page_num == 4: # save registerchef/3, load registerchef/4
         chef = customer.chef
         post = chef.post
 
@@ -114,7 +114,7 @@ def registerChef(request, page_num=1):
 
         return render(request, 'registerChef_4.html', context)
 
-    elif page_num == 5: # 4page 제출 버튼
+    elif page_num == 5: # save registerchef/4
         chef = customer.chef
 
         chef.movingPrice = request.POST.get('movingPrice')

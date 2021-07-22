@@ -5,9 +5,13 @@
     font-style: normal;
 }
 
-/* 메인.html 전체 */
+* {
+    font-family: 'Arita-dotum-Medium' !important;
+}
+
+/* main.html 전체 */
 .main-body {
-    font: 'Arita-dotum';
+    background-image: 'YoChef.png';
 }
 
 /* 메인페이지 가장 큰 사진 + 카테고리 네브바 */
@@ -28,7 +32,7 @@
 .main-image img {
     opacity: 60%;
     height: 100%;
-    width: 90%;
+    width: 95%;
 }
 
 .main-img-desc {
@@ -37,7 +41,7 @@
     display: inline-block;
     color: white;
     font-size: 17px;
-    font-family: '국립박물관문화재단클래식L';
+    font-family: '국립박물관문화재단클래식L' !important;
     font-weight: 100;
     writing-mode: tb-rl;
     padding: 70px 15px;
@@ -45,42 +49,67 @@
     z-index: 1;
 }
 
-
-
 /* 메인페이지 카테고리 네브바 전체 컨테이너 */
 .main-category-container {
     margin: 0px;
     position: fixed;
     top: 70px;
     left: 0px;
-    padding: 15px;
-
     /* box-shadow: 5px 5px 10px -5px gray; */
 }
 
 #octagon {
     background-color: #970000;
-  }
-  #octagon:before {
-    content: "";
-    width: 63%;
-    height: 0;
+    padding: 15px;
+}
+
+/* #octagon:before {
+content: "";
+width: 100%;
+height: 0;
+position: absolute;
+top: 0;
+left: 0;
+border-bottom: 29px solid #970000;
+border-right: 29px solid transparent;
+}
+
+#octagon:after {
+content: "";
+width: 70%;
+height: 0;
+position: absolute;
+bottom: 0;
+left: 0;
+border-top: 29px solid #970000;
+border-right: 29px solid transparent;
+} */
+
+/* 
+
+.octa {
+    height: 250px;
+    overflow: hidden;
     position: absolute;
-    top: 0;
-    left: 0;
-    border-bottom: 29px solid #970000;
-    border-right: 29px solid transparent;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 250px;
   }
-  #octagon:after {
-    content: "";
-    width: 63%;
-    height: 0;
-    position: absolute;
+  .octa:after {
+    background-color:#cecece;;
     bottom: 0;
+    content: '';
     left: 0;
-    border-top: 29px solid #970000;
-    border-right: 29px solid white;
+    position: absolute;
+    right: 0;
+    top: 0;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
   }
+ */
+
 
 /* 메인페이지 카테고리 네브바 아이템 컨테이너 */
 .main-category-item-container {
@@ -108,19 +137,20 @@
     text-decoration-line: none;
 }
 
-
-/* best chef */
-
+/* 베스트 셰프 */
 .best-chef-container {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    padding: 70px 0px;
-    border-bottom: #dfdfe0 solid 0.5px;
+    justify-content: space-between;
+    margin: 0px 250px;
+    /* border-bottom: #dfdfe0 solid 0.5px; */
+    padding: 20px 0px;
 }
 
-#house {
-    padding: 50px;
+.house img {
+    width: 160px;
+    height: 180px;
+    padding: 20px 0px;
 }
 
 .best-chef-item-img {
@@ -129,8 +159,8 @@
 
 /* best chef img */
 .best-chef-item-img img {
-    width: 237px;
-    height: 237px;
+    width: 165px;
+    height: 190px;
 }
 
 .best-chef-item-desc {
@@ -146,10 +176,11 @@
 }
 
 .best-chef-item-id {
-    font-size: 16px;
+    font-size: 12px;
     font-weight: bold;
     display: inline;
     text-align: center;
+    padding: 5px 0px;
 }
 
 .more-button {
@@ -159,84 +190,99 @@
     margin-left: 800px;
 }
 
-/* xx대에게 인기있어요! */
-.popular-menu-container {
+/* 최근 등록 메뉴 */
+.recent-menu {
     display: flex;
     flex-direction: column;
-    margin-top: 0px;
-    width: 100%;
+    justify-content: space-around;
+    margin: 50px 250px;
 }
 
-.twenty-popular-menu-container,
-.thirty-popular-menu-container {
-    margin: 20px 0px 0px 0px;
-}
-
-.thirty-popular-menu-container {
-    margin-bottom: 100px;
-}
-
-/* 20대/30에게 인기 있어요! 그리드 컨테이너 */
-.twenty-popular-menu-grid-container,
-.thirty-popular-menu-grid-container {
+.recent-menu__header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width: 800px;
-    float: left;
-    margin: 0px 370px;
-    padding: 0px;
+    justify-content: center;
+    margin: 0px 100px;
 }
 
-/* xx에게 인기 있어요! 타이틀 */
-.popular-menu-title {
-    float: left right;
-    margin: 20px 370px;
+.reccent-menu__header-wrapper {
+    margin: 0px 200px;
 }
 
-.popular-menu-img img {
-    width: 180px;
-    height: 180px;
-    border-radius: 5px;
-    box-shadow: 0px 8px 8px -7px rgb(85, 84, 84);
+.header--top {
+    font-size: 25px;
+    color: black;
+    text-align: center;
+    border-bottom: #BD0000 solid 3px;
+    padding: 10px 100px;
 }
 
-/* 인기메뉴 사진 설명 */
-.popular-menu-item-desc {
-    display: block;
+.recent-menu__header div {
     font-size: 12px;
-    margin: 5px;
+    color: #848484;
+    padding: 5px;
+    text-align: center;
 }
 
-/* 메뉴 그리드 아이템 hovering */
-/* .menu-grid-item-hovering {
-    background-color: #525050;
-    opacity: 0.5%;
-    width: 270px;
-    height: 270px;
-} */
-
-.popular-menu-item-desc-title,
-.popular-menu-item-desc-id {
-    padding: 10px 0px;
+.menu__item-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
+.menu__item {
+    padding: 20px;
+}
 
 /* 홍제동에서 열려요!여기부터 시작 */
 
 .place-menu {
-    background-color: #FFEC48;
+    background-color: #F0EFEC;
     width: 100%;
-    height: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px 0px;
 }
 
-/* 메인페이지 연령대별 인기메뉴 컨테이너 */
-.place-menu-container {
-    width: 100%;
+.place-menu-wrapper {
+    text-align: center;
+}   
+
+.place-menu__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
-.place-menu-title {
-    display: block;
+.place-menu__header h3{
+    font-size: 20px;
+    padding: 10px;
+}
+
+/* 빨간색 글자 강조 */
+.red--emp {
+    font-size: 22px;
+    font-weight: 600;
+    color: #BD0000;
+}
+
+.place-menu__header-wrapper div{
+    font-size: 12px;
+    padding: 10px;
+    color: #848484;
+}
+
+.place-menu__item-container {
+    margin: 0px 250px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: space-around;
+}
+
+.place-menu__item {
+    padding: 20px;   
 }
 
 #hongjae {
@@ -247,12 +293,7 @@
     font-weight: 700;
 }
 
-/* 빨간색 글자 강조 */
-.red-emp {
-    font-size: 25px;
-    font-weight: 700;
-    color: #BD0000;
-}
+
 
 .text  {
     font-size: 16px;
@@ -262,8 +303,7 @@
     text-align: center;
 }
 
-.place-menu-item-container ,
-.recent-menu-item-container{
+.place-menu-item-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -289,14 +329,7 @@
 }
 
 
-/* 최근 본 프로그램 */
-.recent-menu {
-    margin-top: 50px;
-    margin-bottom: 50px;
-    display: inline-block;
-}
-
-.recent-menu-container {
+/* .recent-menu-container {
     width: 630px;
     height: 300px;
     float: left;
@@ -347,62 +380,7 @@
 
 .recent-menu-item-container {
     margin: 0px;
-}
+} */
 
 
 /* 최근 본 메뉴와 유사한 메뉴 */
-.recent-similar-menu {
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    margin-top: 50px;
-    margin-bottom: 200px;
-}
-
-.recent-similar-menu-title {
-    font-size: 15px;
-    font-weight: bolder;
-    padding: 15px;
-}
-
-.recent-similar-menu-item-container {
-    background-color: #BD0000;
-    width: 300px;
-    margin-bottom: 5px;
-    border-radius: 5px;
-}
-
-.recent-similar-menu-item-img img {
-    width: 91px;
-    height: 70px;
-    border-radius: 6px;
-    padding-left: 3px;
-}
-
-.recent-similar-menu-item-img {
-    display: inline-block;
-    width: 93px;
-    height: 100%;
-    padding-top: 21px;
-}
-
-.recent-similar-menu-item-desc {
-    font-size: 12px;
-    display: inline;
-    color: white;
-}
-
-.recent-similar-menu-item-price {
-    font-size: 15px;
-    display: block;
-    text-align: right;
-    padding: 0px 10px 3px 0px;
-    text-align: right;
-    color: white;
-}
-
-#recent-menu {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 100px;
-}

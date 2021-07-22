@@ -156,7 +156,6 @@ a {
 /* 네브바 전체 감싸는 컨테이너 */
 .nav-container {
     width: 100%;
-    height: 57.55px;
     background-color: #970000;
     box-shadow: 0 10px 10px -10px rgb(105, 105, 105);
     display: flex;
@@ -165,11 +164,10 @@ a {
     flex-wrap: nowrap;
 }
 
-.logo {
-    width: 90px;
-    height: 120px;
-    padding: 5px 25px;
-    position: static;
+.nav-container img {
+    width: 100px;
+    height: 130px;
+    padding: 5px;
 }
 
 .nav__item-container {
@@ -347,5 +345,6 @@ a {
     color: black;
     font-size: 16px;
 }
+
 
 

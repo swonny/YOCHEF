@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-
-    <form name="registerChef_3" method="POST" action="{% url 'registerChef' '4' %}" enctype="multipart/form-data">
+    <form name="registerChef_3" action="{% url 'registerChef' '4' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
         <div id="regiFrmWrap">>
         <div class="regiFrmWrap">

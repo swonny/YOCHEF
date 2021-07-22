@@ -61,7 +61,6 @@ class Book(models.Model):
 	coupon = models.ForeignKey(Coupon, null=True, on_delete=models.SET_NULL)
 	schedule = models.ForeignKey('chef.Schedule', on_delete=models.CASCADE)
 	paymentStatus = models.IntegerField(default=1)	# 1: 예약가능  2: 예약됨  3. 취소됨
-	# status = models.IntegerField() # 1:결제대기 2:결제완료 3:결제취소 // 고객결제취소 및 셰프승인취소시 3
 	phoneNum = models.CharField(max_length=11)
 	usedPoint = models.IntegerField(null=True)
 	payMethod = models.IntegerField(null=True)
@@ -72,7 +71,17 @@ class Book(models.Model):
 	registerDate = models.DateTimeField(auto_now=True) 
 
 	def __str__(self):
-		return self.schedule.post.chef.nickname + ' 셰프 - ' + self.customer.name
+		return self.schedule.post.chef.nickname + ' 셰프 - ' + self.course.title
+
+	def print_paymentStatus(self):
+		if self.paymentStatus == 1:
+			return "예약가능"
+		elif self.paymentStatus == 2:
+			return "예약됨"
+		elif self.paymentStatus == 3:
+			return "취소됨"
+		else:
+			return "Error"
 
 class Review(models.Model):
 	post = models.ForeignKey('chef.Post', on_delete=models.CASCADE)

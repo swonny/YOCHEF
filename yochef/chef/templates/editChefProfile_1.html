@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_editChef.html' %}
 {% block content %}
     <form name="editChefProfile_1" action="{% url 'updateChefProfile' %}" method="POST" >
     {% csrf_token %}

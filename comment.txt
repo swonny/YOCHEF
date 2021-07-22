@@ -380,3 +380,33 @@
 	- line 4, line 55 및 chef/views.py line 89 수정하여 다중 파일 업로드 기능 활성화
 	- 파일 업로드 시 permission issue 발생
 	- media 폴더의 권한을 모두 개방하여 해결하였으나, 매우 심각한 취약점이므로 논의가 필요합니다. 
+
+21.07.21 워니
+- main.html 및 css 수정
+	- 베스트 셰프 파트 논의 후 수정 예정
+	- 최근 메뉴 및 장소별 메뉴 html 수정 완료
+	- 이미지 및 post 객체 추가 후 테스트 필요
+	- 디테일 페이지 이동 onclick 수정 필요
+
+	- 백 참고
+		- post 이미지를 불러올 수 있는 변수가 필요합니다.
+		- 장소별 post를 불러올 수 있는 변수가 필요합니다.
+
+21.07.21 워니
+- main.css 수정
+	- display: flex로 변경
+
+- 백 참고
+	- customer 앱 (myMenu_likedMenu.html)에서 손님이 좋아요한 메뉴를 불러올 수 있는 변수가 필요합니다.
+
+21.07.21 제우스
+- chef/models.py
+	- Chef(), Post() 모델 __str__ 추가
+- registerChef_1.html
+	- chef 전화번호 인증 관련 코드 삭제 : <article> ... </article>
+	- chefProfileImage 업로드 구현
+	- Ajax 작성 중
+
+21.07.21 워니
+- main.html
+	- 디테일페이지 연결 완료

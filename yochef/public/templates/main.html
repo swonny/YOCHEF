@@ -10,31 +10,45 @@
             <!-- 메인페이지 가장 큰 이미지 -->
             <div class="main-image">
                 <div class="main-img-desc">프리미엄 <br><br>당신을 위한 ─── </div>
-=                <img src="{% static 'img/main.png' %}" >
+                <img src="{% static 'img/main.png' %}" >
             </div>
             <!-- 메인페이지 카테고리 네브바 -->
-            <!-- <div id="octagon"> -->
-                <nav id="octagon" class="main-category-container">
-                    <ul class="main-category-item-container">
-                        <li class="main-category-item"><a href="/postList" class="{% if category == 0 %} currentCategory{% endif %}">전체보기</a></li>
-                        <li class="main-category-item"><a href="/postList?category=1" class="{% if category == 1 %} currentCategory{% endif %}">뷔페/<br>케이터링</a></li>
-                        <li class="main-category-item"><a href="/postList?category=2" class="{% if category == 2 %} currentCategory{% endif %}">한식</a></li>
-                        <li class="main-category-item"><a href="/postList?category=3" class="{% if category == 3 %} currentCategory{% endif %}">일식</a></li>
-                        <li class="main-category-item"><a href="/postList?category=4" class="{% if category == 4 %} currentCategory{% endif %}">중식</a></li>
-                        <li class="main-category-item"><a href="/postList?category=5" class="{% if category == 5 %} currentCategory{% endif %}">아시안</a></li>
-                        <li class="main-category-item"><a href="/postList?category=6" class="{% if category == 6 %} currentCategory{% endif %}">양식</a></li>
-                        <li class="main-category-item"><a href="/postList?category=7" class="{% if category == 7 %} currentCategory{% endif %}">채식</a></li>
-                        <li class="main-category-item"><a href="/postList?category=8" class="{% if category == 8 %} currentCategory{% endif %}">기타</a></li>
-                    </ul>
-                </nav>
-            <!-- </div> -->
+            <nav class="main-category-container">
+                <ul id="octagon" class="main-category-item-container">
+                    <li class="main-category-item"><a href="/postList" class="{% if category == 0 %} currentCategory{% endif %}">전체보기</a></li>
+                    <li class="main-category-item"><a href="/postList?category=1" class="{% if category == 1 %} currentCategory{% endif %}">뷔페/<br>케이터링</a></li>
+                    <li class="main-category-item"><a href="/postList?category=2" class="{% if category == 2 %} currentCategory{% endif %}">한식</a></li>
+                    <li class="main-category-item"><a href="/postList?category=3" class="{% if category == 3 %} currentCategory{% endif %}">일식</a></li>
+                    <li class="main-category-item"><a href="/postList?category=4" class="{% if category == 4 %} currentCategory{% endif %}">중식</a></li>
+                    <li class="main-category-item"><a href="/postList?category=5" class="{% if category == 5 %} currentCategory{% endif %}">아시안</a></li>
+                    <li class="main-category-item"><a href="/postList?category=6" class="{% if category == 6 %} currentCategory{% endif %}">양식</a></li>
+                    <li class="main-category-item"><a href="/postList?category=7" class="{% if category == 7 %} currentCategory{% endif %}">채식</a></li>
+                    <li class="main-category-item"><a href="/postList?category=8" class="{% if category == 8 %} currentCategory{% endif %}">기타</a></li>
+                </ul>
+            </nav>
         </header>
+<!-- 
+        <div class='octa'>
+            <nav class="main-category-container">
+                <ul id="octagon" class="main-category-item-container">
+                    <li class="main-category-item"><a href="/postList" class="{% if category == 0 %} currentCategory{% endif %}">전체보기</a></li>
+                    <li class="main-category-item"><a href="/postList?category=1" class="{% if category == 1 %} currentCategory{% endif %}">뷔페/<br>케이터링</a></li>
+                    <li class="main-category-item"><a href="/postList?category=2" class="{% if category == 2 %} currentCategory{% endif %}">한식</a></li>
+                    <li class="main-category-item"><a href="/postList?category=3" class="{% if category == 3 %} currentCategory{% endif %}">일식</a></li>
+                    <li class="main-category-item"><a href="/postList?category=4" class="{% if category == 4 %} currentCategory{% endif %}">중식</a></li>
+                    <li class="main-category-item"><a href="/postList?category=5" class="{% if category == 5 %} currentCategory{% endif %}">아시안</a></li>
+                    <li class="main-category-item"><a href="/postList?category=6" class="{% if category == 6 %} currentCategory{% endif %}">양식</a></li>
+                    <li class="main-category-item"><a href="/postList?category=7" class="{% if category == 7 %} currentCategory{% endif %}">채식</a></li>
+                    <li class="main-category-item"><a href="/postList?category=8" class="{% if category == 8 %} currentCategory{% endif %}">기타</a></li>
+                </ul>
+            </nav>
+        </div> -->
 
-        <section class="main-section-container">
-            <!-- best chef -->
+        <section class="main-section-wrapper">
+            <!-- 베스트 셰프 -->
             <article class="best-chef-container">
-                <div id="house">
-                    <img src="/static/image/house.PNG" alt="">
+                <div class="house">
+                    <img src="{% static 'img/best_chef.png' %}" alt="">
                 </div>
 
                 <div class="best-chef-item-container">
@@ -43,8 +57,8 @@
                     </div>
 
                     <div class="best-chef-item-desc">
-                        <div class="best-chef-item-title">양식_파스타의 끝을 달려보자!</div>
                         <div class="best-chef-item-id">백종원 셰프님</div>
+                        <div class="best-chef-item-title">양식_파스타의 끝을 달려보자!</div>
                     </div>
                 </div>
 
@@ -54,8 +68,8 @@
                     </div>
 
                     <div class="best-chef-item-desc">
-                        <div class="best-chef-item-title">양식_파스타의 끝을 달려보자!</div>
                         <div class="best-chef-item-id">백종원 셰프님</div>
+                        <div class="best-chef-item-title">양식_파스타의 끝을 달려보자!</div>
                     </div>
                 </div>
 
@@ -65,8 +79,8 @@
                     </div>
 
                     <div class="best-chef-item-desc">
-                        <div class="best-chef-item-title">양식_파스타의 끝을 달려보자!</div>
                         <div class="best-chef-item-id">백종원 셰프님</div>
+                        <div class="best-chef-item-title">양식_파스타의 끝을 달려보자!</div>
                     </div>
                 </div>
 
@@ -76,313 +90,54 @@
                     </div>
 
                     <div class="best-chef-item-desc">
-                        <div class="best-chef-item-title">양식_파스타의 끝을 달려보자!</div>
                         <div class="best-chef-item-id">백종원 셰프님</div>
+                        <div class="best-chef-item-title">양식_파스타의 끝을 달려보자!</div>
                     </div>
                 </div>
             </article>
+            <!-- // 베스트 셰프 -->
 
-            <article class="popular-menu-container">
-                
-                <!-- 20대에게 인기 있어요! -->
-                <div class="twenty-popular-menu-container">
-                    <div class="popular-menu-title">
-                        <span class="red-emp">20대</span>에게 인기있어요!
+            <!-- 최근 등록 메뉴 -->
+            <article class="recent-menu">
+                <div class="recent-menu__header">
+                    <div class="recent-menu__header-wrapper">
+                        <header class="header--top">Recent Menu</header>
+                        <div>최근에 등록된 메뉴들을 한눈에 확인하세요!</div>
                     </div>
-                    
-                    <div class="twenty-popular-menu-grid-container">
+                </div>
+                <div class="menu__item-container">
+                    {% for post in posts %}
+                    <div onclick="location.href = '/detail/{{post.id}}';" class="menu__item"><!-- 수정(질문) -->
+                        <img src="" alt=""><!-- 수정필요: 포스트 이미지 -->
+                        <div class="menu__title">{{post.title}}</div>
+                        <div class="menu__chef-name">{{post.chef.nickname}}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </article>
+            <!-- // 최근 등록 메뉴 -->
 
+            <!-- 장소별 메뉴 -->
+            <article class="place-menu">
+                <div class="place-menu-wrapper">
+                    <div class="place-menu__header">
+                        <div class="place-menu__header-wrapper">
+                            <h3><span class="red--emp">홍제동</span>에서 열려요!</h3><!-- 수정필요 -->
+                            <div>특별한 경험을 선사해줄 셰프님들을 만나보세요.</div>    
+                        </div>
+                    </div>
+                    <div class="place-menu__item-container">
                         {% for post in posts %}
-                        <!-- !!!!div태그에 onclick="location.href='';" 로 해당 링크로 이동하게 하기 -->
-                        <!-- 프론트 참고 - href 값 추가해뒀습니다. -->
-                        <div onclick="location.href='detail/{{post.id}}';" class="popular-menu-item">
-                            <div class="popular-menu-img"><img src="https://t1.daumcdn.net/liveboard/dailylife/8defeeef58a04d3888ddfe03b5722000.jpg" alt=""></div>
-                            <div class="popular-menu-item-desc">
-                                <div class="popular-menu-item-desc-title">{{post.title}}</div>
-                                <div class="popular-menu-item-desc-id">{{post.chef.nickname}}</div>
-                            </div>
-                            
-                            <!-- 마우스 hovering 시 나타나는 화면 -->
-                            <!-- <div class="menu-grid-item-hovering">
-                                <div class="popular-menu-item-hover-place">장소 | 서대문구 </div>
-                            </div> -->
+                        <div onclick="location.href = '/detail/{{post.id}}';" class="menu__item" class="place-menu__item">
+                            <img src="" alt=""><!-- 수정필요 -->
+                            <div class="menu__title">{{post.title}}</div>
+                            <div class="menu__chef-name">{{post.chef.nickname}}</div>
                         </div>
                         {% endfor %}
-
-                        
-
                     </div>
-                    
-                    
-                </div>
-
-                <!-- 30대에게 인기 있어요! -->
-                <div class="thirty-popular-menu-container">
-                    <div class="popular-menu-title">
-                        <span class="red-emp">30대</span>에게 인기있어요!
-                    </div>
-                    
-                    <div class="thirty-popular-menu-grid-container">
-
-                        <div class="popular-menu-item">
-                            <div class="popular-menu-img"><img src="https://t1.daumcdn.net/liveboard/dailylife/8defeeef58a04d3888ddfe03b5722000.jpg" alt=""></div>
-                            <div class="popular-menu-item-desc">
-                                <div class="popular-menu-item-desc-title">양식_파스타의 끝을 달려보자!</div>
-                                <div class="popular-menu-item-desc-id">GamJa</div>
-                            </div>
-                            
-                            <!-- 마우스 hovering 시 나타나는 화면 -->
-                            <!-- <div class="menu-grid-item-hovering">
-                                <div class="popular-menu-item-hover-place">장소 | 서대문구 </div>
-                            </div> -->
-                        </div>
-
-                        <div class="popular-menu-item">
-                            <div class="popular-menu-img"><img src="https://t1.daumcdn.net/liveboard/dailylife/8defeeef58a04d3888ddfe03b5722000.jpg" alt=""></div>
-                            <div class="popular-menu-item-desc">
-                                <div class="popular-menu-item-desc-title">양식_파스타의 끝을 달려보자!</div>
-                                <div class="popular-menu-item-desc-id">GamJa</div>
-                            </div>
-                            
-                            <!-- 마우스 hovering 시 나타나는 화면 -->
-                            <!-- <div class="menu-grid-item-hovering">
-                                <div class="popular-menu-item-hover-place">장소 | 서대문구 </div>
-                            </div> -->
-                        </div>
-
-                        <div class="popular-menu-item">
-                            <div class="popular-menu-img"><img src="https://t1.daumcdn.net/liveboard/dailylife/8defeeef58a04d3888ddfe03b5722000.jpg" alt=""></div>
-                            <div class="popular-menu-item-desc">
-                                <div class="popular-menu-item-desc-title">양식_파스타의 끝을 달려보자!</div>
-                                <div class="popular-menu-item-desc-id">GamJa</div>
-                            </div>
-                            
-                            <!-- 마우스 hovering 시 나타나는 화면 -->
-                            <!-- <div class="menu-grid-item-hovering">
-                                <div class="popular-menu-item-hover-place">장소 | 서대문구 </div>
-                            </div> -->
-                        </div>
-
-                        <div class="popular-menu-item">
-                            <div class="popular-menu-img"><img src="https://t1.daumcdn.net/liveboard/dailylife/8defeeef58a04d3888ddfe03b5722000.jpg" alt=""></div>
-                            <div class="popular-menu-item-desc">
-                                <div class="popular-menu-item-desc-title">양식_파스타의 끝을 달려보자!</div>
-                                <div class="popular-menu-item-desc-id">GamJa</div>
-                            </div>
-                            
-                            <!-- 마우스 hovering 시 나타나는 화면 -->
-                            <!-- <div class="menu-grid-item-hovering">
-                                <div class="popular-menu-item-hover-place">장소 | 서대문구 </div>
-                            </div> -->
-                        </div>
-
-                    </div>
-                    
-                    
-                </div>
-            
-            </article>
-
-            <article class="place-menu">
-                            
-                <!-- 홍제동에서 열려요! -->
-                <div class="place-menu-container">
-                    <div class="place-menu-title">
-                        <div id="hongjae"><span class="red-emp">홍제동</span>에서 열려요!</div>
-                        <!-- !!!!class이름 바꾸기 -->
-                        <div class="text"> 
-                            특별한 경험을 선사해줄 셰프님들을 만나보세요.
-                        </div>
-                    </div>
-
-
-                    <div class="place-menu-item-container">
-                        <div class="place-menu-item">
-                            <!-- !!!!div태그에 onclick="location.href='';" 로 해당 링크로 이동하게 하기 -->
-                            <div onclick="location.href='';" class="place-menu-item">
-                                <div class="place-menu-item-img"><img src="https://t1.daumcdn.net/liveboard/dailylife/8defeeef58a04d3888ddfe03b5722000.jpg" alt=""></div>
-                                <div class="place-menu-item-desc">
-                                    <div class="place-menu-item-desc-title">양식_파스타의 끝을 달려보자!</div>
-                                    <div class="place-menu-item-desc-id">GamJa</div>
-                                </div>
-                                
-                                <!-- 마우스 hovering 시 나타나는 화면 -->
-                                <!-- <div class="menu-grid-item-hovering">
-                                    <div class="place-menu-item-hover-place">장소 | 서대문구 </div>
-                                </div> -->
-                            </div>
-                        </div>
-
-                        <div class="place-menu-item">
-                            <!-- !!!!div태그에 onclick="location.href='';" 로 해당 링크로 이동하게 하기 -->
-                            <div onclick="location.href='';" class="place-menu-item">
-                                <div class="place-menu-item-img"><img src="https://t1.daumcdn.net/liveboard/dailylife/8defeeef58a04d3888ddfe03b5722000.jpg" alt=""></div>
-                                <div class="place-menu-item-desc">
-                                    <div class="place-menu-item-desc-title">양식_파스타의 끝을 달려보자!</div>
-                                    <div class="place-menu-item-desc-id">GamJa</div>
-                                </div>
-                                
-                                <!-- 마우스 hovering 시 나타나는 화면 -->
-                                <!-- <div class="menu-grid-item-hovering">
-                                    <div class="place-menu-item-hover-place">장소 | 서대문구 </div>
-                                </div> -->
-                            </div>
-                        </div>
-
-                        <div class="place-menu-item">
-                            <!-- !!!!div태그에 onclick="location.href='';" 로 해당 링크로 이동하게 하기 -->
-                            <div onclick="location.href='';" class="place-menu-item">
-                                <div class="place-menu-item-img"><img src="https://t1.daumcdn.net/liveboard/dailylife/8defeeef58a04d3888ddfe03b5722000.jpg" alt=""></div>
-                                <div class="place-menu-item-desc">
-                                    <div class="place-menu-item-desc-title">양식_파스타의 끝을 달려보자!</div>
-                                    <div class="place-menu-item-desc-id">GamJa</div>
-                                </div>
-                                
-                                <!-- 마우스 hovering 시 나타나는 화면 -->
-                                <!-- <div class="menu-grid-item-hovering">
-                                    <div class="place-menu-item-hover-place">장소 | 서대문구 </div>
-                                </div> -->
-                            </div>
-                        </div>
-
-                        <div class="place-menu-item">
-                            <!-- !!!!div태그에 onclick="location.href='';" 로 해당 링크로 이동하게 하기 -->
-                            <div onclick="location.href='';" class="place-menu-item">
-                                <div class="place-menu-item-img"><img src="https://t1.daumcdn.net/liveboard/dailylife/8defeeef58a04d3888ddfe03b5722000.jpg" alt=""></div>
-                                <div class="place-menu-item-desc">
-                                    <div class="place-menu-item-desc-title">양식_파스타의 끝을 달려보자!</div>
-                                    <div class="place-menu-item-desc-id">GamJa</div>
-                                </div>
-                                
-                                <!-- 마우스 hovering 시 나타나는 화면 -->
-                                <!-- <div class="menu-grid-item-hovering">
-                                    <div class="place-menu-item-hover-place">장소 | 서대문구 </div>
-                                </div> -->
-                            </div>
-                        </div>
-
-                        <div class="place-menu-item">
-                            <!-- !!!!div태그에 onclick="location.href='';" 로 해당 링크로 이동하게 하기 -->
-                            <div onclick="location.href='';" class="place-menu-item">
-                                <div class="place-menu-item-img"><img src="https://t1.daumcdn.net/liveboard/dailylife/8defeeef58a04d3888ddfe03b5722000.jpg" alt=""></div>
-                                <div class="place-menu-item-desc">
-                                    <div class="place-menu-item-desc-title">양식_파스타의 끝을 달려보자!</div>
-                                    <div class="place-menu-item-desc-id">GamJa</div>
-                                </div>
-                                
-                                <!-- 마우스 hovering 시 나타나는 화면 -->
-                                <!-- <div class="menu-grid-item-hovering">
-                                    <div class="place-menu-item-hover-place">장소 | 서대문구 </div>
-                                </div> -->
-                            </div>
-                        </div>
-                    </div>
-
-
                 </div>
             </article>
-
-            <div id="recent-menu">
-                <article class="recent-menu">
-                                
-                    <!-- 최근 본 프로그램 -->
-                    <div class="recent-menu-container">
-                        <div class="recent-menu-title">
-                            최근 본 프로그램
-                        </div>
-                
-                
-                        <div class="recent-menu-item-container">
-                            <div class="recent-menu-item">
-                                <!-- !!!!div태그에 onclick="location.href='';" 로 해당 링크로 이동하게 하기 -->
-                                <div onclick="location.href='';" class="recent-menu-item">
-                                    <div class="recent-menu-item-img"><img src="https://t1.daumcdn.net/liveboard/dailylife/8defeeef58a04d3888ddfe03b5722000.jpg" alt=""></div>
-                                    <div class="recent-menu-item-desc">
-                                        <div class="recent-menu-item-desc-id">GamJa</div>
-                                        <div class="recent-menu-item-desc-title">당신이 이제껏 먹은 버거는 버거가 아닙니다.</div>
-                                        <div class="recent-menu-item-desc-price">9,900원 ~</div>
-                                    </div>
-                                    
-                                    <!-- 마우스 hovering 시 나타나는 화면 -->
-                                    <!-- <div class="menu-grid-item-hovering">
-                                        <div class="place-menu-item-hover-place">장소 | 서대문구 </div>
-                                    </div> -->
-                                </div>
-                            </div>
-
-                            <div class="recent-menu-item">
-                                <!-- !!!!div태그에 onclick="location.href='';" 로 해당 링크로 이동하게 하기 -->
-                                <div onclick="location.href='';" class="recent-menu-item">
-                                    <div class="recent-menu-item-img"><img src="https://t1.daumcdn.net/liveboard/dailylife/8defeeef58a04d3888ddfe03b5722000.jpg" alt=""></div>
-                                    <div class="recent-menu-item-desc">
-                                        <div class="recent-menu-item-desc-id">GamJa</div>
-                                        <div class="recent-menu-item-desc-title">당신이 이제껏 먹은 버거는 버거가 아닙니다.</div>
-                                        <div class="recent-menu-item-desc-price">9,900원 ~</div>
-                                    </div>
-                                    
-                                    <!-- 마우스 hovering 시 나타나는 화면 -->
-                                    <!-- <div class="menu-grid-item-hovering">
-                                        <div class="place-menu-item-hover-place">장소 | 서대문구 </div>
-                                    </div> -->
-                                </div>
-                            </div>
-
-                            <div class="recent-menu-item">
-                                <!-- !!!!div태그에 onclick="location.href='';" 로 해당 링크로 이동하게 하기 -->
-                                <div onclick="location.href='';" class="recent-menu-item">
-                                    <div class="recent-menu-item-img"><img src="https://t1.daumcdn.net/liveboard/dailylife/8defeeef58a04d3888ddfe03b5722000.jpg" alt=""></div>
-                                    <div class="recent-menu-item-desc">
-                                        <div class="recent-menu-item-desc-id">GamJa</div>
-                                        <div class="recent-menu-item-desc-title">당신이 이제껏 먹은 버거는 버거가 아닙니다.</div>
-                                        <div class="recent-menu-item-desc-price">9,900원 ~</div>
-                                    </div>
-                                    
-                                    <!-- 마우스 hovering 시 나타나는 화면 -->
-                                    <!-- <div class="menu-grid-item-hovering">
-                                        <div class="place-menu-item-hover-place">장소 | 서대문구 </div>
-                                    </div> -->
-                                </div>
-                            </div>
-                        </div>
-                </article>
-
-                <article class="recent-similar-menu">
-                    <div class="recent-similar-menu-title">
-                        최근 본 메뉴와 유사한 메뉴
-                    </div>
-        
-                    <div class="recent-similar-menu-item-container">
-                        <div class="recent-similar-menu-item">
-                            <div class="recent-similar-menu-item-img"><img src="https://www.tasteofhome.com/wp-content/uploads/2020/03/Smash-Burgers_EXPS_TOHcom20_246232_B10_06_10b.jpg" alt=""></div>
-                            <div class="recent-similar-menu-item-desc">버거의 편견을 바꿔드립니다.</div>
-                            <div class="recent-similar-menu-item-price">11,900원</div>
-                        </div>
-                    </div>
-
-                    <div class="recent-similar-menu-item-container">
-                        <div class="recent-similar-menu-item">
-                            <div class="recent-similar-menu-item-img"><img src="https://www.tasteofhome.com/wp-content/uploads/2020/03/Smash-Burgers_EXPS_TOHcom20_246232_B10_06_10b.jpg" alt=""></div>
-                            <div class="recent-similar-menu-item-desc">버거의 편견을 바꿔드립니다.</div>
-                            <div class="recent-similar-menu-item-price">11,900원</div>
-                        </div>
-                    </div>
-
-                    <div class="recent-similar-menu-item-container">
-                        <div class="recent-similar-menu-item">
-                            <div class="recent-similar-menu-item-img"><img src="https://www.tasteofhome.com/wp-content/uploads/2020/03/Smash-Burgers_EXPS_TOHcom20_246232_B10_06_10b.jpg" alt=""></div>
-                            <div class="recent-similar-menu-item-desc">버거의 편견을 바꿔드립니다.</div>
-                            <div class="recent-similar-menu-item-price">11,900원</div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-
+            <!-- // 장소별 메뉴 -->
         </section>
-
-        
-
     </div>
-
-
-
 {% endblock %}

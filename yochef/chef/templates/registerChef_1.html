@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form name="registerChef_1" action="{% url 'registerChef' '2' %}" method="POST" >
-    {% csrf_token %}
+    <form name="registerChef_1" action="{% url 'registerChef' '2' %}" method="POST" enctype="multipart/form-data" >
+        {% csrf_token %}
         <div id="regiFrmWrap">
             <!-- section header -->
             <section class="regiChefSection__header">
@@ -36,18 +36,6 @@
                             <div></div>
                         </article>
 
-                        <!-- 셰프 번호 인증 -->
-                        <article class="chefRegifirst__input">
-                            <div class="chefRegifirst__input__chefPhoneNum">
-                                <!-- !!!! 만약 유저의 폰번호가 등록되어 있다면 -->
-                                <!-- !!!! {% comment %} chefPhoneNum이 등록되어 있다면 폰 번호 chefPhoneNum__input--left value에 넣기 {% endcomment %} -->
-                                <!-- 프론트 참고 - 셰프 전화번호란 삭제되었습니다. 지워도 될 것 같아요 -->
-                                <!-- <input name="phoneNum" type="int" class="chefPhoneNum__input--left" placeholder="번호를 입력해주세요." value="{{customer.phoneNum}}">
-                                <button type="button" class="buttonSubmit">확인</button> -->
-                            </div>
-                        </article>
-                        <!-- // 셰프 번호 인증 -->
-
                         <!-- 프로필 사진 등록 -->
                         <!-- !!!! 수정 필요 -->
                         <article class="chefRegifirst__input">
@@ -55,8 +43,10 @@
                                 <h4 class="chefProfile__title">프로필 사진 </h4>
                                 <div class="chefProfile__container">
                                     <div class="chefProfile__img">
-                                        <!-- 프론트 참고 - type = image > file로 변경하였습니다. -->
-                                        <input name="profileImage" type="file">
+                                        {% if profileImage.attachment %}
+                                        <img name="uploadImage" src="{{profileImage.attachment.url}}" style="width: 100px; height: 100px;">
+                                        {% endif %}
+                                        <input name="profileImage" type="file" accept="image/*">
                                     </div>
                                 </div>
                             </div>
@@ -69,11 +59,7 @@
                         <article class="regiMainInput">
                             <h4>닉네임</h4>
                             <div class="regiMainInput__nickname">
-                                {% if chef.nickname is not None %}
-                                <input name="nickname" type="text" placeholder="사용하실 닉네임을 입력해주세요.">
-                                {% else %}
-                                <input name="nickname" type="text" value={{chef.nickname}}>
-                                {% endif %}
+                                <input name="nickname" type="text" placeholder="사용하실 닉네임을 입력해주세요." value={{chef.nickname}}>
                             </div>
                         </article>
                         <!-- // 닉네임 등록 -->
@@ -84,7 +70,9 @@
                                 <h4>이력</h4>
                                 <p>셰프님과 메뉴에 대한 정보를 알 수 있는 이력을 입력해주세요!</p>
                             </div>
-                            <input name="spec" type="text">
+                            <div class="regiMainInput__spec">
+                                <input name="spec" type="text" value="{{chef.spec}}">
+                            </div>
                         </article>
                         <!-- // 이력 입력 -->
 
@@ -93,30 +81,57 @@
                             <!-- 프론트 참고 - UI와 기획이 일부 달라 sns, blog, youtube로 수정하였습니다-->
                             <h4>소셜 미디어</h4>
                             <div class="regiMainInput__snsLink">
-                                <input name="snsLink" type="text" placeholder="인스타그램 아이디">
+                                <input name="snsLink" type="text" placeholder="인스타그램 아이디" value="{{chef.snsLink}}">
                             </div>
                             <div class="regiMainInput__blogLink">
-                                <input name="blogLink" type="text" placeholder="블로그 주소">
+                                <input name="blogLink" type="text" placeholder="블로그 주소" value="{{chef.blogLink}}">
                             </div>
                             <div class="regiMainInput__youtubeLink">
-                                <input name="youtubeLink" type="text" placeholder="유튜브 주소">
-                            </div>
+                                <input name="youtubeLink" type="text" placeholder="유튜브 주소" value="{{chef.youtubeLink}}">
+                           </div>
                         </article>
                         <!-- // 소셜미디어 -->
                     </section>
                     <!-- // 셰프등록 셰프 정보 추가 main -->
                 </div>
             </div>
-
             <!-- 다음 버튼 -->
             <aside class="button">
-                <!-- <div class="submitBtn"><a href="{% url 'registerChef' '2' %}">다음</a></div> -->
-                <!-- 프론트 참고 - 다음버튼 추가하였습니다 -->
-                <div class="submitBtn"><button type="submit">다음</button></div>
+                <div class="submitBtn"><button id="submitButton">다음</button></div>
             </aside>
-            <!-- // 다음 버튼 -->
         </div>
     </form>
 
-
 {% endblock %}
+<script>
+function readImage(input) {
+    const reader = new FileReader()
+
+    reader.onload = e => {
+        const previewImage = document.getElementsByName("uploadImage")[0]
+        previewImage.src = e.target.result;
+    }
+
+    reader.readAsDataURL(input.files[0]);
+}
+
+const submitButton = document.getElementById("submitButton")
+
+submitButton.addEventListner('click', () => {
+    let formData = new FormData();
+    const textInputs = JSON.stringify({
+        pageNum : 2,
+        nickname : document.getElementsByName("nickname")[0].value(),
+        spec : document.getElementsByName("spec")[0].value(),
+        snsLink : document.getElementsByName("snsLink")[0].value(),
+        blogLink : document.getElementsByName("blogLink")[0].value(),
+        youtubeLink : document.getElementsByName("youtubeLink")[0].value(),
+    });
+
+    formData.append('textInputs', textInputs);
+    formData.append('profileImage', profileImage);
+
+    sendAjax('POST', '')
+})
+
+</script>

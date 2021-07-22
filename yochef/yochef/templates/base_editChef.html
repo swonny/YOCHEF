@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <title>Document</title>
-    <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/base_editChef.css' %}" type="text/css">
     <link rel="shortcut icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
     {% block style %}
     {% endblock %}
@@ -18,8 +18,7 @@
   <!-- 네브바 -->
   
   <nav class="nav-container">
-    <img src="{% static 'image/navlog.jpg' %}" alt="">
-    <div class="nav__item nav--left"><a href="{% url 'main' %}">YOCHEF</a></div>
+    <img src="{% static 'image/navlogo.png' %}" alt="">
     <!-- 로그인 상태라면 -->
     {% if user.is_authenticated %}
       <!-- 셰프등록 돼있다면 -->
