@@ -16,8 +16,8 @@ def registerChef(request, page_num=1):
             chef = Chef(customer=customer)
             chef.save()
 
-        if File.objects.filter(chef=chef).exists():
-            profileImage = File.objects.get(chef=chef)
+        if File.objects.filter(chef=chef).first().attachment:
+            profileImage = File.objects.get(chef=chef, category=1)
         else:
             profileImage = File(chef=chef, attachment="../media/media/default_chef_profile_image.png", category=1)
             profileImage.save()
@@ -61,22 +61,26 @@ def registerChef(request, page_num=1):
     elif page_num == 3: # save registerchef/2, load registerchef/3
         chef = customer.chef
         post = Post.objects.get(chef=chef)
-        courses = Course.objects.filter(post=post)
-        courseImageList = []
-        for course in courses:
-            courseImages = File.objects.filter(course=course, category=3)
-            courseImageList.append(courseImages)
 
         post.category = request.POST.get('category')
         post.region = request.POST.get('region')
         post.regionDetail = request.POST.get('regionDetail')
         post.save()
 
+        if File.objects.filter(post=post, category=4).exists():
+            postCoverImage = File.objects.get(post=post, category=4)
+        else:
+            postCoverImage = None
+
+        courses = Course.objects.filter(post=post)
+        for course in courses:
+            course.images = File.objects.filter(course=course, category=3)
+
         context = {}
         context['chef'] = chef
         context['post'] = post
+        context['postCoverImage'] = postCoverImage
         context['courses'] = courses
-        context['courseImageList'] = courseImageList
 
         return render(request, 'registerChef_3.html', context)
 
@@ -86,23 +90,27 @@ def registerChef(request, page_num=1):
 
         post.title = request.POST.get('title')
 
-        File.objects.filter(post=post, category=4).delete()              # 직접 수정이 불가능하니 기존에 입력된 DB 삭제 후 재입력 하는 방식
-        postCoverImages = request.FILES.getlist('postCoverImages[]')       # list(또는 array)로 받아옴
-        print(postCoverImages)
-        for image in postCoverImages:
-            File.objects.create(post=post, attachment=image, category=4)
+        if request.FILES.get('postCoverInput'):  # list로 받아옴 / 직접 수정이 불가능하니 기존에 입력된 DB 삭제 후 재입력
+            postCoverImage = request.FILES.get('postCoverInput')
+            File.objects.filter(post=post, category=4).delete()              
+            File.objects.create(post=post, attachment=postCoverImage, category=4)
 
         post.introduce = request.POST.get('introduce')
 
-        # FE에서 JS작성 후 수정
-        # Course.objects.filter(post=post).delete()   # 직접 수정이 불가능하니 기존에 입력된 DB 삭제 후 재입력 하는 방식
-        # courses = request.POST.get('courses')
-        # for course in courses:
-        #     course = Course(post=post)
-        #     course.title = request.POST.get('courseTitle')
-        #     course.price = request.POST.get('coursePrice')
-        #     course.description = request.POST.get('courseDescribe')
-        #     course.save()
+        Course.objects.filter(post=post).delete()
+        courseCount = request.POST.get("courseCount")
+        for i in range(1, int(courseCount)+1):
+            course = Course(post=post, order=i)
+            course.title = request.POST.get("courseTitle"+str(i))
+            course.price = request.POST.get("coursePrice"+str(i))
+            course.description = request.POST.get("courseDescribe"+str(i))
+            course.save()
+
+            if request.FILES.getlist("courseImg"+str(i)+"[]"):
+                courseImageFiles = request.FILES.getlist("courseImg"+str(i)+"[]")
+                File.objects.filter(course=course, category=3).delete() # 직접 수정이 불가능하니 기존에 입력된 DB 삭제 후 재입력
+                for index, file in enumerate(courseImageFiles):
+                    File.objects.create(attachment=file, course=course, category=3, order=index+1)     
 
         post.notice = request.POST.get('notice')
         post.save()
@@ -111,7 +119,6 @@ def registerChef(request, page_num=1):
         context['chef'] = chef
         context['post'] = post
         context['courses'] = Course.objects.filter(post=post)
-        context['message'] = "제출"
 
         return render(request, 'registerChef_4.html', context)
 
@@ -141,7 +148,6 @@ def chefSchedule(request):
         scheduleInfo = {}
         scheduleInfo['eventDate'] = schedule.eventDate
         scheduleInfo['eventTime'] = schedule.eventTime
-        scheduleInfo['paymentStatus'] = schedule.print_paymentStatus
         scheduleInfo['confirmStatus'] = schedule.print_confirmStatus
         scheduleInfo['course'] = book.course
         scheduleInfo['personNum'] = book.personNum
@@ -155,6 +161,20 @@ def chefSchedule(request):
     context['scheduleList'] = scheduleInfoList
 
     return render(request, 'chefSchedule.html', context)
+
+
+# chefSchedule.html UPDATE ADD
+def addSchedule(request):
+    chef = request.user.customer.chef
+    post = chef.post
+
+    newSchedule = Schedule(post=post)
+    newSchedule.eventDate = request.POST.get("scheduleDate")
+    newSchedule.eventTime = request.POST.get("scheduleTime")
+    newSchedule.confirmStatus = 1
+    newSchedule.save()
+
+    return redirect("update/")
 
 
 # chefSchedule_detail.html READ
@@ -176,7 +196,7 @@ def chefScheduleDetail(request, schedule_id):
 # chefSchedule_detail.html UPDATE 1
 def scheduleConfirm(request, schedule_id):
     schedule = Schedule.objects.get(id=schedule_id)
-    if request.POST['scheduleConfirm']:
+    if request.POST.get('scheduleConfirm'):
         schedule.confirmStatus = 2	# 1: 승인대기  2: 승인됨  3. 취소됨
         schedule.save()
     return redirect('/chef/chefSchedule/' + str(schedule_id))
@@ -186,7 +206,7 @@ def scheduleConfirm(request, schedule_id):
 def scheduleCancel(request, schedule_id):
     schedule = Schedule.objects.get(id=schedule_id)
     book = Book.objects.get(schedule=schedule)
-    if request.POST['scheduleCancel']:
+    if request.POST.get('scheduleCancel'):
         schedule.confirmStatus = 3	# 1: 승인대기  2: 승인됨  3. 취소됨
         book.paymentStatus = 3 # 1:결제대기 2:결제완료 3:결제취소s
         schedule.save()

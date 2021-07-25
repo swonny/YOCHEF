@@ -64,7 +64,7 @@ select[name="residenceDetail"]{
     width: 40%;
 }
 
-li {
+.filter > ul > li {
     width: 100%;
     display: flex;
     padding: 10px 0;
@@ -72,21 +72,21 @@ li {
     margin-right: 10px;
 }
 
-li > :nth-child(1){
+.filter > ul > li > :nth-child(1){
     /* margin-right: 20px; */
     min-width: 370px;
     height: 47px;
     line-height: 47px;
     display: contents;
 }
-li > :nth-child(2){
+.filter > ul > li > :nth-child(2){
     min-width: 380px;
     display: contents;
     line-height: 47px;
     /* width: 90%; */
 }
 
-li > div > span {
+.filter > ul > li > div > span {
     font-size: 14px;
     display: inline-block;
     width: 100px;
@@ -94,7 +94,7 @@ li > div > span {
     margin-right: 10px;
 }
 
-li > :nth-child(2) > span {
+.filter > ul > li > :nth-child(2) > span {
     width: 130px;
 }
 

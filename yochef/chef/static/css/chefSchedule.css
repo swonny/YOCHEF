@@ -1,8 +1,231 @@
-.schedule-register__header img {
-    width: 21px;
-    height: 21px;
+article {
+    margin-bottom: 30px;
 }
 
-.item__header {
-    background-color: aqua;
+.chef-schedule-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 50px 250px;
+}
+
+.edit-schedule {
+    width: fit-content;
+}
+
+.header-container {
+    display: block;
+    width: 100%;
+}
+
+ h3 {
+    font-family: 'Arita-dotum-medium';
+    display: inline-block;
+    padding: 10px 0px;
+    font-size: 16px;
+}
+
+.post-content {
+    width: 100%;
+    display: block;
+    padding: 15px 0px;
+    border-top: #e6e6e6 solid 0.5px;
+    border-bottom: #e6e6e6 solid 0.5px;;
+}
+
+.post-register-time {
+    font-size: 12px;
+    color: #929292;
+    padding: 10px 0px;
+    display: inline-block;
+}
+
+.post-container > div {
+    padding: 8px 0px;
+}
+
+.post__title {
+    font-family: 'aRITA-DOTUM-SEMIBOLD';
+}
+
+.post__title::before {
+    content: "예약글 ";
+    color: #929292;
+    padding-right: 30px;
+    font-size: 12px;
+    font-family: 'aRITA-DOTUM-SEMIBOLD';
+}
+
+.moving-price {
+    font-family: 'aRITA-DOTUM-SEMIBOLD';
+}
+
+.moving-price::before {
+    content: "출장비";
+    color: #929292;
+    padding-right: 30px;
+    font-size: 12px;
+    font-family: 'aRITA-DOTUM-SEMIBOLD';
+}
+
+.moving-price::after {
+    content: "원";
+    padding-left: 10px;
+}
+
+.date-filter-wrapper {
+    width: 100%;
+    margin-top: 40px;
+}
+
+.date-filter {
+    width: 100%;
+    margin: 30px 0px 10px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+input {
+    width: 100%;
+    font-size: 12px;
+}
+
+.date-filter__start-date,
+.date-filter__end-date {
+    border: #e6e6e6 solid 0.5px;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 5px 0px;
+    width: 200px;
+    margin: 0px 15px;
+}
+
+.date-filter__start-date > input,
+.date-filter__end-date > input {
+    width: 90%;
+    padding: 0px 5px;
+}
+
+.search-button {
+    padding: 5px;
+    width: 40px;
+    height: 32px;
+    border: none;
+    background-color: #bd0000;
+    border-radius: 5px;
+}
+
+.search--image {
+    width: 16px;
+    height: 16px;
+    padding-top: 2px;
+}
+
+.schedule-list__total-cotainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.schedule-list__header,
+.schedule-register__header > h3 {
+    display: inline-block;
+    padding: 10px 0px;
+    margin: 8px;
+    border-bottom: #e6e6e6 solid 0.5px;
+}
+
+.schedule-list-wrapper {
+    border: #e6e6e6 solid 0.5px;
+    border-radius: 5px;
+    display: inline-block;
+    width: 100%;
+}
+
+.list-header-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.list--header {
+    padding: 5px 8px 5px 0px;
+    font-family: 'Arita-dotum-bold';
+}
+
+.list-item {
+    display: inline-block;
+    padding: 5px 8px 5px 0px;
+    font-size: 12px;
+}
+
+.list-container {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.schedule-register__header {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.schedule-register__title > h3 {
+    margin: 0px;
+}
+
+.schedule-register__header {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.schedule-register__header > img {
+    width: 15px;
+    height: 15px;
+    padding: 4px 10px;
+    display: inline-block;
+}
+
+.notice-image::after {
+    content: "요리하실 메뉴에 대해 여러 장소/날짜를 추가할 수 있습니다.";
+    color: #929292;
+    font-size: 12px;
+}
+
+.schedule-register-form {
+    width: 100%;
+    margin: 0px 8px;
+    flex-direction: column;
+}
+
+.form__region,
+.form__date,
+.form__time {
+    margin: 0px 0px 20px;
+}
+
+.region__select-container,
+.date__select-container,
+.time__select-container {
+    border: #e6e6e6 solid 0.5px;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 5px;
+    width: 40%;
+}
+
+.time__title::after {
+    content: "* 선택사항입니다.";
+    display: inline-block;
+    color: #929292;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+select {
+    width: 100%;
+    font-size: 12px;
 }

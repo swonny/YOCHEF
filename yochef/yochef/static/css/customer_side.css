@@ -1,0 +1,51 @@
+
+.header-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid #E6E6E6;
+    padding: 10px 0px;
+}
+
+.header-wrapper h2 {
+    font-family: 'Arita-dotum-medium';
+    font-size: 25px;
+    width: 789px;
+}
+
+aside {
+    display: inline-block;
+}
+
+aside > button {
+    border: none;
+    border-radius: 5px;
+    background-color: #bd0000;
+    padding: 5px 20px;
+    color: white;
+    font-size: 12px;
+    width: 150px;
+}
+
+.content-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    margin: 20px 0px;
+}
+
+/* 네브바 */
+.side-nav-container {
+    display: flex;
+    flex-direction: column;
+    width: 120px;
+    margin-right: 70px;
+}
+
+.side-nav-item a {
+    font-family: 'Arita-dotum-medium';
+    font-size: 12px;
+    display: inline-block;
+    padding-bottom: 25px;
+}

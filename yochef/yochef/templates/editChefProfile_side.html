@@ -1,0 +1,18 @@
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/editChefProfile_side.css' %}">
+{% endblock %}
+  <!-- section header -->
+  <section class="header-wrapper">
+      <h2>셰프 정보관리</h2>
+  </section>
+
+  <div class="content-wrapper">
+    <!-- 셰프 프로필 수정 nav -->
+    <ul class="edit-chef__nav">
+        <li class="edit-chef__nav-item"><a href="{% url 'editChefProfile' %}">셰프 정보</a></li>
+        <li class="edit-chef__nav-item"><a href="{% url 'editPost' %}">예약글 수정</a></li>
+        <li class="edit-chef__nav-item"><a href="{% url 'editMovingPrice' %}">출장비 수정</a></li>
+        <li class="edit-chef__nav-item"><a href="{% url 'chefSchedule' %}">예약일정 관리</a></li>
+    </ul>
+    <!-- // 셰프 프로필 수정 nav -->

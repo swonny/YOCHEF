@@ -1,74 +1,105 @@
-{% extends 'base_editChef.html' %}
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/editChefProfile_3.css' %}">
+{% endblock %}
 {% block content %}
-    <form action="">
-        <section class="moving-price">
-            <!-- 출장비 입력 -->
-            <article class="moving-price__input-wrapper">
-                <div class="price-input-wrapper">
-                    <h4>출장비</h4>
-                    <div>
-                        <input name="movingPrice" type="int" placeholder="(입력)">
-                        <span class="unit">원</span>
-                    </div>
-                </div>
-                <span class="plus">+</span>
-                <div class="price-input-select">
-                    <h4>코스별 금액</h4>
-                    <select name="" id="">
-                        {% for course in courses %}<!-- 수정 필요 -->
-                        <option value="{{course.price}}">{{course.title}}</option>
-                        {% endfor %}
-                    </select>
-                    <input type="text" value="{{course.price}} 원" disabled><!-- js 수정 -->
-                </div>
+    <form name="editChefProfile_1" action="{% url 'updatePost' %}" method="POST" >
+    {% csrf_token %}
+        <div class="edit-chef-wrapper">
+            {% include 'editChefProfile_side.html' %}
+                <section class="edit-content">
+                    <!-- 출장비 입력 -->
+                    <article class="moving-price__input-wrapper">
+                        <div class="moving-price__header">
+                            <h3 class="">출장비 입력</h3>
+                            <p>출장비를 입력하고 코스별 최종금액도 확인해보세요!</p>
+                        </div>
+                        <div class="price-area price-area--top">
+                            <div class="price-input-wrapper">
+                                <h4>출장비</h4>
+                                <div class="input-wrapper">
+                                    <input name="movingPrice" type="int" placeholder=" ￦ (입력)">
+                                    <span class="unit">원</span>
+                                </div>
+                            </div>
+                            <span class="plus">+</span>
+                            <div class="price-input-wrapper course-price">
+                                <h4>코스별 금액</h4>
+                                <select name="" id="">
+                                    {% for course in courses %}<!-- 수정 필요 -->
+                                    <option value="{{course.price}}">{{course.title}}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="input-wrapper input--disabled">
+                                    <input type="text" value="{{course.price}}" disabled>
+                                    <span class="unit">원</span>
+                                </div><!-- js 수정 -->
+                            </div>
+                        
+                            <div class="plus">=</div>
+                            
+                            <div class="price-input-wrapper">
+                                <h4>최종 금액</h4>
+                                <div class="input-wrapper input--disabled">
+                                    <input type="text" placeholder="(자동계산)" disabled><!-- js 수정 -->
+                                    <span class="unit">원</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- // 출장비 입력 -->
 
-                <div class="plus">=</div>
-                
-                <div class="total-price">
-                    <h4>최종 금액</h4>
-                    <input type="text" placeholder="(자동계산)" disabled><!-- js 수정 -->
-                    <span class="unit">원</span>
-                </div>
-            </article>
-            <!-- // 출장비 입력 -->
-
-            <!-- 최종 정산금 안내 -->
-            <article class="final-price">
-                <div class="final-price__header">
-                    <h3 class="">최종 정산금 안내</h3>
-                    <p>예약 일정 1회에 셰프님에게 마지막으로 정산될 금액입니다.</p>
-                </div>
-                <div class="price-area">
-                    <div>
-                        <h4 class="price-areat__title">최종 금액</h4>
-                        <input class="price-area__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
-                        <span class="unit">원</span>
-                    </div>
-                    <div>
-                        <h4 class="price-area__title">VAT 10%</h4>
-                        <input class="price-area__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
-                        <span class="unit">원</span>
-                    </div>
-                    <div>
-                        <h4 class="price-area__title">서비스 수수료</h4>
-                        <input class="price-area__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
-                        <span class="unit">원</span>
-                    </div>
-                </div>
-                <div class="price-total">
-                    <h4 class="price-total__title">최종 정산금</h4>
-                        <input class="price-total__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
-                        <span class="unit">원</span>
-                </div>
-            </article>
-            <!-- // 최종 정산금 안내 -->
-            </section>
+                    <!-- 최종 정산금 안내 -->
+                    <article class="final-price__input-wrapper">
+                        <div class="final-price__header">
+                            <h3 class="">최종 정산금 안내</h3>
+                            <p>예약 일정 1회에 셰프님에게 마지막으로 정산될 금액입니다.</p>
+                        </div>
+                        <div class="price-area price-area--top">
+                            <div class="price-input-wrapper">
+                                <h4 class="price-areat__title">최종 금액</h4>
+                                <div class="input-wrapper input--disabled">
+                                    <input class="price-area__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
+                                    <span class="unit">원</span>
+                                </div>
+                            </div>
+                            <span class="plus">-</span>
+                            <div class="price-input-wrapper">
+                                <h4 class="price-area__title">VAT 10%</h4>
+                                <div class="input-wrapper input--disabled">
+                                    <input class="price-area__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
+                                    <span class="unit">원</span>
+                                </div>
+                            </div>
+                            <span class="plus">-</span>
+                            <div class="price-input-wrapper">
+                                <h4 class="price-area__title">서비스 수수료</h4>
+                                <div class="input-wrapper input--disabled">
+                                    <input class="price-area__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
+                                    <span class="unit">원</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-area--bottom">
+                            <div class="price-input-wrapper total-price">
+                                <h4 class="price-total__title">최종 정산금</h4>
+                                <div class="input-wrapper input--disabled">
+                                    <input class="price-total__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
+                                    <span class="unit">원</span>
+                                </div>
+                            </div>
+                            <span>=</span>
+                        </div>
+                        </article>
+                    <!-- // 최종 정산금 안내 -->
+                </section>
+            </div>
             <!-- 저장 버튼 -->
             <aside class="button">
                 <button type="submit">저장</button>
             </aside>
             <!-- // 저장 버튼 -->
-        </section>
+        </div>
     </form>
-    
 {% endblock %}

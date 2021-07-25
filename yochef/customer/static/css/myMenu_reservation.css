@@ -1,0 +1,30 @@
+.my-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 50px 250px;
+}
+
+.my-menu__none {
+    text-align: center;
+    margin: 50px;
+    font-family: 'Arita-dotum-Medium';
+}
+
+.my-menu__none > h3 {
+    font-size: 25px;
+    padding: 20px 0px 50px;
+}
+
+.my-menu-content {
+    width: 100%;
+}
+
+.my-menu__none > a {
+    background-color: #bd0000;
+    color: white;
+    padding: 10px 40px;
+    font-size: 12px;
+    border-radius: 5px;
+    margin-top: 15px;
+}

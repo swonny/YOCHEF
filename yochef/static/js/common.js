@@ -13,16 +13,13 @@ function parse_cookies() {
 }
 
 function sendAjax(method, url, callBackFunc=()=>{}, formData=null){
-    let xml = new XMLHttpRequest()
-    xml.onreadystatechange = (()=>{
-        if (xml.readyState == 4 && xml.status ==200){
-            callBackFunc(JSON.parse(xml.responseText));
-        }
-    });
-    let cookies = parse_cookies();
-    xml.open(method, url);
-    xml.setRequestHeader('X-CSRFToken', cookies.csrftoken);
-    xml.send(formData);
+    fetch(url, {
+        method: method,
+        body: formData,
+        headers: { "X-CSRFToken": parse_cookies().csrftoken },
+    }).then(response => response.json())
+    .then(response => callBackFunc(response))
+    .catch(error => console.error('Error: ',error))
 }
 
 // 지역을 가져오는 함수입니다
@@ -36,9 +33,9 @@ function setRegion(data){
 
 // 세부 지역을 가져오는 함수입니다.
 function getRegionDetail(regionId){
-    let formData =  new FormData()
-    formData.append('region_id', regionId)
-    sendAjax('POST', '/getRegionDetailAPI', setRegionDetail, formData);
+    let formData =  new FormData();
+    formData.append('region_id', regionId);
+    sendAjax('POST', '/getRegionDetail', setRegionDetail, formData);
 }
 
 function setRegionDetail(data){

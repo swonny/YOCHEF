@@ -1,154 +1,162 @@
-{% extends 'base_editChef.html' %}
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/editChefProfile_2.css' %}">
+{% endblock %}
 {% block content %}
 
     <form name="editChefProfile_1" action="{% url 'updatePost' %}" method="POST" >
     {% csrf_token %}
-        <section class="category-region">
-            <h2 class="category-region__header">카테고리 및 지역</h2>
-            <!-- 음식 카테고리 지정 -->
-            <article class="category__wrapper">
-                <h4 class="article-title">카테고리</h4>
-                <select class="form-wrapper" name="category" >
-                    <option value="">전체보기</option><!-- 백 모델 추가 ? -->
-                    <option value="1">뷔페/케이터링</option>
-                    <option value="2">한식</option>
-                    <option value="3">일식</option>
-                    <option value="4">중식</option>
-                    <option value="5">아시안</option>
-                    <option value="6">양식</option>
-                    <option value="7">채식</option>
-                </select>
-            </article>
-            <!-- // 음식 카테고리 지정 -->
-            
-            <!-- 지역 설정 -->
-            <article class="region-wrapper">
-                <h4 class="article-title">지역 선택 </h4>
-                <select name="region" >
-                    <option value="none">선택하세요.</option>
-                    <option value="0">추후 결정</option>
-                    <option value="1">서울</option>
-                    <option value="2">경기</option>
-                    <option value="3">인천</option>
-                    <option value="4">부산</option>
-                    <option value="5">경상, 대구, 울산</option>
-                    <option value="6">대전, 충청</option>
-                    <option value="7">강원</option>
-                    <option value="8">광주, 전라, 제주</option>
-                </select>
-                <!-- !!!!지역 추가 버튼 : 자바스크립트로 추가버튼 누르면 바로 위에 저장항목 뜨게 수정하기 -->
-                <div class="add-button">
-                    <button type="submit">+</button>
-                </div>
-                <!-- // !!!!지역 추가 버튼 : 자바스크립트로 추가버튼 누르면 바로 위에 저장항목 뜨게 수정하기 -->
-            </article>
-            <!-- // 지역 설정 -->
-        </section>
-        <section class="post">
-            <h2 class="post__header">예약 게시글</h2>
-            <!-- 글 제목 -->
-            <article class="post-title-wrapper">
-                <h4 class="article-title">글 제목</h4>
-                <input value="{{post.title}}" class="post-title__content" name="title" type="text" placeholder="예약글 제목을 입력해주세요.">
-            </article>
-            <!-- // 글 제목 -->
-
-            <!-- 예약글 커버 이미지 업로드 -->
-            <article class="post-image-wrapper">
-                <h4 class="article-title">커버 이미지</h4>
-                <div class="post-image__container">
-                    <input  value="{{courseImageList.attachment}}" class="post-image__content" name="coverImage" type="image"><!--coverImage -> postImage-->
-                </div>
-            </article>
-            <!-- // 예약글 커버 이미지 -->
-
-            <!-- 셰프 소개 -->
-            <article class="chef-intro-wrapper">
-                <div class="chef-intro__header">
-                    <h4 class="header__title">셰프 소개</h4>
-                    <p class="header__notice">경력, 자격증, 메뉴 등 셰프님에 대한 구체적인 정보를 알려주세요!</p>
-                </div>
-
-                <div class="chef-intro__content">
-                    <textarea name="introduce" class="chefInfoInput" maxlength="500" cols="100" rows="10">
-                        {{post.introduce}}
-                    </textarea>
-                </div>
-            </article>
-            <!-- // 셰프 소개 -->
-
-            <!-- 유의사항 -->
-            <article class="notice-wrapper">
-                <div class="notice__header">
-                    <h4 class="article-title">유의사항</h4>
-                </div>
-
-                <div class="notice__content">
-                    <textarea name="notice" class="noticeInput" maxlength="500" placeholder="ex) 
-
-                    예약이 완료되면 안내 카톡을 보내드릴 예정입니다. 세부 요청사항은 카톡에서 말씀해주세요!
-                    
-                    코스별 안내사항
-                    
-                    코스 A: 준비시간 약 2시간
-                    
-                    ※ 가격은 1인 기준입니다. 
-                    
-                    ※ 출장비 별도
-                    " cols="100" rows="10">
-                {{post.notice}}
-                </textarea>
-                </div>
-            </article>
-            <!-- // 유의사항 -->
-
-            <!-- 코스 정보 -->
-            <article class="course-wrapper">
-                <div class="course__header">
-                    <h4 class="article-title">코스 정보</h4>
-                    <p class="article-notice">메뉴 구성과 요리에 대한 구체적인 정보를 알려주세요!</p>
-                </div>
-
-                <div class="course__content">
-                    {% for course in courses %}
-                    <div class="course-name">
-                        <h4 class="course-name__title">이름</h4>
-                        <input value="{{course.title}}" name="courseTitle" type="text" placeholder="ex) A코스(10인) 20,000원">
-                    </div>
-
-                    <div class="course-price">
-                        <h4 class="course-price__title">가격</h4>
-                        <input value="{{course.price}}" name="coursePrice" type="text" placeholder="인당 가격">
-                    </div>
-
-                    <div class="course-describe">
-                        <textarea name="courseDescribe" maxlength="500" placeholder="ex)
-
-                        1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)
+        <div class="edit-chef-wrapper">
+            {% include 'editChefProfile_side.html' %}
+                <div class="edit-content">
+                    <section class="category-region">
+                        <h2 class="category-region__header">카테고리 및 지역</h2>
+                        <!-- 음식 카테고리 지정 -->
+                        <article class="category__wrapper">
+                            <h4 class="article-title">카테고리</h4>
+                            <select name="category" >
+                                <option value="1">뷔페/케이터링</option>
+                                <option value="2">한식</option>
+                                <option value="3">일식</option>
+                                <option value="4">중식</option>
+                                <option value="5">아시안</option>
+                                <option value="6">양식</option>
+                                <option value="7">채식</option>
+                            </select>
+                        </article>
+                        <!-- // 음식 카테고리 지정 -->
                         
-                        2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...
-                        
-                        3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국
-                        
-                        8인~12인용 코스입니다. 
-                        
-                        인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^
-                        
-                        " cols="100" rows="10">
-                    {{course.description}}
-                    </textarea>
-                    </div>
-                    {% endfor %}
-                    <button>코스 추가</button>
-                </div>
-            </article>
-            <!-- // 코스 정보 -->
-        </section>
+                        <!-- 지역 설정 -->
+                        <article class="region-wrapper">
+                            <h4 class="article-title">지역 선택 </h4>
+                            <select name="region" >
+                                <option value="none">선택하세요.</option>
+                                <option value="0">추후 결정</option>
+                                <option value="1">서울</option>
+                                <option value="2">경기</option>
+                                <option value="3">인천</option>
+                                <option value="4">부산</option>
+                                <option value="5">경상, 대구, 울산</option>
+                                <option value="6">대전, 충청</option>
+                                <option value="7">강원</option>
+                                <option value="8">광주, 전라, 제주</option>
+                            </select>
+                            <!-- !!!!지역 추가 버튼 : 자바스크립트로 추가버튼 누르면 바로 위에 저장항목 뜨게 수정하기 -->
+                            <div class="add-button">
+                                <button type="submit">+</button>
+                            </div>
+                            <!-- // !!!!지역 추가 버튼 : 자바스크립트로 추가버튼 누르면 바로 위에 저장항목 뜨게 수정하기 -->
+                        </article>
+                        <!-- // 지역 설정 -->
+                    </section>
+                    <section class="post">
+                        <h2 class="post__header">예약 게시글</h2>
+                        <!-- 글 제목 -->
+                        <article class="post-title-wrapper">
+                            <h4 class="article-title">글 제목</h4>
+                            <div class="input-wrapper">
+                                <input value="{{post.title}}" class="post-title__content" name="title" type="text" placeholder="예약글 제목을 입력해주세요.">
+                            </div>
+                            </article>
+                        <!-- // 글 제목 -->
 
-        <!-- 저장 버튼 -->
-        <aside class="button">
-            <button type="submit">저장</button>
-        </aside>
-        <!-- // 저장 버튼 -->
+                        <!-- 예약글 커버 이미지 업로드 -->
+                        <article class="post-image-wrapper">
+                            <h4 class="article-title">커버 이미지</h4>
+                            <div class="input-wrapper">
+                                <!-- <img src="{% static 'image/add_image.png' %}" alt=""> -->
+                                <input  value="{{courseImageList.attachment}}" class="post-image__content" name="coverImage" type="image"><!--coverImage -> postImage-->
+                            </div>
+                        </article>
+                        <!-- // 예약글 커버 이미지 -->
+
+                        <!-- 셰프 소개 -->
+                        <article class="chef-intro-wrapper">
+                            <div class="chef-intro__header">
+                                <h4 class="header__title">셰프 소개</h4>
+                            </div>
+
+                            <div class="textarea-wrapper">
+                                <textarea name="introduce" class="chefInfoInput" maxlength="500">
+                                    {{post.introduce}}
+                                </textarea>
+                            </div>
+                        </article>
+                        <!-- // 셰프 소개 -->
+
+                        <!-- 유의사항 -->
+                        <article class="notice-wrapper">
+                            <div class="notice__header">
+                                <h4 class="article-title">유의사항</h4>
+                            </div>
+
+                            <div class="textarea-wrapper">
+                                <textarea name="notice" class="noticeInput" maxlength="500" placeholder="ex) 
+
+                                예약이 완료되면 안내 카톡을 보내드릴 예정입니다. 세부 요청사항은 카톡에서 말씀해주세요!
+                                
+                                코스별 안내사항
+                                
+                                코스 A: 준비시간 약 2시간
+                                
+                                ※ 가격은 1인 기준입니다. 
+                                
+                                ※ 출장비 별도
+                                ">
+                            {{post.notice}}
+                            </textarea>
+                            </div>
+                        </article>
+                        <!-- // 유의사항 -->
+
+                        <!-- 코스 정보 -->
+                        <article class="course-wrapper">
+                            <div class="course__header">
+                                <h4 class="article-title">코스 정보</h4>
+                                <!-- <p class="article-notice">메뉴 구성과 요리에 대한 구체적인 정보를 알려주세요!</p> -->
+                            </div>
+                            {% for course in courses %}
+                            <div class="course__content">
+                                <h4 class="course-name__title">코스 이름</h4>
+                                <div class="input-wrapper">
+                                    <input value="{{course.title}}" name="courseTitle" type="text" placeholder="ex) A코스(10인) 20,000원">
+                                </div>
+                                <h4 class="course-price__title">1인당 가격</h4>
+                                <div class="input-wrapper">
+                                    <input value="{{course.price}}" name="coursePrice" type="text" placeholder="인당 가격">
+                                </div>
+                                <h4 class="course-name__title">코스 설명</h4>
+                                <div class="textarea-wrapper">
+                                    <textarea name="courseDescribe" maxlength="500" placeholder="ex)
+
+                                    1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)
+                                    
+                                    2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...
+                                    
+                                    3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국
+                                    
+                                    8인~12인용 코스입니다. 
+                                    
+                                    인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^
+                                    
+                                    ">
+                                    {{course.description}}
+                                    </textarea>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <button class="course-add-button">코스 추가</button>
+                        </article>
+                        <!-- // 코스 정보 -->
+                    </section>
+                </div>
+            </div>
+            <!-- 저장 버튼 -->
+            <aside class="button">
+                <button type="submit">저장</button>
+            </aside>
+            <!-- // 저장 버튼 -->
+        </div>
     </form>    
 {% endblock %}

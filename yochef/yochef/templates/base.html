@@ -17,8 +17,10 @@
 <body>
   <!-- 네브바 -->
   <nav class="nav-container">
-    <div class="nav__item nav--left"><a href="{% url 'main' %}">YOCHEF</a></div>
-    <!-- <img src="{% static 'image/navlogo.png' %}" alt=""> -->
+    <div class="nav__left-container">
+      <div class="nav__item yochef"><a href="{% url 'main' %}">YOCHEF</a></div>
+      <a href="{% url 'main' %}"><img class="logo" src="{% static 'image/navlogo.png' %}" alt=""></a>
+    </div>
     <!-- 로그인 상태라면 -->
     {% if user.is_authenticated %}
       <!-- 셰프등록 돼있다면 -->
@@ -41,7 +43,7 @@
         {% else %}
         <ul class="nav__item-container">
           <li class="nav__item"><a href="{% url 'main' %}">메인페이지</a></li>    
-          <li class="nav__item"><a href="">마이메뉴</a></li>
+          <li class="nav__item"><a href="{% url 'mymenuReservation' %}">마이메뉴</a></li> <!-- 백 작업 위해 임의로 url 연결했습니다-->
           <li class="nav__item"><a href="">쿠폰함</a></li>
           <li class="nav__item"><a href="{% url 'logout' %}">로그아웃</a></li>
         </ul>
@@ -56,13 +58,13 @@
       <!-- 셰프등록 안돼있다면 -->
       {% else %}
       <ul class="nav__item-container">
-        <li class="nav__item"><a href="{% url 'main' %}">메인페이지</a></li>    
+        <li class="nav__item"><a href="{% url 'main' %}">메인페이지</a></li>  
         <li class="nav__item"><a href="">마이메뉴</a></li>
         <li class="nav__item"><a href="">쿠폰함</a></li>
-        <li class="nav__item"><a href="{% url 'registerChef' '1'%}">셰프등록</a></li>
+        <li class="nav__item"><a href="{% url 'registerChef' '1' %}">셰프등록</a></li>
         <li class="nav__item"><a href="{% url 'logout' %}">로그아웃</a></li>
       </ul>
-      <a class="nav__item nav--right" href="{% url 'mypage' %}">{{user.customer.name}}님</a>
+      <a id="a--white" class="nav__item nav--right" href="{% url 'mypage' %}">{{user.customer.name}}님</a>
       {% endif %}
     <!-- 로그아웃 상태라면 -->
     {% else %}
@@ -136,6 +138,18 @@
 
 </body>
 <script src="{% static 'js/common.js' %}"></script>
+<script>
+  
+  const logo = document.getElementsByClassName('logo');
+  const yochef = document.getElementsByClassName('yochef');
+  
+  if ( window.location.pathname == '/' ) {
+    logo[0].classList.toggle('hidden');
+  } else {
+    yochef[0].classList.toggle('hidden');
+  }
+ 
+</script>
 {% block scripts %}
 {% endblock scripts %}
 </html>

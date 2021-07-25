@@ -10,6 +10,7 @@ urlpatterns = [
 	path('mypage', mypage, name='mypage'),
 	path('apply', apply, name='apply'),
 	path('payment', payment, name='payment'),
-	path('mymenuLikedmenu', mymenuLikedmenu, name='mymenuLikedmenu'), #백참고 : html 확인을 위해 작성했습니다.
-	path('mymenuReservation', mymenuReservation, name='mymenuReservation'), #백참고 : html 확인을 위해 작성했습니다.
+	path('payComplete', payComplete, name="payComplete"),
+	path('mymenuLikedmenu', mymenuLikedmenu, name='mymenuLikedmenu'), 
+	path('mymenuReservation', mymenuReservation, name='mymenuReservation'), 
 ]

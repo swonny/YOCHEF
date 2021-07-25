@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
-{% block content %} 
-    <!-- 마이메뉴 네브바 -->
-    <nav class="my-menu__nav">
-        <h3>내가 찜한 셰프</h3>
-        <ul class="my-menu__nav-wrapper">
-            <li><a href="{% url 'mymenuReservation' %}">내 예약 확인</a></li>
-            <li><a href="{% url 'mymenuLikedmenu' %}">찜한 셰프 보기</a></li>
-        </ul>
-    </nav>
-    <!-- // 마이메뉴 네브바 -->
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/myMenu_reservation.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="my-menu">
+        <section class="my-menu__reservation">
+            {% include 'customer_side.html' %}
+            <div class="my-menu-content">
+                
+            </div>
+        </section>
+    </div>
+                
 
-    <!-- 좋아요 메뉴 -->
-    
-    <!-- // 좋아요 메뉴 -->
 {% endblock %}

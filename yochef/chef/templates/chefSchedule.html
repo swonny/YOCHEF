@@ -1,126 +1,122 @@
+{% extends 'base.html' %}
 {% load static %}
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/chefSchedule.css' %}">
 {% endblock %}
-
-    <div class="chef-schedule-wrap">
-        <!-- 셰프 정보 관리 네브바 -->
-        <nav class="chef-admin nav-wrap">
-            <div class="chef-admin-nav__header">셰프 정보 관리</div>
-            <ul class="chef-admin-nav__item-container">
-                <li class="chef-admin__item"><a href="">셰프 정보</a></li>
-                <li class="chef-admin__item"><a href="">예약글 수정</a></li>
-                <li class="chef-admin__item"><a href="">출장비 수정</a></li>
-                <li class="chef-admin__item"><a href="">예약 일정 관리</a></li>
-            </ul>
-        </nav>
-        <!-- // 셰프 정보 관리 네브바 -->
-
-        <!-- 예약글 정보 -->
-        <div class="header-container">
-            <h3 class="item__header">예약 일정 현황</h3>
-            <div class="item__post-content">
-                <h3 class="item__post-register-time">{{post.registerDate}}</h3>
-                <div class="item__post-register-container">
-                    <div class="item__post-register__title">{{post.title}}</div>
-                    <div class="item__post-register__course-title">{{course.title}}</div>
-                    <div class="item__post-register__course-price">{{course.price}}</div>
-                </div>
-            </div>
-        </div>
-        <!-- // 예약글 정보 -->
-
-        <!-- 날짜 선택 -->
-        <aside class="date-filter-wrap">
-            <form action="GET" name="dateFilter" class="date-filter"><!--JS 사용 방식 논의 필요-->
-                <div class="date-filter__start-date"><input type="date"></div>
-                <span>~</span>
-                <div class="date-filter__end-date"><input type="date"></div>
-                <button type="button" name="search"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDU2Ljk2NiA1Ni45NjYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPgo8cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Ik01NS4xNDYsNTEuODg3TDQxLjU4OCwzNy43ODZjMy40ODYtNC4xNDQsNS4zOTYtOS4zNTgsNS4zOTYtMTQuNzg2YzAtMTIuNjgyLTEwLjMxOC0yMy0yMy0yM3MtMjMsMTAuMzE4LTIzLDIzICBzMTAuMzE4LDIzLDIzLDIzYzQuNzYxLDAsOS4yOTgtMS40MzYsMTMuMTc3LTQuMTYybDEzLjY2MSwxNC4yMDhjMC41NzEsMC41OTMsMS4zMzksMC45MiwyLjE2MiwwLjkyICBjMC43NzksMCwxLjUxOC0wLjI5NywyLjA3OS0wLjgzN0M1Ni4yNTUsNTQuOTgyLDU2LjI5Myw1My4wOCw1NS4xNDYsNTEuODg3eiBNMjMuOTg0LDZjOS4zNzQsMCwxNyw3LjYyNiwxNywxN3MtNy42MjYsMTctMTcsMTcgIHMtMTctNy42MjYtMTctMTdTMTQuNjEsNiwyMy45ODQsNnoiIGZpbGw9IiNiZDAwMDAiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPC9nPjwvc3ZnPg==" /></button>
-            </form>
-        </aside>
-
-        <!-- // 날짜 선택 -->
-
-        <!-- 전체 일정 목록 -->
-        <article class="schedule-list-wrap">
-            <h3 class="schedule-list__header">전체 일정 목록</h3>
-            <div class="schedule-list__total-container">                
-                <ul class="schedule-list__detail-header">                                                
-                    <li class="schedule-list__item list-item">예약 날짜</li>
-                    <li class="schedule-list__item list-item">예약 현황</li>
-                    <li class="schedule-list__item list-item">코스</li>
-                    <li class="schedule-list__item list-item">인원</li>
-                    <li class="schedule-list__item list-item">총 결제 금액</li>
-                    <li class="schedule-list__item list-item">상세 내역 확인</li>
-                </ul>
-                <div class="schedule-list__schedule-item-container">
-                    {% for schedule in scheduleList %}
-                        <span>{{schedule.eventDate}}</span>
-                        <span>{{schedule.status}}</span>
-                        <span>{{schedule.course}}</span>
-                        <span>{{schedule.personNum}}</span>
-                        <span>{{schedule.totalPrice}}</span>
-                        <span><a href="{% url 'chefScheduleDetail' schedule.scheduleID %}">확인하기</a></span>
-                    {% endfor %}
-                </div>
-            </div>
-        </article>
-        <!-- // 전체 일정 목록 -->
-
-        <!-- 예약 일정 등록 -->
-        <div class="shedule-register-wrap">
-            <div class="schedule-register__header">
-                <h3 class="schedule-register__title">예약 일정 등록</h3>
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQ3My45MzEgNDczLjkzMSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgY2xhc3M9IiI+PGc+CjxjaXJjbGUgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBzdHlsZT0iIiBjeD0iMjM2Ljk2NiIgY3k9IjIzNi45NjYiIHI9IjIzNi45NjYiIGZpbGw9IiNiZDAwMDAiIGRhdGEtb3JpZ2luYWw9IiNlNzllMmQiIGNsYXNzPSIiPjwvY2lyY2xlPgo8cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSIiIGQ9Ik0yMTQuMzk5LDI1Mi4zODlsLTYuNjk4LTEwMC4xNTljLTEuMjU3LTE5LjUxNy0xLjg3MS0zMy41MjYtMS44NzEtNDIuMDI3ICBjMC0xMS41NywzLjAzNS0yMC42MDIsOS4wODUtMjcuMDcyYzYuMDY1LTYuNDk5LDE0LjA1NC05Ljc0LDIzLjk0LTkuNzRjMTEuOTk2LDAsMjAuMDIyLDQuMTUsMjQuMDU2LDEyLjQ0NSAgYzQuMDM0LDguMzAzLDYuMDY1LDIwLjI1OCw2LjA2NSwzNS44NTdjMCw5LjIwNS0wLjQ5NCwxOC41NTktMS40NTksMjguMDIybC04Ljk5NSwxMDMuMDg5Yy0wLjk3MywxMi4yNzctMy4wNjEsMjEuNjgtNi4yNzksMjguMjM5ICBjLTMuMjA3LDYuNTQ0LTguNTA5LDkuODE1LTE1Ljg4OCw5LjgxNWMtNy41MzYsMC0xMi43NTYtMy4xNTgtMTUuNjgyLTkuNTEyQzIxNy43NDQsMjc1LjAxNiwyMTUuNjQ1LDI2NS4zNTEsMjE0LjM5OSwyNTIuMzg5eiAgIE0yMzcuNjA5LDM4OS45NzRjLTguNTAxLDAtMTUuOTM2LTIuNzM5LTIyLjI2Ny04LjI1MWMtNi4zNDYtNS40OTctOS41MTItMTMuMTk3LTkuNTEyLTIzLjEwMmMwLTguNjQ3LDMuMDM1LTE2LjAwNCw5LjA4NS0yMi4wNjkgIGM2LjA2NS02LjA2NSwxMy40OTMtOS4wOTIsMjIuMjc1LTkuMDkyYzguNzg2LDAsMTYuMjY5LDMuMDI3LDIyLjQ3Nyw5LjA5MmM2LjIwNCw2LjA2NSw5LjMxLDEzLjQyNSw5LjMxLDIyLjA2OSAgYzAsOS43NTEtMy4xMzYsMTcuNDE0LTkuNDE4LDIyLjk5N0MyNTMuMjkxLDM4Ny4xOSwyNDUuOTc2LDM4OS45NzQsMjM3LjYwOSwzODkuOTc0eiIgZmlsbD0iI2ZmZmZmZiIgZGF0YS1vcmlnaW5hbD0iI2NhN2IyOSIgY2xhc3M9IiI+PC9wYXRoPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8L2c+PC9zdmc+" />
-                <h4 class="schedule-register__notice">요리하실 메뉴에 대해 여러 장소/날짜를 추가할 수 있습니다.</h4>
-            </div>
-            <div class="schedule-register__form-wrap">
-                <form method="POST" name="scheduleRegister" action="{% comment %}{% url '#' %}{% endcomment %}">
-                {% csrf_token %}
-                    <!-- 지역 추가 -->
-                    <div class="form__region">
-                        <h4 class="region__title">지역 추가</h4>
-                        <div class="region__select-container">
-                            <select name="scheduleRegion" class="schedule-region"><!--백참고-->
-                                <option value="1">서울</option>
-                                <option value="2">경기</option>
-                                <option value="3">인천</option>
-                                <option value="4">부산</option>
-                                <option value="5">경상·대구·울산</option>
-                                <option value="6">대전·충청</option>
-                                <option value="7">강원</option>
-                                <option value="8">광주·전라·제주</option>
-                            </select>
-                            <button type="button" name="addRegion">+</button><!--백참고-->
+{% block content %}
+    <div class="chef-schedule-body">
+        <div class="edit-chef-wrapper">
+            {% include 'editChefProfile_side.html' %}
+                <div class="edit-content edit-schedule">
+                    <!-- 예약글 정보 -->
+                    <div class="header-container">
+                        <h3 class="item__header">예약 일정 현황</h3>
+                        <div class="post-content">
+                            <div class="post-register-time">{{post.registerDate}}</div>
+                            <div class="post-container">
+                                <div class="post__title">{{post.title}}</div>
+                                <div class="moving-price">{{post.movingPrice}}</div>
+                            </div>
                         </div>
                     </div>
-                    <!-- // 지역 추가 -->
+                    <!-- // 예약글 정보 -->
 
                     <!-- 날짜 선택 -->
-                    <div class="form__date">
-                        <h4 class="date__title">날짜 선택</h4>
-                        <div class="date__select-container">
-                            <input type="date" name="scheduleDate"><!--백참고-->
-                            <button type="button" name="addDate">+</button><!--백참고-->
-                        </div>
-                    </div>
+                    <aside class="date-filter-wrapper">
+                        <form class="date-filter" action="GET" name="dateFilter"><!--JS 사용 방식 논의 필요-->
+                            <div class="date-filter__start-date"><input type="date"></div>
+                            <span>~</span>
+                            <div class="date-filter__end-date"><input type="date"></div>
+                            <button class="search-button" type="button" name="search"><img class="search--image" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMS45OTkgNTExLjk5OSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgY2xhc3M9IiI+PGc+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNNTA4Ljg3NCw0NzguNzA4TDM2MC4xNDIsMzI5Ljk3NmMyOC4yMS0zNC44MjcsNDUuMTkxLTc5LjEwMyw0NS4xOTEtMTI3LjMwOWMwLTExMS43NS05MC45MTctMjAyLjY2Ny0yMDIuNjY3LTIwMi42NjcgICAgUzAsOTAuOTE3LDAsMjAyLjY2N3M5MC45MTcsMjAyLjY2NywyMDIuNjY3LDIwMi42NjdjNDguMjA2LDAsOTIuNDgyLTE2Ljk4MiwxMjcuMzA5LTQ1LjE5MWwxNDguNzMyLDE0OC43MzIgICAgYzQuMTY3LDQuMTY1LDEwLjkxOSw0LjE2NSwxNS4wODYsMGwxNS4wODEtMTUuMDgyQzUxMy4wNCw0ODkuNjI3LDUxMy4wNCw0ODIuODczLDUwOC44NzQsNDc4LjcwOHogTTIwMi42NjcsMzYyLjY2NyAgICBjLTg4LjIyOSwwLTE2MC03MS43NzEtMTYwLTE2MHM3MS43NzEtMTYwLDE2MC0xNjBzMTYwLDcxLjc3MSwxNjAsMTYwUzI5MC44OTYsMzYyLjY2NywyMDIuNjY3LDM2Mi42Njd6IiBmaWxsPSIjZmZmZmZmIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+Cgk8L2c+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPC9nPjwvc3ZnPg==" /></button>
+                        </form>
+                    </aside>
+
                     <!-- // 날짜 선택 -->
 
-                    <!-- 시간 입력 -->
-                    <div class="form__time">
-                        <div class="time__header">
-                            <h4 class="time__title">날짜 선택</h4>
-                            <span class="notice">* 선택사항입니다.</span>
+                    <!-- 전체 일정 목록 -->
+                    <article class="schedule-list-wrapper">
+                        <h3 class="schedule-list__header">전체 일정 목록</h3>
+                        <table class="schedule-list__total-container">                
+                            <tr class="list-header-container">                                                
+                                <th class="list-item list--header">예약 날짜</th>
+                                <th class="list-item list--header">예약 현황</th>
+                                <th class="list-item list--header">코스</th>
+                                <th class="list-item list--header">인원</th>
+                                <th class="list-item list--header">총 결제 금액</th>
+                                <th class="list-item list--header">승인 여부</th>
+                                <th class="list-item list--header">상세내역</th>
+                                <th class="list-item list--header"></th>
+                            </tr>
+                            <tr class="list-container">
+                                {% for schedule in scheduleList %}
+                                    <td class="list-item">{{eventDate}}</td>
+                                    <td class="list-item">{{confirmStatus}}</td>
+                                    <td class="list-item">{{course}}</td>
+                                    <td class="list-item">{{personNum}}</td>
+                                    <td class="list-item">{{totalPrice}}</td>
+                                    <td class="list-item">{{schedule.totalPrice}}</td>
+                                    <td class="list-item">{{schedule.totalPrice}}</td>
+                                    <td class="list-item"><a href="{% url 'chefScheduleDetail' schedule.scheduleID %}">확인하기</a></td>
+                                {% endfor %}
+                            </tr>
+                        </table>
+                    </article>
+                    <!-- // 전체 일정 목록 -->
+
+                    <!-- 예약 일정 등록 -->
+                    <div class="shedule-register-wrapper">
+                        <div class="schedule-register__header">
+                            <h3 class="schedule-register__title">예약 일정 등록</h3>
+                            <img class="notice-image" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQ3My45MzEgNDczLjkzMSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgY2xhc3M9IiI+PGc+CjxjaXJjbGUgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBzdHlsZT0iIiBjeD0iMjM2Ljk2NiIgY3k9IjIzNi45NjYiIHI9IjIzNi45NjYiIGZpbGw9IiNiZDAwMDAiIGRhdGEtb3JpZ2luYWw9IiNlNzllMmQiIGNsYXNzPSIiPjwvY2lyY2xlPgo8cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSIiIGQ9Ik0yMTQuMzk5LDI1Mi4zODlsLTYuNjk4LTEwMC4xNTljLTEuMjU3LTE5LjUxNy0xLjg3MS0zMy41MjYtMS44NzEtNDIuMDI3ICBjMC0xMS41NywzLjAzNS0yMC42MDIsOS4wODUtMjcuMDcyYzYuMDY1LTYuNDk5LDE0LjA1NC05Ljc0LDIzLjk0LTkuNzRjMTEuOTk2LDAsMjAuMDIyLDQuMTUsMjQuMDU2LDEyLjQ0NSAgYzQuMDM0LDguMzAzLDYuMDY1LDIwLjI1OCw2LjA2NSwzNS44NTdjMCw5LjIwNS0wLjQ5NCwxOC41NTktMS40NTksMjguMDIybC04Ljk5NSwxMDMuMDg5Yy0wLjk3MywxMi4yNzctMy4wNjEsMjEuNjgtNi4yNzksMjguMjM5ICBjLTMuMjA3LDYuNTQ0LTguNTA5LDkuODE1LTE1Ljg4OCw5LjgxNWMtNy41MzYsMC0xMi43NTYtMy4xNTgtMTUuNjgyLTkuNTEyQzIxNy43NDQsMjc1LjAxNiwyMTUuNjQ1LDI2NS4zNTEsMjE0LjM5OSwyNTIuMzg5eiAgIE0yMzcuNjA5LDM4OS45NzRjLTguNTAxLDAtMTUuOTM2LTIuNzM5LTIyLjI2Ny04LjI1MWMtNi4zNDYtNS40OTctOS41MTItMTMuMTk3LTkuNTEyLTIzLjEwMmMwLTguNjQ3LDMuMDM1LTE2LjAwNCw5LjA4NS0yMi4wNjkgIGM2LjA2NS02LjA2NSwxMy40OTMtOS4wOTIsMjIuMjc1LTkuMDkyYzguNzg2LDAsMTYuMjY5LDMuMDI3LDIyLjQ3Nyw5LjA5MmM2LjIwNCw2LjA2NSw5LjMxLDEzLjQyNSw5LjMxLDIyLjA2OSAgYzAsOS43NTEtMy4xMzYsMTcuNDE0LTkuNDE4LDIyLjk5N0MyNTMuMjkxLDM4Ny4xOSwyNDUuOTc2LDM4OS45NzQsMjM3LjYwOSwzODkuOTc0eiIgZmlsbD0iI2ZmZmZmZiIgZGF0YS1vcmlnaW5hbD0iI2NhN2IyOSIgY2xhc3M9IiI+PC9wYXRoPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8L2c+PC9zdmc+" />
                         </div>
-                        <div class="time__select-container">
-                            <input type="text" name="scheduleTime" placeholder=" ex) 아침, 점심, 저녁, 야간"><!--백참고-->
-                            <button type="button" name="addDate">+</button><!--백참고-->
+                        <div class="schedule-register__form-wrapper">
+                            <form class="schedule-register-form" method="POST" name="scheduleRegister" action="{% comment %}{% url '#' %}{% endcomment %}">
+                            {% csrf_token %}
+                                <!-- 지역 추가 -->
+                                <div class="form__region">
+                                    <h4 class="region__title">지역 추가</h4>
+                                    <div class="region__select-container">
+                                        <select name="scheduleRegion" class="schedule-region"><!--백참고-->
+                                            <option value="1">서울</option>
+                                            <option value="2">경기</option>
+                                            <option value="3">인천</option>
+                                            <option value="4">부산</option>
+                                            <option value="5">경상·대구·울산</option>
+                                            <option value="6">대전·충청</option>
+                                            <option value="7">강원</option>
+                                            <option value="8">광주·전라·제주</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- // 지역 추가 -->
+
+                                <!-- 날짜 선택 -->
+                                <div class="form__date">
+                                    <h4 class="date__title">날짜 선택</h4>
+                                    <div class="date__select-container">
+                                        <input type="date" name="scheduleDate"><!--백참고-->
+                                    </div>
+                                    <button type="button" name="addDate">+</button><!--백참고-->
+                                </div>
+                                <!-- // 날짜 선택 -->
+
+                                <!-- 시간 입력 -->
+                                <div class="form__time">
+                                    <div class="time__header">
+                                        <h4 class="time__title">시간 선택</h4>
+                                        <!-- <span class="notice">* 선택사항입니다.</span> -->
+                                    </div>
+                                    <div class="time__select-container">
+                                        <input type="text" name="scheduleTime" placeholder=" ex) 아침, 점심, 저녁, 야간"><!--백참고-->
+                                    </div>
+                                </div>
+                                <!-- // 시간 입력 -->
+                            </form>
                         </div>
                     </div>
-                    <!-- // 시간 입력 -->
-                </form>
+                    <!-- // 예약 일정 등록 -->
+                </div>
             </div>
         </div>
-        <!-- // 예약 일정 등록 -->
     </div>
+{% endblock %}

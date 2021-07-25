@@ -12,13 +12,11 @@
         <form method="POST" action="{% url 'changeFile' %}"> <!-- action changeProfileImg으로 수정 필요-->
             {% csrf_token %}
             <aside>
-                {% if user.customer.currentVer == 0 %}
                 <div class="customerName">
                     <span>{{ user.customer.name }}</span><span>님</span>
                 </div>
-                {% else %}
-                <div class="profileImgBox">
-                    <img class="profileImg" src="{{ profile.attachment }}" onerror="this.src=`{% static 'img/default.png' %}`">
+                <!-- <div class="profileImgBox">
+                    <img class="profileImg" src="/media/{{ profile.attachment }}" onerror="this.src=`{% static 'img/default.png' %}`">
                     <img src="{% static 'img/editProfileImg.png' %}">
                     <input type="file" name="profileImg" hidden>
                 </div>
@@ -27,8 +25,7 @@
                 <input type="text" name="url" value="/customer/mypage" hidden>
                 <div class="chefName">
                     <span>{{ user.customer.chef.nickname }}</span><span>님</span>
-                </div>
-                {% endif %}
+                </div> -->
                 <div class="index">
                     <span>개인정보 수정</span>
                 </div>
@@ -78,7 +75,7 @@
 </main>
 {% endblock %}
 {% block scripts %}
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         if ('{{ user.customer.currentVer }}' == 1) {
             document.getElementsByClassName('profileImgBox')[0].addEventListener('click', ()=>{
                 document.querySelector('input[name="profileImg"]').click();
@@ -87,5 +84,5 @@
                 document.getElementsByClassName('profileImgSubmit')[0].click();
             })
         } 
-    </script>
+    </script> -->
 {% endblock scripts %}

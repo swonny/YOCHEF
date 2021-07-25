@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
     <main>
-        <form action="POST" action="">
+        <form method="POST" action="{% url 'payComplete' %}">
             {% csrf_token %}
             <div class="mainContainer">
                 <span>요리 예약</span>
@@ -97,7 +97,8 @@
                             <span>총 결제 금액</span>
                             <span>{{book.totalPrice}}원</span>
                         </div>
-                        <input type="submit" value="결제하기">
+                        <input type="button" value="결제하기" class="submitBtn">
+                        <input type="submit" value="" hidden>
                     </div>
                 </form>
             </div>
@@ -108,6 +109,14 @@
 <script>
 
     document.getElementsByName('usingPoint')[0].addEventListener('keyup', applyPoint);
+
+    document.getElementsByClassName("submitBtn")[0].addEventListener('click', ()=>{
+        if (document.getElementsByName('payment')[0].value == ""){
+            alert("결제수단을 선택해주세요!");
+        }else{
+            document.querySelector('input[type="submit"]').click();
+        }
+    })
     
     Array.from(document.getElementsByName('couponSelect')).forEach(function(element) {
         element.addEventListener('click', selectCoupon);
@@ -215,6 +224,7 @@
             e.target.classList.replace('buttonChecked', 'buttonUnchecked');
         }
     }
+    
 
 </script>
 {% endblock %}

@@ -19,16 +19,16 @@
                 <!-- 해당 포스트 이미지 -->
                 <div class="mainContainer__profile__dishImages">
                     <img src="{{post_cover_imgurl}}" onerror="this.src=`{% static 'img/default.png' %}`">
-                    <div class="ectImg">
+                    <!-- <div class="ectImg">
                         {% for img in post_imgs_uptotwo %}
-                            <img src="{{img.attachment.url}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                            <img src="media/{{img.attachment.url}}" onerror="this.src=`{% static 'img/default.png' %}`">
                         {% endfor %}
                         {% if more_img == 1 %}
                             <img src="{% static 'img/more.png' %}">
                         {% else %}
                             <img src="{{more_img.attachment.url}}" onerror="this.src=`{% static 'img/default.png' %}`">
                         {% endif %}
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <!-- 탭 -->
@@ -105,7 +105,7 @@
                     <p>{{course.description}}</p>
                     <div class="mainBox__courseInfo_imgs">
                         {% for img in course.course_imgs %}
-                            <img src="{{img}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                            <img src="/media/{{img.attachment}}" onerror="this.src=`{% static 'img/default.png' %}`">
                         {% endfor %}
                     </div>
                 </div>

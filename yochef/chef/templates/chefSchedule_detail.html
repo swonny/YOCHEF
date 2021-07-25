@@ -1,60 +1,88 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/chefSchedule_detail.css' %}">
+{% endblock %}
 {% block content %}
-    
-    <section class="orderStatus">
-        <div id="orderStatusWrap">
-            <section class="orderStatus__header">
-                <h2 class="orderStatus__header__title">예약 고객 현황</h2>
-            </section>
-            <section class="orderStatus__content">
-                <!-- 총 예약 인원 수 -->
-                <article class="orderStatus__totalCustomer">
-                    <h4>총 예약 인원 수</h4>
-                    <span>{{book.personNum}}</span><!-- 백 작업 후 수정 필요 -->
+    <div class="chef-schedule-body">
+        <div class="edit-chef-wrapper">
+            {% include 'editChefProfile_side.html' %}
+                <section class="edit-content edit-schedule">
+                    <!-- 예약글 정보 -->
+                    <article class="header-container">
+                        <h3 class="item__header">예약 일정 현황</h3>
+                        <div class="post-content">
+                            <div class="post-register-time">{{post.registerDate}}</div>
+                            <div class="post-container">
+                                <div class="post__title">{{post.title}}</div>
+                                <div class="moving-price">{{post.movingPrice}}</div>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- // 예약글 정보 -->
+
+                    <section class="schedule-detail">
+                        <article class="schedule-detail__header">
+                            <h3>예약 고객 정보</h3>
+                            {% if confrimStatus == 1 %}
+                            <span class="confirm-status">미승인 예약</span>
+                            {% elif confirmStatus == 2 %}
+                            <span class="confirm-status">승인 완료</span>
+                            {% elif confirmStatus == 3 %}
+                            <span class="confirm-status">취소된 예약</span>
+                            {% endif %}
+                        </article>
+                        <article class="schedule-detail__body">
+                            <!-- 예약 고객 정보 -->
+                            <div class="customer-info info-container">
+                                <h4>{{book.customer.name}} 님의 예약</h4>
+                                <div>
+                                    <p class="customer-phone">{{book.customer.phoneNum}}</p>
+                                    <p class="schedule-date">{{schedule.eventDate}}</p>
+                                </div>
+                            </div>
+                            <!-- // 예약 고객 정보 -->
+                            <!-- 코스 정보 -->
+                            <div class="course-info info-container">
+                                <p class="course-title">{{book.course.title}}</p>
+                                <p class="person-num">{{book.personNum}}</p>
+                            </div>
+                            <!-- // 코스 정보 -->
+                            <!-- 결제 정보 -->
+                            <div class="payment-info info-container">
+                                <p class="payment-status">
+                                    {% if book.paymentStatus == 1 %}
+                                    결제 전
+                                    {% elif book.paymentStatus == 2 %}
+                                    결제 완료
+                                    {% elif book.paymentStatus == 3 %}
+                                    예약 취소
+                                    {% endif %}
+                                </p>
+                                <p class="total-price">{{book.totalPrice}}</p>
+                            </div>
+                            <!-- // 결제 정보 -->
+                            <div class="comment-info info-container">
+                                <p class="comment">{{book.comment}}</p>
+                            </div>
+                            <aside class="confirm-button">
+                                <button class="confirm-no">승인 취소</button><!-- js 수정 필요 -->
+                                <button class="confirm-yes">예약 승인</button><!-- js 수정 필요 -->
+                            </aside>
+                        </article>
+                    </section>
                 </article>
-                <!-- // 총 예약 인원 수 -->
-
-                <!-- 예약 미승인 인원 -->
-                <article class="orderStatus__yetConfirmCustomer">
-                    <h4>예약 미승인 인원</h4>
-                    <span>{% comment %}{{schedule.customer}}{% endcomment %}</span><!-- 백 작업 후 수정 필요 -->
-                </article>
-                <!-- // 예약 미승인 인원 -->
-
-                <!-- 총 결제 금액 -->
-                <article class="orderStatus__totalPayment">
-                    <h4>총 결제 금액</h4>
-                    <span>{{book.totalPrice}}</span><!-- 백 작업 후 수정 필요 -->
-                </article>
-                <!-- // 총 결제 금액 -->
-
-                <article class="orderStatus__customerInfo">
-                    <h4 class="customerInfo__item name">이름 : {{ book.customer.name }}</h4><!-- 백 작업 후 수정 필요 -->
-
-                    <!-- 만약 승인이 완료되었다면 승인 완료 출력-->
-                    {% if schedule.confirmStatus == 1 %}<!-- 백 작업 후 수정 필요 -->
-                        <span>승인 대기</span>
-                    {% elif schedule.confirmStatus == 2 %}
-                        <span>승인 완료</span>
-                    {% else %}
-                        <span>Error</span>
-                    {% endif %}
-                    <!-- // 만약 승인이 완료되었다면 승인 완료 출력-->
-
-                    <h4 class="customerInfo__item phoneNum">연락처 : {{book.customer.phoneNum}}</h4><!-- 수정필요 -->
-                    <h4 class="customerInfo__item name paid">결제여부 : {{schedule.print_payment_status}}</h4><!-- 수정필요 -->
-                    <h4 class="customerInfo__item name selectedCourse">선택코스 : {{book.course.title}}</h4><!-- 수정필요 -->
-                    <h4 class="customerInfo__item name requirement">요청사항 : {{book.comment}}</h4><!-- 수정필요 -->
-                    {% if schedule.permit_status == 1 %}<!-- 만약 승인이 안되었다면 체크박스 생성 -->
-                        <form action="{% url 'scheduleConfirm' schedule.id %}" method="POST">
-                            {% csrf_token %}
-                            <input type="checkbox" name="scheduleConfirm" value="confirm"><!-- value값 수정 -->
-                        </form>
-                    {% endif %}
-                </article>
-            </section>
+                </section>
+            </div>
+            <!-- 이전 버튼 -->
+            <aside class="button">
+                <button>이전 페이지</button>
+            </aside>
+            <!-- // 이전 버튼 -->
         </div>
-    </section>
+    </div>
+{% endblock %}
 
-
+{% block scripts %}
+    
 {% endblock %}

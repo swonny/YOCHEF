@@ -1,0 +1,123 @@
+
+.content-wrapper > section {
+    margin-top: 20px;
+}
+
+.post {
+    margin-top: 40px;
+}
+
+section > article {
+    padding: 20px 20px 10px;
+}
+
+input, textarea, option {
+    width: 100%;
+    border: none;
+    padding: 2px 1px;
+    font-size: 12px;
+}
+
+.category-region__header,
+.post__header {
+    font-family: 'Arita-dotum-Medium';
+    border-bottom: #E6E6E6 solid 0.5px;
+    padding: 10px 0px;
+    font-size: 16px;
+    display: inline-block;
+}
+
+select {
+    border: #E6E6E6 solid 0.5px;
+    width: 250px;
+    padding: 8px 5px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.add-button {
+    display: inline-block;
+}
+
+.add-button > button {
+    background-color: white;
+    border: #E6E6E6 solid 0.5px;
+    border-radius: 5px;
+    color: #E6E6E6;
+    padding: 5px;
+    height: 13.091;
+    width: 30px;
+}
+
+.input-wrapper {
+    border: #E6E6E6 solid 0.5px;
+    padding: 5px;
+    margin: 6px 0px;
+    border-radius: 5px;
+}
+
+.textarea-wrapper {
+    border: #E6E6E6 solid 0.5px;
+    padding: 5px;
+    margin: 6px 0px;
+    border-radius: 5px;
+    height: 200px;
+}
+
+.textarea-wrapper > textarea {
+    overflow: visible;
+    height: 100%;
+    width: 100%;
+}
+
+.post-image-wrapper > .input-wrapper {
+    width: 200px;
+    height: 200px;
+}
+
+.chef-intro__header > h4::after {
+    content: "경력, 자격증, 메뉴 등 셰프님에 대한 구체적인 정보를 알려주세요!";
+    font-size: 12px;
+    padding: 10px 10px;
+    color: #9e9e9e;
+    font-family: 'Arita-dotum-medium';
+}
+
+.course__header > h4::after {
+    content: "메뉴 구성과 요리에 대한 구체적인 정보를 알려주세요!";
+    font-size: 12px;
+    padding: 10px 10px;
+    color: #9e9e9e;
+    font-family: 'Arita-dotum-medium';
+}
+
+.course__content {
+    border: #E6E6E6 solid 0.5px;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 6px 0px 30px;
+    font-size: 12px;
+}
+
+.course__content > h4 {
+    color: #9e9e9e;
+    margin: 8px 0px;
+    padding: 0px;
+}
+
+.course__content > .input-wrapper {
+    margin-bottom: 20px;
+}
+
+.course-add-button {
+    border: none;
+    width: 100%;
+    background-color: #bd0000;
+    color: white;
+    font-family: 'Arita-dotum-Medium';
+    padding: 5px;
+    border-radius: 5px;
+}
+
+
+

@@ -1,0 +1,189 @@
+.chef-schedule-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 50px 250px;
+}
+
+.edit-schedule {
+    width: fit-content;
+}
+
+.header-container {
+    display: block;
+    width: 100%;
+}
+
+ h3 {
+    font-family: 'Arita-dotum-medium';
+    display: inline-block;
+    padding: 10px 0px;
+    font-size: 16px;
+}
+
+.post-content {
+    width: 100%;
+    display: block;
+    padding: 15px 0px;
+    border-top: #e6e6e6 solid 0.5px;
+    border-bottom: #e6e6e6 solid 0.5px;;
+}
+
+.post-register-time {
+    font-size: 12px;
+    color: #929292;
+    padding: 10px 0px;
+    display: inline-block;
+}
+
+.post-container > div {
+    padding: 8px 0px;
+}
+
+.post__title {
+    font-family: 'aRITA-DOTUM-SEMIBOLD';
+}
+
+.post__title::before {
+    content: "예약글 ";
+    color: #929292;
+    padding-right: 30px;
+    font-size: 12px;
+    font-family: 'aRITA-DOTUM-SEMIBOLD';
+}
+
+.moving-price {
+    font-family: 'aRITA-DOTUM-SEMIBOLD';
+}
+
+.moving-price::before {
+    content: "출장비";
+    color: #929292;
+    padding-right: 30px;
+    font-size: 12px;
+    font-family: 'aRITA-DOTUM-SEMIBOLD';
+}
+
+.moving-price::after {
+    content: "원";
+    padding-left: 10px;
+}
+
+.schedule-detail {
+    margin-left: 45px;
+}
+
+.schedule-detail__header {
+    margin: 20px 0px 10px;
+}
+
+.schedule-detail__body {
+    border: #afafaf dashed 0.5px;
+    border-radius: 5px;
+    padding: 10px 0px;
+    background-color: #e6e6e6;
+    width: 90%;
+}
+
+.info-container {
+    background-color: white;
+    padding: 30px 40px;
+    margin: 10px 0px 30px;
+}
+
+.info-container > div {
+    display: flex;
+    flex-direction: row;
+}
+
+.customer-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.customer-info > h4 {
+    font-family: 'Arita-dotum-Bold';
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+p::before {
+    display: inline-block;
+    margin-right: 40px;
+    color: #929292;
+    font-family: 'Arita-dotum';
+    font-size: 12px;
+}
+
+.customer-phone::before {
+    content: "연락처";
+}
+
+.schedule-date::before {
+    content: "예약 날짜";
+}
+
+p {
+    font-size: 13px;
+    display: inline-block;
+    width: 50%;
+    margin-left: 20px;
+    font-family: 'Arita-dotum-Medium';
+}
+
+.course-info,
+.payment-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.course-title::before {
+    content: "선택 코스";
+}
+
+.person-num::before {
+    content: "예약 인원";
+}
+
+.payment-status::before {
+    content: "결제 여부";
+}
+
+.total-price::before {
+    content: "결제 금액";
+}
+
+.comment::before {
+    display: block;
+    content: "요청사항";
+    margin-bottom: 20px;
+}
+
+.confirm-button {
+    margin: 20px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.confirm-button > button {
+    width: 40%;
+    height: 30px;
+    margin: 0px 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 12px;
+}
+
+.confirm-no {
+    background-color: #929292;
+}
+
+.confirm-yes {
+    background-color: #bd0000;
+}
+
+.button > button {
+    margin-top: 50px;
+}

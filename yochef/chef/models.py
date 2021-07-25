@@ -68,7 +68,7 @@ class Course(models.Model):
 	title = models.TextField(max_length=1000)
 	description = models.TextField(max_length=5000, null=True)
 	price = models.IntegerField()
-	# order = models.IntegerField(null=True)  # 추후 필요시 추가
+	order = models.IntegerField(null=True)  # 등록된 순서
 
 	def __str__(self):
 		if self.title:

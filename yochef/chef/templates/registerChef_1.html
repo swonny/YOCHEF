@@ -100,6 +100,9 @@
         </div>
     </form>
 
+    {% endblock %}
+    
+    {% block scripts %}
 <script>
 
     const imageElement = document.getElementsByName("uploadImage")[0];
@@ -109,33 +112,13 @@
     function handleFiles() {
         const imageFile = this.files[0];
         
-        const img = imageElement
+        const img = imageElement;
         img.file = imageFile;
 
         const reader = new FileReader();
         reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
-    reader.readAsDataURL(imageFile);
+        reader.readAsDataURL(imageFile);
     }
-
-
-    // const submitButton = document.getElementById("submitButton")
-
-    // submitButton.addEventListner('click', () => {
-    //     let formData = new FormData();
-    //     const textInputs = JSON.stringify({
-    //         pageNum : 2,
-    //         nickname : document.getElementsByName("nickname")[0].value(),
-    //         spec : document.getElementsByName("spec")[0].value(),
-    //         snsLink : document.getElementsByName("snsLink")[0].value(),
-    //         blogLink : document.getElementsByName("blogLink")[0].value(),
-    //         youtubeLink : document.getElementsByName("youtubeLink")[0].value(),
-    //     });
-
-    //     formData.append('textInputs', textInputs);
-    //     formData.append('profileImage', profileImage);
-
-    //     sendAjax('POST', '') form 데이터 보내는 방법, url, view 함수와 연관지어서
-// })
 
 </script>
 {% endblock %}

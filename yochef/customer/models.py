@@ -12,7 +12,8 @@ class Customer(models.Model):
 	point = models.IntegerField(default=0)
 	isChef = models.BooleanField(default=False)
 	registerDate = models.DateTimeField(auto_now_add=True)
-	currentVer = models.IntegerField(default=0)
+	currentVer = models.IntegerField(default=0) # 0 -> cus, 1 -> chef
+
 
 	def __str__(self):
 		return self.name
@@ -33,6 +34,7 @@ class HasCoupon(models.Model):
 
 	def __str__(self):
 		return self.customer.name + '님 - ' + self.coupon.title
+
 
 class VerifyNum(models.Model):
 	customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
@@ -58,12 +60,12 @@ class Like(models.Model):
 
 class Book(models.Model):
 	customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
-	coupon = models.ForeignKey(Coupon, null=True, on_delete=models.SET_NULL)
+	coupon = models.ForeignKey(HasCoupon, null=True, on_delete=models.SET_NULL)
 	schedule = models.ForeignKey('chef.Schedule', on_delete=models.CASCADE)
 	paymentStatus = models.IntegerField(default=1)	# 1: 예약가능  2: 예약됨  3. 취소됨
 	phoneNum = models.CharField(max_length=11)
 	usedPoint = models.IntegerField(null=True)
-	payMethod = models.IntegerField(null=True)
+	payMethod = models.IntegerField(null=True) # 1: 무통장, 2번: 신용카드
 	course = models.ForeignKey('chef.Course', null=True, on_delete=models.SET_NULL)
 	totalPrice = models.IntegerField(null=True)
 	personNum = models.IntegerField()
@@ -73,6 +75,9 @@ class Book(models.Model):
 	def __str__(self):
 		return self.schedule.post.chef.nickname + ' 셰프 - ' + self.course.title
 
+	def customerName(self):
+		return self.customer.name
+
 	def print_paymentStatus(self):
 		if self.paymentStatus == 1:
 			return "예약가능"
@@ -80,6 +85,14 @@ class Book(models.Model):
 			return "예약됨"
 		elif self.paymentStatus == 3:
 			return "취소됨"
+		else:
+			return "Error"
+
+	def print_paymentMethod(self):
+		if self.payMethod == 1:
+			return "무통장"
+		elif self.payMethod == 2:
+			return "카드결제"
 		else:
 			return "Error"
 

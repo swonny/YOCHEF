@@ -1,0 +1,24 @@
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/customer_side.css' %}">
+{% endblock %}
+
+    <!-- section header -->
+    <section class="header-wrapper">
+        <h2>마이메뉴</h2>
+        <!-- 전체메뉴 버튼 -->
+        <aside class="category-all-button"><button>새로운 셰프 보러가기</button></aside>
+        <!-- // 전체메뉴 버튼 -->
+    </section>
+    <!-- // section header  -->
+
+    <div class="content-wrapper">
+        <!-- side nav -->
+        <ul class="side-nav-container">
+            <li class="side-nav-item"><a href="mymenuReservation">내 예약 확인</a></li>
+            <li class="side-nav-item"><a href="mymenuLikedmenu">찜한 셰프 보기</a></li>
+        </ul>
+        <!-- // side nav -->
+        
+        
+

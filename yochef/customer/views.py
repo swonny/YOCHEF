@@ -76,13 +76,12 @@ def findPw(request):
 def createAccount(request):
     return render(request, "customer_signup.html")
 
-def apply(request):
-    customer = request.user.customer
-    # 테스트 위해 블루 추가
+def apply(request): #예약하기 버튼
     schedule_id = int(request.POST['schedule'])
     schedule = Schedule.objects.get(id = schedule_id)
     course = Course.objects.get(id = int(request.POST['course']))
     book = Book()
+    book.customer = request.user.customer
     book.course = course
     book.schedule = schedule
     book.personNum = int(request.POST['peopleNum'])
@@ -90,17 +89,86 @@ def apply(request):
     book.save()
     return render(request, 'pay_apply.html', {'course': course, 'book':book})
 
-def payment(request):
+def payment(request): #다음 버튼
     book_id = int(request.POST['book'])
     book = Book.objects.get(id = book_id)
     coupons = HasCoupon.objects.filter(customer = request.user.customer, isUsed=False)
+    book.comment = request.POST.get('comment')
+    book.phoneNum = request.POST.get('phoneNum')
+    book.save()
     return render(request, 'pay_payment.html', {'book':book, 'coupons' : coupons})
 
+def payComplete(request): #결제하기 눌렀을 때
+    print(request.POST['selectedCoupon'])
+    print(request.POST['usingPoint'])
+    print(request.POST['payment'])
+    book_id = int(request.POST['book'])
+    book = Book.objects.get(id = book_id)
+    coupon_id = request.POST['selectedCoupon']
+    if coupon_id != '':
+        has_coupon = HasCoupon.objects.get(id = coupon_id)
+        has_coupon.isUsed = True
+        has_coupon.save()
+        book.coupon = HasCoupon.objects.get(id = coupon_id)
+    using_point = request.POST['usingPoint']
+    if using_point != '':
+        book.usedPoint = int(using_point)
+        customer = request.user.customer
+        customer.point = int(customer.point) - int(using_point)
+        customer.save()
+    payment = request.POST.get('payment')
+    book.payMethod = payment
+    book.save()
+
+    # 추후 구현 된다면 실제 결제 기능까지
+
+    return redirect('/')
+
+# 결제 취소 기능
+    #   페이지에서 버튼 기능이 구현되기 전까지 url만 넣어서 Admin 페이지에서 삭제됐는지 확인
+    #   쿠폰 기록 복원
+    #   포인트 기록 복원
+    #   schedule 기록 복원
+
+
+def registerCancle(request):
+    book = Book.objects.filter(customer=request.user.customer)
+    coupon_id = request.POST['selectedCoupon']
+    if coupon_id != '':
+        has_coupon = HasCoupon.objects.get(id = coupon_id)
+        has_coupon.isUsed = False
+        has_coupon.save()
+        book.coupon = HasCoupon.objects.get(id = coupon_id)
+    using_point = request.POST['usingPoint']
+    if using_point != '':
+        book.usedPoint = int(using_point)
+        customer = request.user.customer
+        customer.point = int(customer.point) + int(using_point)
+        customer.save()
+    return render(request, 'myMenu_reservation.html')
+
+
+
 def mypage(request):
+    if request.user.customer.currentVer == 0 :
+        if request.method == 'GET':
+            return render(request, 'mypage.html')
+    else :
+        if request.method == 'GET':
+            profile = File.objects.get(chef = request.user.customer.chef, category = 1)
+            return render(request, 'mypage.html', {'profile':profile})
+
     return render(request, 'mypage.html')
 
-def mymenuLikedmenu(request): #백참고 : html 확인을 위해 작성했습니다.
-    return render(request, 'myMenu_likedMenu.html')
+def mymenuLikedmenu(request):
+    mylike_chefs = Like.objects.filter(customer=request.user.customer).values('chef')
+    chefs_post = Post.objects.filter(chef__in = mylike_chefs)
+    for chef_post in chefs_post :
+        if File.objects.filter(post = chef_post, category = 4).exists():
+            chef_post.cover_img = File.objects.filter(post = chef_post, category = 4)[0].attachment
+    return render(request, 'myMenu_likedMenu.html', {'posts':chefs_post})
 
-def mymenuReservation(request): #백참고 : html 확인을 위해 작성했습니다.
-    return render(request, 'myMenu_reservation.html')
+def mymenuReservation(request):
+    books = Book.objects.filter(customer=request.user.customer)
+    print(books)
+    return render(request, 'myMenu_reservation.html', {'books': books})

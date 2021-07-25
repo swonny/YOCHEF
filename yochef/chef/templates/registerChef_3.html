@@ -39,7 +39,7 @@
                         <article class="regiMainInput">
                             <h4>글 제목</h4>
                             <div class="regiMainInput__title">
-                                <input name="title" type="text" placeholder="예약글 제목을 입력해주세요.">
+                                <input name="title" type="text" placeholder="예약글 제목을 입력해주세요." value="{{post.title|default:""}}">
                             </div>
                         </article>
                         <!-- // 글 제목 -->
@@ -51,8 +51,9 @@
                                 <h4 class="coverImg__title">커버 이미지</h4>
                                 <div class="coverImg__container">
                                     <div class="coverImg__img">
-                                        <input multiple="multiple" name="postCoverImages[]" type="file" accept="image/*">
+                                        <img class="postCoverImage" name="postCoverImage" src="{{postCoverImage.attachment.url|default:""}}" alt="" style="width: 200px; height: 150px;">
                                     </div>
+                                    <input name="postCoverInput" type="file" accept="image/*">
                                 </div>
                             </div>
                         </article>
@@ -75,7 +76,9 @@
                         <!-- // 셰프 소개 -->
 
                         <!-- 코스 정보 -->
+
                         <article>
+                            <input type="hidden" name="courseCount" value="{{courses|length|default:1}}">
                             <div class="chefRegiThird__courseInfoContainer">
                                 <div class="chefRegiThird__courseInfo__descContainer">
                                     <h4 class="chefInfo__desc__title">코스 정보</h4>
@@ -83,37 +86,77 @@
                                 </div>
 
                                 <div class="chefRegiThird__courseInfo__inputContainer">
-                                    <div class="courseInfo__Name">
-                                        <h4 class="courseInfo__Name__title">이름</h4>
-                                        <input name="courseTitle" type="text" class="courseInfo__Name" placeholder="ex) A코스(10인) 20,000원">
+                                    {% if not courses %}
+                                    <div class="courseInfo__eachCourse">
+                                        <div class="courseInfo__Name">
+                                            <h4 class="courseInfo__Name__title">이름</h4>
+                                            <input name="courseTitle1" type="text" class="courseInfo__Name__input" placeholder="ex) A코스(10인) 20,000원">
+                                        </div>
+    
+                                        <div class="courseInfo__price">
+                                            <h4 class="courseInfo__price__title">가격</h4>
+                                            <input name="coursePrice1" type="text" class="courseInfo__price__input" placeholder="인당 가격" value="">
+                                        </div>
+    
+                                        <div class="courseInfo__menuDscr">
+                                            <textarea name="courseDescribe1" class="courseInfo__menuDscr__input" maxlength="500" placeholder="ex)
+    
+                                            1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)
+                                            
+                                            2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...
+                                            
+                                            3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국
+                                            
+                                            8인~12인용 코스입니다. 
+                                            
+                                            인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^
+                                            
+                                            " cols="100" rows="10"></textarea><br>
+                                        </div>                
+                                        <input class="course-image__content" type="file" name="courseImg1[]" multiple accept="image/*">
+                                        <button onclick="delCourse(this)" type="button">코스 삭제</button>
                                     </div>
-
-                                    <div class="courseInfo__price">
-                                        <h4 class="courseInfo__price__title">가격</h4>
-                                        <input name="coursePrice" type="text" class="courseInfo__price" placeholder="인당 가격" value="">
+                                    {% else %}
+                                    {% for course in courses %}
+                                    <div class="courseInfo__eachCourse">
+                                        <div class="courseInfo__Name">
+                                            <h4 class="courseInfo__Name__title">이름</h4>
+                                            <input value="{{course.title}}" name="courseTitle{{forloop.counter}}" type="text" class="courseInfo__Name__input" placeholder="ex) A코스(10인) 20,000원">
+                                        </div>
+    
+                                        <div class="courseInfo__price">
+                                            <h4 class="courseInfo__price__title">가격</h4>
+                                            <input value="{{course.price}}" name="coursePrice{{forloop.counter}}" type="text" class="courseInfo__price__input" placeholder="인당 가격" value="">
+                                        </div>
+    
+                                        <div class="courseInfo__menuDscr">
+                                            <textarea name="courseDescribe{{forloop.counter}}" class="courseInfo__menuDscr__input" maxlength="500" placeholder="ex)
+    
+                                            1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)
+                                            
+                                            2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...
+                                            
+                                            3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국
+                                            
+                                            8인~12인용 코스입니다. 
+                                            
+                                            인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^
+                                            
+                                            " cols="100" rows="10">
+                                            {{course.description}}
+                                            </textarea><br>
+                                        </div>
+                                        {% for image in course.images %}
+                                        <img src="{{image.attachment.url}}" alt="" style="width:100px; height:100px;">
+                                        {% endfor %}
+                                        <input class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*">
+                                        <button onclick="delCourse(this)" type="button">코스 삭제</button>
                                     </div>
-
-                                    <div class="courseInfo__menuDscr">
-                                        <textarea name="courseDescribe" class="courseInfo__menuDscr__i nput" maxlength="500" placeholder="ex)
-
-                                        1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)
-                                        
-                                        2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...
-                                        
-                                        3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국
-                                        
-                                        8인~12인용 코스입니다. 
-                                        
-                                        인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^
-                                        
-                                        " cols="100" rows="10"></textarea><br>
-                                        <!-- 프론트 참고 - 마찬가지로 동일한 이유로 수정하였습니다. -->
-                                        <!-- " cols="255" rows="609"></textarea><br> -->
-                                    </div>
-                                    <!-- !!!! 수정 필요 : 이미지 추가 - 자바스크립트로 구현 -->
-                                    <!-- !!!! 수정 필요 : 코스 추가 버튼 - 자바스크립트로 구현 -->
-                                    <button>코스 추가</button>
+                                    {% endfor %}
+                                    {% endif %}
+                                    <button onclick="addCourse(this)" type="button">코스 추가</button>
                                 </div>
+                                <!-- !!!! 수정 필요 : 이미지 추가 - 자바스크립트로 구현 -->
                             </div>
                         </article>
                         <!-- // 코스 정보 -->
@@ -137,10 +180,9 @@
                                     ※ 가격은 1인 기준입니다. 
                                     
                                     ※ 출장비 별도
-                                    " cols="100" rows="10"></textarea><br>
+                                    " cols="100" rows="10">{{post.notice}}</textarea><br>
                                         <!-- 프론트 참고 - 마찬가지로 동일한 이유로 수정하였습니다. -->
                                         <!-- " cols="180" rows="609"></textarea><br> -->
-                                    
                                 </div>
                             </div>
                         </article>
@@ -159,22 +201,146 @@
             </div>
         </div>
     </form>
-
 {% endblock %}
+
 {% block scripts %}
+
 <script>
-    다음.addEventListener('click', ()=>{
-        let formData = new FormData();
-        let coverImages = document.getElementBy
-        let chefIntroduce = document.getElementsByName('introduce')[0].value;
-        let courses = Array();
-        if (chefIntroduce == '') {
-            alert("셰프소개란이 비어있어요")
-            return;
+    // 커버(단일) 이미지 업로드 미리보기
+    const imageElement = document.getElementsByName("postCoverImage")[0];
+    const inputElement = document.getElementsByName("postCoverInput")[0];
+
+    inputElement.addEventListener("change", handleFiles, false);
+    function handleFiles() {
+        const imageFile = this.files[0];
+        
+        const img = imageElement;
+        img.file = imageFile;
+
+        const reader = new FileReader();
+        reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+        reader.readAsDataURL(imageFile);
+    }
+
+
+    // 코스 추가 버튼
+    function addCourse(e) {
+        const courseInfo = document.getElementsByClassName("courseInfo__eachCourse");
+        const courseNode = courseInfo[0].cloneNode(true);
+        courseNode.querySelector("input.courseInfo__Name__input").value = "";
+        courseNode.querySelector("input.courseInfo__price__input").value = "";
+        courseNode.querySelector("textarea.courseInfo__menuDscr__input").value = "";
+        
+        if (courseInfo.length < 10) {
+            e.parentNode.insertBefore(courseNode.cloneNode(true), e)
+        } else {
+            alert("코스는 10개까지 등록할 수 있습니다.");
         }
-        formData.append('chef_introduce', chefIntroduce);
-        formData.append('courses', courses);
-        sendAjax('POST', '/registerChef_4', ()=>{}, formData)
-    })
+    }
+    
+
+    // 코스 삭제 버튼
+    function delCourse(e) {
+        let ask = confirm("삭제하시겠습니까?");
+        
+        if (document.getElementsByClassName("courseInfo__eachCourse").length === 1) {
+            alert("코스는 1개 이상이어야 합니다.")
+        } else if (ask === true) {
+            e.parentNode.remove();
+        } else {
+            return
+        }
+    }
+    
+
+    // course count 코스 개수 변화 감지
+    // courseTitle, coursePrice, courseDescribe, courseImg 인덱스 부여
+    const courseCount = document.getElementsByName("courseCount")[0];
+    const courseContainer = document.getElementsByClassName("chefRegiThird__courseInfo__inputContainer")[0];
+    const courseObserver = new MutationObserver((mutations) => {
+        const eachCourse = document.getElementsByClassName("courseInfo__eachCourse")
+        let courseLength = eachCourse.length;
+        courseCount.value = courseLength;
+
+        const courseTitles = document.getElementsByClassName("courseInfo__Name__input");
+        const coursePrices = document.getElementsByClassName("courseInfo__price__input");
+        const courseDescribes = document.getElementsByClassName("courseInfo__menuDscr__input");
+        const courseImgs = document.getElementsByClassName("course-image__content");
+
+        for (i = 0; i < courseLength; i++) {
+            let courseTitle = courseTitles[i];
+            let coursePrice = coursePrices[i];
+            let courseDescribe = courseDescribes[i];
+            let courseImg = courseImgs[i];
+            courseTitle.name = "courseTitle" + String(i+1);
+            coursePrice.name = "coursePrice" + String(i+1);
+            courseDescribe.name = "courseDescribe" + String(i+1);
+            courseImg.name = "courseImg" + String(i+1) + "[]";
+        }
+    });
+    const observerOption = {
+        attributes: true,
+        characterData: true,
+        childList: true
+    };
+    courseObserver.observe(courseContainer, observerOption);
+
+
+    // 다중 이미지 업로드 미리보기
+    const courseImageContainer = document.getElementsByClassName("coverImg__img")[0];
+    const courseImageInput = document.getElementsByName("postCoverImages[]")[0];
+    
+    inputElement.addEventListener("change", handleFiles, false);
+    function handleFiles() {
+        while (imageContainer.firstChild) {
+            imageContainer.removeChild(imageContainer.firstChild)
+        }
+
+        for (let i = 0; i < this.files.length; i++) {
+            const uploadFile = this.files[i];
+
+            const img = document.createElement("img");
+            img.classList.add("postCoverImage");
+            img.style.width = "200px";
+            img.style.height = "150px";
+            img.file = uploadFile;
+            imageContainer.appendChild(img);
+    
+            const reader = new FileReader();
+            reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+            reader.readAsDataURL(uploadFile);
+        }
+    }
+
+    // ajax를 통한 데이터 전송
+    // document.querySelector('button[type="submit"]').addEventListener('click', ()=>{
+        //     let formData = new FormData();
+        
+        //     let courses = Array();
+        //     let coursesImgArr = Array();
+        //     let chefIntroduce = document.getElementsByName('introduce')[0].value;
+        //     let coursesImages = document.getElementsByName('courseImg[]');
+        
+        //     for (courseImgs of coursesImages) {
+            
+            //         for (courseImg of courseImgs.files){
+                //             course
+    //         }
+    //         coursesImgArr.push({'id':})
+    //     }
+
+    //     // if (chefIntroduce == '') {
+    //     //     alert("셰프소개란이 비어있어요")
+    //     //     return;
+    //     // }
+    //     let formDataFile = new FormData();
+    //     formDataFile.append('courseImgs', coursesImgArr);
+        
+    //     formData.append('chef_introduce', chefIntroduce);
+    //     formData.append('courses', courses);
+    //     sendAjax('POST', 'chef/registerchef/4', ()=>{}, formData, formDataFile)
+    // })
+
 </script>
+
 {% endblock %}

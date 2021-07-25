@@ -48,8 +48,8 @@ def detail(request, post_id):
     except:
         profile_imgurl = None
 
-    for idx in range(len(courses)):
-        courses[idx].course_imgs = File.objects.filter(course=courses[idx], category=3)
+    for course in courses:
+        course.course_imgs = File.objects.filter(course=course, category=3)
 
     # book - paymentStatus 관련 필터 추가
     available_schedules = []

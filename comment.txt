@@ -418,3 +418,26 @@
 - editChefProfile_1.html
 	- 셰프 프로필 이미지 구현
 	- (JS) 프로필 이미지 업로드 미리보기 구현
+
+21.07.23 워니
+- base.html
+	- 네브바 로고 수정 완료 - 네브바 관련 작업 완료
+- editChefProfile_1 css 적용
+
+21.07.24 워니
+- editChefProfile_2 css 적용
+- editChefProfile_3 css 적용
+
+21.07.25 제우스
+- registerChef_3.html JS
+	- 예약글 커버 이미지 다중 업로드에서 단일 업로드 기능으로 수정
+	- 예약글 커버 이미지 미리보기 구현
+	- 코스 추가, 코스 삭제 기능 구현
+	- 코스 이미지 업로드 기능 구현
+- chef/views.py chefSchedule.html
+	- 일정 추가 기능 구현
+
+21.07.26 워니
+- editChefProfile_3 css 완료
+- chefSchedule css 구현 (테이블 미완성)
+- chefSchedule_detail css 완료
