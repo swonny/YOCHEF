@@ -13,4 +13,8 @@ urlpatterns = [
 	path('payComplete', payComplete, name="payComplete"),
 	path('mymenuLikedmenu', mymenuLikedmenu, name='mymenuLikedmenu'), 
 	path('mymenuReservation', mymenuReservation, name='mymenuReservation'), 
+	path('changeInfo', changeInfo, name="changeInfo"),
+	path('changePw', changePw, name="changePw"),
+	path('registerCancle', registerCancle, name="registerCancle"),
+	path('checkDuplicate', checkDuplicateAPI, name="checkDuplicate"),
 ]

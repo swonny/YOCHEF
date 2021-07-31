@@ -441,3 +441,63 @@
 - editChefProfile_3 css 완료
 - chefSchedule css 구현 (테이블 미완성)
 - chefSchedule_detail css 완료
+
+21.07.27 제우스
+- chefSchedule.html
+	- Book.objects.get(schedule=schedule) MultipleObjectsReturned 오류 해결
+	- line 52~26 템플릿 변수 입력
+- editChefProfile_3.html
+	- line7, url 'updatePost' => 'updateMovingPrice' 수정
+	- JS 자동계산 구현
+- chef/views.py
+	모든 셰프 관련 페이지에 셰프 로그인 검증 절차 추가
+
+21.07.28 제우스
+- registerChef_2.html JS
+	- 등록된 post에 대해 category, region option Selected 적용
+- editChefProfile_1.html
+	- 템플릿 변수 초기값 설정 {{|default:""}}
+- chef 관련 admin 페이지 개선
+	- 필드명 출력 순서 변경
+	- Schedule eventDate 출력 개선
+	- Post registerDate 출력 개선
+		- "yyyy.mm.dd D hh:mm:ss" 형식으로 변경
+
+21.07.29 워니
+- registerChef 1~4, editChefProfile_1 ~ 3, chefSchedule html & css 수정 완료
+	- chefSchedule table --> js 구현 시 반영하여 수정 예정
+
+21.07.30 워니
+- 백 참고
+	-myMenu_reservation.html 관련
+		- post 이미지를 받아올 수 있는 context 또는 변수를 만들어주세요!
+
+- myMenu_likedMenu html/css 완료
+- myMenu_reservation html/ss 완료
+		
+21.07.30 제우스
+- editChefProfile_2.html JS
+	- 등록된 post에 대해 category, region option Selected 적용
+- editChefProfile_3.html, registerChef_04.html JS
+	- 이동비에 숫자를 입력할 때만 자동계산을 하도록 개선
+- registerChef_4.html, editChefProfile_3.html
+	- 이동비 DB에 저장 안 되는 오류 해결
+
+21.07.31 제우스
+- settings.py
+	- models.DateTileField(auto_now=True) 객체 생성 시 UTC 기준 시간으로 입력되던 문제 해결
+	- line 112, 'UTC' => 'Asia/Seoul'
+	- line 118 , True => False
+
+21.07.31 블루
+- base.html
+	쿠폰함, 포인트 내역 관련 css, html, public > views.py 구현
+- detail.html
+	코스 사진 확대 구현
+- account.css
+	로그인페이지 에러 글씨 처리
+- payment.html
+	무통장 입금 삭제
+- signup.html, customer > views.py
+	회원가입, 중복회원 검증 관련 구현
+	회원가입 전체 선택 관련 구현

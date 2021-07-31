@@ -51,7 +51,7 @@ article {
 .post__title::before {
     content: "예약글 ";
     color: #929292;
-    padding-right: 30px;
+    padding-right: 25px;
     font-size: 12px;
     font-family: 'aRITA-DOTUM-SEMIBOLD';
 }
@@ -88,7 +88,16 @@ article {
 
 input {
     width: 100%;
-    font-size: 12px;
+    font-size: 11px;
+}
+
+.add-button {
+    background-color: white;
+    border: #E6E6E6 solid 0.5px;
+    border-radius: 5px;
+    color: #E6E6E6;
+    padding: 7px 5px;
+    width: 30px;
 }
 
 .date-filter__start-date,
@@ -122,10 +131,15 @@ input {
     padding-top: 2px;
 }
 
+table {
+    width: 100%;
+}
+/* 
 .schedule-list__total-cotainer {
+    width: 100%;
     display: flex;
     flex-direction: row;
-}
+} */
 
 .schedule-list__header,
 .schedule-register__header > h3 {
@@ -139,6 +153,11 @@ input {
     border: #e6e6e6 solid 0.5px;
     border-radius: 5px;
     display: inline-block;
+    width: 100%;
+    margin: 30px 0px;
+}
+
+tbody {
     width: 100%;
 }
 
@@ -182,15 +201,22 @@ input {
     justify-content: start;
 }
 
-.schedule-register__header > img {
+.schedule-register__header > div {
+    display: flex;
+    flex-direction: row;
+}
+
+.schedule-register__header > div > img {
     width: 15px;
     height: 15px;
     padding: 4px 10px;
     display: inline-block;
 }
 
-.notice-image::after {
-    content: "요리하실 메뉴에 대해 여러 장소/날짜를 추가할 수 있습니다.";
+.notice--after {
+    position: relative;
+    top: 5px;
+    display: inline-block;
     color: #929292;
     font-size: 12px;
 }
@@ -199,6 +225,15 @@ input {
     width: 100%;
     margin: 0px 8px;
     flex-direction: column;
+    padding: 0px 0px 15px;
+    border-bottom: #e6e6e6 solid 0.5px;
+}
+
+.region__title,
+.date__title,
+.time__title {
+    margin-top: 20px;
+    padding-bottom: 6px;
 }
 
 .form__region,
@@ -227,5 +262,5 @@ input {
 
 select {
     width: 100%;
-    font-size: 12px;
+    font-size: 11px;
 }

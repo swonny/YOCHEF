@@ -72,9 +72,6 @@ class Book(models.Model):
 	comment = models.TextField(max_length=1000, null=True)
 	registerDate = models.DateTimeField(auto_now=True) 
 
-	def __str__(self):
-		return self.schedule.post.chef.nickname + ' 셰프 - ' + self.course.title
-
 	def customerName(self):
 		return self.customer.name
 

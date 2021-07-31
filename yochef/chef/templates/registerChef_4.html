@@ -1,113 +1,147 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/editChefProfile_3.css' %}">
+{% endblock %}
 {% block content %}
     <form name="registerChef_4" method="POST" action="{% url 'registerChef' '5' %}">
     {% csrf_token %}
-        <div id="regiFrmWrap">
-            <section class="regiChefSection__header">
-                <div class="regiChefSection__headerContainer">
-                    <h2>셰프 등록</h2>
-                </div>
-            </section>
-
-            <div class="regiContent">
-                <div class="regiContentContainer">
-                    <!-- 셰프 등록 nav -->
-                    <ul class="regiContent__navContainer">
-                        <li class="regiContent__navItem">
-                            <a href="#">셰프 소개</a>
-                        </li>
-                        <li class="regiContent__navItem">
-                            <a href="">예약글 등록</a>
-                        </li>
-                        <li class="regiContent__navItem">
-                            <a href="">출장비 등록</a>
-                        </li>
-                    </ul>
-                    <!-- // 셰프 등록 nav -->
-
-                    <section class="chefRegifourth">
-                        <article class="chefRegifourth__title">
+        <div class="edit-chef-wrapper">
+            {% include 'registerChef_side.html' %}
+                <section class="edit-content">                
+                    <div class="post">
+                        <article class="register-header">
                             <h3>마지막으로 출장비를 입력해주세요!</h3>
-                            <p>코스 비용과 함께 고객이 지불할 금액입니다.</p>
-                            <div></div><!-- !!!!진행상황 바 추가하기 -->
+                            <p class="header__p">출장비를 입력하고 코스별 최종금액도 확인해보세요!</p>
+                            <div class="status-bar-wrapper" style="width: 100%;">
+                                <div class="status-bar" style="width: 100%"> </div>
+                            </div>
                         </article>
-
-                        <article class="chefRegifourth__priceContainer">
-                            <!-- 출장비 입력 -->
-                            <div class="priceArea">
-                                <div class="priceArea__movingPrice">
+                        <!-- 출장비 입력 -->
+                        <article class="moving-price__input-wrapper">
+                            <div class="moving-price__header">
+                                <h3 class="">출장비 입력</h3>
+                            </div>
+                            <div class="price-area price-area--top">
+                                <div class="price-input-wrapper">
                                     <h4>출장비</h4>
-                                    <input name="movingPrice" type="int" placeholder="\ (입력)">
-                                    <span class="unit">원</span>
+                                    <div class="input-wrapper">
+                                        <input value="{{post.movingPrice|default:"0"}}" name="movingPriceInput" type="int" placeholder=" ￦ (입력)">
+                                        <span class="unit">원</span>
+                                    </div>
                                 </div>
-
                                 <span class="plus">+</span>
-
-                                <div class="priceArea__coursePerPrice">
+                                <div class="price-input-wrapper course-price">
                                     <h4>코스별 금액</h4>
-                                    <select name="" id="">
-                                        <!-- 프론트 참고 -  장고 에러로 for in courses -> for course in courses로 수정하였습니다 .-->
-                                        {% for course in courses %}<!-- !!!!백에서 지정 필요: 셰프가 등록한 코스 불러오기 -->
-                                        <option value="">{{course.title}}</option><!-- !!!!백에서 지정 필요: 코스 이름 -->
+                                    <select name="courseSelector" id="">
+                                        <option value="0">코스 선택</option>
+                                        {% for course in courses %}<!-- 수정 필요 -->
+                                        <option value="{{course.price}}">{{course.title}}</option>
                                         {% endfor %}
                                     </select>
-                                    <span class="unit">원</span>
+                                    <div class="input-wrapper input--disabled">
+                                        <input name="coursePrice" type="text" value="" disabled>
+                                        <span class="unit">원</span>
+                                    </div>
                                 </div>
-
-                                <span class="plus">=</span>
+                            
+                                <div class="plus">=</div>
                                 
-                                <div class="priceArea__totalPrice">
+                                <div class="price-input-wrapper">
                                     <h4>최종 금액</h4>
-                                    <input type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
-                                    <span class="unit">원</span>
+                                    <div class="input-wrapper input--disabled">
+                                        <input class="price-area__input" name="totalPrice" type="text" placeholder="(자동계산)" disabled>
+                                        <span class="unit">원</span>
+                                    </div>
                                 </div>
                             </div>
-                            <!-- // 출장비 입력 -->
                         </article>
-
-                        <article class="priceArea__finalPrice">
-                            <h3 class="">최종 정산금 안내</h3>
-                            <p>예약 일정 1회에 셰프님에게 마지막으로 정산될 금액입니다.</p>
-                        </article>
-
+                        <!-- // 출장비 입력 -->
                         <!-- 최종 정산금 안내 -->
-                        <article class="priceInfo__final">
-                            <div class="priceArea">
-                                <div>
-                                    <h4 class="priceArea__title">최종 금액</h4>
-                                    <input class="priceArea__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
-                                    <span class="unit">원</span>
+                        <article class="final-price__input-wrapper">
+                            <div class="final-price__header">
+                                <h3 class="">최종 정산금 안내</h3>
+                                <p>예약 일정 1회에 셰프님에게 마지막으로 정산될 금액입니다.</p>
+                            </div>
+                            <div class="price-area price-area--top">
+                                <div class="price-input-wrapper">
+                                    <h4 class="price-areat__title">최종 금액</h4>
+                                    <div class="input-wrapper input--disabled">
+                                        <input class="price-area__input" name="totalPrice" type="text" placeholder="(자동계산)" disabled>
+                                        <span class="unit">원</span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h4 class="priceArea__title">VAT 10%</h4>
-                                    <input class="priceArea__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
-                                    <span class="unit">원</span>
+                                <span class="plus">-</span>
+                                <div class="price-input-wrapper">
+                                    <h4 class="price-area__title">VAT 10%</h4>
+                                    <div class="input-wrapper input--disabled">
+                                        <input class="price-area__input" name="VAT" type="text" placeholder="(자동계산)" disabled>
+                                        <span class="unit">원</span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h4 class="priceArea__title">서비스 수수료</h4>
-                                    <input class="priceArea__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
-                                    <span class="unit">원</span>
+                                <span class="plus">-</span>
+                                <div class="price-input-wrapper">
+                                    <h4 class="price-area__title">서비스 수수료 20%</h4>
+                                    <div class="input-wrapper input--disabled">
+                                        <input class="price-area__input" name="commission" type="text" placeholder="(자동계산)" disabled>
+                                        <span class="unit">원</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="priceTotal">
-                                <h4 class="priceTotal__title">최종 정산금</h4>
-                                    <input class="priceTotal__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
-                                    <span class="unit">원</span>
+                            <div class="price-area--bottom">
+                                <div class="price-input-wrapper total-price">
+                                    <h4 class="price-total__title">최종 정산금</h4>
+                                    <div class="input-wrapper input--disabled">
+                                        <input class="price-total__input" name="totalSettlement" type="text" placeholder="(자동계산)" disabled>
+                                        <span class="unit">원</span>
+                                    </div>
+                                </div>
+                                <span>=</span>
                             </div>
                         </article>
                         <!-- // 최종 정산금 안내 -->
-                    </section>
-                    <!-- 이전, 제출 버튼 -->
-                    <aside class="button">
-                        <div class="submitBtn">제출</div>
-                        <!-- <div class="previousBtn">이전</div> -->
-                        <!-- 프론트 참고 - 다음버튼 추가하였습니다. -->
-                        <div class="submitBtn"><button type="submit">다음</button></div>
-                    </aside>
-                    <!-- // 이전, 제출 버튼 -->
-
-                </div>
+                        <!-- 저장 버튼 -->
+                        <aside class="button">
+                            <button type="submit">저장</button>
+                        </aside>
+                        <!-- // 저장 버튼 -->
+                    </div>
+                </section>
             </div>
         </div>
     </form>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // 자동계산
+    function mutation() {
+        const coursePriceOutput = document.querySelector("input[name=coursePrice]");
+        const totalPriceOutputs = document.querySelectorAll("input[name=totalPrice]");
+        const vatOutput = document.querySelector("input[name=VAT]");
+        const commissionOutput = document.querySelector("input[name=commission]");
+        const settlementOutput = document.querySelector("input[name=totalSettlement]");
+    
+        let movingPrice = document.querySelector("input[name=movingPriceInput]").value ?? 0;
+        let coursePrice = document.querySelector("select[name=courseSelector]").value ?? 0;
+        let totalPrice = parseInt(movingPrice) + parseInt(coursePrice)
+    
+        // 자동계산 출력
+        if (isNaN(movingPrice) !== true) {
+            coursePriceOutput.value = coursePrice.toLocaleString() ?? "  "
+            totalPriceOutputs[0].value = totalPrice.toLocaleString() ?? "(자동계산)"
+            totalPriceOutputs[1].value = totalPrice.toLocaleString() ?? "(자동계산)"
+            vatOutput.value = Math.floor(totalPrice / 11).toLocaleString() ?? "(자동계산)"  // 최종 금액의 10%
+            commissionOutput.value = Math.floor(totalPrice * (2 / 11)).toLocaleString() ?? "(자동계산)"   // vat제외 최종 금액의 20%
+            settlementOutput.value = (totalPrice - Math.floor(totalPrice / 11) - Math.floor(totalPrice * (2 / 11))).toLocaleString() ?? "(자동계산)"
+        }
+    }
+    const movingPriceInput = document.querySelector("input[name=movingPriceInput]");
+    const courseSelector = document.querySelector("select[name=courseSelector]")
+    movingPriceInput.addEventListener("change", mutation)
+    courseSelector.addEventListener("change", mutation)
+</script>
 {% endblock %}

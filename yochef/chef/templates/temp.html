@@ -1,0 +1,398 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/editChefProfile_2.css' %}">
+{% endblock %}
+{% block content %}
+    <form name="registerChef_3" action="{% url 'registerChef' '4' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="edit-chef-wrapper">
+            {% include 'registerChef_side.html' %}
+                <div class="edit-content">
+                    <section class="post">
+                        <article class="chefRegiMain__header">
+                            <h3>예약글을 등록해 주세요!</h3>
+                            <!-- !!!!진행상황 바 수정하기 -->
+                            <div></div>
+                            <!-- // !!!!진행상황 바 수정하기 -->
+                        </article>
+
+                        <!-- 글 제목 -->
+                        <article class="post-title-wrapper">
+                            <h4 class="article-title">글 제목</h4>
+                            <div class="input-wrapper">
+                                <input name="title" class="post-title__content" type="text" placeholder="예약글 제목을 입력해주세요.">
+                            </div>
+                        </article>
+                        <!-- // 글 제목 -->
+
+                        <!-- 예약글 커버 이미지 업로드 -->
+                        <article class="post-image-wrapper">
+                            <h4 class="article-title">커버 이미지</h4>
+                            <div class="input-wrapper">
+                                <img class="postCoverImage" name="postCoverImage" src="{{postCoverImage.attachment.url|default:""}}" alt="" style="width: 200px; height: 150px;">
+                                <input name="postCoverInput" type="file" accept="image/*">
+                            </div>
+                        </article>
+                        <!-- // 예약글 커버 이미지 -->
+
+                        <!-- 셰프 소개 -->
+                        <article class="chef-intro-wrapper">
+                            <div class="chef-intro__header">
+                                <h4 class="header__title">셰프 소개</h4>
+                            </div>
+
+                            <div class="textarea-wrapper">
+                                <textarea name="introduce" class="chefInfoInput" maxlength="500"></textarea>
+                            </div>
+                        </article>
+                        <!-- // 셰프 소개 -->
+
+                        <!-- 유의사항 -->
+                        <article class="notice-wrapper">
+                            <div class="notice__header">
+                                <h4 class="article-title">유의사항</h4>
+                            </div>
+
+                            <div class="textarea-wrapper">
+                                <textarea name="notice" class="noticeInput" maxlength="500" placeholder="ex) 예약이 완료되면 안내 카톡을 보내드릴 예정입니다. 세부 요청사항은 카톡에서 말씀해주세요!
+                                
+                                코스별 안내사항
+                                
+                                코스 A: 준비시간 약 2시간
+                                
+                                ※ 가격은 1인 기준입니다. 
+                                
+                                ※ 출장비 별도
+                                "></textarea>
+                            </div>
+                        </article>
+                        <!-- // 유의사항 -->
+
+                        <!-- 코스 정보 -->
+                        <article class="course-wrapper">
+                            <input type="hidden" name="courseCount" value="{{courses|length|default:1}}">
+                            <div class="course__header">
+                                <h4 class="article-title">코스 정보</h4>
+                            </div>
+                            <!-- {% if not courses %} -->
+                            <div class="courseInfo__eachCourse">
+                                <div class="course__content">
+                                    <h4 class="course-name__title">코스 이름</h4>
+                                    <div class="input-wrapper">
+                                        <input class="course-info__title" name="courseTitle1" type="text" placeholder="ex) A코스(10인) 20,000원"><!-- 클래스명 변경: courseInfo__Name__input -> course-info__title  -->
+                                    </div>
+                                    <h4 class="course-price__title">1인당 가격</h4>
+                                    <div class="input-wrapper">
+                                        <input class="course-info__price" name="coursePrice1" type="text" placeholder="인당 가격" value=""><!-- 클래스명 변경: courseInfo__price__input -> course-info__price -->
+                                    </div>
+                                    <h4 class="course-name__title">코스 설명</h4>
+                                    <div class="textarea-wrapper">
+                                        <!-- 클래스명 변경: courseInfo__descr__input -> course-info__description-->
+                                        <textarea class="course-info__description" name="courseDescribe1" maxlength="500" placeholder="ex)
+                                        1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)
+                                        2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...
+                                        
+                                        3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국
+                                        
+                                        8인~12인용 코스입니다. 
+                                        
+                                        인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^
+                                        
+                                        "></textarea><br>
+                                    </div>                
+                                    <input class="course-image__content" type="file" name="courseImg1[]" multiple accept="image/*">
+                                    <button onclick="delCourse(this)" type="button">코스 삭제</button>
+                                </div>
+                            </div>
+                            <!-- {% else %}
+                            {% for course in courses %}
+                            <div class="course__content">
+                                <h4 class="course-name__title">코스 이름</h4>
+                                <div class="input-wrapper">
+                                    <input value="{{course.title}}" name="courseTitle{{forloop.counter}}" type="text" class="courseInfo__Name__input" placeholder="ex) A코스(10인) 20,000원">
+                                </div>
+                                <h4 class="course-price__title">1인당 가격</h4>
+                                <div class="courseInfo__price">
+                                    <h4 class="courseInfo__price__title">가격</h4>
+                                    <input value="{{course.price}}" name="coursePrice{{forloop.counter}}" type="text" class="courseInfo__price__input" placeholder="인당 가격" value="">
+                                </div>
+
+                                <div class="courseInfo__menuDscr">
+                                    <textarea name="courseDescribe{{forloop.counter}}" class="courseInfo__menuDscr__input" maxlength="500" placeholder="ex)
+
+                                    1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)
+                                    
+                                    2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...
+                                    
+                                    3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국
+                                    
+                                    8인~12인용 코스입니다. 
+                                    
+                                    인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^
+                                    
+                                    " cols="100" rows="10">
+                                    {{course.description}}
+                                    </textarea><br>
+                                </div>
+                                {% for image in course.images %}
+                                <img name="courseImageTag" src="{{image.attachment.url}}" alt="" style="width:100px; height:100px;">
+                                {% endfor %}
+                                <input name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*">
+                                <button onclick="delCourse(this)" type="button">코스 삭제</button>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                            <button onclick="addCourse(this)" type="button">코스 추가</button> -->
+                            <!-- !!!! 수정 필요 : 이미지 추가 - 자바스크립트로 구현 -->
+                        </article>
+                        <!-- // 코스 정보 -->
+
+                    </section>
+
+                    <!-- 이전, 다음 버튼 -->
+                    <aside class="button">
+                        <div class="submitBtn">이전</div>
+                        <!-- <div class="previousBtn">다음</div> -->
+                        <!-- 프론트 참고 - 다음버튼 추가하였습니다. -->
+                        <div class="submitBtn"><button type="submit">다음</button></div>
+                    </aside>
+                    <!-- // 이전, 다음 버튼 -->
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+    // 커버(단일) 이미지 업로드 미리보기
+    
+    const inputElement = document.getElementsByName("postCoverInput")[0];
+    inputElement.addEventListener("change", function() {
+        const imageFile = this.files[0];
+        
+        const img = document.getElementsByName("postCoverImage")[0];
+        img.file = imageFile;
+    
+        const reader = new FileReader();
+        reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+        reader.readAsDataURL(imageFile);
+    }, false);
+
+
+    // 코스 추가 버튼
+    function addCourse(e) {
+        const courseInfo = document.getElementsByClassName("courseInfo__eachCourse");
+        const courseNode = courseInfo[0].cloneNode(true);
+        courseNode.querySelector("input.course-info__title").value = "";
+        courseNode.querySelector("input.course-info__price").value = "";
+        courseNode.querySelector("textarea.course-info__description").value = "";
+        
+        if (courseInfo.length < 10) {
+            e.parentNode.insertBefore(courseNode.cloneNode(true), e)
+        } else {
+            alert("코스는 10개까지 등록할 수 있습니다.");
+        }
+    }
+    
+
+    // 코스 삭제 버튼
+    function delCourse(e) {
+        let ask = confirm("삭제하시겠습니까?");
+        
+        if (document.getElementsByClassName("courseInfo__eachCourse").length === 1) {
+            alert("코스는 1개 이상이어야 합니다.")
+        } else if (ask === true) {
+            e.parentNode.remove();
+        } else {
+            return
+        }
+    }
+    
+
+    // course count 코스 개수 변화 감지
+    // courseTitle, coursePrice, courseDescribe, courseImg 인덱스 부여
+    const courseCount = document.getElementsByName("courseCount")[0];
+    const courseContainer = document.getElementsByClassName("chefRegiThird__courseInfo__inputContainer")[0];
+    const courseObserver = new MutationObserver((mutations) => {
+        const eachCourse = document.getElementsByClassName("courseInfo__eachCourse")
+        let courseLength = eachCourse.length;
+        courseCount.value = courseLength;
+
+        const courseTitles = document.getElementsByClassName("course-info__title");
+        const coursePrices = document.getElementsByClassName("course-info__price");
+        const courseDescribes = document.getElementsByClassName("courseInfo__menuDscr__input");
+        const courseImgs = document.getElementsByClassName("course-image__content");
+
+        for (i = 0; i < courseLength; i++) {
+            let courseTitle = courseTitles[i];
+            let coursePrice = coursePrices[i];
+            let courseDescribe = courseDescribes[i];
+            let courseImg = courseImgs[i];
+            courseTitle.name = "courseTitle" + String(i+1);
+            coursePrice.name = "coursePrice" + String(i+1);
+            courseDescribe.name = "courseDescribe" + String(i+1);
+            courseImg.name = "courseImg" + String(i+1) + "[]";
+        }
+    });
+    const observerOption = {
+        attributes: true,
+        characterData: true,
+        childList: true
+    };
+    courseObserver.observe(courseContainer, observerOption);
+
+
+    // 다중 이미지 업로드 미리보기
+    const courseImageInput = document.getElementsByName("courseImageInput")[0];
+    
+    courseImageInput.addEventListener("change", function() {
+        const courseImageContainer = document.getElementsByClassName("courseImageTag")[0];
+        while (courseImageContainer.firstChild) { // 여기부터
+            imageContainer.removeChild(courseImageContainer.firstChild);
+        }
+    
+        for (let i = 0; i < this.files.length; i++) {
+            const uploadFile = this.files[i];
+    
+            const img = document.createElement("img");
+            /* img.classList.add("course-imgae_content"); */
+            img.style.width = "200px";
+            img.style.height = "150px";
+            img.file = uploadFile;
+            imageContainer.appendChild(img);
+    
+            const reader = new FileReader();
+            reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+            reader.readAsDataURL(uploadFile);
+        }
+    }, false);
+
+    // ajax를 통한 데이터 전송
+    // document.querySelector('button[type="submit"]').addEventListener('click', ()=>{
+        //     let formData = new FormData();
+        
+        //     let courses = Array();
+        //     let coursesImgArr = Array();
+        //     let chefIntroduce = document.getElementsByName('introduce')[0].value;
+        //     let coursesImages = document.getElementsByName('courseImg[]');
+        
+        //     for (courseImgs of coursesImages) {
+            
+            //         for (courseImg of courseImgs.files){
+                //             course
+    //         }
+    //         coursesImgArr.push({'id':})
+    //     }
+
+    //     // if (chefIntroduce == '') {
+    //     //     alert("셰프소개란이 비어있어요")
+    //     //     return;
+    //     // }
+    //     let formDataFile = new FormData();
+    //     formDataFile.append('courseImgs', coursesImgArr);
+        
+    //     formData.append('chef_introduce', chefIntroduce);
+    //     formData.append('courses', courses);
+    //     sendAjax('POST', 'chef/registerchef/4', ()=>{}, formData, formDataFile)
+    // })
+
+</script>
+
+{% endblock %}
+
+
+
+
+
+<!-- registerChef_4.html -->
+<section class="chefRegifourth">
+    <article class="chefRegifourth__title">
+        <h3>마지막으로 출장비를 입력해주세요!</h3>
+        <p>코스 비용과 함께 고객이 지불할 금액입니다.</p>
+        <div></div><!-- !!!!진행상황 바 추가하기 -->
+    </article>
+
+    <article class="chefRegifourth__priceContainer">
+        <!-- 출장비 입력 -->
+        <div class="priceArea">
+            <div class="priceArea__movingPrice">
+                <h4>출장비</h4>
+                <input name="movingPriceInput" type="int" placeholder="\ (입력)">
+                <span class="unit">원</span>
+            </div>
+
+            <span class="plus">+</span>
+
+            <div class="priceArea__coursePerPrice">
+                <h4>코스별 금액</h4>
+                <select name="courseSelector" id="">
+                    {% for course in courses %}
+                    <option value="{{course.price}}">{{course.title}}</option>
+                    {% endfor %}
+                </select>
+                <div class="input-wrapper input--disabled">
+                    <input name="coursePrice" type="text" value="" disabled>
+                    <span class="unit">원</span>
+                </div>
+            </div>
+
+            <span class="plus">=</span>
+            
+            <div class="priceArea__totalPrice">
+                <h4>최종 금액</h4>
+                <input class="price-area__input" name="totalPrice" type="text" placeholder="(자동계산)" disabled>
+                <span class="unit">원</span>
+            </div>
+        </div>
+        <!-- // 출장비 입력 -->
+    </article>
+
+    <article class="priceArea__finalPrice">
+        <h3 class="">최종 정산금 안내</h3>
+        <p>예약 일정 1회에 셰프님에게 마지막으로 정산될 금액입니다.</p>
+    </article>
+
+    <!-- 최종 정산금 안내 -->
+    <article class="priceInfo__final">
+        <div class="priceArea">
+            <div>
+                <h4 class="priceArea__title">최종 금액</h4>
+                <input class="price-area__input" name="totalPrice" type="text" placeholder="(자동계산)" disabled>
+                <span class="unit">원</span>
+            </div>
+            <div>
+                <h4 class="priceArea__title">VAT 10%</h4>
+                <input class="price-area__input" name="VAT" type="text" placeholder="(자동계산)" disabled>
+                <span class="unit">원</span>
+            </div>
+            <div>
+                <h4 class="priceArea__title">서비스 수수료 20%</h4>
+                <input class="price-area__input" name="commission" type="text" placeholder="(자동계산)" disabled>
+                <span class="unit">원</span>
+            </div>
+        </div>
+        <div class="priceTotal">
+            <h4 class="priceTotal__title">최종 정산금</h4>
+            <input class="price-total__input" name="totalSettlement" type="text" placeholder="(자동계산)" disabled>
+                <span class="unit">원</span>
+        </div>
+    </article>
+    <!-- // 최종 정산금 안내 -->
+</section>
+<!-- 이전, 제출 버튼 -->
+<aside class="button">
+    <div class="submitBtn">제출</div>
+    <!-- <div class="previousBtn">이전</div> -->
+    <!-- 프론트 참고 - 다음버튼 추가하였습니다. -->
+    <div class="submitBtn"><button type="submit">다음</button></div>
+</aside>
+<!-- // 이전, 제출 버튼 -->
+
+</div>
+</div>
+</div>
+</form>
+{% endblock %}

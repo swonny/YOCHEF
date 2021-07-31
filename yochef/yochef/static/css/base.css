@@ -359,3 +359,202 @@ a {
 }
 
 
+
+/* 쿠폰함 */
+div.coupon_point_box {
+    width: 300px;
+    height: 350px;
+    padding-bottom: 20px;
+    background-color: white;
+    position: absolute;
+    z-index: 1;
+    left: 40%;
+    top: 7%;
+    border-radius: 10px;
+}
+
+div.close{
+    display: none;
+}
+
+div.open{
+    display: block;
+}
+
+div.coupon_point_box > p {
+    padding: 20px 50px;
+    text-align: center;
+    font-family: 'Arita-dotum-SemiBold' !important;
+}
+
+div.coupon_point_box > .box_tab {
+    margin: 10px 0 0 0;
+    font-size: 14px;
+    display: flex;
+}
+
+div.coupon_point_box > .box_tab > div{
+    font-family: 'Arita-dotum-SemiBold' !important;
+    display: inline-block;
+    padding: 0 19%;
+    margin: auto;
+    padding-bottom: 10px;
+    border-bottom: #e6e6e6 solid 2px;
+}
+
+div.coupon_point_box > .box_tab > div.selected{
+    border-bottom: var(--main-color) solid 3px;
+}
+
+div.coupon_box {
+    overflow: scroll;
+    padding: 0 30px;
+    height: 270px;
+}
+
+/* 쿠폰 코드 관련 내용 */
+/* div.coupon_box > form {
+    margin: 35px 0 0 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+div.coupon_box > form > input {
+    padding: 4px 10px;
+    background-color: #e6e6e6;
+    border-radius: 5px;
+    font-size: 11px;
+    line-height: 15px;
+}
+
+div.coupon_box > form > input:nth-child(1){
+    width: 150px;
+    height: 18px;
+}
+
+div.coupon_box > form > input:nth-child(2){
+    width: 60px;
+    height: 24px;
+    background-color: var(--main-color);
+    color: white;
+} */
+
+div.coupon_box__detail {
+    margin-top: 20px;
+}
+
+div.coupon_box__detail > p {
+    font-size: 12px;
+    font-family: 'Arita-dotum-SemiBold' !important;
+    margin-bottom: 10px;
+}
+
+div.coupon_box__detail > p > span {
+    color: var(--main-color);
+}
+
+div.coupon_box__detail > div {
+    margin: 5px 0;
+    padding: 7px 10px;
+    border-radius: 10px;
+    border: 2px solid #e6e6e6;
+}
+
+div.coupon_box__detail > div > p {
+    font-size: 12px;
+}
+
+div.coupon_box__detail > div > div.coupon__title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+div.coupon_box__detail > div > div.coupon__title > p{
+    display: inline-block;
+    margin: auto 0;
+    font-size: 14px;
+}
+
+div.coupon_box__detail > div > div.coupon__title > p:nth-child(2) {
+    display: inline;
+    font-size: 10px;
+}
+
+div.coupon_box__detail > div > div.coupon__detail{
+    display:flex;
+    min-height: 30px;
+    justify-content: space-between;
+}
+
+div.coupon_box__detail > div > div.coupon__detail > p:nth-child(1){
+    font-size: 11px;
+    line-height: 13px;
+}
+
+div.coupon_box__detail > div > div.coupon__detail > p:nth-child(2){
+    font-size: 20px;
+    color: var(--main-color);
+    font-family: 'Arita-dotum-SemiBold' !important;
+    min-width: 47px;
+    margin: auto 10px;
+    display: inline-block;
+}
+
+div.coupon_box__notice {
+    font-size: 10px;
+    top: 0;
+    vertical-align: top;
+    display: flex;
+    flex-direction: column;
+}
+
+div.coupon_box__notice > div:nth-child(1) {
+    padding: 10px 0;
+    display: flex;
+}
+
+div.coupon_box__notice > div:nth-child(1) > span {
+    margin-right: auto;
+    display: inline-block;
+    color: var(--main-color);
+}
+
+div.coupon_box__notice > div {
+    padding: 5px 0 0 5px;
+    display: flex;
+}
+
+div.coupon_box__notice > div >p {
+    margin-left: auto;
+    display: inline-block;
+    width: 220px;
+    line-height: 12px;
+}
+
+div.point_box {
+    overflow: scroll;
+    padding: 0 30px;
+}
+
+div.point_box > .point_box__detail {
+    margin: 20px 0;
+}
+
+div.point_box__detail > p:nth-child(1) {
+    font-size: 12px;
+    font-family: 'Arita-dotum-SemiBold' !important;
+}
+
+div.point_box__detail > div.point_box__detial__notice{
+    font-size: 11px;
+    margin: 20px 0;
+    border-radius: 10px;
+    background-color: #e6e6e6;
+    padding: 15px 18px;
+    line-height: 14px;
+}
+
+div.point_box__detail > p > span {
+    color: var(--main-color);
+}

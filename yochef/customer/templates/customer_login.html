@@ -12,11 +12,11 @@
             <form method="POST" action="{% url 'login' %}">
                 {% csrf_token %}
                 <!-- 에러 시 해당 에러 출력 -->
-                {% if error %}
-                    <p>{{error}}</p>
                 <!-- 아이디, 패스워드 입력 -->
-                {% endif %}
                 <ul class="inputbox">
+                    {% if error %}
+                        <p class="error">{{error}}</p>
+                    {% endif %}
                     <li><input class="inputbox__emailAddress" name="userEmail" type="text" placeholder='이메일 주소'></li>
                     <li><input class="inputbox__password" name="userPassword"type="password" placeholder='비밀번호'></li>
                     <li class="inputbox__checkbox"><input class="inputbox__autoLogin" name="autoLogin" type="checkbox" value="" id="autoLogin"><label for="autoLogin">자동로그인</label></li>

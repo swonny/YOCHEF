@@ -27,117 +27,71 @@
                 </ul>
             </nav>
         </header>
-<!-- 
-        <div class='octa'>
-            <nav class="main-category-container">
-                <ul id="octagon" class="main-category-item-container">
-                    <li class="main-category-item"><a href="/postList" class="{% if category == 0 %} currentCategory{% endif %}">전체보기</a></li>
-                    <li class="main-category-item"><a href="/postList?category=1" class="{% if category == 1 %} currentCategory{% endif %}">뷔페/<br>케이터링</a></li>
-                    <li class="main-category-item"><a href="/postList?category=2" class="{% if category == 2 %} currentCategory{% endif %}">한식</a></li>
-                    <li class="main-category-item"><a href="/postList?category=3" class="{% if category == 3 %} currentCategory{% endif %}">일식</a></li>
-                    <li class="main-category-item"><a href="/postList?category=4" class="{% if category == 4 %} currentCategory{% endif %}">중식</a></li>
-                    <li class="main-category-item"><a href="/postList?category=5" class="{% if category == 5 %} currentCategory{% endif %}">아시안</a></li>
-                    <li class="main-category-item"><a href="/postList?category=6" class="{% if category == 6 %} currentCategory{% endif %}">양식</a></li>
-                    <li class="main-category-item"><a href="/postList?category=7" class="{% if category == 7 %} currentCategory{% endif %}">채식</a></li>
-                    <li class="main-category-item"><a href="/postList?category=8" class="{% if category == 8 %} currentCategory{% endif %}">기타</a></li>
-                </ul>
-            </nav>
-        </div> -->
+
+        <div class="recent-menu__header">
+            <div class="recent-menu__header-wrapper">
+                <header class="header--top">Recent Menu</header>
+                <div>최근에 등록된 메뉴들을 한눈에 확인하세요!</div>
+            </div>
+        </div>
 
         <section class="main-section-wrapper">
-            <!-- 베스트 셰프 -->
-            <article class="best-chef-container">
-                <div class="house">
-                    <img src="{% static 'img/best_chef.png' %}" alt="">
-                </div>
-
-                <div class="best-chef-item-container">
-                    <div class="best-chef-item-img">
-                        <img src="http://pngimg.com/uploads/chef/chef_PNG189.png" alt="">
-                    </div>
-
-                    <div class="best-chef-item-desc">
-                        <div class="best-chef-item-id">백종원 셰프님</div>
-                        <div class="best-chef-item-title">양식_파스타의 끝을 달려보자!</div>
-                    </div>
-                </div>
-
-                <div class="best-chef-item-container">
-                    <div class="best-chef-item-img">
-                        <img src="https://i.pinimg.com/736x/72/05/ba/7205ba0a0ee50d1f1fc39f765921f8d7.jpg" alt="">
-                    </div>
-
-                    <div class="best-chef-item-desc">
-                        <div class="best-chef-item-id">백종원 셰프님</div>
-                        <div class="best-chef-item-title">양식_파스타의 끝을 달려보자!</div>
-                    </div>
-                </div>
-
-                <div class="best-chef-item-container">
-                    <div class="best-chef-item-img">
-                        <img src="https://st3.depositphotos.com/10614052/i/600/depositphotos_340201514-stock-photo-handsome-male-chef-on-white.jpg" alt="">
-                    </div>
-
-                    <div class="best-chef-item-desc">
-                        <div class="best-chef-item-id">백종원 셰프님</div>
-                        <div class="best-chef-item-title">양식_파스타의 끝을 달려보자!</div>
-                    </div>
-                </div>
-
-                <div class="best-chef-item-container">
-                    <div class="best-chef-item-img">
-                        <img src="https://st4.depositphotos.com/10614052/i/600/depositphotos_232413940-stock-photo-portrait-male-chef-white-background.jpg" alt="">
-                    </div>
-
-                    <div class="best-chef-item-desc">
-                        <div class="best-chef-item-id">백종원 셰프님</div>
-                        <div class="best-chef-item-title">양식_파스타의 끝을 달려보자!</div>
-                    </div>
-                </div>
-            </article>
-            <!-- // 베스트 셰프 -->
-
-            <!-- 최근 등록 메뉴 -->
+            <!-- buffet_최근 등록 메뉴 -->
             <article class="recent-menu">
-                <div class="recent-menu__header">
-                    <div class="recent-menu__header-wrapper">
-                        <header class="header--top">Recent Menu</header>
-                        <div>최근에 등록된 메뉴들을 한눈에 확인하세요!</div>
-                    </div>
+                <div class="category__header">
+                    <div class="div--left buffet"> </div>
+                    <h3>뷔페 / 케이터링</h3>
+                    <div class="div--right buffet"> </div>
                 </div>
-                <div class="menu__item-container">
-                    {% for post in posts %}
-                    <div onclick="location.href = '/detail/{{post.id}}';" class="menu__item"><!-- 수정(질문) -->
-                        <img src="" alt=""><!-- 수정필요: 포스트 이미지 -->
+                <div class="menu__item-container posts__buffet">
+                    {% for post in buffet_posts %}
+                    <div onclick="location.href = '/detail/{{post.id}}';" class="menu__item">
+                        <img src="{{post_cover_imgurl}}" onerror="this.src=`{% static 'img/default.png' %}`"><!-- 수정필요: 포스트 이미지 -->
                         <div class="menu__title">{{post.title}}</div>
                         <div class="menu__chef-name">{{post.chef.nickname}}</div>
                     </div>
                     {% endfor %}
                 </div>
             </article>
-            <!-- // 최근 등록 메뉴 -->
+            <!-- // buffet 최근 등록 메뉴 -->
 
-            <!-- 장소별 메뉴 -->
-            <article class="place-menu">
-                <div class="place-menu-wrapper">
-                    <div class="place-menu__header">
-                        <div class="place-menu__header-wrapper">
-                            <h3><span class="red--emp">홍제동</span>에서 열려요!</h3><!-- 수정필요 -->
-                            <div>특별한 경험을 선사해줄 셰프님들을 만나보세요.</div>    
-                        </div>
+            <!-- korean_최근 등록 메뉴 -->
+            <article class="recent-menu">
+                <div class="category__header">
+                    <div class="div--left"> </div>
+                    <h3>한식</h3>
+                    <div class="div--right"> </div>
+                </div>
+                <div class="menu__item-container posts__korean">
+                    {% for post in korean_posts %}
+                    <div onclick="location.href = '/detail/{{post.id}}';" class="menu__item">
+                        <img src="{{post_cover_imgurl}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                        <div class="menu__title">{{post.title}}</div>
+                        <div class="menu__chef-name">{{post.chef.nickname}}</div>
                     </div>
-                    <div class="place-menu__item-container">
-                        {% for post in posts %}
-                        <div onclick="location.href = '/detail/{{post.id}}';" class="menu__item" class="place-menu__item">
-                            <img src="" alt=""><!-- 수정필요 -->
-                            <div class="menu__title">{{post.title}}</div>
-                            <div class="menu__chef-name">{{post.chef.nickname}}</div>
-                        </div>
-                        {% endfor %}
-                    </div>
+                    {% endfor %}
                 </div>
             </article>
-            <!-- // 장소별 메뉴 -->
+            <!-- // buffet 최근 등록 메뉴 -->
+
+            <!-- japanese_최근 등록 메뉴 -->
+            <article class="recent-menu">
+                <div class="category__header">
+                    <div class="div--left"> </div>
+                    <h3>일식</h3>
+                    <div class="div--right"> </div>
+                </div>
+                <div class="menu__item-container posts__buffet">
+                    {% for post in japanese_posts %}
+                    <div onclick="location.href = '/detail/{{post.id}}';" class="menu__item">
+                        <img src="{{post_cover_imgurl}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                        <div class="menu__title">{{post.title}}</div>
+                        <div class="menu__chef-name">{{post.chef.nickname}} 셰프님</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </article>
+            <!-- // japanese 최근 등록 메뉴 -->
         </section>
     </div>
 {% endblock %}

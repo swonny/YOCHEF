@@ -178,18 +178,41 @@
 }
 
 .mainBox__courseInfo_imgs{
-    margin: 25px 0;
+    margin: 25px 0 ;
     display: flex;
     justify-content: space-between;
+    overflow: scroll;
     min-width: 660px;
+    max-width: 850px;
 }
 
-.mainBox__courseInfo_imgs > img {
+.mainBox__courseInfo_imgs > div.open {
+    height: 100vh;
+    width: 100vw;
+    background-color: #666e75de;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    z-index: 2;
+}
+
+.mainBox__courseInfo_imgs > div > img {
     border-radius: 15px;
     width: 260px;
     height: 260px;
     object-fit: cover;
+    margin-right: 20px;
 }
+
+.mainBox__courseInfo_imgs > div > img.open {
+    width: 64vw;
+    height: auto;
+    margin: auto auto;
+    display: block;
+}
+
+
 
 /* 리뷰 정보 */
 

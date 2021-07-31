@@ -144,13 +144,22 @@ body {
     flex-direction: column;
 }
 
+.contents {
+    margin-bottom: 500px;
+}
+
 ul {
     list-style: none;
 }
 
+#a--white {
+    color: white !important;
+    font-family: 'Arita-dotum-Medium';
+}
+
 a {
     text-decoration-line: none;
-    color: black;
+    /* color: black; */
 }
 
 /* 네브바 전체 감싸는 컨테이너 */
@@ -206,6 +215,7 @@ a {
 }
 
 .nav--right {
+    color: white;
     padding-right: 0px;
     display: inline-block;
     width: 18%;
@@ -213,12 +223,6 @@ a {
     flex-direction: row;
     justify-content: start;
     align-items: center;
-    color: white;
-}
-
-#a--white {
-    color: white !important;
-    font-family: 'Arita-dotum-Medium';
 }
 
 .nav--right>li {

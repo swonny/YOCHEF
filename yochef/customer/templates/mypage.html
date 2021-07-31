@@ -33,7 +33,7 @@
             <input class="profileImgSubmit" type="submit" hidden>
         </form>
         <div class="inputbox">
-            <form method="POST" action=""> <!-- action changeProfile 수정 필요--> 
+            <form method="POST" action="{% url 'changeInfo' %}"> <!-- action changeProfile 수정 필요--> 
                 {% csrf_token %}
                 <!-- 기본정보 수정 양식 -->
                 <div class="inputTitle">
@@ -41,17 +41,17 @@
                 </div>
                 <ul>
                     <li>
-                        <div><span>이메일 주소</span></div>
-                        <input class="inputbox__userEmail" name="userEmail" type="text" placeholder="이메일 주소" value="{{ user.username }}">
+                        <div><span>닉네임</span></div>
+                        <input class="inputbox__userNickname" name="nickname" type="text" placeholder="닉네임" value="{{ user.customer.nickname }}">
                     </li>
                     <li>
                         <div><span>전화번호</span></div>
-                        <input class="inputbox__userEmail" name="phoneNum" type="text" placeholder="전화번호" value="{{ user.customer.phoneNum }}">
+                        <input class="inputbox__phoneNum" name="phoneNum" type="text" placeholder="전화번호" value="{{ user.customer.phoneNum }}">
                     </li>
                     <li><input class="inputTitle__submit last__button" type="submit" value="변경"></li>
                 </ul>
             </form>
-            <form method="POST" action=""> <!-- action changeProfile 수정 필요--> 
+            <form method="POST" action="{% url 'changePw' %}"> <!-- action changeProfile 수정 필요--> 
                 {% csrf_token %}
                 <!-- 비밀번호 변경 양식 -->
                 <div class="inputTitle">

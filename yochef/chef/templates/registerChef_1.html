@@ -1,108 +1,88 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block style %}
+ <link rel="stylesheet" href="{% static 'css/editChefProfile_1.css' %}">
+{% endblock %}
 {% block content %}
     <form name="registerChef_1" action="{% url 'registerChef' '2' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <div id="regiFrmWrap">
-            <!-- section header -->
-            <section class="regiChefSection__header">
-                <div class="regiChefSection__headerContainer">
-                    <h2>셰프 등록</h2>
-                </div>
-            </section>
+        <div class="edit-chef-wrapper">
+            {% include 'registerChef_side.html' %}
+                <section class="edit-content">
+                    <article class="register-header">
+                        <h3>셰프님에 대한 소개를 작성해주세요!</h3>
+                        <p class="header__p">* 첫 번째 예약에서만 작성하는 페이지입니다.</p>
+                        <div class="status-bar-wrapper" style="width: 100%;">
+                            <div class="status-bar" style="width: 35%"> </div>
+                        </div>
+                    </article>
 
-            <div class="regiContent">
-                <div class="regiContentContainer">
-                    <!-- 셰프 등록 nav -->
-                    <ul class="regiContent__navContainer">
-                        <li class="regiContent__navItem">
-                            <a href="#">셰프 소개</a>
-                        </li>
-                        <li class="regiContent__navItem">
-                            <a href="">예약글 등록</a>
-                        </li>
-                        <li class="regiContent__navItem">
-                            <a href="">출장비 등록</a>
-                        </li>
-                    </ul>
-                    <!-- // 셰프 등록 nav -->
+                    <!-- 프로필 사진 등록 -->
+                    <article class="edit-chef__profile">
+                        <div class="profile-edit-wrapper">
+                            <h4 class="profile__title">프로필 사진 </h4>
+                            <div class="profile__img-container">
+                                <img class="profile--image" name="uploadImage" src="{{profileImage.attachment.url}}">
+                                <img class="more--button" src="{% static 'image/more.png' %}" alt="">
+                                <input style="background-image:url(static/image/more.png;);" id="file-upload-button" name="profileImage" type="file" accept="image/*">
+                            </div>
+                        </div>
+                        <p class="notice_msg">반드시 셰프님의 얼굴을 확인할 수 있는 사진으로 등록해주세요! (배경, 동물, 뒷모습 등의 사진은 승인이 불가합니다.)</p>
+                    </article>
+                    <!-- // 프로필 사진 등록 -->
 
-                    <!-- 셰프등록 셰프 정보 추가 main -->
-                    <section class="chefRegifirst">
-                        <article class="chefRegifirst__title">
-                            <h3>셰프님에 대한 소개를 작성해주세요!</h3>
-                            <p>첫 번째 예약에서만 작성하는 페이지입니다.</p>
-                            <input name="title" type="text">
-                            <!-- !!!!진행상황 바 추가하기 -->
-                            <div></div>
-                        </article>
+                    <!-- 닉네임 등록 -->
+                    <article class="edit-chef__nickname">
+                        <h4>닉네임</h4>
+                        <div class="input-wrapper nickname-edit-wrapper">
+                            <input onkeyup="counter()" name="nickname" type="text" placeholder="사용하실 닉네임을 입력해주세요." value={{chef.nickname|default:""}}>
+                            <div class="nickname__count-string"></div>
+                        </div>
+                    </article>
+                    <!-- // 닉네임 등록 -->
 
-                        <!-- 프로필 사진 등록 -->
-                        <!-- !!!! 수정 필요 -->
-                        <article class="chefRegifirst__input">
-                            <div class="chefRegifirst__input__chefProfile">
-                                <h4 class="chefProfile__title">프로필 사진 </h4>
-                                <div class="chefProfile__container">
-                                    <div class="chefProfile__img">
-                                        <img name="uploadImage" src="{{profileImage.attachment.url}}" style="width: 100px; height: 100px;">
-                                        <input name="profileImage" type="file" accept="image/*">
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="notice_msg">반드시 셰프님의 얼굴을 확인할 수 있는 사진으로 등록해주세요! (배경, 동물, 뒷모습 등의 사진은 승인이 불가합니다.)</p>
-                        </article>
-                        <!-- !!!! 수정 필요 -->
-                        <!-- // 프로필 사진 등록 -->
+                    <!-- 이력 입력 -->
+                    <article class="edit-chef__spec">
+                        <h4>이력</h4>
+                        <div class="input-wrapper spec-edit-wrapper">
+                            <textarea class="spec-input" name="spec" type="text" placeholder="이력 상세" value="{{chef.spec|default:""}}"></textarea>
+                        </div>
+                        <input class="spec-input" name="specImage" type="file" accept="image/*" multiple><!-- 백참고 -->
+                        <!-- <div class="input-wrapper spec-edit-wrapper">
+                            <p>셰프님과 메뉴에 대한 정보를 알 수 있는 이력을 입력해주세요!</p>
+                        </div> -->
+                    </article>
+                    <!-- // 이력 입력 -->
 
-                        <!-- 닉네임 등록 -->
-                        <article class="regiMainInput">
-                            <h4>닉네임</h4>
-                            <div class="regiMainInput__nickname">
-                                <input name="nickname" type="text" placeholder="사용하실 닉네임을 입력해주세요." value={{chef.nickname|default:""}}>
-                            </div>
-                        </article>
-                        <!-- // 닉네임 등록 -->
-
-                        <!-- 이력 입력 -->
-                        <article class="regiMainInput">
-                            <div class="regiMainInput__title">
-                                <h4>이력</h4>
-                                <p>셰프님과 메뉴에 대한 정보를 알 수 있는 이력을 입력해주세요!</p>
-                            </div>
-                            <div class="regiMainInput__spec">
-                                <input name="spec" type="text" placeholder="이력 상세" value="{{chef.spec|default:""}}">
-                            </div>
-                        </article>
-                        <!-- // 이력 입력 -->
-
-                        <!-- 소셜미디어 -->
-                        <article class="regiMainInput">
-                            <!-- 프론트 참고 - UI와 기획이 일부 달라 sns, blog, youtube로 수정하였습니다-->
-                            <h4>소셜 미디어</h4>
-                            <div class="regiMainInput__snsLink">
-                                <input name="snsLink" type="text" placeholder="인스타그램 아이디" value="{{chef.snsLink|default:""}}">
-                            </div>
-                            <div class="regiMainInput__blogLink">
-                                <input name="blogLink" type="text" placeholder="블로그 주소" value="{{chef.blogLink|default:""}}">
-                            </div>
-                            <div class="regiMainInput__youtubeLink">
-                                <input name="youtubeLink" type="text" placeholder="유튜브 주소" value="{{chef.youtubeLink|default:""}}">
-                            </div>
-                        </article>
-                        <!-- // 소셜미디어 -->
-                    </section>
-                    <!-- // 셰프등록 셰프 정보 추가 main -->
-                </div>
+                    <!-- 소셜미디어 -->
+                    <article class="edit-chef__social-media">
+                        <h4>소셜 미디어</h4>
+                        <div class="input-wrapper social-media__sns-link">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGc+PHBhdGggZD0ibTQxNC44NDMgMjYzLjVoMjIuMjk4YzMuNDg5IDE3LjI2NSAxOC43NzcgMzAuMzA1IDM3LjA1NSAzMC4zMDUgMjAuODQ1IDAgMzcuODA0LTE2Ljk1OSAzNy44MDQtMzcuODA1cy0xNi45NTktMzcuODA1LTM3LjgwNS0zNy44MDVjLTE4LjI3OCAwLTMzLjU2NiAxMy4wNC0zNy4wNTUgMzAuMzA1aC0yMi4yOThjLTEuNzgzLTM4LjIwMy0xNy4xMDMtNzIuOTI3LTQxLjI3LTk5LjQ2Nmw0MC4xNjQtNDAuMTYzYzcuOTA2IDUuNzU3IDE3LjYyNyA5LjE2NiAyOC4xMzQgOS4xNjYgMjYuNDE2IDAgNDcuOTA2LTIxLjQ5MSA0Ny45MDYtNDcuOTA3cy0yMS40OS00Ny45MDYtNDcuOTA2LTQ3LjkwNi00Ny45MDYgMjEuNDkxLTQ3LjkwNiA0Ny45MDZjMCAxMC41MDcgMy40MDggMjAuMjI4IDkuMTY2IDI4LjEzNGwtNDAuMTY0IDQwLjE2M2MtMjYuNTM5LTI0LjE2Ni02MS4yNjMtMzkuNDg3LTk5LjQ2Ni00MS4yNjl2LTIyLjI5OGMxNy4yNjUtMy40ODkgMzAuMzA1LTE4Ljc3NyAzMC4zMDUtMzcuMDU1IDAtMjAuODQ2LTE2Ljk1OS0zNy44MDUtMzcuODA1LTM3LjgwNXMtMzcuODA1IDE2Ljk1OS0zNy44MDUgMzcuODA1YzAgMTguMjc4IDEzLjA0IDMzLjU2NiAzMC4zMDUgMzcuMDU1djIyLjI5N2MtMzguMjAzIDEuNzgzLTcyLjkyNyAxNy4xMDMtOTkuNDY2IDQxLjI2OWwtNDAuMTYxLTQwLjE2YzUuNzU4LTcuOTA3IDkuMTY3LTE3LjYyOSA5LjE2Ny0yOC4xMzYgMC0xNS45NTItNy45MDEtMzAuODA3LTIxLjEzNS0zOS43MzctMy40MzYtMi4zMTYtOC4wOTctMS40MTItMTAuNDEyIDIuMDIyLTIuMzE3IDMuNDM0LTEuNDEyIDguMDk1IDIuMDIxIDEwLjQxMiA5LjA5NiA2LjEzNyAxNC41MjUgMTYuMzQ0IDE0LjUyNSAyNy4zMDMgMCAxOC4xNDYtMTQuNzY0IDMyLjkxLTMyLjkxIDMyLjkxcy0zMi45MDktMTQuNzY0LTMyLjkwOS0zMi45MWMwLTE0LjY1NCA5LjgzNS0yNy42NzkgMjMuOTE3LTMxLjY3NCAzLjk4NS0xLjEzMSA2LjI5OS01LjI3OCA1LjE2OC05LjI2M3MtNS4yOC02LjI5Ni05LjI2Mi01LjE2OGMtMjAuNTA0IDUuODE4LTM0LjgyMyAyNC43NzctMzQuODIzIDQ2LjEwNSAwIDI2LjQxOCAyMS40OTIgNDcuOTEgNDcuOTEgNDcuOTEgMTAuNTA4IDAgMjAuMjMtMy40MDkgMjguMTM2LTkuMTY3bDQwLjE2MSA0MC4xNmMtMjQuMTY3IDI2LjUzOS0zOS40ODcgNjEuMjYzLTQxLjI3IDk5LjQ2NmgtMjIuMjk3Yy0zLjQ4OS0xNy4yNjUtMTguNzc3LTMwLjMwNS0zNy4wNTUtMzAuMzA1LTIwLjg0Ni4wMDEtMzcuODA1IDE2Ljk2LTM3LjgwNSAzNy44MDZzMTYuOTU5IDM3LjgwNSAzNy44MDUgMzcuODA1YzE4LjI3OCAwIDMzLjU2Ni0xMy4wNCAzNy4wNTUtMzAuMzA1aDIyLjI5OGMxLjc4MyAzOC4yMDMgMTcuMTAzIDcyLjkyNyA0MS4yNyA5OS40NjZsLTQwLjE2NCA0MC4xNjNjLTcuOTA2LTUuNzU3LTE3LjYyNy05LjE2Ni0yOC4xMzQtOS4xNjYtMjYuNDE2IDAtNDcuOTA2IDIxLjQ5MS00Ny45MDYgNDcuOTA3czIxLjQ5IDQ3LjkwNiA0Ny45MDYgNDcuOTA2IDQ3LjkwNi0yMS40OTEgNDcuOTA2LTQ3LjkwNmMwLTEwLjUwNy0zLjQwOC0yMC4yMjgtOS4xNjYtMjguMTM0bDQwLjE2NC00MC4xNjNjMjYuNTM5IDI0LjE2NiA2MS4yNjMgMzkuNDg3IDk5LjQ2NiA0MS4yNjl2MjIuMjk3Yy0xNy4yNjUgMy40ODktMzAuMzA1IDE4Ljc3Ny0zMC4zMDUgMzcuMDU1IDAgMjAuODQ3IDE2Ljk1OSAzNy44MDYgMzcuODA1IDM3LjgwNnMzNy44MDUtMTYuOTU5IDM3LjgwNS0zNy44MDVjMC0xOC4yNzgtMTMuMDQtMzMuNTY2LTMwLjMwNS0zNy4wNTV2LTIyLjI5N2MzOC4yMDMtMS43ODMgNzIuOTI3LTE3LjEwMyA5OS40NjYtNDEuMjY5bDQwLjE2MSA0MC4xNmMtNS43NTggNy45MDctOS4xNjcgMTcuNjI5LTkuMTY3IDI4LjEzNiAwIDI2LjQxNyAyMS40OTIgNDcuOTEgNDcuOTEgNDcuOTFzNDcuOTEtMjEuNDkyIDQ3LjkxLTQ3LjkxYzAtNS4xODYtLjgyNi0xMC4yOTMtMi40NTUtMTUuMTgyLTEuMzExLTMuOTI5LTUuNTYtNi4wNTMtOS40ODYtNC43NDQtMy45MyAxLjMxLTYuMDU0IDUuNTU3LTQuNzQ0IDkuNDg3IDEuMTE4IDMuMzU1IDEuNjg2IDYuODY4IDEuNjg2IDEwLjQzOCAwIDE4LjE0Ni0xNC43NjQgMzIuOTEtMzIuOTEgMzIuOTFzLTMyLjkxLTE0Ljc2My0zMi45MS0zMi45MSAxNC43NjQtMzIuOTEgMzIuOTEtMzIuOTFjNC4xNTMgMCA4LjIwMy43NjQgMTIuMDM3IDIuMjcxIDMuODUxIDEuNTE1IDguMjA4LS4zODIgOS43MjQtNC4yMzcgMS41MTUtMy44NTUtLjM4Mi04LjIwOC00LjIzNy05LjcyNC01LjU4OS0yLjE5Ni0xMS40ODQtMy4zMS0xNy41MjMtMy4zMS0xMC41MDggMC0yMC4yMyAzLjQwOS0yOC4xMzYgOS4xNjdsLTQwLjE2MS00MC4xNmMyNC4xNjQtMjYuNTM5IDM5LjQ4NS02MS4yNjMgNDEuMjY4LTk5LjQ2NnptNTkuMzUyLTMwLjMwNWMxMi41NzUgMCAyMi44MDUgMTAuMjMgMjIuODA1IDIyLjgwNXMtMTAuMjMgMjIuODA1LTIyLjgwNSAyMi44MDUtMjIuODA1LTEwLjIzLTIyLjgwNS0yMi44MDUgMTAuMjMxLTIyLjgwNSAyMi44MDUtMjIuODA1em0tMzIuMzI1LTE5NS45NzFjMTguMTQ1IDAgMzIuOTA2IDE0Ljc2MiAzMi45MDYgMzIuOTA2IDAgMTguMTQ1LTE0Ljc2MiAzMi45MDctMzIuOTA2IDMyLjkwN3MtMzIuOTA2LTE0Ljc2Mi0zMi45MDYtMzIuOTA3IDE0Ljc2Mi0zMi45MDYgMzIuOTA2LTMyLjkwNnptLTIwOC42NzUuNTgxYzAtMTIuNTc1IDEwLjIzMS0yMi44MDUgMjIuODA1LTIyLjgwNXMyMi44MDUgMTAuMjMgMjIuODA1IDIyLjgwNS0xMC4yMzEgMjIuODA1LTIyLjgwNSAyMi44MDUtMjIuODA1LTEwLjIzMS0yMi44MDUtMjIuODA1em0tMTk1LjM5IDI0MWMtMTIuNTc1IDAtMjIuODA1LTEwLjIzLTIyLjgwNS0yMi44MDVzMTAuMjMtMjIuODA1IDIyLjgwNS0yMi44MDUgMjIuODA0IDEwLjIzIDIyLjgwNCAyMi44MDUtMTAuMjMgMjIuODA1LTIyLjgwNCAyMi44MDV6bTIxOC4xOTUtMTY2LjgyOWM3OS40MTUgMCAxNDQuMDI0IDY0LjYwOSAxNDQuMDI0IDE0NC4wMjRzLTY0LjYwOSAxNDQuMDI0LTE0NC4wMjQgMTQ0LjAyNC0xNDQuMDI0LTY0LjYwOC0xNDQuMDI0LTE0NC4wMjQgNjQuNjA5LTE0NC4wMjQgMTQ0LjAyNC0xNDQuMDI0em0tMTg1Ljg3IDM2Mi44Yy0xOC4xNDUgMC0zMi45MDYtMTQuNzYyLTMyLjkwNi0zMi45MDYgMC0xOC4xNDUgMTQuNzYyLTMyLjkwNyAzMi45MDYtMzIuOTA3czMyLjkwNiAxNC43NjIgMzIuOTA2IDMyLjkwNy0xNC43NjIgMzIuOTA2LTMyLjkwNiAzMi45MDZ6bTIwOC42NzUtLjU4MWMwIDEyLjU3NS0xMC4yMzEgMjIuODA1LTIyLjgwNSAyMi44MDVzLTIyLjgwNS0xMC4yMy0yMi44MDUtMjIuODA1IDEwLjIzMS0yMi44MDUgMjIuODA1LTIyLjgwNSAyMi44MDUgMTAuMjMxIDIyLjgwNSAyMi44MDV6IiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggZD0ibTE3MS4xNSAzNDguMzVoNDIuMzU1Yy4wMjMgMCAuMDQ1LjAwMy4wNjguMDAzcy4wNDUtLjAwMy4wNjgtLjAwM2gyNC44NTljNC4xNDMgMCA3LjUtMy4zNTggNy41LTcuNXMtMy4zNTctNy41LTcuNS03LjVoLTE3LjQyN3YtMTIuN2MwLTQuMTQyLTMuMzU3LTcuNS03LjUtNy41cy03LjUgMy4zNTgtNy41IDcuNXYxMi43aC0yNy40MjN2LTM2Ljk0YzAtMTguMTQ2IDE0Ljc1OS0zMi45MSAzMi44OTktMzIuOTFoODguOWMxOC4xNDEgMCAzMi44OTkgMTQuNzY0IDMyLjg5OSAzMi45MXYzNi45NGgtMjcuNDIzdi0xMi43YzAtNC4xNDItMy4zNTctNy41LTcuNS03LjVzLTcuNSAzLjM1OC03LjUgNy41djEyLjdoLTE3LjQyNWMtNC4xNDMgMC03LjUgMy4zNTgtNy41IDcuNXMzLjM1NyA3LjUgNy41IDcuNWgyNC44NTljLjAyMyAwIC4wNDUuMDAzLjA2OC4wMDNzLjA0NS0uMDAzLjA2OC0uMDAzaDQyLjM1NWM0LjE0MyAwIDcuNS0zLjM1OCA3LjUtNy41di00NC40NGMwLTI2LjQxOC0yMS40ODctNDcuOTEtNDcuODk5LTQ3LjkxaC01LjU2OGMxMS43MzgtMTAuNjIyIDE5LjEyNi0yNS45NjggMTkuMTI2LTQzLjAwOCAwLTMxLjk4Ni0yNi4wMjItNTguMDA4LTU4LjAwOC01OC4wMDhzLTU4LjAwOCAyNi4wMjItNTguMDA4IDU4LjAwOGMwIDE3LjA0IDcuMzg4IDMyLjM4NiAxOS4xMjYgNDMuMDA4aC01LjU2OGMtMjYuNDEyIDAtNDcuODk5IDIxLjQ5Mi00Ny44OTkgNDcuOTF2NDQuNDRjLS4wMDIgNC4xNDIgMy4zNTYgNy41IDcuNDk4IDcuNXptNDEuODQyLTE0Mi44NThjMC0yMy43MTQgMTkuMjkzLTQzLjAwOCA0My4wMDgtNDMuMDA4czQzLjAwOCAxOS4yOTMgNDMuMDA4IDQzLjAwOC0xOS4yOTMgNDMuMDA4LTQzLjAwOCA0My4wMDgtNDMuMDA4LTE5LjI5My00My4wMDgtNDMuMDA4eiIgZmlsbD0iIzkyOTI5MiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPjwvZz48L2c+PC9nPjwvc3ZnPg==" />                                
+                            <input name="snsLink" type="text" placeholder="소셜미디어 아이디" value="{{chef.snsLink|default:""}}">
+                        </div>
+                        <div class="input-wrapper social-media__blog-link">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTY3LjE3OTY4OCA0OC4zOTQ1MzFoLS4xMDE1NjNjLTUuNTIzNDM3IDAtMTAgNC40NzY1NjMtMTAgMTAgMCA1LjUyMzQzOCA0LjQ3NjU2MyAxMCAxMCAxMGguMTAxNTYzYzUuNTIzNDM3IDAgMTAtNC40NzY1NjIgMTAtMTAgMC01LjUyMzQzNy00LjQ3NjU2My0xMC0xMC0xMHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMTE2LjcxMDkzOCA0OC4zOTQ1MzFoLS4xMDE1NjNjLTUuNTIzNDM3IDAtMTAgNC40NzY1NjMtMTAgMTAgMCA1LjUyMzQzOCA0LjQ3NjU2MyAxMCAxMCAxMGguMTAxNTYzYzUuNTIzNDM3IDAgMTAtNC40NzY1NjIgMTAtMTAgMC01LjUyMzQzNy00LjQ3NjU2My0xMC0xMC0xMHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMTY2LjI0MjE4OCA0OC4zOTQ1MzFoLS4xMDE1NjNjLTUuNTIzNDM3IDAtMTAgNC40NzY1NjMtMTAgMTAgMCA1LjUyMzQzOCA0LjQ3NjU2MyAxMCAxMCAxMGguMTAxNTYzYzUuNTIzNDM3IDAgMTAtNC40NzY1NjIgMTAtMTAgMC01LjUyMzQzNy00LjQ3NjU2My0xMC0xMC0xMHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtNDQ0LjMwODU5NCA0OC4zOTQ1MzFoLTE5Mi45Mjk2ODhjLTUuNTIzNDM3IDAtMTAgNC40NzY1NjMtMTAgMTAgMCA1LjUxOTUzMSA0LjQ3NjU2MyAxMCAxMCAxMGgxOTIuOTI5Njg4YzUuNTIzNDM3IDAgMTAtNC40ODA0NjkgMTAtMTAgMC01LjUyMzQzNy00LjQ3NjU2My0xMC0xMC0xMHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjYyLjg5MDYyNSA0NTIuNDM3NWMtMi42Mjg5MDYgMC01LjE5OTIxOSAxLjA3MDMxMi03LjA3MDMxMyAyLjkyOTY4OC0xLjg1OTM3NCAxLjg1OTM3NC0yLjkyOTY4NyA0LjQ0MTQwNi0yLjkyOTY4NyA3LjA3MDMxMnMxLjA3MDMxMyA1LjIxMDkzOCAyLjkyOTY4NyA3LjA3MDMxMmMxLjg3MTA5NCAxLjg1OTM3NiA0LjQ0MTQwNyAyLjkyOTY4OCA3LjA3MDMxMyAyLjkyOTY4OHM1LjIxMDkzNy0xLjA3MDMxMiA3LjA3MDMxMy0yLjkyOTY4OGMxLjg2NzE4Ny0xLjg1OTM3NCAyLjkyOTY4Ny00LjQ0MTQwNiAyLjkyOTY4Ny03LjA3MDMxMnMtMS4wNjI1LTUuMjEwOTM4LTIuOTI5Njg3LTcuMDcwMzEyYy0xLjg1OTM3Ni0xLjg1OTM3Ni00LjQ0MTQwNy0yLjkyOTY4OC03LjA3MDMxMy0yLjkyOTY4OHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtNDgwLjIzMDQ2OS41aC00NDguNDYwOTM4Yy0xNy41MTU2MjUgMC0zMS43Njk1MzEgMTQuMjUzOTA2LTMxLjc2OTUzMSAzMS43Njk1MzF2NDA4LjM5ODQzOGMwIDE3LjUxOTUzMSAxNC4yNTM5MDYgMzEuNzY5NTMxIDMxLjc2OTUzMSAzMS43Njk1MzFoMTg5LjIzMDQ2OWM1LjUyMzQzOCAwIDEwLTQuNDc2NTYyIDEwLTEwcy00LjQ3NjU2Mi0xMC0xMC0xMGgtMTg5LjIzMDQ2OWMtNi40ODgyODEgMC0xMS43Njk1MzEtNS4yNzczNDQtMTEuNzY5NTMxLTExLjc2OTUzMXYtMzI0LjM3ODkwN2g0NzJ2MzI0LjM3ODkwN2MwIDYuNDg4MjgxLTUuMjgxMjUgMTEuNzY5NTMxLTExLjc2OTUzMSAxMS43Njk1MzFoLTE3Ni41NjI1Yy01LjUyMzQzOCAwLTEwIDQuNDc2NTYyLTEwIDEwczQuNDc2NTYyIDEwIDEwIDEwaDE3Ni41NjI1YzE3LjUxNTYyNSAwIDMxLjc2OTUzMS0xNC4yNSAzMS43Njk1MzEtMzEuNzY5NTMxdi00MDguMzk4NDM4YzAtMTcuNTE1NjI1LTE0LjI1MzkwNi0zMS43Njk1MzEtMzEuNzY5NTMxLTMxLjc2OTUzMXptLTQ2MC4yMzA0NjkgOTUuNzg1MTU2di02NC4wMTU2MjVjMC02LjQ4ODI4MSA1LjI4MTI1LTExLjc2OTUzMSAxMS43Njk1MzEtMTEuNzY5NTMxaDQ0OC40NjA5MzhjNi40ODgyODEgMCAxMS43Njk1MzEgNS4yODEyNSAxMS43Njk1MzEgMTEuNzY5NTMxdjY0LjAxOTUzMWgtNDcyem0wIDAiIGZpbGw9IiM5MjkyOTIiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiPjwvcGF0aD48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im0xNzguMDM5MDYyIDIzMC41YzAtMTkuODUxNTYyLTE2LjE0ODQzNy0zNi0zNi0zNmgtMzMuNjY3OTY4Yy01LjUyMzQzOCAwLTEwIDQuNDc2NTYyLTEwIDEwdjEwNGMwIDUuNTIzNDM4IDQuNDc2NTYyIDEwIDEwIDEwaDMzLjY2Nzk2OGMxOS44NTE1NjMgMCAzNi0xNi4xNDg0MzggMzYtMzYgMC0xMC4yMTQ4NDQtNC4yODEyNS0xOS40NDE0MDYtMTEuMTQwNjI0LTI2IDYuODU5Mzc0LTYuNTU4NTk0IDExLjE0MDYyNC0xNS43ODUxNTYgMTEuMTQwNjI0LTI2em0tMjAgNTJjMCA4LjgyMDMxMi03LjE3OTY4NyAxNi0xNiAxNmgtMjMuNjY3OTY4di0zMmgyMy42Njc5NjhjOC44MjAzMTMgMCAxNiA3LjE3NTc4MSAxNiAxNnptLTM5LjY2Nzk2OC0zNnYtMzJoMjMuNjY3OTY4YzguODI0MjE5IDAgMTYgNy4xNzk2ODggMTYgMTZzLTcuMTc1NzgxIDE2LTE2IDE2em0wIDAiIGZpbGw9IiM5MjkyOTIiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiPjwvcGF0aD48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im0yMDYuNjQ4NDM4IDE5NC41Yy01LjUyMzQzOCAwLTEwIDQuNDc2NTYyLTEwIDEwdjgwLjg3MTA5NGMwIDE4LjI2OTUzMSAxNC44NjMyODEgMzMuMTI4OTA2IDMzLjEyODkwNiAzMy4xMjg5MDYgNS41MjM0MzcgMCAxMC00LjQ3NjU2MiAxMC0xMHMtNC40NzY1NjMtMTAtMTAtMTBjLTcuMjM4MjgyIDAtMTMuMTI4OTA2LTUuODkwNjI1LTEzLjEyODkwNi0xMy4xMjg5MDZ2LTgwLjg3MTA5NGMwLTUuNTIzNDM4LTQuNDc2NTYzLTEwLTEwLTEwem0wIDAiIGZpbGw9IiM5MjkyOTIiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiPjwvcGF0aD48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im0zMjQuODY3MTg4IDI4Mi4yODkwNjJjMC0xOS45Njg3NS0xNi4yNDIxODgtMzYuMjE0ODQzLTM2LjIxMDkzOC0zNi4yMTQ4NDNzLTM2LjIxMDkzOCAxNi4yNDYwOTMtMzYuMjEwOTM4IDM2LjIxNDg0MyAxNi4yNDYwOTQgMzYuMjEwOTM4IDM2LjIxMDkzOCAzNi4yMTA5MzhjMTkuOTY4NzUgMCAzNi4yMTA5MzgtMTYuMjQyMTg4IDM2LjIxMDkzOC0zNi4yMTA5Mzh6bS01Mi40MjE4NzYgMGMwLTguOTQxNDA2IDcuMjczNDM4LTE2LjIxNDg0MyAxNi4yMTA5MzgtMTYuMjE0ODQzczE2LjIxMDkzOCA3LjI3MzQzNyAxNi4yMTA5MzggMTYuMjE0ODQzYzAgOC45Mzc1LTcuMjY5NTMyIDE2LjIxMDkzOC0xNi4yMTA5MzggMTYuMjEwOTM4cy0xNi4yMTA5MzgtNy4yNzM0MzgtMTYuMjEwOTM4LTE2LjIxMDkzOHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMzc3LjQxNDA2MiAzNDYuNWMtOC45Mzc1IDAtMTYuMjEwOTM3LTcuMjczNDM4LTE2LjIxMDkzNy0xNi4yMTA5MzggMC01LjUyMzQzNy00LjQ3NjU2My0xMC0xMC0xMHMtMTAgNC40NzY1NjMtMTAgMTBjMCAxOS45Njg3NSAxNi4yNDYwOTQgMzYuMjEwOTM4IDM2LjIxMDkzNyAzNi4yMTA5MzggMTkuOTY4NzUgMCAzNi4yMTQ4NDQtMTYuMjQyMTg4IDM2LjIxNDg0NC0zNi4yMTA5Mzh2LTQ4YzAtMTkuOTY4NzUtMTYuMjQ2MDk0LTM2LjIxNDg0My0zNi4yMTQ4NDQtMzYuMjE0ODQzLTE5Ljk2NDg0MyAwLTM2LjIxMDkzNyAxNi4yNDYwOTMtMzYuMjEwOTM3IDM2LjIxNDg0M3MxNi4yNDYwOTQgMzYuMjEwOTM4IDM2LjIxMDkzNyAzNi4yMTA5MzhjNS44MjgxMjYgMCAxMS4zMzIwMzItMS4zOTA2MjUgMTYuMjE0ODQ0LTMuODQ3NjU2djE1LjYzNjcxOGMwIDguOTM3NS03LjI3MzQzNyAxNi4yMTA5MzgtMTYuMjE0ODQ0IDE2LjIxMDkzOHptMC00OGMtOC45Mzc1IDAtMTYuMjEwOTM3LTcuMjczNDM4LTE2LjIxMDkzNy0xNi4yMTA5MzggMC04Ljk0MTQwNiA3LjI3MzQzNy0xNi4yMTQ4NDMgMTYuMjEwOTM3LTE2LjIxNDg0MyA4Ljk0MTQwNyAwIDE2LjIxNDg0NCA3LjI3MzQzNyAxNi4yMTQ4NDQgMTYuMjE0ODQzIDAgOC45Mzc1LTcuMjczNDM3IDE2LjIxMDkzOC0xNi4yMTQ4NDQgMTYuMjEwOTM4em0wIDAiIGZpbGw9IiM5MjkyOTIiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiPjwvcGF0aD48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im0xMDguMzcxMDk0IDQxNi41aDI5NS4yNTc4MTJjNS41MjM0MzggMCAxMC00LjQ3NjU2MiAxMC0xMHMtNC40NzY1NjItMTAtMTAtMTBoLTI5NS4yNTc4MTJjLTUuNTE5NTMyIDAtMTAgNC40NzY1NjItMTAgMTBzNC40ODA0NjggMTAgMTAgMTB6bTAgMCIgZmlsbD0iIzkyOTI5MiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPjwvZz48L3N2Zz4=" />
+                            <input name="blogLink" type="text" placeholder="블로그 주소" value="{{chef.blogLink|default:""}}">
+                        </div>
+                        <div class="input-wrapper social-media__youtube-link">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDY4Mi42NjY3MiA2ODIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTYyNi44MTI1IDY0LjAzNTE1NmMtNy4zNzUtMjcuNDE3OTY4LTI4Ljk5MjE4OC00OS4wMzEyNS01Ni40MDYyNS01Ni40MTQwNjItNTAuMDgyMDMxLTEzLjcwMzEyNS0yNTAuNDE0MDYyLTEzLjcwMzEyNS0yNTAuNDE0MDYyLTEzLjcwMzEyNXMtMjAwLjMyNDIxOSAwLTI1MC40MDYyNSAxMy4xODM1OTNjLTI2Ljg4NjcxOSA3LjM3NS00OS4wMzEyNSAyOS41MTk1MzItNTYuNDA2MjUgNTYuOTMzNTk0LTEzLjE3OTY4OCA1MC4wNzgxMjUtMTMuMTc5Njg4IDE1My45MzM1OTQtMTMuMTc5Njg4IDE1My45MzM1OTRzMCAxMDQuMzc4OTA2IDEzLjE3OTY4OCAxNTMuOTMzNTk0YzcuMzgyODEyIDI3LjQxNDA2MiAyOC45OTIxODcgNDkuMDI3MzQ0IDU2LjQxMDE1NiA1Ni40MTAxNTYgNTAuNjA1NDY4IDEzLjcwNzAzMSAyNTAuNDEwMTU2IDEzLjcwNzAzMSAyNTAuNDEwMTU2IDEzLjcwNzAzMXMyMDAuMzI0MjE5IDAgMjUwLjQwNjI1LTEzLjE4MzU5M2MyNy40MTc5NjktNy4zNzg5MDcgNDkuMDMxMjUtMjguOTkyMTg4IDU2LjQxNDA2Mi01Ni40MDYyNSAxMy4xNzU3ODItNTAuMDgyMDMyIDEzLjE3NTc4Mi0xNTMuOTMzNTk0IDEzLjE3NTc4Mi0xNTMuOTMzNTk0cy41MjczNDQtMTA0LjM4MjgxMy0xMy4xODM1OTQtMTU0LjQ2MDkzOHptLTM3MC42MDE1NjIgMjQ5Ljg3ODkwNnYtMTkxLjg5MDYyNGwxNjYuNTg1OTM3IDk1Ljk0NTMxMnptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PC9nPjwvc3ZnPg==" />
+                            <input name="youtubeLink" type="text" placeholder="유튜브 주소" value="{{chef.youtubeLink|default:""}}">
+                        </div>
+                    </article>
+                    <!-- // 소셜미디어 -->
+                </section>
             </div>
             <!-- 다음 버튼 -->
             <aside class="button">
-                <div class="submitBtn"><button id="submitButton">다음</button></div>
+                <button class="after-button" id="submitButton">다음</button>
             </aside>
         </div>
     </form>
 
     {% endblock %}
     
-    {% block scripts %}
+{% block scripts %}
 <script>
 
     const imageElement = document.getElementsByName("uploadImage")[0];
@@ -120,5 +100,10 @@
         reader.readAsDataURL(imageFile);
     }
 
+    function counter(){
+        console.log("test!");
+        const nickname = document.getElementsByClassName("nickname__count-string").value;
+        document.getElementsByClassName("nickname__count-string").innerHTML = document.getElementsByName("nickname").value.length; 
+    }
 </script>
 {% endblock %}

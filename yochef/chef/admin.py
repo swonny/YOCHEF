@@ -3,26 +3,26 @@ from .models import *
 
 @admin.register(Chef)
 class ChefAdmin(admin.ModelAdmin):
-    list_display = ['id', 'customer', 'nickname']
-    list_display_links = ['customer', 'nickname']
+    list_display = ['id', 'nickname', 'customer']
+    list_display_links = ['id', 'nickname', 'customer']
     list_per_page = 20
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['id', 'chef', 'title', 'category_name', 'movingPrice', 'isOpen', 'registerDate']
-    list_display_links = ['chef', 'title', 'category_name', 'movingPrice', 'isOpen', 'registerDate']
+    list_display = ['id', 'title', 'category_name', 'movingPrice', 'region_name', 'isOpen', 'print_registerDate', 'chef']
+    list_display_links = ['id', 'title', 'category_name', 'movingPrice', 'region_name', 'isOpen', 'print_registerDate', 'chef']
     list_per_page = 20
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ['id', 'post', 'title', 'print_description', 'price']
-    list_display_links = ['post', 'title', 'print_description', 'price']
+    list_display = ['id', 'title', 'print_description', 'price', 'post']
+    list_display_links = ['id', 'title', 'print_description', 'price', 'post']
     list_per_page = 20
 
 @admin.register(Schedule)
 class ScheduleAdmin(admin.ModelAdmin):
-    list_display = ['id', 'post', 'eventDate', 'eventTime', 'print_confirmStatus']
-    list_display_links = ['post', 'eventDate', 'eventTime', 'print_confirmStatus']
+    list_display = ['id', 'post', 'print_eventDate', 'eventTime', 'print_confirmStatus']
+    list_display_links = ['id', 'post', 'print_eventDate', 'eventTime', 'print_confirmStatus']
     list_per_page = 20
 
 

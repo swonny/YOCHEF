@@ -129,6 +129,7 @@ select {
     border-bottom: 2px solid black;
     margin-top: 35px;
     color: gray;
+    font-size: 11px;
 }
 
 li > select:first-child {

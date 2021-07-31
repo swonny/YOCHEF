@@ -63,10 +63,32 @@ class Post(models.Model):
 		else :
 			return '기타'
 
+	def region_name(self):
+		if self.region == 1:
+			return "서울"
+		elif self.region == 2:
+			return "경기"
+		elif self. region == 3:
+			return "인천"
+		elif self. region == 4:
+			return "부산"
+		elif self. region == 5:
+			return "경상, 대구, 울산"
+		elif self. region == 6:
+			return "대전, 충청"
+		elif self. region == 7:
+			return "강원"
+		elif self. region == 8:
+			return "광주, 전라, 제주"
+
+	def print_registerDate(self):
+		t = ['일', '월', '화', '수', '목', '금', '토']
+		return self.registerDate.strftime("%Y.%m.%d") + " " + t[int(self.registerDate.strftime("%w"))] + " " + self.registerDate.strftime("%I:%M:%S")
+
 class Course(models.Model):
 	post = models.ForeignKey(Post, on_delete=models.CASCADE)
 	title = models.TextField(max_length=1000)
-	description = models.TextField(max_length=5000, null=True)
+	description = models.TextField(max_length=5000, null=True, blank=True)
 	price = models.IntegerField()
 	order = models.IntegerField(null=True)  # 등록된 순서
 
@@ -77,8 +99,10 @@ class Course(models.Model):
 			return "Course Object: " + str(self.id)
 
 	def print_description(self):
-		if len(self.description) > 20:
-			return self.description[:20] + '...'
+		if self.description == None:
+			return None
+		elif len(self.description) > 50:
+			return self.description[:50] + '...'
 		else:
 			return self.description
 	
@@ -100,6 +124,10 @@ class Schedule(models.Model):
 			return "취소됨"
 		else:
 			return "Error"
+
+	def print_eventDate(self):
+		t = ['일', '월', '화', '수', '목', '금', '토']
+		return self.eventDate.strftime("%Y.%m.%d") + " " + t[int(self.eventDate.strftime("%w"))]
 
 	def print_eventDateDay(self):
 		t = ['일', '월', '화', '수', '목', '금', '토']

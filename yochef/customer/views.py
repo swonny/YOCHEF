@@ -1,8 +1,10 @@
+from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import *
 from chef.models import *
+from django.contrib.auth.hashers import check_password
 
 # Create your views here.
 def signup(request):
@@ -70,6 +72,12 @@ def logout(request):
 def findId(request):
     return render(request, "customer_findId.html")
 
+def idCertificate(request):
+    name = request.POST.get('name')
+    phoneNum = request.POST.get('phoneNum')
+    user = User.objects.filter(name = 'name', phoneNum = 'phoneNum')
+    return render(request, '')
+
 def findPw(request):
     return render(request, "customer_findPw.html")
 
@@ -99,9 +107,6 @@ def payment(request): #다음 버튼
     return render(request, 'pay_payment.html', {'book':book, 'coupons' : coupons})
 
 def payComplete(request): #결제하기 눌렀을 때
-    print(request.POST['selectedCoupon'])
-    print(request.POST['usingPoint'])
-    print(request.POST['payment'])
     book_id = int(request.POST['book'])
     book = Book.objects.get(id = book_id)
     coupon_id = request.POST['selectedCoupon']
@@ -150,15 +155,44 @@ def registerCancle(request):
 
 
 def mypage(request):
+    # 마이페이지 셰프랑 손님 구분 없음
     if request.user.customer.currentVer == 0 :
-        if request.method == 'GET':
-            return render(request, 'mypage.html')
+        return render(request, 'mypage.html')
     else :
         if request.method == 'GET':
             profile = File.objects.get(chef = request.user.customer.chef, category = 1)
             return render(request, 'mypage.html', {'profile':profile})
-
     return render(request, 'mypage.html')
+
+
+
+def changeInfo(request):
+    if str(request.user) == "AnonymousUser":
+        return redirect("/customer/login")
+    customer = request.user.customer
+    customer.name = request.POST.get('nickname')
+    customer.phoneNum = request.POST.get('phoneNum')
+    customer.save()
+    return redirect('/customer/mypage')
+
+
+
+def changePw(request):
+    if request.method == "POST":
+        currentUserPw = request.POST.get("currentUserPw")
+        user = request.user
+        if check_password(currentUserPw,user.password):
+            new_password = request.POST.get("userPw")
+            password_confirm = request.POST.get("userPwCheck")
+            if new_password == password_confirm:
+                user.set_password(new_password)
+                user.save()
+                auth.login(request,user)
+                return redirect('/customer/mypage')
+    return render(request, "mypage.html")
+
+
+
 
 def mymenuLikedmenu(request):
     mylike_chefs = Like.objects.filter(customer=request.user.customer).values('chef')
@@ -170,5 +204,11 @@ def mymenuLikedmenu(request):
 
 def mymenuReservation(request):
     books = Book.objects.filter(customer=request.user.customer)
-    print(books)
     return render(request, 'myMenu_reservation.html', {'books': books})
+
+def checkDuplicateAPI(request):
+    ok = True
+    if User.objects.filter(username = request.POST['email']).exists() :
+        ok = False
+    print(request.POST['email'])
+    return JsonResponse({'ok': ok}, status=200)

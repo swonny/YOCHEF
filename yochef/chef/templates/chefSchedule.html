@@ -49,13 +49,11 @@
                             </tr>
                             <tr class="list-container">
                                 {% for schedule in scheduleList %}
-                                    <td class="list-item">{{eventDate}}</td>
-                                    <td class="list-item">{{confirmStatus}}</td>
-                                    <td class="list-item">{{course}}</td>
-                                    <td class="list-item">{{personNum}}</td>
-                                    <td class="list-item">{{totalPrice}}</td>
-                                    <td class="list-item">{{schedule.totalPrice}}</td>
-                                    <td class="list-item">{{schedule.totalPrice}}</td>
+                                    <td class="list-item">{{schedule.eventDate|date:"y.m.d"}}</td>
+                                    <td class="list-item">{{schedule.confirmStatus}}</td>
+                                    <td class="list-item">{{schedule.course|default:'-'}}</td>
+                                    <td class="list-item">{{schedule.personNum|default:'-'}}</td>
+                                    <td class="list-item">{{schedule.totalPrice|default:'-'}}</td>
                                     <td class="list-item"><a href="{% url 'chefScheduleDetail' schedule.scheduleID %}">확인하기</a></td>
                                 {% endfor %}
                             </tr>
@@ -67,8 +65,11 @@
                     <div class="shedule-register-wrapper">
                         <div class="schedule-register__header">
                             <h3 class="schedule-register__title">예약 일정 등록</h3>
-                            <img class="notice-image" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQ3My45MzEgNDczLjkzMSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgY2xhc3M9IiI+PGc+CjxjaXJjbGUgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBzdHlsZT0iIiBjeD0iMjM2Ljk2NiIgY3k9IjIzNi45NjYiIHI9IjIzNi45NjYiIGZpbGw9IiNiZDAwMDAiIGRhdGEtb3JpZ2luYWw9IiNlNzllMmQiIGNsYXNzPSIiPjwvY2lyY2xlPgo8cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSIiIGQ9Ik0yMTQuMzk5LDI1Mi4zODlsLTYuNjk4LTEwMC4xNTljLTEuMjU3LTE5LjUxNy0xLjg3MS0zMy41MjYtMS44NzEtNDIuMDI3ICBjMC0xMS41NywzLjAzNS0yMC42MDIsOS4wODUtMjcuMDcyYzYuMDY1LTYuNDk5LDE0LjA1NC05Ljc0LDIzLjk0LTkuNzRjMTEuOTk2LDAsMjAuMDIyLDQuMTUsMjQuMDU2LDEyLjQ0NSAgYzQuMDM0LDguMzAzLDYuMDY1LDIwLjI1OCw2LjA2NSwzNS44NTdjMCw5LjIwNS0wLjQ5NCwxOC41NTktMS40NTksMjguMDIybC04Ljk5NSwxMDMuMDg5Yy0wLjk3MywxMi4yNzctMy4wNjEsMjEuNjgtNi4yNzksMjguMjM5ICBjLTMuMjA3LDYuNTQ0LTguNTA5LDkuODE1LTE1Ljg4OCw5LjgxNWMtNy41MzYsMC0xMi43NTYtMy4xNTgtMTUuNjgyLTkuNTEyQzIxNy43NDQsMjc1LjAxNiwyMTUuNjQ1LDI2NS4zNTEsMjE0LjM5OSwyNTIuMzg5eiAgIE0yMzcuNjA5LDM4OS45NzRjLTguNTAxLDAtMTUuOTM2LTIuNzM5LTIyLjI2Ny04LjI1MWMtNi4zNDYtNS40OTctOS41MTItMTMuMTk3LTkuNTEyLTIzLjEwMmMwLTguNjQ3LDMuMDM1LTE2LjAwNCw5LjA4NS0yMi4wNjkgIGM2LjA2NS02LjA2NSwxMy40OTMtOS4wOTIsMjIuMjc1LTkuMDkyYzguNzg2LDAsMTYuMjY5LDMuMDI3LDIyLjQ3Nyw5LjA5MmM2LjIwNCw2LjA2NSw5LjMxLDEzLjQyNSw5LjMxLDIyLjA2OSAgYzAsOS43NTEtMy4xMzYsMTcuNDE0LTkuNDE4LDIyLjk5N0MyNTMuMjkxLDM4Ny4xOSwyNDUuOTc2LDM4OS45NzQsMjM3LjYwOSwzODkuOTc0eiIgZmlsbD0iI2ZmZmZmZiIgZGF0YS1vcmlnaW5hbD0iI2NhN2IyOSIgY2xhc3M9IiI+PC9wYXRoPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8L2c+PC9zdmc+" />
-                        </div>
+                            <div>
+                                <img class="notice-image" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQ3My45MzEgNDczLjkzMSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgY2xhc3M9IiI+PGc+CjxjaXJjbGUgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBzdHlsZT0iIiBjeD0iMjM2Ljk2NiIgY3k9IjIzNi45NjYiIHI9IjIzNi45NjYiIGZpbGw9IiNiZDAwMDAiIGRhdGEtb3JpZ2luYWw9IiNlNzllMmQiIGNsYXNzPSIiPjwvY2lyY2xlPgo8cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSIiIGQ9Ik0yMTQuMzk5LDI1Mi4zODlsLTYuNjk4LTEwMC4xNTljLTEuMjU3LTE5LjUxNy0xLjg3MS0zMy41MjYtMS44NzEtNDIuMDI3ICBjMC0xMS41NywzLjAzNS0yMC42MDIsOS4wODUtMjcuMDcyYzYuMDY1LTYuNDk5LDE0LjA1NC05Ljc0LDIzLjk0LTkuNzRjMTEuOTk2LDAsMjAuMDIyLDQuMTUsMjQuMDU2LDEyLjQ0NSAgYzQuMDM0LDguMzAzLDYuMDY1LDIwLjI1OCw2LjA2NSwzNS44NTdjMCw5LjIwNS0wLjQ5NCwxOC41NTktMS40NTksMjguMDIybC04Ljk5NSwxMDMuMDg5Yy0wLjk3MywxMi4yNzctMy4wNjEsMjEuNjgtNi4yNzksMjguMjM5ICBjLTMuMjA3LDYuNTQ0LTguNTA5LDkuODE1LTE1Ljg4OCw5LjgxNWMtNy41MzYsMC0xMi43NTYtMy4xNTgtMTUuNjgyLTkuNTEyQzIxNy43NDQsMjc1LjAxNiwyMTUuNjQ1LDI2NS4zNTEsMjE0LjM5OSwyNTIuMzg5eiAgIE0yMzcuNjA5LDM4OS45NzRjLTguNTAxLDAtMTUuOTM2LTIuNzM5LTIyLjI2Ny04LjI1MWMtNi4zNDYtNS40OTctOS41MTItMTMuMTk3LTkuNTEyLTIzLjEwMmMwLTguNjQ3LDMuMDM1LTE2LjAwNCw5LjA4NS0yMi4wNjkgIGM2LjA2NS02LjA2NSwxMy40OTMtOS4wOTIsMjIuMjc1LTkuMDkyYzguNzg2LDAsMTYuMjY5LDMuMDI3LDIyLjQ3Nyw5LjA5MmM2LjIwNCw2LjA2NSw5LjMxLDEzLjQyNSw5LjMxLDIyLjA2OSAgYzAsOS43NTEtMy4xMzYsMTcuNDE0LTkuNDE4LDIyLjk5N0MyNTMuMjkxLDM4Ny4xOSwyNDUuOTc2LDM4OS45NzQsMjM3LjYwOSwzODkuOTc0eiIgZmlsbD0iI2ZmZmZmZiIgZGF0YS1vcmlnaW5hbD0iI2NhN2IyOSIgY2xhc3M9IiI+PC9wYXRoPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8L2c+PC9zdmc+" />
+                                <p class="notice--after">요리하실 메뉴에 대해 여러 장소/날짜를 추가할 수 있습니다.</p>
+                            </div>
+                            </div>
                         <div class="schedule-register__form-wrapper">
                             <form class="schedule-register-form" method="POST" name="scheduleRegister" action="{% comment %}{% url '#' %}{% endcomment %}">
                             {% csrf_token %}
@@ -76,7 +77,7 @@
                                 <div class="form__region">
                                     <h4 class="region__title">지역 추가</h4>
                                     <div class="region__select-container">
-                                        <select name="scheduleRegion" class="schedule-region"><!--백참고-->
+                                        <select name="scheduleRegion" id="region-selection" class="schedule-region"><!--백참고-->
                                             <option value="1">서울</option>
                                             <option value="2">경기</option>
                                             <option value="3">인천</option>
@@ -94,9 +95,9 @@
                                 <div class="form__date">
                                     <h4 class="date__title">날짜 선택</h4>
                                     <div class="date__select-container">
-                                        <input type="date" name="scheduleDate"><!--백참고-->
+                                        <input class="schedule-date" type="date" name="scheduleDate"><!--백참고-->
                                     </div>
-                                    <button type="button" name="addDate">+</button><!--백참고-->
+                                    <button onclick="dateAdd(this)" class="add-button" type="button" name="addDate">+</button>
                                 </div>
                                 <!-- // 날짜 선택 -->
 
@@ -111,6 +112,10 @@
                                     </div>
                                 </div>
                                 <!-- // 시간 입력 -->
+
+                                <aside class="button">
+                                    <button onclick="scheduleAdd()" name="addSchedule">등록</button>
+                                </aside>
                             </form>
                         </div>
                     </div>
@@ -119,4 +124,37 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    //스케줄 - 날짜 추가
+    function dateAdd(e) {
+        const newDate = document.getElementsByClassName("date__select-container");
+        const dateNode = newDate[0].cloneNode(true);
+        newDate.value = "";
+
+        if (newDate.length < 10) {
+            e.parentNode.insertBefore(newDate[0].cloneNode(true), e)
+        } else {
+            alert("날짜는 최대 10개까지 등록할 수 있습니다.");
+        }
+    }
+    
+    
+    //스케줄 등록
+    window.onload = function scheduleAdd() {
+        //지역 selecte value 가져오기
+        const region = document.getElementById("region-selection");
+        const selectedRegion = region.options[region.selectedIndex].value;
+        //날짜 가져오기
+        const selectedDate = document.querySelector('.schedule-date').value;
+        
+
+        console.log(selectedDate+"테스트");
+        alert(selectedDate);
+        console.log(selectedDate);
+        console.log(selectedRegion);
+    }
+</script>
 {% endblock %}

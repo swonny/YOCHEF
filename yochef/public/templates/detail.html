@@ -105,7 +105,9 @@
                     <p>{{course.description}}</p>
                     <div class="mainBox__courseInfo_imgs">
                         {% for img in course.course_imgs %}
-                            <img src="/media/{{img.attachment}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                            <div>
+                                <img src="/media/{{img.attachment}}" value="{{img.id}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                            </div>
                         {% endfor %}
                     </div>
                 </div>
@@ -133,6 +135,7 @@
         </div>
     </main>
     <!-- 일정 선택기 -->
+    {% if request.user.is_authenticated %}
     <aside>
         <img src="{% static 'img/logo.png' %}" >
         <div class="scheduleSelector">
@@ -199,7 +202,7 @@
             </form>
         </div>
     </aside>
-
+    {% endif %}
 {% endblock %}
 
 {% block scripts %}
@@ -305,6 +308,19 @@
             peopleNum.value = parseInt(peopleNum.value) + 1;
         }
         priceChange();
+    }
+
+    let courseImgs = document.querySelectorAll("div.mainBox__courseInfo_imgs > div")
+    for (img of courseImgs){
+        img.addEventListener("click", (e) => {
+            if (e.target.classList.contains('open')){
+                document.querySelector('.mainBox__courseInfo_imgs > div > img.open').className = "";
+                e.currentTarget.className = "";
+            }else{
+                e.target.className = "open";
+                e.currentTarget.className = "open";
+            }
+        })
     }
 
 </script>

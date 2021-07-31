@@ -2,7 +2,7 @@ from django.db.models import Q
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 from chef.models import *
-from customer.models import Customer, Review, Book
+from customer.models import Coupon, Customer, HasCoupon, Review, Book
 from .models import *
 from datetime import date, timedelta
 from django.utils.dateparse import parse_date
@@ -12,8 +12,23 @@ from django.utils.dateparse import parse_date
 
 # 메인 페이지를 반환하는 함수
 def main(request): 
-    posts = Post.objects.filter(isOpen = True).order_by('registerDate')
-    return render(request, 'main.html', {'posts': posts}) 
+    posts = Post.objects.filter(isOpen = True).order_by('-registerDate')
+    schedules = Schedule.objects.filter(post__in = posts)
+    # paymentStatus 관련 필터
+    available_posts_id = []
+    for schedule in schedules :
+        if Book.objects.filter(schedule = schedule, paymentStatus = 2).exists() :
+            continue
+        else: 
+            if schedule.post.id not in available_posts_id :
+                available_posts_id.append(schedule.post.id)
+    posts = posts.filter(id__in = available_posts_id)
+    
+    buffet_posts = posts.filter(category = 1)[:5]
+    korean_posts = posts.filter(category = 2)[:5]
+    japanese_posts = posts.filter(category = 3)[:5]
+    
+    return render(request, 'main.html', {'buffet_posts': buffet_posts, 'korean_posts': korean_posts, 'japanese_posts':japanese_posts}) 
 
 # 현재 유저의 사용 버전을 변경하는 함수
 def changePageVer(request):
@@ -58,7 +73,10 @@ def detail(request, post_id):
             available_schedules.append(schedule)
     
     #postLike 유무
-    if Like.objects.filter(customer=request.user.customer, chef=post.chef).exists():
+    print(request.user)
+    if not request.user.is_authenticated :
+        is_like = False
+    elif Like.objects.filter(customer=request.user.customer, chef=post.chef).exists():
         is_like = True
     else: 
         is_like = False
@@ -167,3 +185,8 @@ def postLikeAPI(request):
     else :
         Like.objects.filter(customer=request.user.customer, chef=chef).delete()
     return JsonResponse({}, status=200)
+
+def getCouponAPI(request):
+    coupons = list(HasCoupon.objects.filter(customer = request.user.customer).values('id', 'coupon__title', 'coupon__description', 'coupon__validDate',  'coupon__offrate', 'isUsed'))
+    return JsonResponse({'coupons': coupons}, status= 200)
+

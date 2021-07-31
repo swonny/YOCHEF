@@ -16,20 +16,21 @@
                 {% endif %}
                 <!-- 회원가입 양식 -->
                     <ul>
-                        <div class="inputbox__duplicateCheck">
+                        <div class="inputbox__duplicateCheck" value=0>
                             <li><input class="inputbox__duplicateCheck__userEmail" name="userEmail" type="text" placeholder="이메일 주소"></li>
-                            <li><input type="button" value="중복확인"></li>
+                            <li><input class="inputbox__duplicateCheck__btn" type="button" value="중복확인"></li>
                         </div>                          
                         <li><input class="inputbox__password" name="userPassword" type="password" placeholder="비밀번호"></li>
                         <li><input class="inputbox__passwordCheck" name="userPasswordCheck" type="password" placeholder="비밀번호 확인"></li>
                         <li><input class="inputbox__name" name="username" type="text" placeholder="이름"></li>
-                        <li><input class="inputbox__phoneNum" name="userPhoneNum"type="text" placeholder="전화번호 | +82"></li>
+                        <li><input class="inputbox__phoneNum" pattern="[0-9]+" name="userPhoneNum"type="text" placeholder="전화번호 | +82"></li>
                         <li>
                             <select name="residence"></select>
                             <select class="hide" name="residenceDetail"></select>
                         </li>
                         <li class="inputbox__checkbox__signup"><input class="inputbox__agree" type="checkbox" id="agreePolicy" name="agreePolicy"><label for="agreePolicy">이용약관 동의</label></li>
-                        <li><input class="mainContainer__submit last__button" type="submit" value="가입완료"></li>
+                        <li><input class="mainContainer__submit last__button" type="button" value="가입완료"></li>
+                        <li><input class="mainContainer__submit last__button" type="submit" value="가입완료" hidden></li>
                     </ul>
                 </div>
             </form>
@@ -46,5 +47,64 @@
         document.getElementsByName('residence')[0].addEventListener('change', (event)=>{
             getRegionDetail(document.getElementsByName('residence')[0].value);
         });
+
+        let checkDouble = (data) => {
+            console.log(data.ok)
+            if (data.ok){
+                document.querySelector('div.inputbox__duplicateCheck').value = 1;
+            }
+        }
+
+        document.querySelector('input.inputbox__duplicateCheck__btn').addEventListener('click', () => {
+            let email = document.querySelector('input.inputbox__duplicateCheck__userEmail').value;
+            if (!email.includes('@')){
+                alert("올바른 이메일 주소를 입력해주세요.")
+                return;
+            }
+            let formdata = new FormData();
+            formdata.append('email', email);
+            sendAjax('POST', '/customer/checkDuplicate', checkDouble, formdata);
+        })
+
+        document.querySelector('input.inputbox__duplicateCheck__userEmail').addEventListener('change', () => {
+            document.querySelector('div.inputbox__duplicateCheck').value = 0;
+        });
+
+        // 전화번호 숫자 외 번호 입력 구현
+        document.querySelector('input[name="userPhoneNum"]').addEventListener('keyup', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, "");
+        });
+
+        document.querySelector('input.last__button[type="button"]').addEventListener('click', () => {
+
+            console.log(document.querySelector('input[name="userPhoneNum"]').value.length )
+            if (document.querySelector('div.inputbox__duplicateCheck').value != 1){
+                alert("중복확인을 해주세요.");
+                return;
+            }
+            else if (document.querySelector('input[name="userPassword"]').value == ""){
+                alert("비밀번호를 입력해주세요.");
+                return;
+            }
+            else if (document.querySelector('input[name="userPassword"]').value != document.querySelector('input[name="userPasswordCheck"]').value){
+                alert("비밀번호 확인이 일치하지 않습니다.");
+                return;
+            }
+            else if (document.querySelector('input[name="username"]').value == ""){
+                alert("이름을 입력해주세요.");
+                return;
+            }
+            else if (document.querySelector('input[name="userPhoneNum"]').value.length < 8){
+                alert("전화번호를 입력해주세요.");
+                return;
+            }
+            else if (!document.querySelector('#agreePolicy').checked){
+                alert("이용약관에 동의해주세요.");
+                return;
+            }
+            
+            document.querySelector('input.last__button[type="submit"]').click();
+        })
+
     </script>
 {% endblock scripts %}

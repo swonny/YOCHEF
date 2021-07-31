@@ -9,45 +9,54 @@
             {% include 'customer_side.html' %}
             <div class="my-menu-content">
                 <!-- 등록 메뉴 없을 때 -->
+                {% if not books %}
                 <article class="my-menu__none">
-                    {% if book == None %}
-                    <h4>등록된 예약이 없습니다.</h4>
+                    <h4>등록한 셰프가 없습니다.</h4>
                     <h3>마음에 드는 세프를 예약해주세요!</h3>
                     <a href="/postList" class="{% if category == 0 %} currentCategory{% endif %}">셰프 구경하러 가기</a>
-                    {% else %}
                 </article>
                 <!-- // 등록 메뉴 없을 때 -->
                 <!-- 예약한 메뉴 정보 -->
-                <form action="" method="">
-                    <article class="my-menu__content">
-                        {% for book in books %}
-                            <div class="content__header">
-                                <h4>예약 완료</h4>
-                                <div>예약 날짜: {{book.registerDate}}</div>
-                            </div>
-                            <div class="content__menu-info">
+                {% else %}
+                <article class="my-menu__content">
+                    {% for book in books %}
+                        <div class="content__header">
+                            <h4>예약 완료</h4>
+                            {% if book.schedule.confirmStatus == 1 %}
+                            <p>승인대기</p>
+                            {% elif book.schedule.confirmStatus == 2 %}
+                            <p>승인완료</p>
+                            {% elif book.schedule.confirmStatus == 3 %}
+                            <p>승인 취소됨</p>
+                            {% endif %}
+                            <div class="register-date">{{book.registerDate}}</div>
+                        </div>
+                        <div class="content__menu-info">
+                            <div class="menu-info-wrapper">
                                 <div class="content__image-wrapper">
-                                    <img src="" alt=""><!-- 수정 필요 -->
-                                    <div>디데이</div><!-- js 수정 필요 -->
-                                    <div>예약 완료</div>
+                                    <img style="width: 180px; height: 150px;" src="{{post_cover_imgurl}}" alt=""><!-- 수정 필요 -->
+                                    <div class="d-day">D-10</div><!-- js 수정 필요 -->
                                 </div>
                                 <div class="content__description">
                                     <h4>{{book.schedule.post.title}}</h4>
-                                    <h4>{{book.course.title}}</h4>
-                                    <p>{{book.course.description}}</p>
+                                    <h3>선택한 코스: {{book.course.title}}</h3>
+                                    <p>코스 설명 <br><br> {{book.course.description}}</p>
+                                    <p>예약 날짜: {{book.schedule.eventDate}}</p>
                                 </div>
                             </div>
-                            {% if book.paymentStatus == 1 %}<!-- 백수정 이후 수정 필요 -->
-                                <button>예약 취소</button>
+                            <aside class="button">
+                                <button class="detail-page-button" onclick="location.href = '/detail/{{book.post.id}}';">상세페이지</button>
+                                {% if book.schedule.confirmStatus == 1 %}<!-- 백수정 이후 수정 필요 -->
+                                <button class="cancel-button" name="">예약 취소</button>
                                 {% else %}
-                                <button disabled>예약 취소</button>
-                            {% endif %}
-                            <button>상세 페이지</button>
-                        {% endfor %}
-                    </article>
-                </form>
-                <!-- // 예약한 메뉴 정보 -->
+                                <button class="cancel-button" disabled>예약 취소</button>
+                                {% endif %}
+                            </aside>
+                        </div>
+                    {% endfor %}
+                </article>
                 {% endif %}
+                <!-- // 예약한 메뉴 정보 -->
             </div>
         </section>
     </div>

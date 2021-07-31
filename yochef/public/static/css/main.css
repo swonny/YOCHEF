@@ -5,8 +5,27 @@
     font-style: normal;
 }
 
+@media ( max-width: 1532px ) {
+
+    .recent-menu {
+        margin: 40px 200px;
+    }
+
+    /* .buffet {
+        width: 42.5% !important;
+    }
+    
+    .category__header > div {
+        display: inline-block;
+        width: 46.8%;
+        border-bottom: 1px solid rgb(189, 0, 0);
+        padding: 0px 0px;
+        margin: 7px 0px;
+    } */
+}
+
 * {
-    font-family: 'Arita-dotum-Medium' !important;
+    font-family: 'Arita-dotum';
 }
 
 /* main.html 전체 */
@@ -137,72 +156,36 @@ border-right: 29px solid transparent;
     text-decoration-line: none;
 }
 
-/* 베스트 셰프 */
-.best-chef-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin: 0px 250px;
-    /* border-bottom: #dfdfe0 solid 0.5px; */
-    padding: 20px 0px;
+.main-section-wrapper {
+    width: 100%;
 }
 
-.house img {
-    width: 160px;
-    height: 180px;
-    padding: 20px 0px;
-}
-
-.best-chef-item-img {
-    display: inline;
-}
-
-/* best chef img */
-.best-chef-item-img img {
-    width: 165px;
-    height: 190px;
-}
-
-.best-chef-item-desc {
-    padding: 8px 8px 8px 0px;
-    display: flex;
-    flex-direction: column;
-}
-
-.best-chef-item-title {
-    font-size: 12px;
-    display: inline;
-    text-align: center;
-}
-
-.best-chef-item-id {
-    font-size: 12px;
-    font-weight: bold;
-    display: inline;
-    text-align: center;
-    padding: 5px 0px;
-}
-
-.more-button {
-    position: absolute;
-    margin-top: 307px;
-    float: left;
-    margin-left: 800px;
-}
+/* .main-section-wrapper {
+    background-image: url("yochef.png");
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-color: white;
+    background-position: center;
+    width: 20%; */
+    /* padding: 30px 20px 0px 0px;
+    margin-bottom: 130px;
+    width: 32px;
+    height: 30px;
+} */
 
 /* 최근 등록 메뉴 */
 .recent-menu {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    margin: 50px 250px;
+    margin: 40px 250px;
 }
 
 .recent-menu__header {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin: 0px 100px;
+    margin: 40px 0px;
 }
 
 .reccent-menu__header-wrapper {
@@ -210,177 +193,89 @@ border-right: 29px solid transparent;
 }
 
 .header--top {
-    font-size: 25px;
+    font-size: 35px;
     color: black;
     text-align: center;
-    border-bottom: #BD0000 solid 3px;
-    padding: 10px 100px;
+    padding: 0px 100px;
+    font-family: 'Arita-dotum-SemiBold';
 }
 
 .recent-menu__header div {
-    font-size: 12px;
+    font-size: 11px;
     color: #848484;
     padding: 5px;
     text-align: center;
+    font-family: 'arita-dotum-medium';
+}
+
+.category__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.category__header > h3 {
+    text-align: center;
+    font-family: 'arita-dotum-medium';
+}
+
+.buffet {
+    width: 42.5% !important;
+}
+
+.category__header > div {
+    display: inline-block;
+    width: 46.8%;
+    border-bottom: 1px solid rgb(189, 0, 0);
+    padding: 0px 0px;
+    margin: 7px 0px;
+}
+
+.category__header > h3::after,
+.category__header > h3::before {
+    content: "";
+    font-size: 16px;
+    background-color: rgb(189, 0, 0);
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
+    display: inline-block;
+}
+
+.category__header > h3::before {
+    margin-right: 8px;
+    margin-bottom: 2px;
+}
+
+.category__header > h3::after {
+    margin-left: 8px;
+    margin-bottom: 2px;
 }
 
 .menu__item-container {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: start;
+}
+
+.menu__item > img  {
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+    box-shadow: rgb(88 88 88 / 80%) 0px 3px 4px;
 }
 
 .menu__item {
-    padding: 20px;
+    padding: 20px 10px;
 }
 
-/* 홍제동에서 열려요!여기부터 시작 */
-
-.place-menu {
-    background-color: #F0EFEC;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 20px 0px;
-}
-
-.place-menu-wrapper {
-    text-align: center;
-}   
-
-.place-menu__header {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.place-menu__header h3{
-    font-size: 20px;
-    padding: 10px;
-}
-
-/* 빨간색 글자 강조 */
-.red--emp {
-    font-size: 22px;
-    font-weight: 600;
-    color: #BD0000;
-}
-
-.place-menu__header-wrapper div{
+.menu__title {
+    padding: 5px 0px;
+    font-family: 'arita-dotum-SemiBold';
     font-size: 12px;
-    padding: 10px;
-    color: #848484;
 }
 
-.place-menu__item-container {
-    margin: 0px 250px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-content: space-around;
-}
-
-.place-menu__item {
-    padding: 20px;   
-}
-
-#hongjae {
-    text-align: center;
-    font-size: 20px;
-    color: black;
-    padding-top: 30px;
-    font-weight: 700;
-}
-
-
-
-.text  {
-    font-size: 16px;
-    color: black;
-    padding-top: 10px;
+.menu__chef-name {
+    font-family: 'arita-dotum-medium';
     font-size: 12px;
-    text-align: center;
 }
-
-.place-menu-item-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.place-menu-item {
-    display: inline-block;
-    padding: 6px;
-}
-
-.place-menu-item-img img {
-    width: 180px;
-    height: 180px;
-}
-
-.place-menu-item-desc {
-    display: block;
-    font-size: 12px;
-    background-color: white;
-    height: 60px;
-    padding: 10px;
-}
-
-
-/* .recent-menu-container {
-    width: 630px;
-    height: 300px;
-    float: left;
-    margin-left: 250px;
-}
-
-.recent-menu-item {
-    padding: 3px;
-}
-
-.recent-menu-title {
-    display: block;
-    padding: 15px 0px;
-    font-size: 16px;
-    font-weight: bolder;
-}
-
-.recent-menu-item-img img {
-    width: 200px;
-    height: 150px;
-    border-radius: 5px;
-    box-shadow: 0 8px 8px -7px gray;
-}
-
-.recent-menu-item-desc {
-    display: block;
-    font-size: 12px;
-    padding-top: 15px;
-    padding-bottom: 10px;
-    width: 200px;
-}
-
-.recent-menu-item-desc-id {
-    margin-bottom: 8px;
-    color: #ADADB7;
-}
-
-.recent-menu-item-desc-title {
-    font-size: 12px;
-    padding: 0px;
-}
-
-.recent-menu-item-desc-price {
-    font-size: 16px;
-    text-align: right;
-    padding-top: 5px;
-}
-
-.recent-menu-item-container {
-    margin: 0px;
-} */
-
-
-/* 최근 본 메뉴와 유사한 메뉴 */

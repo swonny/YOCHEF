@@ -10,4 +10,5 @@ urlpatterns = [
 	path('getRegionDetail', getRegionDetailAPI, name="getRegionDetail"),
 	path('changeFile', changeFile, name="changeFile"),
 	path('postLike', postLikeAPI, name="postLike"),
+	path('getCoupon', getCouponAPI, name="getCoupon"),
 ]

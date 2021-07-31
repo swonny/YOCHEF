@@ -506,6 +506,7 @@ textarea:focus, select:focus, .vTextField:focus {
 
 select {
     height: 30px;
+    font-size: 11px;
 }
 
 select[multiple] {

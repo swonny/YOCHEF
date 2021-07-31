@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{% static 'css/editChefProfile_3.css' %}">
 {% endblock %}
 {% block content %}
-    <form name="editChefProfile_1" action="{% url 'updatePost' %}" method="POST" >
+    <form name="editChefProfile_1" action="{% url 'updateMovingPrice' %}" method="POST" >
     {% csrf_token %}
         <div class="edit-chef-wrapper">
             {% include 'editChefProfile_side.html' %}
@@ -19,22 +19,23 @@
                             <div class="price-input-wrapper">
                                 <h4>출장비</h4>
                                 <div class="input-wrapper">
-                                    <input name="movingPrice" type="int" placeholder=" ￦ (입력)">
+                                    <input value="{{post.movingPrice}}" name="movingPriceInput" type="int" placeholder=" ￦ (입력)">
                                     <span class="unit">원</span>
                                 </div>
                             </div>
                             <span class="plus">+</span>
                             <div class="price-input-wrapper course-price">
                                 <h4>코스별 금액</h4>
-                                <select name="" id="">
+                                <select name="courseSelector" id="">
+                                    <option value="0">코스 선택</option>
                                     {% for course in courses %}<!-- 수정 필요 -->
                                     <option value="{{course.price}}">{{course.title}}</option>
                                     {% endfor %}
                                 </select>
                                 <div class="input-wrapper input--disabled">
-                                    <input type="text" value="{{course.price}}" disabled>
+                                    <input name="coursePrice" type="text" value="" disabled>
                                     <span class="unit">원</span>
-                                </div><!-- js 수정 -->
+                                </div>
                             </div>
                         
                             <div class="plus">=</div>
@@ -42,7 +43,7 @@
                             <div class="price-input-wrapper">
                                 <h4>최종 금액</h4>
                                 <div class="input-wrapper input--disabled">
-                                    <input type="text" placeholder="(자동계산)" disabled><!-- js 수정 -->
+                                    <input class="price-area__input" name="totalPrice" type="text" placeholder="(자동계산)" disabled>
                                     <span class="unit">원</span>
                                 </div>
                             </div>
@@ -60,7 +61,7 @@
                             <div class="price-input-wrapper">
                                 <h4 class="price-areat__title">최종 금액</h4>
                                 <div class="input-wrapper input--disabled">
-                                    <input class="price-area__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
+                                    <input class="price-area__input" name="totalPrice" type="text" placeholder="(자동계산)" disabled>
                                     <span class="unit">원</span>
                                 </div>
                             </div>
@@ -68,15 +69,15 @@
                             <div class="price-input-wrapper">
                                 <h4 class="price-area__title">VAT 10%</h4>
                                 <div class="input-wrapper input--disabled">
-                                    <input class="price-area__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
+                                    <input class="price-area__input" name="VAT" type="text" placeholder="(자동계산)" disabled>
                                     <span class="unit">원</span>
                                 </div>
                             </div>
                             <span class="plus">-</span>
                             <div class="price-input-wrapper">
-                                <h4 class="price-area__title">서비스 수수료</h4>
+                                <h4 class="price-area__title">서비스 수수료 20%</h4>
                                 <div class="input-wrapper input--disabled">
-                                    <input class="price-area__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
+                                    <input class="price-area__input" name="commission" type="text" placeholder="(자동계산)" disabled>
                                     <span class="unit">원</span>
                                 </div>
                             </div>
@@ -85,7 +86,7 @@
                             <div class="price-input-wrapper total-price">
                                 <h4 class="price-total__title">최종 정산금</h4>
                                 <div class="input-wrapper input--disabled">
-                                    <input class="price-total__input" type="text" placeholder="(자동계산)" disabled><!-- !!!! 수정 필요 : 자동계산 -->
+                                    <input class="price-total__input" name="totalSettlement" type="text" placeholder="(자동계산)" disabled>
                                     <span class="unit">원</span>
                                 </div>
                             </div>
@@ -102,4 +103,35 @@
             <!-- // 저장 버튼 -->
         </div>
     </form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // 자동계산
+    function mutation() {
+        const coursePriceOutput = document.querySelector("input[name=coursePrice]");
+        const totalPriceOutputs = document.querySelectorAll("input[name=totalPrice]");
+        const vatOutput = document.querySelector("input[name=VAT]");
+        const commissionOutput = document.querySelector("input[name=commission]");
+        const settlementOutput = document.querySelector("input[name=totalSettlement]");
+    
+        let movingPrice = document.querySelector("input[name=movingPriceInput]").value ?? 0;
+        let coursePrice = document.querySelector("select[name=courseSelector]").value ?? 0;
+        let totalPrice = parseInt(movingPrice) + parseInt(coursePrice)
+        
+        // 자동계산 출력
+        if (isNaN(movingPrice) !== true) {
+            coursePriceOutput.value = coursePrice.toLocaleString() ?? "  "
+            totalPriceOutputs[0].value = totalPrice.toLocaleString() ?? "(자동계산)"
+            totalPriceOutputs[1].value = totalPrice.toLocaleString() ?? "(자동계산)"
+            vatOutput.value = Math.floor(totalPrice / 11).toLocaleString() ?? "(자동계산)"  // 최종 금액의 10%
+            commissionOutput.value = Math.floor(totalPrice * (2 / 11)).toLocaleString() ?? "(자동계산)"   // vat제외 최종 금액의 20%
+            settlementOutput.value = (totalPrice - Math.floor(totalPrice / 11) - Math.floor(totalPrice * (2 / 11))).toLocaleString() ?? "(자동계산)"
+        }
+    }
+    const movingPriceInput = document.querySelector("input[name=movingPriceInput]");
+    const courseSelector = document.querySelector("select[name=courseSelector]")
+    movingPriceInput.addEventListener("change", mutation)
+    courseSelector.addEventListener("change", mutation)
+</script>
 {% endblock %}
