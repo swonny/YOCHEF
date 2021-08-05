@@ -396,3 +396,84 @@
 </div>
 </form>
 {% endblock %}
+
+
+
+
+
+
+<!-- 워니 자바스크립트 temp -->
+<script>
+/*function test() {
+    //formData 가져오기 & 전송
+
+-   var xhr = new XMLHttpRequest();
+    formData.append('scheduleRegion', scheduleRegion);
+    formData.append('scheduleDate', scheduleDate);
+    formData.append('scheduleDate', scheduleTime);
+    // sendAjax('POST', 'chef/chefSchedule/update', ()=>{}, formData);
+    
+    xhr.onload = function() {
+    if (xhr.status === 200 || xhr.status === 201) {
+        console.log(xhr.responseText);
+    } else {
+        console.error(xhr.responseText);
+    }
+    };
+    xhr.open('POST', 'update');
+    xhr.send(scheduleDate, scheduleRegion, scheduleTime);
+    addTable(scheduleDate.length);
+}*/
+
+//스케줄 table
+function test(e){
+    var formData = new FormData(document.getElementsByClassName("schedule-register-form")[0]);
+    const scheduleRegion = formData.get('scheduleRegion');
+    const scheduleDate = formData.getAll('scheduleDate');
+    const scheduleTime = formData.get('scheduleTime');
+
+    const table = document.getElementsByClassName('schedule-list__total-container')[0]; 
+    //const btn = document.getElementById('add-button');
+
+    function addSchedule(e){
+        var type = e.type
+        if(type=='click'){
+            var row = table.insertRow(table.rows.length);
+            for(const i = 0; i < 8; i++){
+                var celli = row.insertCell(i);
+            }
+            
+            cell1.innerHTML = `${scheduleDate[0]}`;
+            cell2.innerHTML = scheduleRegion;
+            cell3.innerHTML = `<input type="checkbox" onclick="check(this)">`;
+            
+            //schedule.value = "";
+        }
+    }
+    e.addEventListener('click', addSchedule);
+}
+/*function check(e){
+    var msg = confirm("삭제하시겠습니까?");
+    if(msg) e.parentElement.parentElement.remove();
+    else e.checked = false;
+}*/
+
+
+/*$.ajax({ 
+        type: "POST", //POST로 넘길 것 
+        url: "chef/chefSchedule/update", //이동할 페이지 명시 
+        data: formData, //infoData를 보냄 
+        success: function(result) { 
+            if (result) { 
+                alert("저장되었습니다."); 
+            } else { 
+                alert("잠시 후에 시도해주세요."); 
+            } 
+        }, 
+        error: function() { 
+            alert("에러 발생"); 
+        }
+    })*/
+
+
+</script>

@@ -1,3 +1,4 @@
+from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 from .models import *
 from public.models import *
@@ -21,7 +22,7 @@ def registerChef(request, page_num=1):
         if File.objects.filter(chef=chef, category=1).exists():
             profileImage = File.objects.get(chef=chef, category=1)
         else:
-            profileImage = File(chef=chef, attachment="../media/media/default_chef_profile_image.png", category=1)
+            profileImage = File(chef=chef, category=1)
             profileImage.save()
         if Post.objects.filter(chef=chef).exists():
             post = chef.post
@@ -37,7 +38,7 @@ def registerChef(request, page_num=1):
 
     elif page_num == 2: # save registerChef/1, load registerChef/2
         chef = customer.chef
-        post = Post.objects.get(chef=chef)
+        post = chef.post
         if request.method == "POST":
             chef.nickname = request.POST.get('nickname')
             chef.spec = request.POST.get('spec')
@@ -61,8 +62,8 @@ def registerChef(request, page_num=1):
         post = chef.post
         if request.method == "POST":
             post.category = request.POST.get('category')
-            post.region = request.POST.get('region')
-            post.regionDetail = request.POST.get('regionDetail')
+            post.region = request.POST.get('residence')
+            post.regionDetail = RegionDetail.objects.get(id=request.POST.get('residenceDetail'))
             post.save()
         if File.objects.filter(post=post, category=4).exists():
             postCoverImage = File.objects.get(post=post, category=4)
@@ -122,101 +123,6 @@ def registerChef(request, page_num=1):
             chef.save()
             customer.save()
         return redirect('/')
-
-
-# chefSchedule.html READ
-def chefSchedule(request):
-    if str(request.user) == "AnonymousUser":
-        return redirect("/customer/login")
-    elif request.user.customer.isChef == False:
-        return redirect("/chef/registerChef/1")
-    chef = request.user.customer.chef
-    post = chef.post
-    schedules = Schedule.objects.filter(post=post)
-    scheduleInfoList = []
-    for schedule in schedules:
-        book = Book.objects.filter(schedule=schedule, paymentStatus=2).first() # 코스, 인원, 총 결제 금액
-        scheduleInfo = {}
-        scheduleInfo['eventDate'] = schedule.eventDate
-        scheduleInfo['eventTime'] = schedule.eventTime
-        scheduleInfo['confirmStatus'] = schedule.print_confirmStatus
-        scheduleInfo['course'] = book.course if book else None
-        scheduleInfo['personNum'] = book.personNum if book else None
-        scheduleInfo['totalPrice'] = book.totalPrice if book else None
-        scheduleInfo['scheduleID'] = schedule.id
-        scheduleInfoList.append(scheduleInfo)
-    context = {
-        "chef" : chef,
-        "post" : post,
-        "scheduleList" : scheduleInfoList,
-    }
-    return render(request, 'chefSchedule.html', context)
-
-
-# chefSchedule.html UPDATE ADD
-def addSchedule(request):
-    if str(request.user) == "AnonymousUser":
-        return redirect("/customer/login")
-    elif request.user.customer.isChef == False:
-        return redirect("/chef/registerChef/1")
-    post = request.user.costomer.chef.post
-    if request.method == "POST":
-        newSchedule = Schedule(post=post)
-        newSchedule.eventDate = request.POST.get("scheduleDate")
-        newSchedule.eventTime = request.POST.get("scheduleTime")
-        newSchedule.confirmStatus = 1
-        newSchedule.save()
-    return redirect("update/")
-
-
-# chefSchedule_detail.html READ
-def chefScheduleDetail(request, schedule_id):
-    if str(request.user) == "AnonymousUser":
-        return redirect("/customer/login")
-    elif request.user.customer.isChef == False:
-        return redirect("/chef/registerChef/1")
-    chef = request.user.customer.chef
-    post = chef.post
-    schedule = Schedule.objects.filter(id=schedule_id).first()
-    book = Book.objects.filter(schedule=schedule, paymentStatus=2).first()
-    context = {
-        "chef" : chef,
-        "post" : post,
-        "schedule" : schedule,
-        "book" : book,
-    }
-    return render(request, 'chefSchedule_detail.html', context)
-
-
-# chefSchedule_detail.html UPDATE 1
-def scheduleConfirm(request, schedule_id):
-    if str(request.user) == "AnonymousUser":
-        return redirect("/customer/login")
-    elif request.user.customer.isChef == False:
-        return redirect("/chef/registerChef/1")
-    if request.method == "POST":
-        schedule = Schedule.objects.get(id=schedule_id)
-        if request.POST.get('scheduleConfirm'):
-            schedule.confirmStatus = 2	# 1: 승인대기  2: 승인됨  3. 취소됨
-            schedule.save()
-    return redirect('/chef/chefSchedule/' + str(schedule_id))
-
-
-# chefSchedule_detail.html UPDATE
-def scheduleCancel(request, schedule_id):
-    if str(request.user) == "AnonymousUser":
-        return redirect("/customer/login")
-    elif request.user.customer.isChef == False:
-        return redirect("/chef/registerChef/1")
-    if request.method == "POST":
-        schedule = Schedule.objects.get(id=schedule_id)
-        book = Book.objects.get(schedule=schedule, paymentStatus=2)
-        if request.POST.get('scheduleCancel'):
-            schedule.confirmStatus = 3	# 1: 승인대기  2: 승인완료  3. 승인취소
-            book.paymentStatus = 3 # 1:결제대기 2:결제완료 3:결제취소
-            schedule.save()
-            book.save()
-    return redirect('/chef/chefSchedule/' + str(schedule_id))
 
 
 # editChefProfile_1.html READ
@@ -279,7 +185,7 @@ def editPost(request):
     return render(request, 'editChefProfile_2.html', context)
 
 
-# editChefProfile_2.html UPDATE
+# editChefProfile_2.html CREATE
 def updatePost(request):
     if str(request.user) == "AnonymousUser":
         return redirect("/customer/login")
@@ -288,7 +194,8 @@ def updatePost(request):
     post = request.user.customer.chef.post
     if request.method == "POST":
         post.category = request.POST.get('category')
-        post.region = request.POST.get('region')
+        post.region = request.POST.get('residence')
+        post.regionDetail = RegionDetail.objects.get(id=request.POST.get('residenceDetail'))
         post.title = request.POST.get('title')
         if request.FILES.get('postCoverInput'):  # 직접 수정이 불가능하니 기존에 입력된 DB 삭제 후 재입력
             postCoverImage = request.FILES.get('postCoverInput')
@@ -339,3 +246,111 @@ def updateMovingPrice(request):
         post.movingPrice = request.POST.get('movingPriceInput')
         post.save()
     return redirect('/chef/editMovingPrice/')
+
+
+# chefSchedule.html READ
+def chefSchedule(request):
+    if str(request.user) == "AnonymousUser":
+        return redirect("/customer/login")
+    elif request.user.customer.isChef == False:
+        return redirect("/chef/registerChef/1")
+    chef = request.user.customer.chef
+    post = chef.post
+    schedules = Schedule.objects.filter(post=post)
+    scheduleInfoList = []
+    for schedule in schedules:
+        book = Book.objects.filter(schedule=schedule, paymentStatus=2).first() # 코스, 인원, 총 결제 금액
+        scheduleInfo = {}
+        scheduleInfo['region'] = schedule.region
+        scheduleInfo['regionDetail'] = schedule.regionDetail
+        scheduleInfo['eventDate'] = schedule.eventDate
+        scheduleInfo['eventTime'] = schedule.eventTime
+        scheduleInfo['confirmStatus'] = schedule.print_confirmStatus
+        scheduleInfo['course'] = book.course if book else None
+        scheduleInfo['personNum'] = book.personNum if book else None
+        scheduleInfo['totalPrice'] = book.totalPrice if book else None
+        scheduleInfo['scheduleID'] = schedule.id
+        scheduleInfoList.append(scheduleInfo)
+    scheduleInfoList.reverse()
+    context = {
+        "chef" : chef,
+        "post" : post,
+        "scheduleList" : scheduleInfoList,
+    }
+    return render(request, 'chefSchedule.html', context)
+
+
+# chefSchedule.html CREATE
+def addSchedule(request):
+    if str(request.user) == "AnonymousUser":
+        return redirect("/customer/login")
+    elif request.user.customer.isChef == False:
+        return redirect("/chef/registerChef/1")
+    post = request.user.customer.chef.post
+    if request.method == "POST":
+        schedule = Schedule(post=post)
+        schedule.region = request.POST.get("residence")
+        schedule.regionDetail = RegionDetail.objects.get(id=request.POST.get("residenceDetail"))
+        schedule.eventDate = request.POST.get("scheduleDate")
+        schedule.eventTime = request.POST.get("scheduleTime")
+        schedule.confirmStatus = 1
+        schedule.save()
+    return redirect("/chef/chefSchedule")
+
+
+# chefSchedule.html DELETE
+def deleteSchedule(request):
+    schedule_id = request.POST['scheduleID']
+    print(schedule_id)
+    Schedule.objects.filter(id=schedule_id).delete()
+    return JsonResponse({}, status=200)
+
+
+# chefSchedule_detail.html READ
+def chefScheduleDetail(request, schedule_id):
+    if str(request.user) == "AnonymousUser":
+        return redirect("/customer/login")
+    elif request.user.customer.isChef == False:
+        return redirect("/chef/registerChef/1")
+    chef = request.user.customer.chef
+    post = chef.post
+    schedule = Schedule.objects.filter(id=schedule_id).first()
+    book = Book.objects.filter(schedule=schedule, paymentStatus=2).first()
+    context = {
+        "chef" : chef,
+        "post" : post,
+        "schedule" : schedule,
+        "book" : book,
+    }
+    return render(request, 'chefSchedule_detail.html', context)
+
+
+# chefSchedule_detail.html UPDATE 1
+def scheduleConfirm(request, schedule_id):
+    if str(request.user) == "AnonymousUser":
+        return redirect("/customer/login")
+    elif request.user.customer.isChef == False:
+        return redirect("/chef/registerChef/1")
+    if request.method == "POST":
+        schedule = Schedule.objects.get(id=schedule_id)
+        if request.POST.get('scheduleConfirm'):
+            schedule.confirmStatus = 2	# 1: 승인대기  2: 승인됨  3. 취소됨
+            schedule.save()
+    return redirect('/chef/chefSchedule/' + str(schedule_id))
+
+
+# chefSchedule_detail.html UPDATE
+def scheduleCancel(request, schedule_id):
+    if str(request.user) == "AnonymousUser":
+        return redirect("/customer/login")
+    elif request.user.customer.isChef == False:
+        return redirect("/chef/registerChef/1")
+    if request.method == "POST":
+        schedule = Schedule.objects.get(id=schedule_id)
+        book = Book.objects.get(schedule=schedule, paymentStatus=2)
+        if request.POST.get('scheduleCancel'):
+            schedule.confirmStatus = 3	# 1: 승인대기  2: 승인완료  3. 승인취소
+            book.paymentStatus = 3 # 1:결제대기 2:결제완료 3:결제취소
+            schedule.save()
+            book.save()
+    return redirect('/chef/chefSchedule/' + str(schedule_id))

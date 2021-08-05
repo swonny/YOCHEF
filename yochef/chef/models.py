@@ -111,6 +111,8 @@ class Schedule(models.Model):
 	eventDate = models.DateField()
 	eventTime = models.CharField(max_length=100, null=True)
 	confirmStatus = models.IntegerField(default=1)	# 1: 승인대기  2: 승인됨  3. 취소됨
+	region = models.IntegerField(null=True, blank=True)
+	regionDetail = models.ForeignKey(RegionDetail, null=True, blank=True, on_delete=models.SET_NULL)
 
 	def __str__(self):
 		return self.post.title + "일정" + str(self.id)

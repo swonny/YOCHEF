@@ -21,8 +21,8 @@ class CourseAdmin(admin.ModelAdmin):
 
 @admin.register(Schedule)
 class ScheduleAdmin(admin.ModelAdmin):
-    list_display = ['id', 'post', 'print_eventDate', 'eventTime', 'print_confirmStatus']
-    list_display_links = ['id', 'post', 'print_eventDate', 'eventTime', 'print_confirmStatus']
+    list_display = ['id', 'post', 'print_eventDate', 'eventTime', 'region', 'regionDetail', 'print_confirmStatus']
+    list_display_links = ['id', 'post', 'print_eventDate', 'eventTime', 'region', 'regionDetail', 'print_confirmStatus']
     list_per_page = 20
 
 

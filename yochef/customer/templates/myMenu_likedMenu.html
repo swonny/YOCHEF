@@ -22,7 +22,7 @@
                     <div class="content__menu-info">
                         <div class="menu-info-wrapper">
                             <div class="content__image-wrapper">
-                                <img style="width: 180px; height: 150px;" src="{{post_cover_imgurl}}" alt=""><!-- 수정 필요 -->
+                                <img style="width: 180px; height: 150px;" src="{{post_cover_imgurl}}" onerror="this.src='{% static 'img/default.png' %}';" alt=""><!-- 수정 필요 -->
                             </div>
                             <div class="content__description">
                                 <h4>{{post.title}}</h4>

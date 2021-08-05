@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{% static 'css/editChefProfile_3.css' %}">
 {% endblock %}
 {% block content %}
-    <form name="registerChef_4" method="POST" action="{% url 'registerChef' '5' %}">
+    <form onsubmit="return formCheck()" name="registerChef_4" method="POST" action="{% url 'registerChef' '5' %}">
     {% csrf_token %}
         <div class="edit-chef-wrapper">
             {% include 'registerChef_side.html' %}
@@ -102,7 +102,8 @@
                         <!-- // 최종 정산금 안내 -->
                         <!-- 저장 버튼 -->
                         <aside class="button">
-                            <button type="submit">저장</button>
+                            <button class="after-button" type="submit">저장</button>
+                            <button class="before-button" type="button" disabled><a class="before-button" href="{% url 'registerChef' '3' %}">이전</a></button>
                         </aside>
                         <!-- // 저장 버튼 -->
                     </div>
@@ -117,6 +118,18 @@
 
 {% block scripts %}
 <script>
+    //form data 모두 등록되었는지 확인
+    function formCheck() {
+
+        const movingPrice = document.getElementsByName('movingPriceInput')[0].value;
+
+        if(movingPrice == ""){
+            alert("출장비를 입력해주세요!")
+            return false;
+        } else {
+            return true;
+        }
+    }
     // 자동계산
     function mutation() {
         const coursePriceOutput = document.querySelector("input[name=coursePrice]");

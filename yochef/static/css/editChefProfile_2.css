@@ -34,6 +34,20 @@ input, textarea, option {
     font-size: 12px;
 }
 
+.region-wrapper {
+    width: 100%;
+    margin: 0px 8px;
+    flex-direction: column;
+    padding: 0px 0px 15px;
+}
+
+.delete-region > img {
+    width: 20px; 
+    height: 20px;
+    background-color: white;
+    border: none;
+}
+
 .category-region__header,
 .post__header {
     font-family: 'Arita-dotum-Medium';

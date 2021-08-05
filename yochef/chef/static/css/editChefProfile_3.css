@@ -100,10 +100,17 @@ select {
 .button > button {
     border: 0px;
     outline: 0px;
-    background-color: #bd0000;
     color: white;
     width: 80px;
     height: 30px;
     font-family: 'Arita-dotum-medium';
     font-size: 12px;
+}
+
+.after-button {
+    background-color: #bd0000;
+}
+
+.before-button {
+    background-color: #999;
 }

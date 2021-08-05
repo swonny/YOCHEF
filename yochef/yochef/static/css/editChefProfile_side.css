@@ -49,6 +49,11 @@ section > [class*=__wrapper] {
     padding: 5px;
     margin: 6px 0px;
     border-radius: 5px;
+    padding: 5px;
+}
+
+.image-input {
+    padding: 0px;
 }
 
 /* 네브바 */

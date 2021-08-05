@@ -1,9 +1,24 @@
+.default-image {
+    width: 90px;
+    height: 67.5px;
+    padding: 45px 60px;
+}
+
 .register__article-title {
     margin-top: 30px;
 }
 
+.article-title--top {
+    margin-bottom: 6px;
+}
+
 .edit-chef__post {
     margin-top: 50px;
+}
+
+.post-title__content {
+    width: 90%;
+    height: ;
 }
 
 /* .content-wrapper > section {
@@ -34,6 +49,32 @@ input, textarea, option {
     font-size: 12px;
 }
 
+.region-selection-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    margin-bottom: 5px;
+}
+
+.region-wrapper {
+    width: 100%;
+    /* margin: 0px 8px; */
+    flex-direction: column;
+    padding: 0px 0px 15px;
+}
+
+.delete-region {
+    background-color: white;
+    border: none;
+    display: inline-block;
+}
+
+.delete-region > img{
+    padding: 3px;
+    width: 20px; 
+    height: 20px;
+}
+
 .category-region__header,
 .post__header {
     font-family: 'Arita-dotum-Medium';
@@ -49,20 +90,18 @@ select {
     padding: 8px 5px;
     border-radius: 5px;
     font-size: 11px;
-    margin: 6px 0px;
+    margin-right: 5px;
 }
 
-.add-button {
-    display: inline-block;
-}
-
-.add-button > button {
-    background-color: white;
-    border: #E6E6E6 solid 0.5px;
+.region-add-button {
+    background-color: #bd0000;
     border-radius: 5px;
     color: #E6E6E6;
-    padding: 6px 5px;
-    width: 30px;
+    width: 506px;
+    height: 25px;
+    border: none;
+    margin-top: 5px;
+    display: inline-block;
 }
 
 .textarea-wrapper {
@@ -81,9 +120,8 @@ select {
 
 .post-image-wrapper > .input-wrapper {
     width: 200px;
-    height: 200px;
+    height: 150px;
 }
-
 
 /* input 버튼 숨김 */
 .post-image__content {
@@ -91,8 +129,8 @@ select {
     position: relative;
     bottom: 150px;
     right: 0px;
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
 }
 
 .post-image-wrapper > h4::after {
@@ -107,6 +145,7 @@ select {
     border: none;
     width: 100%;
     height: 100%;
+    border-radius: 5px;
 }
 
 .chef-intro__header > h4::after {
@@ -186,8 +225,8 @@ select {
 .course-image-add {
     border: #E6E6E6 solid 0.5px;
     border-radius: 5px;
-    width: 50px;
-    height: 50px;
+    width: 120px;
+    height: 120px;
 }
 
 .profile__img-container {
@@ -203,12 +242,13 @@ select {
     width: 100%;
 }
 
-.course__img-input {
+.course__image-input {
     width: 100%;
     height: 100%;
     position: relative;
-    top: -30px;
-    opacity: 0%;
+    bottom: 120px;
+    opacity: 50%;
+    background-color: blue;
 }
 
 .course-image-add {

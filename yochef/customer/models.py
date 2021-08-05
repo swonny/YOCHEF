@@ -62,7 +62,7 @@ class Book(models.Model):
 	customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
 	coupon = models.ForeignKey(HasCoupon, null=True, on_delete=models.SET_NULL)
 	schedule = models.ForeignKey('chef.Schedule', on_delete=models.CASCADE)
-	paymentStatus = models.IntegerField(default=1)	# 1: 예약가능  2: 예약됨  3. 취소됨
+	paymentStatus = models.IntegerField(default=1)	# 1:결제대기 2:결제완료 3:결제취소
 	phoneNum = models.CharField(max_length=11)
 	usedPoint = models.IntegerField(null=True)
 	payMethod = models.IntegerField(null=True) # 1: 무통장, 2번: 신용카드

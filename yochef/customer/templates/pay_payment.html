@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
     <main>
-        <form method="POST" action="{% url 'payComplete' %}">
+        <form method="POST" action="/customer/kakaoPayLogic">
             {% csrf_token %}
             <div class="mainContainer">
                 <span>요리 예약</span>
@@ -16,6 +16,7 @@
                             <div>
                                 <div>
                                     <span>{{book.schedule.post.title}}</span>
+                                    <input name="postTitle" type="text" value={{book.schedule.post.title}} hidden>
                                     <span><span>{{book.course.title}}</span> 코스 | 총 <span>{{book.personNum}}</span>인</span>
                                 </div>
                                 <span>총 <span>{{book.totalPrice}}</span>원</span>
@@ -68,7 +69,8 @@
                         <span>결제 수단</span>
                         <div class="pay__payment" value="">
                             <!-- <input type="button" value="무통장" id="1" status="0" class="buttonUnchecked"> -->
-                            <input type="button" value="신용 / 체크카드" id="2" status="0" class="buttonUnchecked">
+                            <!-- <input type="button" value="신용 / 체크카드" id="2" status="0" class="buttonUnchecked"> -->
+                            <input type="button" value="카카오페이" id="3" status="0" class="buttonUnchecked">
                         </div>
                         <input type="text" name="payment" hidden>
                         <input type="text" name="book" value="{{book.id}}" hidden>
@@ -83,6 +85,7 @@
                             <div>
                                 <span>신청 인원</span>
                                 <span>{{book.personNum}} 명</span>
+                                <input name="personNum" type="text" value={{book.personNum}} hidden>
                             </div>
                             <div>
                                 <span>쿠폰 사용</span>
@@ -96,6 +99,7 @@
                         <div class="receipt__totalPrice">
                             <span>총 결제 금액</span>
                             <span>{{book.totalPrice}}원</span>
+                            <input name="totalPrice" type="text" value={{book.totalPrice}} hidden>
                         </div>
                         <input type="button" value="결제하기" class="submitBtn">
                         <input type="submit" value="" hidden>

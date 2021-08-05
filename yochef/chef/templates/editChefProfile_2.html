@@ -14,7 +14,7 @@
                         <h2 class="category-region__header">카테고리 및 지역</h2>
                         <!-- 음식 카테고리 지정 -->
                         <article class="category__wrapper">
-                            <h4 class="article-title">카테고리</h4>
+                            <h4 class="article-title article-title--top">카테고리</h4>
                             <select name="category" value="{{post.category|default:""}}">
                                 <option value="none">선택하세요.</option>
                                 <option value="1">뷔페/케이터링</option>
@@ -30,23 +30,15 @@
                         
                         <!-- 지역 설정 -->
                         <article class="region-wrapper">
-                            <h4 class="article-title">지역 선택 </h4>
-                            <select name="region" value="{{post.region|default:""}}">
-                                <option value="none">선택하세요.</option>
-                                <option value="1">서울</option>
-                                <option value="2">경기</option>
-                                <option value="3">인천</option>
-                                <option value="4">부산</option>
-                                <option value="5">경상, 대구, 울산</option>
-                                <option value="6">대전, 충청</option>
-                                <option value="7">강원</option>
-                                <option value="8">광주, 전라, 제주</option>
-                            </select>
-                            <!-- !!!!지역 추가 버튼 : 자바스크립트로 추가버튼 누르면 바로 위에 저장항목 뜨게 수정하기 -->
-                            <div class="add-button">
-                                <button type="submit">+</button>
+                            <h4 class="article-title article-title--top">지역 선택 </h4>
+                            <div id="region-selection-all">
+                                <div class="region-selection-wrapper">
+                                    <select class="region-selection" name="residence" value="{{post}}"></select>
+                                    <select id="region-detail-selection" name="residenceDetail" value="{{post.regionDetail}}"></select>
+                                    <button onclick="delRegion(this)" class="delete-region"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQwNyA0MDciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTg5LjE5OTIxOSAzN2MwLTEyLjEzMjgxMiA5LjQ2ODc1LTIxIDIxLjYwMTU2Mi0yMWg4OC44MDA3ODFjMTIuMTI4OTA3IDAgMjEuNTk3NjU3IDguODY3MTg4IDIxLjU5NzY1NyAyMXYyM2gxNnYtMjNjMC0yMC45NTMxMjUtMTYuNjQ0NTMxLTM3LTM3LjU5NzY1Ny0zN2gtODguODAwNzgxYy0yMC45NTMxMjUgMC0zNy42MDE1NjIgMTYuMDQ2ODc1LTM3LjYwMTU2MiAzN3YyM2gxNnptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtNjAuNjAxNTYyIDQwN2gxODkuMTk5MjE5YzE4LjI0MjE4OCAwIDMyLjM5ODQzOC0xNi4wNDY4NzUgMzIuMzk4NDM4LTM2di0yNDdoLTI1NHYyNDdjMCAxOS45NTMxMjUgMTQuMTU2MjUgMzYgMzIuNDAyMzQzIDM2em0xNDUuNTk3NjU3LTI0NC44MDA3ODFjMC00LjQxNzk2OSAzLjU4MjAzMS04IDgtOHM4IDMuNTgyMDMxIDggOHYxODljMCA0LjQxNzk2OS0zLjU4MjAzMSA4LTggOHMtOC0zLjU4MjAzMS04LTh6bS01OSAwYzAtNC40MTc5NjkgMy41ODIwMzEtOCA4LThzOCAzLjU4MjAzMSA4IDh2MTg5YzAgNC40MTc5NjktMy41ODIwMzEgOC04IDhzLTgtMy41ODIwMzEtOC04em0tNTkgMGMwLTQuNDE3OTY5IDMuNTgyMDMxLTggOC04czggMy41ODIwMzEgOCA4djE4OWMwIDQuNDE3OTY5LTMuNTgyMDMxIDgtOCA4cy04LTMuNTgyMDMxLTgtOHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjAgMTA4aDI3MC4zOTg0MzhjMTEuMDQ2ODc0IDAgMjAtOC45NTMxMjUgMjAtMjBzLTguOTUzMTI2LTIwLTIwLTIwaC0yNzAuMzk4NDM4Yy0xMS4wNDY4NzUgMC0yMCA4Ljk1MzEyNS0yMCAyMHM4Ljk1MzEyNSAyMCAyMCAyMHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PC9nPjwvc3ZnPg==" /></button>
+                                </div>
                             </div>
-                            <!-- // !!!!지역 추가 버튼 : 자바스크립트로 추가버튼 누르면 바로 위에 저장항목 뜨게 수정하기 -->
+                            <button class="region-add-button" onclick="addRegion(this)" type="button">지역 추가</button>
                         </article>
                         <!-- // 지역 설정 -->
                     </section>
@@ -64,9 +56,8 @@
                         <!-- 예약글 커버 이미지 업로드 -->
                         <article class="post-image-wrapper">
                             <h4 class="article-title">커버 이미지</h4>
-                            <div class="input-wrapper">
-                                <img class="postCoverImage" name="postCoverImage" src="{{postCoverImage.attachment.url|default:""}}" alt="" style="width: 200px; height: 150px;">
-                                <!-- <img src="{% static 'image/add_image.png' %}" alt=""> -->
+                            <div class="input-wrapper image-input">
+                                <img class="postCoverImage" name="postCoverImage" src="{{postCoverImage.attachment.url}}" style="width: 200px; height: 150px;">
                                 <input value="{{courseImageList.attachment}}" class="post-image__content" name="coverImage" type="image"><!--coverImage -> postImage-->
                             </div>
                         </article>
@@ -133,7 +124,6 @@
                                     <button class="course__delete" onclick="delCourse(this)" type="button"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDMyOS4yNjkzMyAzMjkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbD0iI2Y0NDMzNiI+PHBhdGggZD0ibTIxLjMzOTg0NCAzMjkuMzk4NDM4Yy01LjQ2MDkzOCAwLTEwLjkyNTc4Mi0yLjA4OTg0NC0xNS4wODIwMzItNi4yNS04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzbDI4Ni41ODk4NDQtMjg2LjU5Mzc1YzguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyNDIxOS04LjMzOTg0NCAzMC4xNjQwNjMgMCA4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzbC0yODYuNTg5ODQ0IDI4Ni41OTM3NWMtNC4xODM1OTQgNC4xNzk2ODctOS42MjEwOTQgNi4yNS0xNS4wODIwMzEgNi4yNXptMCAwIiBmaWxsPSIjYmQwMDAwIiBkYXRhLW9yaWdpbmFsPSIjZjQ0MzM2IiBzdHlsZT0iIj48L3BhdGg+PHBhdGggZD0ibTMwNy45Mjk2ODggMzI5LjM5ODQzOGMtNS40NjA5MzggMC0xMC45MjE4NzYtMi4wODk4NDQtMTUuMDgyMDMyLTYuMjVsLTI4Ni41ODk4NDQtMjg2LjU5Mzc1Yy04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzIDguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyMDMxMy04LjMzOTg0NCAzMC4xNjQwNjMgMGwyODYuNTg5ODQ0IDI4Ni41OTM3NWM4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzLTQuMTYwMTU3IDQuMTc5Njg3LTkuNjIxMDk0IDYuMjUtMTUuMDgyMDMxIDYuMjV6bTAgMCIgZmlsbD0iI2JkMDAwMCIgZGF0YS1vcmlnaW5hbD0iI2Y0NDMzNiIgc3R5bGU9IiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+" /></button>
                                 </div>
                             </div>
-
                             {% else %}
                             {% for course in courses %}
                             <div class="courseInfo__eachCourse">
@@ -163,7 +153,7 @@
                                             </div>
                                             <div class="course-image-add">
                                                 <img class="add-image-button" src="{% static 'image/add_image.png' %}" alt="" style="width: 30px; height: 30px;">
-                                                <input class="course__img-input" name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*">
+                                                <input class="course__image-input" name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*">
                                             </div>
                                         </div>
                                     </div>
@@ -190,6 +180,52 @@
 {% block scripts %}
 
 <script>
+    //지역 detail
+    document.addEventListener("DOMContentLoaded", () => {
+        getRegion();
+        getRegionDetail(1);
+    });
+
+    document.getElementsByName('residence')[0].addEventListener('change', (event)=>{
+        getRegionDetail(document.getElementsByName('residence')[0].value);
+    });
+
+    //지역 추가
+    function addRegion(e) {
+        const newRegion = document.getElementsByClassName("region-selection-wrapper");
+        const regionNode = newRegion[0].cloneNode(true);
+        regionNode.value = "";
+        
+        if (newRegion.length < 10) {
+            const regionParent = document.getElementById('region-selection-all');
+            regionParent.insertBefore(regionNode, regionParent.childNodes[regionParent.length]);
+        } else {
+            alert("지역은 최대 10개까지 등록할 수 있습니다.");
+        }
+    }
+
+    //지역 삭제
+    function delRegion(e) {
+        //수정
+        const regionCount = document.getElementById('region-selection-all').childElementCount;
+        
+        if( regionCount == 1) {
+            alert("등록된 지역은 1개 이상이어야 합니다.");
+        } else {
+            var delConfirm = confirm("해당 지역을 삭제하시겠습니까?");
+            if(delConfirm == true) {
+                e.parentElement.remove();
+            } else {
+                alert("취소를 누르셨습니다.");
+            }
+        }
+    }
+
+    //글자수 세기
+    function countText(e) {
+        const title = document.querySelector("input.course-info__title").value
+    }
+
     // 저장된 카테고리, 지역 불러오기
     function loadSelector(selectorNode) {
         const selectorValue = selectorNode.getAttribute("value") || null
@@ -221,14 +257,22 @@
 
     // 코스 추가 버튼
     function addCourse(e) {
+        let courseTitle = document.querySelector("input.course-info__title").value;
+        let coursePrice = document.querySelector("input.course-info__price").value;
+        let courseDescription = document.querySelector("textarea.course-info__description").value;
         const courseInfo = document.getElementsByClassName("courseInfo__eachCourse");
         const courseNode = courseInfo[0].cloneNode(true);
-        courseNode.querySelector("input.courseInfo__Name__input").value = "";
-        courseNode.querySelector("input.courseInfo__price__input").value = "";
-        courseNode.querySelector("textarea.courseInfo__menuDscr__input").value = "";
+        courseNode.querySelector("input.course-info__title").value = "";
+        courseNode.querySelector("input.course-info__price").value = "";
+        courseNode.querySelector("textarea.course-info__description").value = "";
         
         if (courseInfo.length < 10) {
-            e.parentNode.insertBefore(courseNode.cloneNode(true), e)
+            if(courseDescription.length == 0){
+                console.log(courseDescription.length);
+                alert("모든 항목을 입력해주세요!")
+            } else {
+                e.parentNode.insertBefore(courseNode.cloneNode(true), e)
+            }
         } else {
             alert("코스는 10개까지 등록할 수 있습니다.");
         }
@@ -247,7 +291,6 @@
             return
         }
     }
-    
 
     // course count 코스 개수 변화 감지
     // courseTitle, coursePrice, courseDescribe, courseImg 인덱스 부여
@@ -307,6 +350,35 @@
         }
     }, false);
 
+    //textarea 바이트 수 체크하는 함수
+    /*function fn_checkByte(obj){
+        const maxByte = 100; //최대 100바이트
+        const text_val = obj.value; //입력한 문자
+        const text_len = text_val.length; //입력한 문자수
+        
+        let totalByte=0;
+        for(let i=0; i<text_len; i++){
+            const each_char = text_val.charAt(i);
+            const uni_char = escape(each_char) //유니코드 형식으로 변환
+            if(uni_char.length>4){
+                // 한글 : 2Byte
+                totalByte += 2;
+            }else{
+                // 영문,숫자,특수문자 : 1Byte
+                totalByte += 1;
+            }
+        }
+        
+        if(totalByte>maxByte){
+            alert('최대 100Byte까지만 입력가능합니다.');
+                document.getElementById("nowByte").innerText = totalByte;
+                document.getElementById("nowByte").style.color = "red";
+            }else{
+                document.getElementById("nowByte").innerText = totalByte;
+                document.getElementById("nowByte").style.color = "green";
+            }
+        }
+    }*/
 </script>
 
 {% endblock %}

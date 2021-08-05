@@ -95,9 +95,11 @@ input {
     background-color: white;
     border: #E6E6E6 solid 0.5px;
     border-radius: 5px;
-    color: #E6E6E6;
+    color: #929292;
     padding: 7px 5px;
-    width: 30px;
+    width: 260.625px;
+    margin: 5px 0px;
+    font-size: 10px;
 }
 
 .date-filter__start-date,
@@ -163,27 +165,42 @@ tbody {
 
 .list-header-container {
     width: 100%;
-    display: flex;
+    /* display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-around; */
 }
 
-.list--header {
-    padding: 5px 8px 5px 0px;
-    font-family: 'Arita-dotum-bold';
-}
-
-.list-item {
+.list-item, td {
     display: inline-block;
-    padding: 5px 8px 5px 0px;
+    padding: 5px;
     font-size: 12px;
+    font-family: 'Arita-dotum-medium';
 }
 
-.list-container {
+th {
+    font-family: 'Arita-dotum-SemiBold' !important;
+}
+
+tr {
     display: flex;
     width: 100%;
     flex-direction: row;
     justify-content: space-around;
+    font-family: 'Arita-dotum-medium';
+}
+
+tr {
+    text-align: center;
+    height: 40px;
+    border-bottom: 1px solid black;
+}
+
+.td-date {
+    width: 45px;
+}
+
+.td-region {
+    width: 82px;
 }
 
 .schedule-register__header {
@@ -242,6 +259,11 @@ tbody {
     margin: 0px 0px 20px;
 }
 
+.form__date {
+    display: flex;
+    flex-direction: column;
+}
+
 .region__select-container,
 .date__select-container,
 .time__select-container {
@@ -250,6 +272,7 @@ tbody {
     display: inline-block;
     padding: 5px;
     width: 40%;
+    margin-bottom: 5px;
 }
 
 .time__title::after {

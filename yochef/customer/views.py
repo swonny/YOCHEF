@@ -5,6 +5,7 @@ from django.contrib import auth
 from .models import *
 from chef.models import *
 from django.contrib.auth.hashers import check_password
+import requests     # For KakaoPay API
 
 # Create your views here.
 def signup(request):
@@ -72,12 +73,6 @@ def logout(request):
 def findId(request):
     return render(request, "customer_findId.html")
 
-def idCertificate(request):
-    name = request.POST.get('name')
-    phoneNum = request.POST.get('phoneNum')
-    user = User.objects.filter(name = 'name', phoneNum = 'phoneNum')
-    return render(request, '')
-
 def findPw(request):
     return render(request, "customer_findPw.html")
 
@@ -128,6 +123,68 @@ def payComplete(request): #결제하기 눌렀을 때
     # 추후 구현 된다면 실제 결제 기능까지
 
     return redirect('/')
+
+# 제우스 카카오페이 작업 시작
+def kakaoPayLogic(request):
+    #postTitle = request.POST['postTitle']
+    #personNum = request.POST['personNum']
+    #totalPrice = request.POST['totalPrice']
+    #vat = int(totalPrice) / 11
+    #tax_free = int(totalPrice) - vat
+    _admin_key = '43e1846e5c8f2fb293d6460e124d4a93'
+    _url = f"https://kapi.kakao.com/v1/payment/ready"
+    _headers = {
+        'Authorization' : f"KakaoAK {_admin_key}",
+    }
+    _data = {
+        'cid' : 'TC0ONETIME',
+        'partner_order_id' : 'partner_order_id',
+        'partner_user_id': f'partner_user_id',
+        'item_name' : f'[Yochef]',
+        'quantity' : f'1',
+        'total_amount' : f'10000',
+        'vat_amount' : f'0',
+        'tax_free_amount' : f'0',
+        'approval_url' : 'http://127.0.0.1:8000/customer/paySuccess',
+        'fail_url' : 'http://127.0.0.1:8000/customer/payFail',
+        'cancel_url' : 'http://127.0.0.1:8000/customer/payCancel',
+    }
+    _res = requests.post(_url, data=_data, headers=_headers)
+    _result = _res.json()
+    print("_result 출력 : ", _result)
+    request.session['tid'] = _result['tid']
+    return redirect(_result['next_redirect_pc_url'])
+
+def paySuccess(request):
+    _url = 'https://kapi.kakao.com/v1/payment/approve'
+    _admin_key = '43e1846e5c8f2fb293d6460e124d4a93' # 입력필요
+    _headers = {
+        'Authorization': f'KakaoAK {_admin_key}'
+    }
+    _data = {
+        'cid':'TC0ONETIME',
+        'tid': request.session['tid'],
+        'partner_order_id':'partner_order_id',
+        'partner_user_id':'partner_user_id',
+        'pg_token': request.GET['pg_token']
+    }
+    _res = requests.post(_url, data=_data, headers=_headers)
+    _result = _res.json()
+    if _result.get('msg'):
+        print(_result.get('msg'))
+        return redirect('/customer/payFail')
+    else:
+        # * 사용하는 프레임워크별 코드를 수정하여 배포하는 방법도 있지만
+        #   Req Header를 통해 분기하는 것을 추천
+        print(_result)
+        return render(request, 'pay_success.html')
+
+def payFail(request):
+    return render(request, 'pay_fail.html')
+
+def payCancel(request):
+    return render(request, 'pay_cancel.html')
+# 제우스 카카오페이 작업 끝
 
 # 결제 취소 기능
     #   페이지에서 버튼 기능이 구현되기 전까지 url만 넣어서 Admin 페이지에서 삭제됐는지 확인

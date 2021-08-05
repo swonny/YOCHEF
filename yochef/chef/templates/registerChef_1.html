@@ -4,7 +4,7 @@
  <link rel="stylesheet" href="{% static 'css/editChefProfile_1.css' %}">
 {% endblock %}
 {% block content %}
-    <form name="registerChef_1" action="{% url 'registerChef' '2' %}" method="POST" enctype="multipart/form-data">
+    <form onsubmit="return formCheck()" name="registerChef_1" action="{% url 'registerChef' '2' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="edit-chef-wrapper">
             {% include 'registerChef_side.html' %}
@@ -22,7 +22,7 @@
                         <div class="profile-edit-wrapper">
                             <h4 class="profile__title">프로필 사진 </h4>
                             <div class="profile__img-container">
-                                <img class="profile--image" name="uploadImage" src="{{profileImage.attachment.url}}">
+                                <img  onerror="this.src='{% static 'image/profile_default.png' %}';" class="profile--image" name="uploadImage" src="{{profileImage.attachment.url|default:""}}">
                                 <img class="more--button" src="{% static 'image/more.png' %}" alt="">
                                 <input style="background-image:url(static/image/more.png;);" id="file-upload-button" name="profileImage" type="file" accept="image/*">
                             </div>
@@ -35,7 +35,7 @@
                     <article class="edit-chef__nickname">
                         <h4>닉네임</h4>
                         <div class="input-wrapper nickname-edit-wrapper">
-                            <input onkeyup="counter()" name="nickname" type="text" placeholder="사용하실 닉네임을 입력해주세요." value={{chef.nickname|default:""}}>
+                            <input class="chef-nickname" onkeyup="counter()" name="nickname" type="text" placeholder="사용하실 닉네임을 입력해주세요." value={{chef.nickname|default:""}}>
                             <div class="nickname__count-string"></div>
                         </div>
                     </article>
@@ -45,7 +45,7 @@
                     <article class="edit-chef__spec">
                         <h4>이력</h4>
                         <div class="input-wrapper spec-edit-wrapper">
-                            <textarea class="spec-input" name="spec" type="text" placeholder="이력 상세" value="{{chef.spec|default:""}}"></textarea>
+                            <textarea class="spec-input" name="spec" type="text" placeholder="이력 상세">{{chef.spec|default:""}}</textarea>
                         </div>
                         <input class="spec-input" name="specImage" type="file" accept="image/*" multiple><!-- 백참고 -->
                         <!-- <div class="input-wrapper spec-edit-wrapper">
@@ -84,6 +84,28 @@
     
 {% block scripts %}
 <script>
+    //form data 모두 등록되었는지 확인
+    function formCheck() {
+
+        let emptyInfo = new Array();
+
+        let profileImage = document.querySelector("img.profile--image").getAttribute('src');
+        let nickname = document.querySelector("input.chef-nickname").value;
+        let spec = document.querySelector("textarea.spec-input").value;
+        let file = document.querySelector("input.spec-input").value;
+
+        if(!profileImage) emptyInfo.push("프로필 사진 ");
+        if(!nickname) emptyInfo.push("닉네임 ");
+        if(!spec) emptyInfo.push("이력 ");
+        if(!file) emptyInfo.push("이력 증명 파일 ");
+
+        if(emptyInfo.length === 0){
+            return true;
+        } else {
+            alert(`${emptyInfo}`+"내용을 채워주세요!")
+            return false;
+        }
+    }
 
     const imageElement = document.getElementsByName("uploadImage")[0];
     const inputElement = document.getElementsByName("profileImage")[0];
