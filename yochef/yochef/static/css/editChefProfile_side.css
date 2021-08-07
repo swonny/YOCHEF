@@ -9,6 +9,13 @@ form {
     margin: 50px 250px;
 }
 
+.schedule-detail-form {
+    display: inherit;
+    flex-direction: inherit;
+    margin: 0px;
+    padding: 0px;
+}
+
 .header-wrapper {
     border-bottom: 1px solid #E6E6E6;
     padding: 10px 0px;

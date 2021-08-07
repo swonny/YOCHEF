@@ -110,7 +110,7 @@ class Schedule(models.Model):
 	post = models.ForeignKey(Post, on_delete=models.CASCADE)
 	eventDate = models.DateField()
 	eventTime = models.CharField(max_length=100, null=True)
-	confirmStatus = models.IntegerField(default=1)	# 1: 승인대기  2: 승인됨  3. 취소됨
+	confirmStatus = models.IntegerField(default=0)	# 0: '-'(결제전)  1: 승인대기  2: 승인됨  3. 취소됨
 	region = models.IntegerField(null=True, blank=True)
 	regionDetail = models.ForeignKey(RegionDetail, null=True, blank=True, on_delete=models.SET_NULL)
 
@@ -118,7 +118,9 @@ class Schedule(models.Model):
 		return self.post.title + "일정" + str(self.id)
 
 	def print_confirmStatus(self):
-		if self.confirmStatus == 1:
+		if self.confirmStatus == 0:
+			return "-"
+		elif self.confirmStatus == 1:
 			return "승인대기"
 		elif self.confirmStatus == 2:
 			return "승인됨"

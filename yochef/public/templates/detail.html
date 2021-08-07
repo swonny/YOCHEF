@@ -128,9 +128,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                {% if is_review_over %}
                 <input type="button" onclick="location.href='/reviewDetail/{{post.id}}'" value="리뷰 더 보기">
-                {% endif %}
             </div>
         </div>
     </main>
@@ -140,24 +138,26 @@
         <img src="{% static 'img/logo.png' %}" >
         <div class="scheduleSelector">
             <span>일정</span>
-            {% for schedule in schedules %}
-            <div class="scheduleBox" id="schedule{{schedule.id}}" value="{{schedule.id}}">
-                <div class="scheduleBox__textInfo">
-                    <span>날짜 : {{schedule.eventDate|date:'y년 m월 d일'}} ({{schedule.print_eventDateDay}})</span>
-                    <span>시간 :
-                        {% if schedule.eventTime %}
-                        {{schedule.eventTime}}
-                        {% else %}
-                        논의 필요
-                        {% endif %}
-                    </span>
-                    <span>
-                        장소: {{ schedule.post.regionDetail.detailName}}
-                    </span>
+            <div>
+                {% for schedule in schedules %}
+                <div class="scheduleBox" id="schedule{{schedule.id}}" value="{{schedule.id}}">
+                    <div class="scheduleBox__textInfo">
+                        <span>날짜 : {{schedule.eventDate|date:'y년 m월 d일'}} ({{schedule.print_eventDateDay}})</span>
+                        <span>시간 :
+                            {% if schedule.eventTime %}
+                            {{schedule.eventTime}}
+                            {% else %}
+                            논의 필요
+                            {% endif %}
+                        </span>
+                        <span>
+                            장소: {{ schedule.post.regionDetail.detailName}}
+                        </span>
+                    </div>
+                    <input type="button" id="{{schedule.id}}" status='0' value="선택" class="scheduleBtn">
                 </div>
-                <input type="button" id="{{schedule.id}}" status='0' value="선택" class="scheduleBtn">
+                {% endfor %}
             </div>
-            {% endfor %}
             <form method="POST" action="{% url 'apply' %}">
                 {% csrf_token %}
                 <input type="text" name="schedule" hidden>
@@ -231,7 +231,7 @@
             e.target.setAttribute('style', 'background-color: var(--main-color); width: 30px; top: -20px;');
             e.target.value = "1";
         }else {
-            document.querySelector('aside > div').setAttribute('style', 'display: none;');
+            document.querySelector('aside > div').setAttribute('style', '');
             e.target.setAttribute('src', "{% static 'img/logo.png' %}");
             e.target.setAttribute('style', '');
             e.target.value = "0";
@@ -310,15 +310,15 @@
         priceChange();
     }
 
-    let courseImgs = document.querySelectorAll("div.mainBox__courseInfo_imgs > div")
+    let courseImgs = document.querySelectorAll("div.mainBox__courseInfo_imgs > div");
     for (img of courseImgs){
         img.addEventListener("click", (e) => {
             if (e.target.classList.contains('open')){
                 document.querySelector('.mainBox__courseInfo_imgs > div > img.open').className = "";
                 e.currentTarget.className = "";
             }else{
-                e.target.className = "open";
-                e.currentTarget.className = "open";
+                e.currentTarget.classList = "open"
+                e.currentTarget.querySelector('img').classList = "open";
             }
         })
     }

@@ -24,11 +24,12 @@
                     <section class="schedule-detail">
                         <article class="schedule-detail__header">
                             <h3>예약 고객 정보</h3>
-                            {% if confrimStatus == 1 %}
+                            <!-- <span>{{schedule.confirmStatus}}</span> -->
+                            {% if schedule.confrimStatus == 1 %}
                             <span class="confirm-status">미승인 예약</span>
-                            {% elif confirmStatus == 2 %}
+                            {% elif schedule.confirmStatus == 2 %}
                             <span class="confirm-status">승인 완료</span>
-                            {% elif confirmStatus == 3 %}
+                            {% elif schedule.confirmStatus == 3 %}
                             <span class="confirm-status">취소된 예약</span>
                             {% endif %}
                         </article>
@@ -65,10 +66,14 @@
                             <div class="comment-info info-container">
                                 <p class="comment">{{book.comment}}</p>
                             </div>
-                            <aside class="confirm-button">
-                                <button class="confirm-no">승인 취소</button><!-- js 수정 필요 -->
-                                <button class="confirm-yes">예약 승인</button><!-- js 수정 필요 -->
-                            </aside>
+                            <form method="POST" class="schedule-detail-form" name="scheduleConfirm">
+                            {% csrf_token %}
+                                <aside class="confirm-button">
+                                    <input class="confirm-no" type="submit" onclick="schedule(2)" value="승인취소" name="scheduleCancel">
+                                    <input class="confirm-yes" type="submit" onclick="schedule(1)" value="승인" name="scheduleConfirm">
+
+                                </aside>
+                            </form>
                         </article>
                     </section>
                 </article>
@@ -76,7 +81,7 @@
             </div>
             <!-- 이전 버튼 -->
             <aside class="button">
-                <button>이전 페이지</button>
+                <button><a style="color: white;" href="{% url 'chefSchedule' %}">이전 페이지</a></button>
             </aside>
             <!-- // 이전 버튼 -->
         </div>
@@ -84,5 +89,37 @@
 {% endblock %}
 
 {% block scripts %}
-    
+    <script>
+        //승인 취소
+        /*function rejection(){
+            const check = confirm("승인을 취소하시겠습니까?");
+            if (check == true) return true;
+            else false;
+        }
+        //승인
+        function confirmation() {
+            const check = confirm("해당 예약승인 완료하시겠습니까?")
+            if(!check) return false;
+        }*/
+
+        //승인 함수
+        function schedule(isConfirm) {
+
+            if (isConfirm == 1){
+                const check = confirm("해당 예약을 승인하시겠습니까?");
+                if (check == true) {
+                    console.log("tesssstttt");
+                    document.getElementsByName('scheduleConfirm')[0].action = "{% url 'scheduleConfirm' schedule.id  %}";
+                    document.getElementsByName('scheduleConfirm')[0].submit();
+                } else return false
+            } else if (isConfirm == 2) {
+                const check = confirm("해당 예약을 승인하시겠습니까?");
+                if (check == true) {
+                    console.log("tesssstttt");
+                    document.getElementsByName('scheduleConfirm')[0].action = "{% url 'scheduleCancel' schedule.id  %}";
+                    document.getElementsByName('scheduleConfirm')[0].submit();
+                } else return false
+            }
+        }
+    </script>
 {% endblock %}

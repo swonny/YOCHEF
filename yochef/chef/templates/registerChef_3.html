@@ -34,8 +34,8 @@
                                 <!-- <img class="postCoverImage" name="postCoverImage" src="{{postCoverImage.attachment.url}}" style="width: 200px; height: 150px;">
                                 <input type="text" style="display:none;">
                                 <input value="{{courseImageList.attachment}}" class="post-image__content" name="coverImage" type="image">coverImage -> postImage -->
-                                <img onerror="this.src='{% static 'image/Group 331.png' %}';" class="postCoverImage" name="postCoverImage" src="{{postCoverImage.attachment.url}} alt="">
-                                <input class="post-image__content" name="postCoverInput" type="file" accept="image/*">
+                                <img onerror="this.src='{% static 'image/Group 331.png' %}';" class="postCoverImage" name="postCoverImage" src="{{postCoverImage.attachment.url}}" alt="">
+                                <input class="post-image__content" name="postCoverInput" type="file" multiple accept="image/*">
                             </div>
                         </article>
                         <!-- // 예약글 커버 이미지 -->
@@ -83,16 +83,16 @@
                                             <div class="course__img-container">
                                                 <div class="course-image">
                                                     <img  onerror="this.src='{% static 'image/default_image_course.png' %}';" name="courseImageTag" src="{{image.attachment.url|default:""}}" alt="">
-                                                    <input onchange="addNextImage()" class="course__img-input" name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*">
+                                                    <!-- <input onchange="addNextImage()" class="course__img-input" name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*"> -->
                                                 </div>
-                                                <!-- <div class="course-image-add">
+                                                <div class="course-image-add">
                                                     <img class="add-image-button" src="{% static 'image/add_image.png' %}" alt="" style="width: 30px; height: 30px;">
                                                     <input class="course__img-input" name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*">
-                                                </div> -->
+                                                </div>
                                             </div>            
                                             <input class="course-image__content" type="file" name="courseImg1[]" multiple accept="image/*">
                                         </div>
-                                        <button class="course__delete" onclick=" delCourse()" type="button"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDMyOS4yNjkzMyAzMjkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbD0iI2Y0NDMzNiI+PHBhdGggZD0ibTIxLjMzOTg0NCAzMjkuMzk4NDM4Yy01LjQ2MDkzOCAwLTEwLjkyNTc4Mi0yLjA4OTg0NC0xNS4wODIwMzItNi4yNS04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzbDI4Ni41ODk4NDQtMjg2LjU5Mzc1YzguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyNDIxOS04LjMzOTg0NCAzMC4xNjQwNjMgMCA4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzbC0yODYuNTg5ODQ0IDI4Ni41OTM3NWMtNC4xODM1OTQgNC4xNzk2ODctOS42MjEwOTQgNi4yNS0xNS4wODIwMzEgNi4yNXptMCAwIiBmaWxsPSIjYmQwMDAwIiBkYXRhLW9yaWdpbmFsPSIjZjQ0MzM2IiBzdHlsZT0iIj48L3BhdGg+PHBhdGggZD0ibTMwNy45Mjk2ODggMzI5LjM5ODQzOGMtNS40NjA5MzggMC0xMC45MjE4NzYtMi4wODk4NDQtMTUuMDgyMDMyLTYuMjVsLTI4Ni41ODk4NDQtMjg2LjU5Mzc1Yy04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzIDguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyMDMxMy04LjMzOTg0NCAzMC4xNjQwNjMgMGwyODYuNTg5ODQ0IDI4Ni41OTM3NWM4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzLTQuMTYwMTU3IDQuMTc5Njg3LTkuNjIxMDk0IDYuMjUtMTUuMDgyMDMxIDYuMjV6bTAgMCIgZmlsbD0iI2JkMDAwMCIgZGF0YS1vcmlnaW5hbD0iI2Y0NDMzNiIgc3R5bGU9IiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+" /></button>
+                                        <button style="cursor: pointer;" class="course__delete" onclick=" delCourse(this)" type="button"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDMyOS4yNjkzMyAzMjkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbD0iI2Y0NDMzNiI+PHBhdGggZD0ibTIxLjMzOTg0NCAzMjkuMzk4NDM4Yy01LjQ2MDkzOCAwLTEwLjkyNTc4Mi0yLjA4OTg0NC0xNS4wODIwMzItNi4yNS04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzbDI4Ni41ODk4NDQtMjg2LjU5Mzc1YzguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyNDIxOS04LjMzOTg0NCAzMC4xNjQwNjMgMCA4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzbC0yODYuNTg5ODQ0IDI4Ni41OTM3NWMtNC4xODM1OTQgNC4xNzk2ODctOS42MjEwOTQgNi4yNS0xNS4wODIwMzEgNi4yNXptMCAwIiBmaWxsPSIjYmQwMDAwIiBkYXRhLW9yaWdpbmFsPSIjZjQ0MzM2IiBzdHlsZT0iIj48L3BhdGg+PHBhdGggZD0ibTMwNy45Mjk2ODggMzI5LjM5ODQzOGMtNS40NjA5MzggMC0xMC45MjE4NzYtMi4wODk4NDQtMTUuMDgyMDMyLTYuMjVsLTI4Ni41ODk4NDQtMjg2LjU5Mzc1Yy04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzIDguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyMDMxMy04LjMzOTg0NCAzMC4xNjQwNjMgMGwyODYuNTg5ODQ0IDI4Ni41OTM3NWM4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzLTQuMTYwMTU3IDQuMTc5Njg3LTkuNjIxMDk0IDYuMjUtMTUuMDgyMDMxIDYuMjV6bTAgMCIgZmlsbD0iI2JkMDAwMCIgZGF0YS1vcmlnaW5hbD0iI2Y0NDMzNiIgc3R5bGU9IiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+" /></button>
                                     </div>
                                 </div>
 
@@ -115,22 +115,22 @@
                                             <!-- 클래스명 변경: courseInfo__menuDscr -> textarea-wrapper  -->
                                             <h4 class="course-name__title">코스 설명</h4>
                                             <div class="textarea-wrapper course__input-wrapper">
-                                                <textarea class="course-info__description" name="courseDescribe1" maxlength="500" placeholder="ex)&#10;&#10;1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)&#10;&#10;2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...&#10;&#10;3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국&#10;&#10;8인~12인용 코스입니다.&#10;&#10;인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^">{{course.description}}</textarea>
+                                                <textarea class="course-info__description" name="courseDescribe1" maxlength="500" placeholder="ex)&#10;&#10;1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)&#10;&#10;2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...&#10;&#10;3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국&#10;&#10;8인~12인용 코스입니다.&#10;&#10;인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^">{{course.description|default:""}}</textarea>
                                             </div>
                                             <div class="course__img-container">
-                                                {% for image in course.images %}
                                                 <div class="course-image">
+                                                {% for image in course.images %}
                                                     <img name="courseImageTag" src="{{image.attachment.url}}" alt="" style="width:100px; height:100px;">
-                                                    <input class="course__image-input" name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*">
-                                                </div>
+                                                    <!-- <input class="course__image-input" name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*"> -->
                                                 {% endfor %}
+                                                </div>
                                                 <div class="course-image-add">
-                                                    <img class="add-image-button" src="{% static 'image/add_image.png' %}" alt="" style="width: 30px; height: 30px;">
-                                                    <input class="course__img-input" name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*">
+                                                    <img name="courseImageTag" class="add-image-button" src="{% static 'image/add_image.png' %}" alt="" style="width: 30px; height: 30px;">
+                                                    <input name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*">
                                                 </div>
                                             </div>
                                         </div>
-                                        <button class="course__delete" onclick="delCourse()" type="button"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDMyOS4yNjkzMyAzMjkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbD0iI2Y0NDMzNiI+PHBhdGggZD0ibTIxLjMzOTg0NCAzMjkuMzk4NDM4Yy01LjQ2MDkzOCAwLTEwLjkyNTc4Mi0yLjA4OTg0NC0xNS4wODIwMzItNi4yNS04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzbDI4Ni41ODk4NDQtMjg2LjU5Mzc1YzguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyNDIxOS04LjMzOTg0NCAzMC4xNjQwNjMgMCA4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzbC0yODYuNTg5ODQ0IDI4Ni41OTM3NWMtNC4xODM1OTQgNC4xNzk2ODctOS42MjEwOTQgNi4yNS0xNS4wODIwMzEgNi4yNXptMCAwIiBmaWxsPSIjYmQwMDAwIiBkYXRhLW9yaWdpbmFsPSIjZjQ0MzM2IiBzdHlsZT0iIj48L3BhdGg+PHBhdGggZD0ibTMwNy45Mjk2ODggMzI5LjM5ODQzOGMtNS40NjA5MzggMC0xMC45MjE4NzYtMi4wODk4NDQtMTUuMDgyMDMyLTYuMjVsLTI4Ni41ODk4NDQtMjg2LjU5Mzc1Yy04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzIDguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyMDMxMy04LjMzOTg0NCAzMC4xNjQwNjMgMGwyODYuNTg5ODQ0IDI4Ni41OTM3NWM4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzLTQuMTYwMTU3IDQuMTc5Njg3LTkuNjIxMDk0IDYuMjUtMTUuMDgyMDMxIDYuMjV6bTAgMCIgZmlsbD0iI2JkMDAwMCIgZGF0YS1vcmlnaW5hbD0iI2Y0NDMzNiIgc3R5bGU9IiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+" /></button>
+                                        <button style="cursor: pointer;" class="course__delete" onclick="delCourse(this)" type="button"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDMyOS4yNjkzMyAzMjkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbD0iI2Y0NDMzNiI+PHBhdGggZD0ibTIxLjMzOTg0NCAzMjkuMzk4NDM4Yy01LjQ2MDkzOCAwLTEwLjkyNTc4Mi0yLjA4OTg0NC0xNS4wODIwMzItNi4yNS04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzbDI4Ni41ODk4NDQtMjg2LjU5Mzc1YzguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyNDIxOS04LjMzOTg0NCAzMC4xNjQwNjMgMCA4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzbC0yODYuNTg5ODQ0IDI4Ni41OTM3NWMtNC4xODM1OTQgNC4xNzk2ODctOS42MjEwOTQgNi4yNS0xNS4wODIwMzEgNi4yNXptMCAwIiBmaWxsPSIjYmQwMDAwIiBkYXRhLW9yaWdpbmFsPSIjZjQ0MzM2IiBzdHlsZT0iIj48L3BhdGg+PHBhdGggZD0ibTMwNy45Mjk2ODggMzI5LjM5ODQzOGMtNS40NjA5MzggMC0xMC45MjE4NzYtMi4wODk4NDQtMTUuMDgyMDMyLTYuMjVsLTI4Ni41ODk4NDQtMjg2LjU5Mzc1Yy04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzIDguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyMDMxMy04LjMzOTg0NCAzMC4xNjQwNjMgMGwyODYuNTg5ODQ0IDI4Ni41OTM3NWM4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzLTQuMTYwMTU3IDQuMTc5Njg3LTkuNjIxMDk0IDYuMjUtMTUuMDgyMDMxIDYuMjV6bTAgMCIgZmlsbD0iI2JkMDAwMCIgZGF0YS1vcmlnaW5hbD0iI2Y0NDMzNiIgc3R5bGU9IiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+" /></button>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -272,7 +272,7 @@
     
 
     // 코스 삭제 버튼
-    function delCourse() {
+    function delCourse(e) {
         const count = document.getElementsByClassName('course-info-all')[0].childElementCount; //코스 개수 확인
         if ( count === 1 ) {
             alert("코스는 1개 이상이어야 합니다.")
@@ -280,7 +280,7 @@
         } else {
             let ask = confirm("삭제하시겠습니까?");
             if(ask == true) {
-                document.getElementsByClassName('courseInfo__eachCourse')[count-1].remove();
+                e.parentElement.parentElement.remove();
             }
         }
     }
@@ -289,32 +289,33 @@
     // course count 코스 개수 변화 감지
     // courseTitle, coursePrice, courseDescribe, courseImg 인덱스 부여
     const courseCount = document.getElementsByName("courseCount")[0];
-    const courseContainer = document.getElementsByClassName("course-wrapper")[0];
+    const courseContainer = document.getElementsByClassName("course-info-all")[0];
     const courseObserver = new MutationObserver((mutations) => {
+        console.log('mutation observer working')
         const eachCourse = document.getElementsByClassName("courseInfo__eachCourse")
         let courseLength = eachCourse.length;
         courseCount.value = courseLength;
 
-        const courseTitles = document.getElementsByClassName("course-info__title");
-        const coursePrices = document.getElementsByClassName("course-info__price");
-        const courseDescribes = document.getElementsByClassName("course-info__description"); // 클래스명 변경 반영하여 수정했습니다. courseInfo__menuDscr__input -> course-info__description
-        const courseImgs = document.getElementsByClassName("course-image__content");
+        const courseTitles = document.querySelectorAll(".course-info__title");
+        const coursePrices = document.querySelectorAll(".course-info__price");
+        const courseDescriptions = document.querySelectorAll(".course-info__description"); // 클래스명 변경 반영하여 수정했습니다. courseInfo__menuDscr__input -> course-info__description
+        const courseImgs = document.querySelectorAll(".course-image__content");
 
         for (i = 0; i < courseLength; i++) {
             let courseTitle = courseTitles[i];
             let coursePrice = coursePrices[i];
-            let courseDescribe = courseDescribes[i];
+            let courseDescription = courseDescriptions[i];
             let courseImg = courseImgs[i];
-            courseTitle.name = "courseTitle" + String(i+1);
-            coursePrice.name = "coursePrice" + String(i+1);
-            courseDescribe.name = "courseDescribe" + String(i+1);
-            courseImg.name = "courseImg" + String(i+1) + "[]";
+            courseTitle.setAttribute("name", "courseTitle" + String(i+1));
+            coursePrice.setAttribute("name", "coursePrice" + String(i+1));
+            courseDescription.setAttribute("name", "courseDescription" + String(i+1));
+            courseImg.setAttribute("name", "courseImg" + String(i+1) + "[]");
         }
     });
     const observerOption = {
         attributes: true,
         characterData: true,
-        childList: true
+        childList: true,
     };
     courseObserver.observe(courseContainer, observerOption);
 

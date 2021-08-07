@@ -9,6 +9,13 @@ form {
     margin: 50px 250px;
 }
 
+.schedule-detail-form {
+    display: inherit;
+    flex-direction: inherit;
+    margin: 0px;
+    padding: 0px;
+}
+
 .header-wrapper {
     border-bottom: 1px solid #E6E6E6;
     padding: 10px 0px;
@@ -49,6 +56,11 @@ section > [class*=__wrapper] {
     padding: 5px;
     margin: 6px 0px;
     border-radius: 5px;
+    padding: 5px;
+}
+
+.image-input {
+    padding: 0px;
 }
 
 /* 네브바 */

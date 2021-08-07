@@ -100,7 +100,6 @@ select {
 .button > button {
     border: 0px;
     outline: 0px;
-    /* background-color: #bd0000; */
     color: white;
     width: 80px;
     height: 30px;
@@ -114,5 +113,4 @@ select {
 
 .before-button {
     background-color: #999;
-    color: white;
 }

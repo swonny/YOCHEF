@@ -27,9 +27,13 @@ input, textarea {
 
 .input-wrapper {
     border: #E6E6E6 solid 0.5px;
-    padding: 5px;
     margin: 6px 0px;
     border-radius: 5px;
+    padding: 5px;
+}
+
+.image-input {
+    padding: 0px;
 }
 
 form {
@@ -113,7 +117,7 @@ select {
     padding: 9px 5px;
     border-radius: 5px;
     font-size: 11px;
-    margin: 7px 0px;
+    margin: 7px 6px 0px 0px;
 }
 /* 
 article {
@@ -147,4 +151,5 @@ article {
 
 .before-button {
     background-color: #999;
+    color: white;
 }

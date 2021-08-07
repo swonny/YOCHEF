@@ -568,6 +568,8 @@
 	- 코스- 코스가격 정수형 검사 구현 --> 한글 인식 수정 필요
 	- 코스 삭제 기능 (1개여도 삭제되던 오류 해결) 구현 완료
 	- 다음페이지 넘어가기 전 모든 항목 체크(코스파일만 수정 필요) 구현 완료!!
+- chefSchedule
+	- 날짜 입력 비어있으면 제출 막기 구현 완료
 
 21.08.05 제우스
 - chefSchedule.html 일정 삭제 기능 추가
@@ -579,3 +581,28 @@
 	- 카카오페이 결제 알림톡에 상품명(예약글 제목), 주문금액 출력 작업 중
 		- views.py 에서 postTitle, personNum, totalPrice 받아올 수 있도록 수정
 		- pay_payment.html line 19, line 88, line 102 <input> 태그 추가
+
+-21.08.05 워니
+- chefSchedule 스케줄 테이블 css 수정 완료
+- chefSchedule 
+	- 날짜 필터 js 작업 진행중
+	- 예약 있을 때만 scheduleDetail 페이지 확인 가능하게 수정
+
+21.08.06 제우스
+- registerChef_1.html
+	- spec 첨부파일 저장 기능 구현
+- registerChef_3.html
+	- 커버 이미지 저장 안 되는 버그 수정
+	- (JS) courseImg 클래스 중복으로 코스별 <input> name 속성 이름 수정 안 되는 버그 수정
+- chefSchedule.html
+	- 예약이 없는 경우 승인여부 '승인대기' => '-' 수정
+	- 예약이 없는 경우 예약현황 '-' => '예약가능' 수정
+- chefSchedule.html, chefSchedule_detail.html
+	- 예약 승인 및 취소 기능 구현
+
+21.08.07 워니
+- chefSchedule_detail.html js
+	- 승인/ 승인취소 기능 구현
+	- css 수정
+- registerChef_3
+	- 삭제 기능 수정

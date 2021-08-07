@@ -96,9 +96,10 @@ def payment(request): #다음 버튼
     book_id = int(request.POST['book'])
     book = Book.objects.get(id = book_id)
     coupons = HasCoupon.objects.filter(customer = request.user.customer, isUsed=False)
-    book.comment = request.POST.get('comment')
-    book.phoneNum = request.POST.get('phoneNum')
-    book.save()
+    if request.method == "POST":
+        book.comment = request.POST.get('comment')
+        book.phoneNum = request.POST.get('phoneNum')
+        book.save()
     return render(request, 'pay_payment.html', {'book':book, 'coupons' : coupons})
 
 def payComplete(request): #결제하기 눌렀을 때
@@ -151,7 +152,6 @@ def kakaoPayLogic(request):
     }
     _res = requests.post(_url, data=_data, headers=_headers)
     _result = _res.json()
-    print("_result 출력 : ", _result)
     request.session['tid'] = _result['tid']
     return redirect(_result['next_redirect_pc_url'])
 
@@ -174,8 +174,6 @@ def paySuccess(request):
         print(_result.get('msg'))
         return redirect('/customer/payFail')
     else:
-        # * 사용하는 프레임워크별 코드를 수정하여 배포하는 방법도 있지만
-        #   Req Header를 통해 분기하는 것을 추천
         print(_result)
         return render(request, 'pay_success.html')
 

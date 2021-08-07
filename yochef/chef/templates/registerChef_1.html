@@ -22,7 +22,7 @@
                         <div class="profile-edit-wrapper">
                             <h4 class="profile__title">프로필 사진 </h4>
                             <div class="profile__img-container">
-                                <img  onerror="this.src='{% static 'image/profile_default.png' %}';" class="profile--image" name="uploadImage" src="{{profileImage.attachment.url|default:""}}">
+                                <img onerror="this.src='{% static 'image/profile_default.png' %}';" class="profile--image" name="uploadImage" src="{{profileImage.attachment.url}}">
                                 <img class="more--button" src="{% static 'image/more.png' %}" alt="">
                                 <input style="background-image:url(static/image/more.png;);" id="file-upload-button" name="profileImage" type="file" accept="image/*">
                             </div>

@@ -165,9 +165,13 @@ tbody {
 
 .list-header-container {
     width: 100%;
-    /* display: flex;
+    display: flex;
     flex-direction: row;
-    justify-content: space-around; */
+    justify-content: center;
+}
+
+.list-header-container > th {
+    padding: 13px 5px;
 }
 
 .list-item, td {
@@ -185,22 +189,68 @@ tr {
     display: flex;
     width: 100%;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     font-family: 'Arita-dotum-medium';
 }
 
 tr {
     text-align: center;
     height: 40px;
-    border-bottom: 1px solid black;
+    border-bottom: 0.5px solid #e6e6e6;
 }
 
 .td-date {
-    width: 45px;
+    width: 50px;
+    padding: 13px 5px;
 }
 
 .td-region {
-    width: 82px;
+    width: 100px;
+    padding: 13px 5px;
+}
+
+.td-paymentStatus {
+    width: 56px;
+    padding: 13px 5px;
+}
+
+.td-course {
+    width: 80px;
+    padding: 13px 5px;
+}
+
+.td-person-num {
+    width: 22px;
+    padding: 13px 5px;
+}
+
+.td-total-price {
+    width: 55px;
+    padding: 13px 5px;
+}
+
+.td-confirm-status {
+    width: 54px;
+    padding: 13px 5px;
+}
+
+.td-detail {
+    width: 54px;
+    padding: 13px 5px;
+}
+
+.td-delete {
+    width: 33px;
+}
+
+.schedule-list__total-container > .td-delete {
+    position: relative;
+}
+
+.td-delete > img {
+    padding: 3px;
+    width: 20px; 
+    height: 20px;
 }
 
 .schedule-register__header {

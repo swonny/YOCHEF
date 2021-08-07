@@ -166,14 +166,13 @@ p {
     justify-content: center;
 }
 
-.confirm-button > button {
-    width: 40%;
-    height: 30px;
-    margin: 0px 10px;
+.confirm-button > input {
     border: none;
+    padding: 6px 35px;
+    margin-right: 10px;
+    width: 150px;
     border-radius: 5px;
     color: white;
-    font-size: 12px;
 }
 
 .confirm-no {
@@ -184,6 +183,25 @@ p {
     background-color: #bd0000;
 }
 
+.confirm-status {
+    font-family: 'arita-dotum-semibold';
+    font-size: 16px;
+    color: #bd0000;
+    margin-left: 10px;
+}
+
+/* .confirm-button > button {
+    width: 40%;
+    height: 30px;
+    margin: 0px 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 12px;
+}
+
+
+
 .button > button {
     margin-top: 50px;
-}
+} */

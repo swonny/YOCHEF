@@ -291,8 +291,7 @@ aside > div {
     background-color: white;
     padding: 10px;
     max-height: 600px;
-    /* width: 215px; */
-    overflow-y: scroll;
+    width: 230px;
 }
 
 @media screen and (max-width: 1200px){
@@ -345,7 +344,7 @@ aside > div > span {
     padding: 7px;
     font-size: 13px;
     display: flex;
-    width: calc(100% - 14px);
+    width: calc(100% - 16px);
     margin-bottom: 10px;
 }
 
@@ -454,4 +453,11 @@ aside > div > form > :nth-child(7) > :nth-child(2) {
     border-radius: 5px;
     background-color: var(--main-color);
     color: white;
+}
+
+
+
+div.scheduleSelector > div{
+    max-height: 320px;
+    overflow-y: scroll;
 }

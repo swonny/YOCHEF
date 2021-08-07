@@ -22,7 +22,7 @@ def registerChef(request, page_num=1):
         if File.objects.filter(chef=chef, category=1).exists():
             profileImage = File.objects.get(chef=chef, category=1)
         else:
-            profileImage = File(chef=chef, category=1)
+            profileImage = File(chef=chef, attachment="/static/image/more.png", category=1)
             profileImage.save()
         if Post.objects.filter(chef=chef).exists():
             post = chef.post
@@ -37,6 +37,8 @@ def registerChef(request, page_num=1):
         return render(request, 'registerChef_1.html', context)
 
     elif page_num == 2: # save registerChef/1, load registerChef/2
+        if request.user.customer.isChef == False:
+            return redirect("/chef/registerChef/1")
         chef = customer.chef
         post = chef.post
         if request.method == "POST":
@@ -50,6 +52,11 @@ def registerChef(request, page_num=1):
                 profileImage = File.objects.get(chef=chef, category=1)
                 profileImage.attachment = request.FILES.get('profileImage')
                 profileImage.save()
+            if request.FILES.getlist('specImage'):
+                File.objects.filter(chef=chef, category=2).delete()
+                specImages = request.FILES.getlist('specImage')
+                for index, image in enumerate(specImages):
+                    File.objects.create(attachment=image, chef=chef, category=2, order=index+1)
         context = {
             "customer" : customer,
             "chef" : chef,
@@ -58,6 +65,8 @@ def registerChef(request, page_num=1):
         return render(request, 'registerChef_2.html', context)
 
     elif page_num == 3: # save registerChef/2, load registerChef/3
+        if request.user.customer.isChef == False:
+            return redirect("/chef/registerChef/1")
         chef = customer.chef
         post = chef.post
         if request.method == "POST":
@@ -81,6 +90,8 @@ def registerChef(request, page_num=1):
         return render(request, 'registerChef_3.html', context)
 
     elif page_num == 4: # save registerChef/3, load registerChef/4
+        if request.user.customer.isChef == False:
+            return redirect("/chef/registerChef/1")
         chef = customer.chef
         post = chef.post
         if request.method == "POST":
@@ -113,6 +124,8 @@ def registerChef(request, page_num=1):
         return render(request, 'registerChef_4.html', context)
 
     elif page_num == 5: # save registerChef/4
+        if request.user.customer.isChef == False:
+            return redirect("/chef/registerChef/1")
         chef = customer.chef
         post = chef.post
         if request.method == "POST":
@@ -217,7 +230,7 @@ def updatePost(request):
                 for index, file in enumerate(courseImageFiles):
                     File.objects.create(attachment=file, course=course, category=3, order=index+1)
         post.save()
-    return redirect('/chef/editPost/')
+    return redirect('updatePost')
 
 
 # editChefProfile_3.html READ
@@ -245,7 +258,7 @@ def updateMovingPrice(request):
     if request.method == "POST":
         post.movingPrice = request.POST.get('movingPriceInput')
         post.save()
-    return redirect('/chef/editMovingPrice/')
+    return redirect('editMovingPrice')
 
 
 # chefSchedule.html READ
@@ -256,7 +269,7 @@ def chefSchedule(request):
         return redirect("/chef/registerChef/1")
     chef = request.user.customer.chef
     post = chef.post
-    schedules = Schedule.objects.filter(post=post)
+    schedules = Schedule.objects.filter(post=post).order_by('-eventDate')
     scheduleInfoList = []
     for schedule in schedules:
         book = Book.objects.filter(schedule=schedule, paymentStatus=2).first() # 코스, 인원, 총 결제 금액
@@ -269,9 +282,9 @@ def chefSchedule(request):
         scheduleInfo['course'] = book.course if book else None
         scheduleInfo['personNum'] = book.personNum if book else None
         scheduleInfo['totalPrice'] = book.totalPrice if book else None
+        scheduleInfo['paymentStatus'] = book.print_paymentStatus if book else None
         scheduleInfo['scheduleID'] = schedule.id
         scheduleInfoList.append(scheduleInfo)
-    scheduleInfoList.reverse()
     context = {
         "chef" : chef,
         "post" : post,
@@ -293,15 +306,13 @@ def addSchedule(request):
         schedule.regionDetail = RegionDetail.objects.get(id=request.POST.get("residenceDetail"))
         schedule.eventDate = request.POST.get("scheduleDate")
         schedule.eventTime = request.POST.get("scheduleTime")
-        schedule.confirmStatus = 1
         schedule.save()
-    return redirect("/chef/chefSchedule")
+    return redirect("chefSchedule")
 
 
 # chefSchedule.html DELETE
 def deleteSchedule(request):
     schedule_id = request.POST['scheduleID']
-    print(schedule_id)
     Schedule.objects.filter(id=schedule_id).delete()
     return JsonResponse({}, status=200)
 
@@ -336,7 +347,7 @@ def scheduleConfirm(request, schedule_id):
         if request.POST.get('scheduleConfirm'):
             schedule.confirmStatus = 2	# 1: 승인대기  2: 승인됨  3. 취소됨
             schedule.save()
-    return redirect('/chef/chefSchedule/' + str(schedule_id))
+    return redirect('chefScheduleDetail', schedule_id)
 
 
 # chefSchedule_detail.html UPDATE
@@ -349,8 +360,8 @@ def scheduleCancel(request, schedule_id):
         schedule = Schedule.objects.get(id=schedule_id)
         book = Book.objects.get(schedule=schedule, paymentStatus=2)
         if request.POST.get('scheduleCancel'):
-            schedule.confirmStatus = 3	# 1: 승인대기  2: 승인완료  3. 승인취소
-            book.paymentStatus = 3 # 1:결제대기 2:결제완료 3:결제취소
+            schedule.confirmStatus = 3	# 0: 결제대기  1: 승인대기  2: 승인완료  3: 승인취소
+            book.paymentStatus = 3 # 1: 결제대기  2: 결제완료  3: 결제취소
             schedule.save()
             book.save()
-    return redirect('/chef/chefSchedule/' + str(schedule_id))
+    return redirect('chefScheduleDetail', schedule_id)
