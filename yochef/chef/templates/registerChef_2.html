@@ -19,7 +19,7 @@
                         <!-- 음식 카테고리 지정 -->
                         <article class="category__wrapper">
                             <h4 class="article-title">카테고리</h4>
-                            <select name="category" value="{{post.category|default:""}}">
+                            <select name="category" value="{{post.category|default:''}}">
                                 <option value="0">선택하세요.</option>
                                 <option value="1">뷔페/케이터링</option>
                                 <option value="2">한식</option>
@@ -37,8 +37,8 @@
                             <h4 class="article-title article-title--top">지역 선택 </h4>
                             <div id="region-selection-all">
                                 <div class="region-selection-wrapper">
-                                    <select class="region-selection" name="residence" value="{{post.region|default:0}}"></select>
-                                    <select id="region-detail-selection" name="residenceDetail" value="{{post.regionDetail|default:0}}"></select>
+                                    <select class="region-selection" name="residence"></select>
+                                    <select id="region-detail-selection" name="residenceDetail"></select>
                                     <!-- 추후구현: 지역추가기능 구현시 필요한 삭제기능
                                     <button type="button" onclick="delRegion(this)" class="delete-region" ><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQwNyA0MDciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTg5LjE5OTIxOSAzN2MwLTEyLjEzMjgxMiA5LjQ2ODc1LTIxIDIxLjYwMTU2Mi0yMWg4OC44MDA3ODFjMTIuMTI4OTA3IDAgMjEuNTk3NjU3IDguODY3MTg4IDIxLjU5NzY1NyAyMXYyM2gxNnYtMjNjMC0yMC45NTMxMjUtMTYuNjQ0NTMxLTM3LTM3LjU5NzY1Ny0zN2gtODguODAwNzgxYy0yMC45NTMxMjUgMC0zNy42MDE1NjIgMTYuMDQ2ODc1LTM3LjYwMTU2MiAzN3YyM2gxNnptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtNjAuNjAxNTYyIDQwN2gxODkuMTk5MjE5YzE4LjI0MjE4OCAwIDMyLjM5ODQzOC0xNi4wNDY4NzUgMzIuMzk4NDM4LTM2di0yNDdoLTI1NHYyNDdjMCAxOS45NTMxMjUgMTQuMTU2MjUgMzYgMzIuNDAyMzQzIDM2em0xNDUuNTk3NjU3LTI0NC44MDA3ODFjMC00LjQxNzk2OSAzLjU4MjAzMS04IDgtOHM4IDMuNTgyMDMxIDggOHYxODljMCA0LjQxNzk2OS0zLjU4MjAzMSA4LTggOHMtOC0zLjU4MjAzMS04LTh6bS01OSAwYzAtNC40MTc5NjkgMy41ODIwMzEtOCA4LThzOCAzLjU4MjAzMSA4IDh2MTg5YzAgNC40MTc5NjktMy41ODIwMzEgOC04IDhzLTgtMy41ODIwMzEtOC04em0tNTkgMGMwLTQuNDE3OTY5IDMuNTgyMDMxLTggOC04czggMy41ODIwMzEgOCA4djE4OWMwIDQuNDE3OTY5LTMuNTgyMDMxIDgtOCA4cy04LTMuNTgyMDMxLTgtOHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjAgMTA4aDI3MC4zOTg0MzhjMTEuMDQ2ODc0IDAgMjAtOC45NTMxMjUgMjAtMjBzLTguOTUzMTI2LTIwLTIwLTIwaC0yNzAuMzk4NDM4Yy0xMS4wNDY4NzUgMC0yMCA4Ljk1MzEyNS0yMCAyMHM4Ljk1MzEyNSAyMCAyMCAyMHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PC9nPjwvc3ZnPg==" /></button>
                                     추후구현: 지역추가기능 구현시 필요한 삭제기능 -->
@@ -78,10 +78,20 @@
         }
     }
 
+    // 입력된 카테고리 밎 지역 불러오기
+    function loadSelector(selectorNode) {
+        const selectorValue = selectorNode.getAttribute("value") || null
+        if (selectorNode.getAttribute("value")) {
+            const options = selectorNode.querySelectorAll("option");
+            options[parseInt(selectorValue)].setAttribute("selected", "");
+        }
+    }
+    loadSelector(document.querySelector("select[name=category]"));
+
     //지역 detail
     document.addEventListener("DOMContentLoaded", () => {
-        getRegion();
-        getRegionDetail(1);
+        getRegion(parseInt('{{post.region}}'));
+        getRegionDetail(parseInt('{{post.region}}'), parseInt('{{post.regionDetail.id}}'));
     });
 
     document.getElementsByName('residence')[0].addEventListener('change', (event)=>{
@@ -118,17 +128,7 @@
             }
         }
     }
-
-    function loadSelector(selectorNode) {
-        const selectorValue = selectorNode.getAttribute("value") || null
-        if (selectorNode.getAttribute("value")) {
-            const options = selectorNode.querySelectorAll("option");
-            options[parseInt(selectorValue)].setAttribute("selected", "");
-        }
-    }
-    const categorySelector = document.querySelector("select[name=category]");
-    const regionSelector = document.querySelector("select[name=region]");
-    loadSelector(categorySelector)
-    loadSelector(regionSelector)
+    
+    
 </script>
 {% endblock %}

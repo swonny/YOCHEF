@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
 
-    <form name="editChefProfile_1" action="{% url 'updatePost' %}" method="POST" >
+    <form onsubmit="return formCheck()" name="editPost" action="{% url 'updatePost' %}" method="POST"  enctype="multipart/form-data">
     {% csrf_token %}
         <div class="edit-chef-wrapper">
             {% include 'editChefProfile_side.html' %}
@@ -15,15 +15,15 @@
                         <!-- 음식 카테고리 지정 -->
                         <article class="category__wrapper">
                             <h4 class="article-title article-title--top">카테고리</h4>
-                            <select name="category" value="{{post.category|default:""}}">
-                                <option value="none">선택하세요.</option>
-                                <option value="1">뷔페/케이터링</option>
-                                <option value="2">한식</option>
-                                <option value="3">일식</option>
-                                <option value="4">중식</option>
-                                <option value="5">아시안</option>
-                                <option value="6">양식</option>
-                                <option value="7">채식</option>
+                            <select name="category" value="{{post.category|default:"0"}}">
+                                <option value="0" {% if post.category == 0 %} selected {% endif %}>선택하세요.</option>
+                                <option value="1" {% if post.category == 1 %} selected {% endif %}>뷔페/케이터링</option>
+                                <option value="2" {% if post.category == 2 %} selected {% endif %}>한식</option>
+                                <option value="3" {% if post.category == 3 %} selected {% endif %}>일식</option>
+                                <option value="4" {% if post.category == 4 %} selected {% endif %}>중식</option>
+                                <option value="5" {% if post.category == 5 %} selected {% endif %}>아시안</option>
+                                <option value="6" {% if post.category == 6 %} selected {% endif %}>양식</option>
+                                <option value="7" {% if post.category == 7 %} selected {% endif %}>채식</option>
                             </select>
                         </article>
                         <!-- // 음식 카테고리 지정 -->
@@ -33,12 +33,16 @@
                             <h4 class="article-title article-title--top">지역 선택 </h4>
                             <div id="region-selection-all">
                                 <div class="region-selection-wrapper">
-                                    <select class="region-selection" name="residence" value="{{post}}"></select>
-                                    <select id="region-detail-selection" name="residenceDetail" value="{{post.regionDetail}}"></select>
-                                    <button onclick="delRegion(this)" class="delete-region"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQwNyA0MDciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTg5LjE5OTIxOSAzN2MwLTEyLjEzMjgxMiA5LjQ2ODc1LTIxIDIxLjYwMTU2Mi0yMWg4OC44MDA3ODFjMTIuMTI4OTA3IDAgMjEuNTk3NjU3IDguODY3MTg4IDIxLjU5NzY1NyAyMXYyM2gxNnYtMjNjMC0yMC45NTMxMjUtMTYuNjQ0NTMxLTM3LTM3LjU5NzY1Ny0zN2gtODguODAwNzgxYy0yMC45NTMxMjUgMC0zNy42MDE1NjIgMTYuMDQ2ODc1LTM3LjYwMTU2MiAzN3YyM2gxNnptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtNjAuNjAxNTYyIDQwN2gxODkuMTk5MjE5YzE4LjI0MjE4OCAwIDMyLjM5ODQzOC0xNi4wNDY4NzUgMzIuMzk4NDM4LTM2di0yNDdoLTI1NHYyNDdjMCAxOS45NTMxMjUgMTQuMTU2MjUgMzYgMzIuNDAyMzQzIDM2em0xNDUuNTk3NjU3LTI0NC44MDA3ODFjMC00LjQxNzk2OSAzLjU4MjAzMS04IDgtOHM4IDMuNTgyMDMxIDggOHYxODljMCA0LjQxNzk2OS0zLjU4MjAzMSA4LTggOHMtOC0zLjU4MjAzMS04LTh6bS01OSAwYzAtNC40MTc5NjkgMy41ODIwMzEtOCA4LThzOCAzLjU4MjAzMSA4IDh2MTg5YzAgNC40MTc5NjktMy41ODIwMzEgOC04IDhzLTgtMy41ODIwMzEtOC04em0tNTkgMGMwLTQuNDE3OTY5IDMuNTgyMDMxLTggOC04czggMy41ODIwMzEgOCA4djE4OWMwIDQuNDE3OTY5LTMuNTgyMDMxIDgtOCA4cy04LTMuNTgyMDMxLTgtOHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjAgMTA4aDI3MC4zOTg0MzhjMTEuMDQ2ODc0IDAgMjAtOC45NTMxMjUgMjAtMjBzLTguOTUzMTI2LTIwLTIwLTIwaC0yNzAuMzk4NDM4Yy0xMS4wNDY4NzUgMC0yMCA4Ljk1MzEyNS0yMCAyMHM4Ljk1MzEyNSAyMCAyMCAyMHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PC9nPjwvc3ZnPg==" /></button>
+                                    <select class="region-selection" name="residence" value="{{post.region|default:0}}"></select>
+                                    <select id="region-detail-selection" name="residenceDetail" value="{{post.regionDetail|default:0}}"></select>
+                                    <!-- 추후구현: 지역추가시 삭제버튼 -->
+                                    <!-- <button onclick="delRegion(this)" class="delete-region"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQwNyA0MDciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTg5LjE5OTIxOSAzN2MwLTEyLjEzMjgxMiA5LjQ2ODc1LTIxIDIxLjYwMTU2Mi0yMWg4OC44MDA3ODFjMTIuMTI4OTA3IDAgMjEuNTk3NjU3IDguODY3MTg4IDIxLjU5NzY1NyAyMXYyM2gxNnYtMjNjMC0yMC45NTMxMjUtMTYuNjQ0NTMxLTM3LTM3LjU5NzY1Ny0zN2gtODguODAwNzgxYy0yMC45NTMxMjUgMC0zNy42MDE1NjIgMTYuMDQ2ODc1LTM3LjYwMTU2MiAzN3YyM2gxNnptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtNjAuNjAxNTYyIDQwN2gxODkuMTk5MjE5YzE4LjI0MjE4OCAwIDMyLjM5ODQzOC0xNi4wNDY4NzUgMzIuMzk4NDM4LTM2di0yNDdoLTI1NHYyNDdjMCAxOS45NTMxMjUgMTQuMTU2MjUgMzYgMzIuNDAyMzQzIDM2em0xNDUuNTk3NjU3LTI0NC44MDA3ODFjMC00LjQxNzk2OSAzLjU4MjAzMS04IDgtOHM4IDMuNTgyMDMxIDggOHYxODljMCA0LjQxNzk2OS0zLjU4MjAzMSA4LTggOHMtOC0zLjU4MjAzMS04LTh6bS01OSAwYzAtNC40MTc5NjkgMy41ODIwMzEtOCA4LThzOCAzLjU4MjAzMSA4IDh2MTg5YzAgNC40MTc5NjktMy41ODIwMzEgOC04IDhzLTgtMy41ODIwMzEtOC04em0tNTkgMGMwLTQuNDE3OTY5IDMuNTgyMDMxLTggOC04czggMy41ODIwMzEgOCA4djE4OWMwIDQuNDE3OTY5LTMuNTgyMDMxIDgtOCA4cy04LTMuNTgyMDMxLTgtOHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjAgMTA4aDI3MC4zOTg0MzhjMTEuMDQ2ODc0IDAgMjAtOC45NTMxMjUgMjAtMjBzLTguOTUzMTI2LTIwLTIwLTIwaC0yNzAuMzk4NDM4Yy0xMS4wNDY4NzUgMC0yMCA4Ljk1MzEyNS0yMCAyMHM4Ljk1MzEyNSAyMCAyMCAyMHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PC9nPjwvc3ZnPg==" /></button> -->
+                                    <!-- // 추후구현: 지역추가시 삭제버튼 -->
                                 </div>
                             </div>
+                            <!-- 추후구현: 지역 추가버튼
                             <button class="region-add-button" onclick="addRegion(this)" type="button">지역 추가</button>
+                            // 추후구현: 지역 추가버튼 -->
                         </article>
                         <!-- // 지역 설정 -->
                     </section>
@@ -52,13 +56,12 @@
                             </div>
                             </article>
                         <!-- // 글 제목 -->
-
                         <!-- 예약글 커버 이미지 업로드 -->
                         <article class="post-image-wrapper">
-                            <h4 class="article-title">커버 이미지</h4>
+                            <h4>커버 이미지</h4>
                             <div class="input-wrapper image-input">
-                                <img class="postCoverImage" name="postCoverImage" src="{{postCoverImage.attachment.url}}" style="width: 200px; height: 150px;">
-                                <input value="{{courseImageList.attachment}}" class="post-image__content" name="coverImage" type="image"><!--coverImage -> postImage-->
+                                <img onerror="this.src='{% static 'image/Group 331.png' %}';" class="postCoverImage" name="postCoverImage" src="{{postCoverImage.attachment.url}}" alt="">
+                                <input class="post-image__content" name="postCoverInput" type="file" multiple accept="image/*">
                             </div>
                         </article>
                         <!-- // 예약글 커버 이미지 -->
@@ -93,75 +96,86 @@
                             <div class="course__header">
                                 <h4 class="article-title">코스 정보</h4>
                             </div>
-                            {% if not courses %}
-                            <div class="courseInfo__eachCourse">
-                                <div class="course__content">
-                                    <div class="course__info">
-                                        <h4 class="course-name__title">코스 이름</h4>
-                                        <div class="input-wrapper">
-                                            <input class="course-info__title" name="courseTitle1" type="text" placeholder="ex) A코스(10인) 20,000원"><!-- 클래스명 변경: courseInfo__Name__input -> course-info__title  -->
-                                        </div>
-                                        <h4 class="course-price__title">1인당 가격</h4>
-                                        <div class="input-wrapper">
-                                            <input class="course-info__price" name="coursePrice1" type="text" placeholder="인당 가격" value=""><!-- 클래스명 변경: courseInfo__price__input -> course-info__price -->
-                                        </div>
-                                        <h4 class="course-name__title">코스 설명</h4>
-                                        <div class="textarea-wrapper">
-                                            <!-- 클래스명 변경: courseInfo__descr__input -> course-info__description-->
-                                            <textarea class="course-info__description" name="courseDescribe1" maxlength="500" placeholder="ex)&#10;&#10;1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)&#10;&#10;2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...&#10;&#10;3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국&#10;&#10;8인~12인용 코스입니다.&#10;&#10;인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^"></textarea>
-                                        </div>
-                                        <div class="course__img-container">
-                                            <div class="course-image">
-                                                <img name="courseImageTag" src="{{image.attachment.url|default:""}}" alt="" style="width:100px; height:100px;">
+                            <div class="course-info-all">
+                                {% if not courses %}
+                                <div class="courseInfo__eachCourse">
+                                    <div class="course__content">
+                                        <div class="course__info">
+                                            <h4 class="course-name__title">코스 이름</h4>
+                                            <div class="input-wrapper">
+                                                <input class="course-info__title" name="courseTitle1" type="text" placeholder="ex) A코스(10인) 20,000원">
                                             </div>
-                                            <div class="course-image-add">
-                                                <img class="add-image-button" src="{% static 'image/add_image.png' %}" alt="" style="width: 30px; height: 30px;">
-                                                <input class="course__img-input" name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*">
+                                            <h4 class="course-price__title">1인당 가격</h4>
+                                            <div class="input-wrapper">
+                                                <input class="course-info__price" name="coursePrice1" type="text" placeholder="인당 가격" value="">
                                             </div>
-                                        </div>            
-                                        <input class="course-image__content" type="file" name="courseImg1[]" multiple accept="image/*">
+                                            <h4 class="course-name__title">코스 설명</h4>
+                                            <div class="textarea-wrapper">
+                                                <!-- 클래스명 변경: courseInfo__descr__input -> course-info__description-->
+                                                <textarea class="course-info__description" name="courseDescribe1" maxlength="500" placeholder="ex)&#10;&#10;1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)&#10;&#10;2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...&#10;&#10;3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국&#10;&#10;8인~12인용 코스입니다.&#10;&#10;인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^"></textarea>
+                                            </div>
+                                            <h4 class="course-name__title">코스 이미지</h4>
+                                            <div class="course__img-wrapper textarea-wrapper">
+                                                <div class="course__img-container">
+                                                    <!-- <div class="course-image-add"> -->
+                                                        <img src="{% static 'image/Group 333.png' %}" alt="">
+                                                        <input style="cursor: pointer;" onchange="courseImageChange(this)" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]"  multiple accept="image/*">
+                                                    <!-- </div> -->
+                                                    {% for image in course.images %}
+                                                    <div class="course-image">
+                                                        <img class="course-image" name="courseImageTag" src="{{image.attachment.url}}" alt="" style="width:105px; height:105px;">
+                                                        <!-- <input class="course__image-input" name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*"> -->
+                                                    </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="course__delete" onclick="delCourse(this)" type="button"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDMyOS4yNjkzMyAzMjkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbD0iI2Y0NDMzNiI+PHBhdGggZD0ibTIxLjMzOTg0NCAzMjkuMzk4NDM4Yy01LjQ2MDkzOCAwLTEwLjkyNTc4Mi0yLjA4OTg0NC0xNS4wODIwMzItNi4yNS04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzbDI4Ni41ODk4NDQtMjg2LjU5Mzc1YzguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyNDIxOS04LjMzOTg0NCAzMC4xNjQwNjMgMCA4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzbC0yODYuNTg5ODQ0IDI4Ni41OTM3NWMtNC4xODM1OTQgNC4xNzk2ODctOS42MjEwOTQgNi4yNS0xNS4wODIwMzEgNi4yNXptMCAwIiBmaWxsPSIjYmQwMDAwIiBkYXRhLW9yaWdpbmFsPSIjZjQ0MzM2IiBzdHlsZT0iIj48L3BhdGg+PHBhdGggZD0ibTMwNy45Mjk2ODggMzI5LjM5ODQzOGMtNS40NjA5MzggMC0xMC45MjE4NzYtMi4wODk4NDQtMTUuMDgyMDMyLTYuMjVsLTI4Ni41ODk4NDQtMjg2LjU5Mzc1Yy04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzIDguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyMDMxMy04LjMzOTg0NCAzMC4xNjQwNjMgMGwyODYuNTg5ODQ0IDI4Ni41OTM3NWM4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzLTQuMTYwMTU3IDQuMTc5Njg3LTkuNjIxMDk0IDYuMjUtMTUuMDgyMDMxIDYuMjV6bTAgMCIgZmlsbD0iI2JkMDAwMCIgZGF0YS1vcmlnaW5hbD0iI2Y0NDMzNiIgc3R5bGU9IiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+" /></button>
                                     </div>
-                                    <button class="course__delete" onclick="delCourse(this)" type="button"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDMyOS4yNjkzMyAzMjkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbD0iI2Y0NDMzNiI+PHBhdGggZD0ibTIxLjMzOTg0NCAzMjkuMzk4NDM4Yy01LjQ2MDkzOCAwLTEwLjkyNTc4Mi0yLjA4OTg0NC0xNS4wODIwMzItNi4yNS04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzbDI4Ni41ODk4NDQtMjg2LjU5Mzc1YzguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyNDIxOS04LjMzOTg0NCAzMC4xNjQwNjMgMCA4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzbC0yODYuNTg5ODQ0IDI4Ni41OTM3NWMtNC4xODM1OTQgNC4xNzk2ODctOS42MjEwOTQgNi4yNS0xNS4wODIwMzEgNi4yNXptMCAwIiBmaWxsPSIjYmQwMDAwIiBkYXRhLW9yaWdpbmFsPSIjZjQ0MzM2IiBzdHlsZT0iIj48L3BhdGg+PHBhdGggZD0ibTMwNy45Mjk2ODggMzI5LjM5ODQzOGMtNS40NjA5MzggMC0xMC45MjE4NzYtMi4wODk4NDQtMTUuMDgyMDMyLTYuMjVsLTI4Ni41ODk4NDQtMjg2LjU5Mzc1Yy04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzIDguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyMDMxMy04LjMzOTg0NCAzMC4xNjQwNjMgMGwyODYuNTg5ODQ0IDI4Ni41OTM3NWM4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzLTQuMTYwMTU3IDQuMTc5Njg3LTkuNjIxMDk0IDYuMjUtMTUuMDgyMDMxIDYuMjV6bTAgMCIgZmlsbD0iI2JkMDAwMCIgZGF0YS1vcmlnaW5hbD0iI2Y0NDMzNiIgc3R5bGU9IiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+" /></button>
                                 </div>
-                            </div>
-                            {% else %}
-                            {% for course in courses %}
-                            <div class="courseInfo__eachCourse">
-                                <div class="course__content">
-                                    <div class="course__info">
-                                        <h4 class="course-name__title">코스 이름</h4>
-                                        <div class="input-wrapper">
-                                            <!-- 클래스명 변경:courseInfo__Name__input -> course-info__title  -->
-                                            <input value="{{course.title}}" name="courseTitle{{forloop.counter}}" type="text" class="course-info__title" placeholder="ex) A코스(10인) 20,000원">
-                                        </div>
-                                        <h4 class="course-price__title">1인당 가격</h4>
-                                        <!-- 클래스명 변경: courseInfo__price -> input-wrapper -->
-                                        <div class="input-wrapper">
-                                            <!-- 클래스명 변경: courseInfo__price__input -> course-info__price -->
-                                            <input value="{{course.price}}" name="coursePrice{{forloop.counter}}" type="text" class="course-info__price" placeholder="인당 가격" value="">
-                                        </div>
-                                        <!-- 클래스명 변경: courseInfo__menuDscr -> textarea-wrapper  -->
-                                        <h4 class="course-name__title">코스 설명</h4>
-                                        <div class="textarea-wrapper">
-                                            <textarea class="course-info__description" name="courseDescribe1" maxlength="500" placeholder="ex)&#10;&#10;1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)&#10;&#10;2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...&#10;&#10;3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국&#10;&#10;8인~12인용 코스입니다.&#10;&#10;인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^">{{course.description|default:""}}</textarea>
-                                        </div>
-                                        <div class="course__img-container">
-                                            <div class="course-image">
-                                                {% for image in course.images %}
-                                                <img name="courseImageTag" src="{{image.attachment.url}}" alt="" style="width:100px; height:100px;">
-                                                {% endfor %}
+                                {% else %}
+                                {% for course in courses %}
+                                <div class="courseInfo__eachCourse">
+                                    <div class="course__content">
+                                        <div class="course__info">
+                                            <h4 class="course-name__title">코스 이름</h4>
+                                            <div class="input-wrapper">
+                                                <!-- 클래스명 변경:courseInfo__Name__input -> course-info__title  -->
+                                                <input value="{{course.title}}" name="courseTitle{{forloop.counter}}" type="text" class="course-info__title" placeholder="ex) A코스(10인) 20,000원">
                                             </div>
-                                            <div class="course-image-add">
-                                                <img class="add-image-button" src="{% static 'image/add_image.png' %}" alt="" style="width: 30px; height: 30px;">
-                                                <input class="course__image-input" name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*">
+                                            <h4 class="course-price__title">1인당 가격</h4>
+                                            <!-- 클래스명 변경: courseInfo__price -> input-wrapper -->
+                                            <div class="input-wrapper">
+                                                <!-- 클래스명 변경: courseInfo__price__input -> course-info__price -->
+                                                <input value="{{course.price}}" name="coursePrice{{forloop.counter}}" type="text" class="course-info__price" placeholder="인당 가격">
+                                            </div>
+                                            <!-- 클래스명 변경: courseInfo__menuDscr -> textarea-wrapper  -->
+                                            <h4 class="course-name__title">코스 설명</h4>
+                                            <div class="textarea-wrapper input-wrapper">
+                                                <textarea class="course-info__description" name="courseDescribe{{forloop.counter}}" maxlength="500" placeholder="ex)&#10;&#10;1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)&#10;&#10;2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...&#10;&#10;3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국&#10;&#10;8인~12인용 코스입니다.&#10;&#10;인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^">{{course.description|default:""}}</textarea>
+                                            </div>
+                                            <h4 class="course-name__title">코스 이미지</h4>
+                                            <div class="course__img-wrapper">
+                                                <div class="course__img-container">
+                                                    <!-- <div class="course-image-add"> -->
+                                                        <img src="{% static 'image/Group 333.png' %}" alt="">
+                                                        <input style="cursor: pointer;" onchange="courseImageChange(this)" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]"  multiple accept="image/*">
+                                                    <!-- </div> -->
+                                                    {% for image in course.images %}
+                                                    <div class="course-image">
+                                                        <img class="course-image" name="courseImageTag" src="{{image.attachment.url}}" alt="" style="width:105px; height:105px;">
+                                                        <!-- <input class="course__image-input" name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*"> -->
+                                                    </div>
+                                                    {% endfor %}
+                                                </div>
                                             </div>
                                         </div>
+                                        <button class="course__delete" onclick="delCourse(this)" type="button"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDMyOS4yNjkzMyAzMjkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbD0iI2Y0NDMzNiI+PHBhdGggZD0ibTIxLjMzOTg0NCAzMjkuMzk4NDM4Yy01LjQ2MDkzOCAwLTEwLjkyNTc4Mi0yLjA4OTg0NC0xNS4wODIwMzItNi4yNS04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzbDI4Ni41ODk4NDQtMjg2LjU5Mzc1YzguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyNDIxOS04LjMzOTg0NCAzMC4xNjQwNjMgMCA4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzbC0yODYuNTg5ODQ0IDI4Ni41OTM3NWMtNC4xODM1OTQgNC4xNzk2ODctOS42MjEwOTQgNi4yNS0xNS4wODIwMzEgNi4yNXptMCAwIiBmaWxsPSIjYmQwMDAwIiBkYXRhLW9yaWdpbmFsPSIjZjQ0MzM2IiBzdHlsZT0iIj48L3BhdGg+PHBhdGggZD0ibTMwNy45Mjk2ODggMzI5LjM5ODQzOGMtNS40NjA5MzggMC0xMC45MjE4NzYtMi4wODk4NDQtMTUuMDgyMDMyLTYuMjVsLTI4Ni41ODk4NDQtMjg2LjU5Mzc1Yy04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzIDguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyMDMxMy04LjMzOTg0NCAzMC4xNjQwNjMgMGwyODYuNTg5ODQ0IDI4Ni41OTM3NWM4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzLTQuMTYwMTU3IDQuMTc5Njg3LTkuNjIxMDk0IDYuMjUtMTUuMDgyMDMxIDYuMjV6bTAgMCIgZmlsbD0iI2JkMDAwMCIgZGF0YS1vcmlnaW5hbD0iI2Y0NDMzNiIgc3R5bGU9IiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+" /></button>
                                     </div>
-                                    <button class="course__delete" onclick="delCourse(this)" type="button"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDMyOS4yNjkzMyAzMjkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbD0iI2Y0NDMzNiI+PHBhdGggZD0ibTIxLjMzOTg0NCAzMjkuMzk4NDM4Yy01LjQ2MDkzOCAwLTEwLjkyNTc4Mi0yLjA4OTg0NC0xNS4wODIwMzItNi4yNS04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzbDI4Ni41ODk4NDQtMjg2LjU5Mzc1YzguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyNDIxOS04LjMzOTg0NCAzMC4xNjQwNjMgMCA4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzbC0yODYuNTg5ODQ0IDI4Ni41OTM3NWMtNC4xODM1OTQgNC4xNzk2ODctOS42MjEwOTQgNi4yNS0xNS4wODIwMzEgNi4yNXptMCAwIiBmaWxsPSIjYmQwMDAwIiBkYXRhLW9yaWdpbmFsPSIjZjQ0MzM2IiBzdHlsZT0iIj48L3BhdGg+PHBhdGggZD0ibTMwNy45Mjk2ODggMzI5LjM5ODQzOGMtNS40NjA5MzggMC0xMC45MjE4NzYtMi4wODk4NDQtMTUuMDgyMDMyLTYuMjVsLTI4Ni41ODk4NDQtMjg2LjU5Mzc1Yy04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzIDguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyMDMxMy04LjMzOTg0NCAzMC4xNjQwNjMgMGwyODYuNTg5ODQ0IDI4Ni41OTM3NWM4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzLTQuMTYwMTU3IDQuMTc5Njg3LTkuNjIxMDk0IDYuMjUtMTUuMDgyMDMxIDYuMjV6bTAgMCIgZmlsbD0iI2JkMDAwMCIgZGF0YS1vcmlnaW5hbD0iI2Y0NDMzNiIgc3R5bGU9IiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+" /></button>
                                 </div>
+                                {% endfor %}
+                                {% endif %}
                             </div>
-                            {% endfor %}
-                            {% endif %}
                             <button class="course-add-button" onclick="addCourse(this)" type="button">코스 추가</button>
                         </article>
                          <!-- // 코스 정보 -->
@@ -180,18 +194,125 @@
 {% block scripts %}
 
 <script>
+    // 코스 이미지 업로드 제우스
+    function courseImageChange(e) {
+        //const imageContainer = e.previousElementSibling;
+        const imageContainer = document.getElementsByClassName('course__img-container')[0]
+        const imageDivs = imageContainer.querySelectorAll("div.course-image");
+        for (div of imageDivs) {
+            div.remove();
+        }
+        for (let i = 0; i < e.files.length; i++) {
+            const uploadFile = e.files[i];
+            const div = document.createElement("div");
+            div.classList.add("course-image");
+            const img = document.createElement("img");
+            img.classList.add("course-image");
+            img.file = uploadFile;
+            div.appendChild(img);
+            imageContainer.appendChild(div);
+
+            const reader = new FileReader();
+            reader.onload = (function(aImg) {
+                return function(e) {
+                    aImg.src = e.target.result;
+                }
+            })(img);
+            reader.readAsDataURL(uploadFile);
+        }
+
+    }
+
+    //form data 모두 등록되었는지 확인
+    function formCheck() {
+        console.log("폼체크 함수");
+        const count = document.getElementsByClassName('course-info-all')[0].childElementCount; //코스 개수 확인
+
+        const returnVal = courseFillCheck(count);
+        if(returnVal == true) {
+            let emptyCourse = "";
+        } else {
+            console.log(returnVal);
+            alert(`${returnVal}`+"입력을 완료해주세요!")
+            return false;
+        }
+        
+        let emptyInfo = new Array();
+        const category = document.getElementsByName('category')[0].value;
+        let postTitle = document.querySelector("input.post-title__content").value;
+        let postImage = document.querySelector("img.postCoverImage").getAttribute('src');
+        let postSpecText = document.querySelector("textarea.chefInfoInput").value;
+        let postNotice = document.querySelector("textarea.noticeInput").value;
+
+        if(category == 0) emptyInfo.push(" 카테고리 ");
+        if(!postTitle) emptyInfo.push(" 글 제목 ");
+        if(postImage == "/static/image/Group%20331.png") emptyInfo.push(" 커버 이미지 ");
+        if(!postSpecText) emptyInfo.push(" 셰프소개 ");
+        if(!postNotice) emptyInfo.push(" 유의사항 ");
+
+        if(emptyInfo.length === 0){
+            if(emptyCourse == "") return true;
+            else return false;
+        } else {
+            alert(emptyCourse+`${emptyInfo}`+"내용을 채워주세요!");
+            return false;
+        } 
+
+        if(emptyInfo.length !== 0){
+            if(emptyCourse == "") {
+                alert(`${emptyInfo}`+"내용을 채워주세요!");
+                return false;
+            } else {
+                alert(emptyCourse +''+ `${emptyInfo}` + "내용을 채워주세요!");
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
+
+    //가격 숫자만 입력
+    const courseCnt = document.getElementsByClassName('course-info-all')[0].childElementCount; //코스 개수 확인
+    for(let i = 0; i < courseCnt; i ++) {
+        document.getElementsByClassName("course-info__price")[i].addEventListener('keyup', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, "");
+        });
+    }
+
+
+    function checkNum(e) {
+        var keyVal = e.keyCode;
+        //e.target.value = e.target.value.replace(/[^0-9]/g, "");
+
+        if(!((keyVal >= 48) && (keyVal <= 57))){
+            alert("숫자만 입력가능합니다.");
+            return false;
+        } else return true;
+    }
+
+    // 입력된 카테고리 밎 지역 불러오기
+    function loadSelector(selectorNode) {
+        const selectorValue = selectorNode.getAttribute("value") || null
+        if (selectorNode.getAttribute("value")) {
+            const options = selectorNode.querySelectorAll("option");
+            options[parseInt(selectorValue)].setAttribute("selected", "");
+        }
+    }
+    loadSelector(document.querySelector("select[name=category]"));
+
     //지역 detail
     document.addEventListener("DOMContentLoaded", () => {
-        getRegion();
-        getRegionDetail(1);
+        getRegion(parseInt('{{post.region}}'));
+        getRegionDetail(parseInt('{{post.region}}'), parseInt('{{post.regionDetail.id}}'));
     });
 
     document.getElementsByName('residence')[0].addEventListener('change', (event)=>{
         getRegionDetail(document.getElementsByName('residence')[0].value);
     });
 
+
     //지역 추가
-    function addRegion(e) {
+    /*function addRegion(e) {
         const newRegion = document.getElementsByClassName("region-selection-wrapper");
         const regionNode = newRegion[0].cloneNode(true);
         regionNode.value = "";
@@ -219,27 +340,7 @@
                 alert("취소를 누르셨습니다.");
             }
         }
-    }
-
-    //글자수 세기
-    function countText(e) {
-        const title = document.querySelector("input.course-info__title").value
-    }
-
-    // 저장된 카테고리, 지역 불러오기
-    function loadSelector(selectorNode) {
-        const selectorValue = selectorNode.getAttribute("value") || null
-        if (selectorNode.getAttribute("value")) {
-            const options = selectorNode.querySelectorAll("option");
-            options[parseInt(selectorValue)].setAttribute("selected", "");
-        }
-    }
-
-    const categorySelector = document.querySelector("select[name=category]");
-    const regionSelector = document.querySelector("select[name=region]");
-    
-    loadSelector(categorySelector)
-    loadSelector(regionSelector)
+    }*/
 
     // 커버(단일) 이미지 업로드 미리보기
     const inputElement = document.getElementsByName("postCoverInput")[0];
@@ -250,77 +351,104 @@
         img.file = imageFile;
     
         const reader = new FileReader();
-        reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+        reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img); // aImg
         reader.readAsDataURL(imageFile);
     }, false);
 
-
     // 코스 추가 버튼
     function addCourse(e) {
-        let courseTitle = document.querySelector("input.course-info__title").value;
-        let coursePrice = document.querySelector("input.course-info__price").value;
-        let courseDescription = document.querySelector("textarea.course-info__description").value;
         const courseInfo = document.getElementsByClassName("courseInfo__eachCourse");
         const courseNode = courseInfo[0].cloneNode(true);
         courseNode.querySelector("input.course-info__title").value = "";
         courseNode.querySelector("input.course-info__price").value = "";
         courseNode.querySelector("textarea.course-info__description").value = "";
-        
-        if (courseInfo.length < 10) {
-            if(courseDescription.length == 0){
-                console.log(courseDescription.length);
-                alert("모든 항목을 입력해주세요!")
+        const count = document.getElementsByClassName('course-info-all')[0].childElementCount;
+
+        //코스 추가 개수 제한
+        if (count < 10) {
+            const returnVal = courseFillCheck(count);
+            if(returnVal == true) {
+                const courseParent = document.getElementsByClassName('course-info-all')[0];
+                courseParent.insertBefore(courseNode, courseParent.childNodes[courseParent.length])
             } else {
-                e.parentNode.insertBefore(courseNode.cloneNode(true), e)
+                console.log(returnVal);
+                alert(`${returnVal}`+"입력을 완료해주세요!")
             }
         } else {
             alert("코스는 10개까지 등록할 수 있습니다.");
         }
     }
+    // 코스추가버튼 --> 코스 입력값 확인/제한
+    function courseFillCheck(count) {
+        const titleArr = new Array();
+        const priceArr= new Array();
+        const descriptionArr = new Array();
+        const checkTitle = document.getElementsByClassName('course-info__title');
+        const checkPrice = document.getElementsByClassName('course-info__price');
+        const checkDescription = document.getElementsByClassName('course-info__description');
+        for(let i = 0; i < count ; i ++) {
+            titleArr.push(checkTitle[i]);
+            priceArr.push(checkPrice[i]);
+            descriptionArr.push(checkDescription[i]);
+        }
+        let alertMessage = new Array();
+        if(checkTitle[count-1].value == "") alertMessage.push("코스 이름 ");
+        if(checkPrice[count-1].value == "") alertMessage.push("코스 가격 ");
+        if(checkDescription[count-1].value == "") alertMessage.push("코스 설명 ");
+        
+        if(alertMessage.length){ 
+            return alertMessage;
+        } else {
+            return true;
+        }
+    }
+    
     
 
     // 코스 삭제 버튼
     function delCourse(e) {
-        let ask = confirm("삭제하시겠습니까?");
-        
-        if (document.getElementsByClassName("courseInfo__eachCourse").length === 1) {
+        const count = document.getElementsByClassName('course-info-all')[0].childElementCount; //코스 개수 확인
+        if ( count === 1 ) {
             alert("코스는 1개 이상이어야 합니다.")
-        } else if (ask === true) {
-            e.parentNode.remove();
+            return false;
         } else {
-            return
+            let ask = confirm("삭제하시겠습니까?");
+            if(ask == true) {
+                e.parentElement.parentElement.remove();
+            }
         }
     }
 
     // course count 코스 개수 변화 감지
     // courseTitle, coursePrice, courseDescribe, courseImg 인덱스 부여
     const courseCount = document.getElementsByName("courseCount")[0];
-    const courseContainer = document.getElementsByClassName("chefRegiThird__courseInfo__inputContainer")[0];
+    const courseContainer = document.getElementsByClassName("course-info-all")[0];
     const courseObserver = new MutationObserver((mutations) => {
+        console.log('mutation observer working')
         const eachCourse = document.getElementsByClassName("courseInfo__eachCourse")
         let courseLength = eachCourse.length;
         courseCount.value = courseLength;
 
-        const courseTitles = document.getElementsByClassName("courseInfo__Name__input");
-        const coursePrices = document.getElementsByClassName("courseInfo__price__input");
-        const courseDescribes = document.getElementsByClassName("courseInfo__menuDscr__input");
-        const courseImgs = document.getElementsByClassName("course-image__content");
+        const courseTitles = document.querySelectorAll(".course-info__title");
+        const coursePrices = document.querySelectorAll(".course-info__price");
+        const courseDescriptions = document.querySelectorAll(".course-info__description"); // 클래스명 변경 반영하여 수정했습니다. courseInfo__menuDscr__input -> course-info__description
+        const courseImgs = document.querySelectorAll(".course-image__content");
 
         for (i = 0; i < courseLength; i++) {
             let courseTitle = courseTitles[i];
             let coursePrice = coursePrices[i];
-            let courseDescribe = courseDescribes[i];
+            let courseDescription = courseDescriptions[i];
             let courseImg = courseImgs[i];
-            courseTitle.name = "courseTitle" + String(i+1);
-            coursePrice.name = "coursePrice" + String(i+1);
-            courseDescribe.name = "courseDescribe" + String(i+1);
-            courseImg.name = "courseImg" + String(i+1) + "[]";
+            courseTitle.setAttribute("name", "courseTitle" + String(i+1));
+            coursePrice.setAttribute("name", "coursePrice" + String(i+1));
+            courseDescription.setAttribute("name", "courseDescription" + String(i+1));
+            courseImg.setAttribute("name", "courseImg" + String(i+1) + "[]");
         }
     });
     const observerOption = {
         attributes: true,
         characterData: true,
-        childList: true
+        childList: true,
     };
     courseObserver.observe(courseContainer, observerOption);
 
@@ -350,35 +478,6 @@
         }
     }, false);
 
-    //textarea 바이트 수 체크하는 함수
-    /*function fn_checkByte(obj){
-        const maxByte = 100; //최대 100바이트
-        const text_val = obj.value; //입력한 문자
-        const text_len = text_val.length; //입력한 문자수
-        
-        let totalByte=0;
-        for(let i=0; i<text_len; i++){
-            const each_char = text_val.charAt(i);
-            const uni_char = escape(each_char) //유니코드 형식으로 변환
-            if(uni_char.length>4){
-                // 한글 : 2Byte
-                totalByte += 2;
-            }else{
-                // 영문,숫자,특수문자 : 1Byte
-                totalByte += 1;
-            }
-        }
-        
-        if(totalByte>maxByte){
-            alert('최대 100Byte까지만 입력가능합니다.');
-                document.getElementById("nowByte").innerText = totalByte;
-                document.getElementById("nowByte").style.color = "red";
-            }else{
-                document.getElementById("nowByte").innerText = totalByte;
-                document.getElementById("nowByte").style.color = "green";
-            }
-        }
-    }*/
 </script>
 
 {% endblock %}

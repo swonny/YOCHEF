@@ -116,6 +116,15 @@
             <!-- 리뷰 -->
             <div class="mainContainer__review" id="review">
                 <span>리뷰</span>
+                {% if can_write %}
+                <div class="mainBox__review writeReview">
+                    <span>리뷰 작성하기</span>
+                    <div>
+                        <textarea name="content" id="{{ " cols="150" rows="3" placeholder="리뷰를 작성해주세요!"></textarea>
+                        <input type="button" name="writeReviewBtn" value="등록하기">
+                    </div>
+                </div>
+                {% endif %}
                 <div class="mainBox__review">   <!--  리뷰 기능 상의 -->
                     {% for review in reviews %}
                     <div class="mainBox__review__detail" id="review{{review.id}}">
@@ -135,10 +144,13 @@
     <!-- 일정 선택기 -->
     {% if request.user.is_authenticated %}
     <aside>
-        <img src="{% static 'img/logo.png' %}" >
-        <div class="scheduleSelector">
+        <img src="{% static 'img/close.png' %}">
+        <div class="scheduleSelector" style="display: block;">
             <span>일정</span>
             <div>
+                {% if schedules|length == 0 %}
+                <span>예약 가능한 일정이 없습니다.</span>
+                {% endif %}
                 {% for schedule in schedules %}
                 <div class="scheduleBox" id="schedule{{schedule.id}}" value="{{schedule.id}}">
                     <div class="scheduleBox__textInfo">
@@ -151,7 +163,7 @@
                             {% endif %}
                         </span>
                         <span>
-                            장소: {{ schedule.post.regionDetail.detailName}}
+                            장소: {{ schedule.regionDetail.detailName}}
                         </span>
                     </div>
                     <input type="button" id="{{schedule.id}}" status='0' value="선택" class="scheduleBtn">
@@ -225,16 +237,17 @@
 
     // 일정 선택기 버튼 함수
     document.querySelector('aside > img').addEventListener('click', (e)=>{
-        if (e.target.value == "0"){
+        console.log(e.target.value)
+        if (e.target.value == "1"){
             document.querySelector('aside > div').setAttribute('style', 'display: block;');
             e.target.setAttribute('src', "{% static 'img/close.png' %}");
-            e.target.setAttribute('style', 'background-color: var(--main-color); width: 30px; top: -20px;');
-            e.target.value = "1";
+            e.target.setAttribute('style', '');
+            e.target.value = "0";
         }else {
             document.querySelector('aside > div').setAttribute('style', '');
             e.target.setAttribute('src', "{% static 'img/logo.png' %}");
-            e.target.setAttribute('style', '');
-            e.target.value = "0";
+            e.target.setAttribute('style', 'background-color: white; width: 50px; top: -30px;');
+            e.target.value = "1";
         }
     })
 
@@ -320,6 +333,21 @@
                 e.currentTarget.classList = "open"
                 e.currentTarget.querySelector('img').classList = "open";
             }
+        })
+    }
+
+    let writeReview = (data) => {
+        let isOk = data.ok;
+        if (!isOk){ alert("해당 글에 리뷰를 남길 수 없는 사용자입니다.") }
+        else { location.reload(); }
+    }
+
+    if (document.getElementsByName('writeReviewBtn') != undefined) {
+        document.getElementsByName('writeReviewBtn')[0].addEventListener("click", () => {
+            let formdata = new  FormData();
+            formdata.append('content', document.getElementsByName("content")[0].value);
+            formdata.append('postId', '{{post.id}}');
+            sendAjax('POST', '/customer/writeReview', writeReview, formdata);
         })
     }
 

@@ -85,6 +85,12 @@ main {
 
 img { border: 0; }
 
+input[type="submit"]:hover, input[type="button"]:hover, button:hover{
+    cursor: pointer;
+}
+[onclick]{
+    cursor: pointer;
+}
 
 /* 아래부터 base.html css */
 
@@ -170,6 +176,7 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    min-width: 640px;
 }
 
 /* 네브바 각 버튼 */
@@ -180,6 +187,10 @@ a {
     padding: 23px 20px 20PX;
     text-align: center;
     font-family: 'Arita-dotum-medium';
+}
+
+ul.nav__item-container > li.nav__item:nth-child(3) > a:hover{
+    cursor: pointer;
 }
 
 /* 네브바 아이템 링크 */
@@ -195,6 +206,7 @@ a {
     flex-direction: row-reverse;
     width: 13%;
     justify-content: start;
+    min-width: 110px;
     /* align-items: center; */
 }
 
@@ -223,6 +235,7 @@ a {
     flex-direction: row;
     justify-content: start;
     align-items: center;
+    min-width: 200px;
 }
 
 .nav--right>li {
@@ -319,7 +332,18 @@ a {
 
 #footer-bottom {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
+    /* margin-bottom: 20px; */
+    font-family: 'arita-dotum-medium';
+    font-size: 15px;
+    width: 100%;
+    /* height: 150px; */
+}
+
+.team-name {
+    margin-top: 10px;
+    margin-bottom: 80px;
 }
 
 .footer-copyright-part {
@@ -328,6 +352,7 @@ a {
     margin-top: 20;
     font-weight: 200;
     padding: 10px 10px 10px 0px;
+    /* background-color: #e6e6e6; */
     border-bottom: #868686 solid 0.5px;
 }
 
@@ -371,6 +396,8 @@ div.coupon_point_box {
     left: 40%;
     top: 7%;
     border-radius: 10px;
+    border: 1px solid #e6e6e6;
+    box-shadow: 1px 1px 5px #e6e6e6;
 }
 
 div.close{
@@ -493,7 +520,7 @@ div.coupon_box__detail > div > div.coupon__detail > p:nth-child(1){
 }
 
 div.coupon_box__detail > div > div.coupon__detail > p:nth-child(2){
-    font-size: 20px;
+    font-size: 18px;
     color: var(--main-color);
     font-family: 'Arita-dotum-SemiBold' !important;
     min-width: 47px;

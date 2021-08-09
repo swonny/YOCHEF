@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
     <main>
-        <form method="POST" action="/customer/kakaoPayLogic">
+        <form method="POST" action="/customer/payComplete">
             {% csrf_token %}
             <div class="mainContainer">
                 <span>요리 예약</span>

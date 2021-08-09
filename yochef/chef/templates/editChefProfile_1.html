@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{% static 'css/editChefProfile_1.css' %}">
 {% endblock %}
 {% block content %}
-    <form name="editChefProfile_1" action="{% url 'updateChefProfile' %}" method="POST" enctype="multipart/form-data">
+    <form onsubmit="return formCheck()" name="editChefProfile_1" action="{% url 'updateChefProfile' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
         <div class="edit-chef-wrapper">
             {% include 'editChefProfile_side.html' %}
@@ -16,7 +16,7 @@
                             <div class="profile__img-container">
                                 <img class="profile--image" name="uploadImage" src="{{profileImage.attachment.url}}" onerror="this.src='{% static 'image/profile_default.png' %}';">
                                 <img class="more--button" src="{% static 'image/more.png' %}" alt="">
-                                <input style="background-image:url(static/image/more.png;);" id="file-upload-button" name="profileImage" type="file" accept="image/*">
+                                <input id="file-upload-button" name="profileImage" type="file" accept="image/*">
                             </div>
                         </div>
                         <p class="notice_msg">반드시 셰프님의 얼굴을 확인할 수 있는 사진으로 등록해주세요! (배경, 동물, 뒷모습 등의 사진은 승인이 불가합니다.)</p>
@@ -27,24 +27,32 @@
                     <article class="edit-chef__nickname">
                         <h4>닉네임</h4>
                         <div class="input-wrapper nickname-edit-wrapper">
-                            {% if not chef.nickname %}
-                            <input name="nickname" type="text" placeholder="사용하실 닉네임을 입력해주세요.">
+                            <input class="chef-nickname" name="nickname" type="text" placeholder="사용하실 닉네임을 입력해주세요." value={{chef.nickname|default:""}}>
+                            <div class="nickname__count-string"></div>
+
+                            <!-- {% if not chef.nickname %}
+                            <input class="chef-nickname" name="nickname" type="text" placeholder="사용하실 닉네임을 입력해주세요.">
                             {% else %}
                             <input name="nickname" type="text" value={{ chef.nickname }}>
-                            {% endif %}
+                            {% endif %} -->
                         </div>
                     </article>
                     <!-- // 닉네임 수정 -->
 
-                    <!-- 이력 수정 -->
+                    <!-- 이력 입력 -->
                     <article class="edit-chef__spec">
                         <h4>이력</h4>
                         <div class="input-wrapper spec-edit-wrapper">
-                            <textarea class="spec-input" name="spec" type="text" placeholder="이력 상세" >{{chef.spec|default:""}}</textarea>
+                            <textarea class="spec-input" name="spec" type="text" placeholder="이력 상세">{{chef.spec|default:""}}</textarea>
                         </div>
-                        <input class="spec-input" name="specImage" type="file" accept="image/*" multiple><!-- 백참고 -->
+                        <div class="spec-image-container">
+                        {% for specImage in chef.specImages %}
+                            <img src="{{specImage.attachment.url}}" alt="" style="width:105px; height:105px;">
+                        {% endfor %}
+                        </div>
+                        <input class="spec-input" name="specImage" type="file" accept="image/*,.pdf" multiple>
                     </article>
-                    <!-- // 이력 수정 -->
+                    <!-- // 이력 입력 -->
 
                     <!-- 소셜미디어 -->
                     <article class="edit-chef__social-media">
@@ -76,26 +84,78 @@
 {% endblock %}
 
 {% block scripts %}
-    <!-- 이미지파일 -->
-    <script>
-        const imageElement = document.getElementsByName("uploadImage")[0];
-        const inputElement = document.getElementsByName("profileImage")[0];
-        
-        inputElement.addEventListener("change", handleFiles, false);
-        function handleFiles() {
-            const imageFile = this.files[0];
-            
-            const img = imageElement
-            img.file = imageFile;
-
-            const reader = new FileReader();
-            reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
-            reader.readAsDataURL(imageFile);
+<script>
+    // 셰프 스펙 input 미리보기
+    const specImageContainer = document.querySelector("div.spec-image-container")
+    const specImageInput = document.querySelector("input.spec-input");
+    specImageInput.addEventListener("change", upadteImageDisplay);
+    function upadteImageDisplay() {
+        while (specImageContainer.firstChild) {
+            specImageContainer.removeChild(specImageContainer.firstChild);
         }
-    </script>
-    <!-- // 이미지파일 -->
 
-    <!-- 메뉴 -->
+        const currentFiles = specImageInput.files;
+        if (currentFiles.length === 0) {
+            const pTag = document.createElement("p");
+            pTag.textContent = "선택된 파일 없음";
+            specImageContainer.appendChild(pTag);
+        } else {
+            for (const file of currentFiles) {
+                const pTag = document.createElement("p");
+                pTag.textContent = `${file.name}, ${returnFileSize(file.size)}.`;
+                specImageContainer.appendChild(pTag);
+            }
+        }
+    }
 
-    <!-- // 메뉴 -->
+    function returnFileSize(number) {
+        if (number < 1024) {
+            return number + 'bytes';
+        } else if (number >= 1024 && number < 1048576) {
+            return (number/1024).toFixed(1) + 'KB';
+        } else if (number >= 1048576) {
+            return (number/1048576).toFixed(1) + 'MB';
+        }
+    }
+
+    //이미지파일    
+    const imageElement = document.getElementsByName("uploadImage")[0];
+    const inputElement = document.getElementsByName("profileImage")[0];
+    
+    inputElement.addEventListener("change", handleFiles, false);
+    function handleFiles() {
+        const imageFile = this.files[0];
+        
+        const img = imageElement
+        img.file = imageFile;
+
+        const reader = new FileReader();
+        reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+        reader.readAsDataURL(imageFile);
+    }
+
+    //form data 모두 등록되었는지 확인
+    function formCheck() {
+
+        let emptyInfo = new Array();
+
+        let profileImage = document.querySelector("img.profile--image").src;
+        let nickname = document.querySelector("input.chef-nickname").value;
+        let spec = document.querySelector("textarea.spec-input").value;
+        //let file = document.querySelector("input.spec-input").value;
+
+        if(profileImage == "http://127.0.0.1:8000/static/image/profile_default.png") emptyInfo.push("프로필 사진 ");
+        if(!nickname) emptyInfo.push("닉네임 ");
+        if(!spec) emptyInfo.push("이력 ");
+        //if(!file) emptyInfo.push("이력 증명 파일 ");
+
+        if(emptyInfo.length === 0){
+            return true;
+        } else {
+            alert(`${emptyInfo}`+"내용을 채워주세요!")
+            return false;
+        }
+    }
+
+</script>
 {% endblock scripts %}

@@ -7,7 +7,7 @@
     <main>
         <div class="mainContainer__review reviewDetail">
             <span>리뷰</span>
-            <div class="mainBox__review reviewDetail">   <!--  리뷰 기능 상의 -->
+            <div class="mainBox__review reviewDetail"> 
                 {% for review in reviews %}
                 <div class="mainBox__review__detail" id="review{{review.id}}">
                     <img src="{{review.customer.profileImg}}" onerror="this.src=`{% static 'img/default.png' %}`">

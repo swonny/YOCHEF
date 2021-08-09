@@ -69,9 +69,14 @@
                             <form method="POST" class="schedule-detail-form" name="scheduleConfirm">
                             {% csrf_token %}
                                 <aside class="confirm-button">
+                                    {% if schedule.confirmStatus == 2 %}
+                                    <input class="confirm-no" type="submit" onclick="schedule(2)" value="승인취소" name="scheduleCancel">
+                                    {% elif schedule.confirmStatus == 3 %}
+                                    <input style="opacity: 40%;" disabled class="confirm-yes" type="submit" onclick="schedule(1)" value="승인" name="scheduleConfirm">
+                                    {% else %}
                                     <input class="confirm-no" type="submit" onclick="schedule(2)" value="승인취소" name="scheduleCancel">
                                     <input class="confirm-yes" type="submit" onclick="schedule(1)" value="승인" name="scheduleConfirm">
-
+                                    {% endif %}
                                 </aside>
                             </form>
                         </article>
@@ -109,14 +114,15 @@
                 const check = confirm("해당 예약을 승인하시겠습니까?");
                 if (check == true) {
                     console.log("tesssstttt");
-                    document.getElementsByName('scheduleConfirm')[0].action = "{% url 'scheduleConfirm' schedule.id  %}";
+                    document.getElementsByName('scheduleConfirm')[0].action = "{% url 'scheduleConfirm' book.id  %}";
                     document.getElementsByName('scheduleConfirm')[0].submit();
                 } else return false
             } else if (isConfirm == 2) {
-                const check = confirm("해당 예약을 승인하시겠습니까?");
+                console.log(isConfirm)
+                const check = confirm("해당 예약 승인을 취소하시겠습니까?");
                 if (check == true) {
-                    console.log("tesssstttt");
-                    document.getElementsByName('scheduleConfirm')[0].action = "{% url 'scheduleCancel' schedule.id  %}";
+                    console.log("테스트");
+                    document.getElementsByName('scheduleConfirm')[0].action = "{% url 'scheduleCancel' book.id  %}";
                     document.getElementsByName('scheduleConfirm')[0].submit();
                 } else return false
             }

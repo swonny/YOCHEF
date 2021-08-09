@@ -12,7 +12,7 @@
                 {% if not books %}
                 <article class="my-menu__none">
                     <h4>등록한 셰프가 없습니다.</h4>
-                    <h3>마음에 드는 세프를 예약해주세요!</h3>
+                    <h3>마음에 드는 셰프를 예약해주세요!</h3>
                     <a href="/postList" class="{% if category == 0 %} currentCategory{% endif %}">셰프 구경하러 가기</a>
                 </article>
                 <!-- // 등록 메뉴 없을 때 -->
@@ -22,20 +22,22 @@
                     {% for book in books %}
                         <div class="content__header">
                             <h4>예약 완료</h4>
-                            {% if book.schedule.confirmStatus == 1 %}
+                            {% if book.paymentStatus == 3 %}
+                            <p>예약취소</p>
+                            {% elif book.schedule.confirmStatus == 1 %}
                             <p>승인대기</p>
                             {% elif book.schedule.confirmStatus == 2 %}
                             <p>승인완료</p>
                             {% elif book.schedule.confirmStatus == 3 %}
-                            <p>승인 취소됨</p>
+                            <p>승인취소</p>
                             {% endif %}
                             <div class="register-date">{{book.registerDate}}</div>
                         </div>
                         <div class="content__menu-info">
                             <div class="menu-info-wrapper">
                                 <div class="content__image-wrapper">
-                                    <img style="width: 180px; height: 150px;" src="{{post_cover_imgurl}}" onerror="this.src='{% static 'img/default.png' %}';" alt=""><!-- 수정 필요 -->
-                                    <div class="d-day">D-10</div><!-- js 수정 필요 -->
+                                    <img style="width: 180px; height: 150px;" src="{{book.postCoverImg}}" onerror="this.src='{% static 'img/default.png' %}';" alt=""><!-- 수정 필요 -->
+                                    <div class="d-day">D-{{book.dDay}}</div><!-- js 수정 필요 -->
                                 </div>
                                 <div class="content__description">
                                     <h4>{{book.schedule.post.title}}</h4>
@@ -45,11 +47,11 @@
                                 </div>
                             </div>
                             <aside class="button">
-                                <button class="detail-page-button" onclick="location.href = '/detail/{{book.post.id}}';">상세페이지</button>
-                                {% if book.schedule.confirmStatus == 1 %}<!-- 백수정 이후 수정 필요 -->
-                                <button class="cancel-button" name="">예약 취소</button>
-                                {% else %}
+                                <button class="detail-page-button" onclick="location.href = '/detail/{{book.schedule.post.id}}';">상세페이지</button>
+                                {% if book.schedule.confirmStatus == 2 %}<!-- 백수정 이후 수정 필요 -->
                                 <button class="cancel-button" disabled>예약 취소</button>
+                                {% else %}
+                                <button class="cancel-button" name="" onclick="location.href = '/customer/registerCancel/{{book.id}}'">예약 취소</button>
                                 {% endif %}
                             </aside>
                         </div>

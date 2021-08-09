@@ -20,7 +20,7 @@ class RegionDetail(models.Model):
 
 	def __str__(self):
 		# 지역 번호별 항목 확정 시 수정 
-		return str(self.region) + ' - ' + self.detailName 
+		return '[' + str(self.id) + '] ' + str(self.region) + ' - ' + self.detailName 
 
 class File(models.Model):
 	attachment = models.FileField(upload_to='media')
@@ -33,3 +33,18 @@ class File(models.Model):
 
 	def __str__(self):
 		return str(self.id)
+
+	def print_category(self):
+		if self.category == 1:
+			return "1. chef profile"
+		elif self.category == 2:
+			return "2. chef spec"
+		elif self.category == 3:
+			return "3. course Image"
+		elif self.category == 4:
+			return "4. post cover Image"
+		return
+
+	def print_uploadDate(self):
+		t = ['일', '월', '화', '수', '목', '금', '토']
+		return self.uploadDate.strftime("%Y.%m.%d") + " " + t[int(self.uploadDate.strftime("%w"))]

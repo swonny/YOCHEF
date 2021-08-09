@@ -44,7 +44,7 @@
                         <article class="chef-intro-wrapper">
                             <h4 class="register__article-title">셰프 소개</h4>
                             <div class="textarea-wrapper">
-                                <textarea name="introduce" class="chefInfoInput" maxlength="500" placeholder="셰프님을 소개해주세요!">{{post.introduce}}</textarea>
+                                <textarea name="introduce" class="chefInfoInput" maxlength="500" placeholder="셰프님을 소개해주세요!">{{post.introduce|default:""}}</textarea>
                             </div>
                         </article>
                         <!-- // 셰프 소개 -->
@@ -73,26 +73,29 @@
                                             </div>
                                             <h4 class="course-price__title">1인당 가격</h4>
                                             <div class="input-wrapper course__input-wrapper">
-                                                <input onKeyPress="return checkNum(event)" onkeypress="inNumber(this);" class="course-info__price" name="coursePrice1" type="text" placeholder="인당 가격" value=""><!-- 클래스명 변경: courseInfo__price__input -> course-info__price -->
+                                                <input onKeyPress="return checkNum(event)" class="course-info__price" name="coursePrice1" type="text" placeholder="인당 가격" value=""><!-- 클래스명 변경: courseInfo__price__input -> course-info__price -->
                                             </div>
                                             <h4 class="course-name__title">코스 설명</h4>
                                             <div class="textarea-wrapper course__input-wrapper">
                                                 <!-- 클래스명 변경: courseInfo__descr__input -> course-info__description-->
                                                 <textarea class="course-info__description" name="courseDescribe1" maxlength="500" placeholder="ex)&#10;&#10;1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)&#10;&#10;2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...&#10;&#10;3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국&#10;&#10;8인~12인용 코스입니다.&#10;&#10;인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^"></textarea>
                                             </div>
-                                            <div class="course__img-container">
-                                                <div class="course-image">
-                                                    <img  onerror="this.src='{% static 'image/default_image_course.png' %}';" name="courseImageTag" src="{{image.attachment.url|default:""}}" alt="">
-                                                    <!-- <input onchange="addNextImage()" class="course__img-input" name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*"> -->
+                                            <div class="course__img-wrapper">
+                                                <div class="course__img-container">
+                                                    <!-- <div class="course-image-add"> -->
+                                                        <img src="{% static 'image/Group 333.png' %}" alt="">
+                                                        <input style="cursor: pointer;" onchange="courseImageChange(this)" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]"  multiple accept="image/*">
+                                                    <!-- </div> -->
+                                                    {% for image in course.images %}
+                                                    <div class="course-image">
+                                                        <img class="course-image" name="courseImageTag" src="{{image.attachment.url}}" alt="" style="width:105px; height:105px;">
+                                                        <!-- <input class="course__image-input" name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*"> -->
+                                                    </div>
+                                                    {% endfor %}
                                                 </div>
-                                                <div class="course-image-add">
-                                                    <img class="add-image-button" src="{% static 'image/add_image.png' %}" alt="" style="width: 30px; height: 30px;">
-                                                    <input class="course__img-input" name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*">
-                                                </div>
-                                            </div>            
-                                            <input class="course-image__content" type="file" name="courseImg1[]" multiple accept="image/*">
-                                        </div>
+                                            </div>
                                         <button style="cursor: pointer;" class="course__delete" onclick=" delCourse(this)" type="button"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDMyOS4yNjkzMyAzMjkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbD0iI2Y0NDMzNiI+PHBhdGggZD0ibTIxLjMzOTg0NCAzMjkuMzk4NDM4Yy01LjQ2MDkzOCAwLTEwLjkyNTc4Mi0yLjA4OTg0NC0xNS4wODIwMzItNi4yNS04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzbDI4Ni41ODk4NDQtMjg2LjU5Mzc1YzguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyNDIxOS04LjMzOTg0NCAzMC4xNjQwNjMgMCA4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzbC0yODYuNTg5ODQ0IDI4Ni41OTM3NWMtNC4xODM1OTQgNC4xNzk2ODctOS42MjEwOTQgNi4yNS0xNS4wODIwMzEgNi4yNXptMCAwIiBmaWxsPSIjYmQwMDAwIiBkYXRhLW9yaWdpbmFsPSIjZjQ0MzM2IiBzdHlsZT0iIj48L3BhdGg+PHBhdGggZD0ibTMwNy45Mjk2ODggMzI5LjM5ODQzOGMtNS40NjA5MzggMC0xMC45MjE4NzYtMi4wODk4NDQtMTUuMDgyMDMyLTYuMjVsLTI4Ni41ODk4NDQtMjg2LjU5Mzc1Yy04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzIDguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyMDMxMy04LjMzOTg0NCAzMC4xNjQwNjMgMGwyODYuNTg5ODQ0IDI4Ni41OTM3NWM4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzLTQuMTYwMTU3IDQuMTc5Njg3LTkuNjIxMDk0IDYuMjUtMTUuMDgyMDMxIDYuMjV6bTAgMCIgZmlsbD0iI2JkMDAwMCIgZGF0YS1vcmlnaW5hbD0iI2Y0NDMzNiIgc3R5bGU9IiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+" /></button>
+                                            </div>            
                                     </div>
                                 </div>
 
@@ -110,23 +113,26 @@
                                             <!-- 클래스명 변경: courseInfo__price -> input-wrapper -->
                                             <div style='ime-mode:disabled' class="input-wrapper course__input-wrapper">
                                                 <!-- 클래스명 변경: courseInfo__price__input -> course-info__price -->
-                                                <input onKeyPress="return checkNum(event)" value="{{course.price}}" name="coursePrice{{forloop.counter}}" type="text" class="course-info__price" placeholder="인당 가격" value="">
+                                                <input onKeyPress="return checkNum(event)" value="{{course.price}}" name="coursePrice{{forloop.counter}}" type="text" class="course-info__price" placeholder="인당 가격">
                                             </div>
                                             <!-- 클래스명 변경: courseInfo__menuDscr -> textarea-wrapper  -->
                                             <h4 class="course-name__title">코스 설명</h4>
-                                            <div class="textarea-wrapper course__input-wrapper">
-                                                <textarea class="course-info__description" name="courseDescribe1" maxlength="500" placeholder="ex)&#10;&#10;1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)&#10;&#10;2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...&#10;&#10;3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국&#10;&#10;8인~12인용 코스입니다.&#10;&#10;인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^">{{course.description|default:""}}</textarea>
+                                            <div class="textarea-wrapper course__input-wrapper input-wrapper">
+                                                <textarea class="course-info__description" name="courseDescribe{{forloop.counter}}" maxlength="500" placeholder="ex)&#10;&#10;1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)&#10;&#10;2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...&#10;&#10;3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국&#10;&#10;8인~12인용 코스입니다.&#10;&#10;인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^">{{course.description|default:""}}</textarea>
                                             </div>
-                                            <div class="course__img-container">
-                                                <div class="course-image">
-                                                {% for image in course.images %}
-                                                    <img name="courseImageTag" src="{{image.attachment.url}}" alt="" style="width:100px; height:100px;">
-                                                    <!-- <input class="course__image-input" name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*"> -->
-                                                {% endfor %}
-                                                </div>
-                                                <div class="course-image-add">
-                                                    <img name="courseImageTag" class="add-image-button" src="{% static 'image/add_image.png' %}" alt="" style="width: 30px; height: 30px;">
-                                                    <input name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*">
+                                            <h4 class="course-name__title">코스 이미지</h4>
+                                            <div class="course__img-wrapper">
+                                                <div class="course__img-container">
+                                                    <!-- <div class="course-image-add"> -->
+                                                        <img src="{% static 'image/Group 333.png' %}" alt="">
+                                                        <input style="cursor: pointer;" onchange="courseImageChange(this)" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]"  multiple accept="image/*">
+                                                    <!-- </div> -->
+                                                    {% for image in course.images %}
+                                                    <div class="course-image">
+                                                        <img class="course-image" name="courseImageTag" src="{{image.attachment.url}}" alt="" style="width:105px; height:105px;">
+                                                        <!-- <input class="course__image-input" name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*"> -->
+                                                    </div>
+                                                    {% endfor %}
                                                 </div>
                                             </div>
                                         </div>
@@ -155,14 +161,81 @@
 {% block scripts %}
 
 <script>
+    // 코스 이미지 업로드 제우스
+    function courseImageChange(e) {
+        //const imageContainer = e.previousElementSibling;
+        const imageContainer = document.getElementsByClassName('course__img-container')[0]
+        const imageDivs = imageContainer.querySelectorAll("div.course-image");
+        for (div of imageDivs) {
+            div.remove();
+        }
+        for (let i = 0; i < e.files.length; i++) {
+            const uploadFile = e.files[i];
+            const div = document.createElement("div");
+            div.classList.add("course-image");
+            const img = document.createElement("img");
+            img.classList.add("course-image");
+            img.file = uploadFile;
+            div.appendChild(img);
+            imageContainer.appendChild(div);
+
+            const reader = new FileReader();
+            reader.onload = (function(aImg) {
+                return function(e) {
+                    aImg.src = e.target.result;
+                }
+            })(img);
+            reader.readAsDataURL(uploadFile);
+        }
+
+    }
+
+    //코스 이미지업로드 08.07 워니 테스트
+    // const courseNumber = document.getElementsByClassName('course-info-all')[0].childElementCount;
+
+    // const courseFileInput = document.getElementsByClassName('course-image__content')[0];
+    // courseFileInput.onchange = function(e) {
+    //     const files = e.target.files; // FileList 객체
+    //     console.log(files.length);
+    //     const courseImages = document.querySelectorAll("img.course-image")[0];
+    //     const parentNode = document.getElementsByClassName('course__img-container')[0];
+    //     while (courseImages) { // 여기부터
+    //         console.log(courseImages);
+    //         courseImages.remove();
+    //     }
+    //     /* for(let i = 0; i < courseImage.length; i++){
+    //         parentNode.removeChild(courseImage[i]);
+    //         console.log(courseImage[i]);
+    //     } */
+
+    //     //console.log(files); // { 0: File, 1: File, length: 2 }
+    //     //console.log(files[0]); //
+    //     for(let i = 0; i < files.length; i ++) {
+    //         var fileReader = new FileReader();
+    //         var fileURL = fileReader.readAsDataURL(files[i]);
+    //         fileReader.onload = function(e) { 
+    //             //console.log(e.target.result); //여기까지는 ok
+    //             const img = document.createElement("img");
+    //             img.classList.add('course-image');
+    //             img.id = "courseImage"+i;
+    //             document.getElementsByClassName("course__img-container")[0].appendChild(img);
+    //             document.getElementById("courseImage"+i).src = e.target.result;
+    //         }
+    //     }
+        
+    // }
+
     //form data 모두 등록되었는지 확인
     function formCheck() {
         const count = document.getElementsByClassName('course-info-all')[0].childElementCount; //코스 개수 확인
         const returnVal = courseFillCheck(count);
-        let emptyCourse = "";
-        if(returnVal !== true){
-            emptyCourse = "코스정보,"
-        } else emptyCourse = "";
+        if(returnVal == true) {
+            let emptyCourse = "";
+        } else {
+            console.log(returnVal);
+            alert(`${returnVal}`+"입력을 완료해주세요!")
+            return false;
+        }
         
         let emptyInfo = new Array();
         let postTitle = document.querySelector("input.post-title__content").value;
@@ -171,7 +244,7 @@
         let postNotice = document.querySelector("textarea.noticeInput").value;
 
         if(!postTitle) emptyInfo.push("글 제목 ");
-        if(!postImage) emptyInfo.push("커버 이미지 ");
+        if(postImage == "/static/image/Group%20331.png") emptyInfo.push("커버 이미지 ");
         if(!postSpecText) emptyInfo.push("셰프소개 ");
         if(!postNotice) emptyInfo.push("유의사항 ");
 
@@ -197,14 +270,28 @@
     }
 
     //가격 숫자만 입력
-    function checkNum(e) {
-        var keyVal = e.keyCode;
-        //const regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
+    // document.querySelector("input.course-info__price").addEventListener('keyup', (e) => {
+    //     e.target.value = e.target.value.replace(/[^0-9]/g, "");
+    //     alert("숫자만 입력가능합니다.");
+    // });
 
-        if(!((keyVal >= 48) && (keyVal <= 57))){
+    /*function checkNum(e) {
+        var keyVal = e.keyCode;
+        console.log(keyVal)
+        
+        if((keyVal < 48) || (keyVal > 57)){
+            e.target.value = e.target.value.replace(/[^0-9]/g, "");
             alert("숫자만 입력가능합니다.");
             return false;
         } else return true;
+    }*/
+
+    //가격 숫자만 입력
+    const courseCnt = document.getElementsByClassName('course-info-all')[0].childElementCount; //코스 개수 확인
+    for(let i = 0; i < courseCnt; i ++) {
+        document.getElementsByClassName("course-info__price")[i].addEventListener('keyup', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, "");
+        });
     }
 
 
@@ -224,21 +311,27 @@
 
     // 코스 추가 버튼
     function addCourse(e) {
-        const courseInfo = document.getElementsByClassName("courseInfo__eachCourse");
-        const courseNode = courseInfo[0].cloneNode(true);
+        const eachCourse = document.getElementsByClassName("courseInfo__eachCourse")[0];
+        const courseNode = eachCourse.cloneNode(true);
+        const courseNodeChild = courseNode.querySelector("div.course__info")
         courseNode.querySelector("input.course-info__title").value = "";
         courseNode.querySelector("input.course-info__price").value = "";
         courseNode.querySelector("textarea.course-info__description").value = "";
-        const count = document.getElementsByClassName('course-info-all')[0].childElementCount;
+        courseNode.querySelector("div.course__img-container").remove();
 
+        const imgNode = document.createElement("div");
+        imgNode.classList.add("course__img-container");
+
+        courseNodeChild.insertBefore(imgNode, courseNodeChild.querySelector("input.course-image__content"))
+        
         //코스 추가 개수 제한
+        const count = document.getElementsByClassName('course-info-all')[0].childElementCount;
         if (count < 10) {
             const returnVal = courseFillCheck(count);
             if(returnVal == true) {
                 const courseParent = document.getElementsByClassName('course-info-all')[0];
                 courseParent.insertBefore(courseNode, courseParent.childNodes[courseParent.length])
             } else {
-                console.log(returnVal);
                 alert(`${returnVal}`+"입력을 완료해주세요!")
             }
         } else {
@@ -291,7 +384,6 @@
     const courseCount = document.getElementsByName("courseCount")[0];
     const courseContainer = document.getElementsByClassName("course-info-all")[0];
     const courseObserver = new MutationObserver((mutations) => {
-        console.log('mutation observer working')
         const eachCourse = document.getElementsByClassName("courseInfo__eachCourse")
         let courseLength = eachCourse.length;
         courseCount.value = courseLength;
@@ -321,7 +413,7 @@
 
 
     // 다중 이미지 업로드 미리보기
-    const courseImageInput = document.getElementsByName("courseImageInput")[0];
+    /*const courseImageInput = document.getElementsByName("courseImageInput")[0];
     
     courseImageInput.addEventListener("change", function() {
         const courseImageContainer = document.getElementsByName("courseImageTag")[0];
@@ -333,7 +425,7 @@
             const uploadFile = this.files[i];
     
             const img = document.createElement("img");
-            /* img.classList.add("course-imgae_content"); */
+            img.classList.add("course-imgae_content"); 
             img.style.width = "200px";
             img.style.height = "150px";
             img.file = uploadFile;
@@ -343,36 +435,7 @@
             reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
             reader.readAsDataURL(uploadFile);
         }
-    }, false);
-
-    //ajax를 통한 데이터 전송
-    // document.querySelector('button[type="submit"]').addEventListener('click', ()=>{
-        //     let formData = new FormData();
-        
-        //     let courses = Array();
-        //     let coursesImgArr = Array();
-        //     let chefIntroduce = document.getElementsByName('introduce')[0].value;
-        //     let coursesImages = document.getElementsByName('courseImg[]');
-        
-        //     for (courseImgs of coursesImages) {
-            
-            //         for (courseImg of courseImgs.files){
-                //             course
-    //         }
-    //         coursesImgArr.push({'id':})
-    //     }
-
-    //     // if (chefIntroduce == '') {
-    //     //     alert("셰프소개란이 비어있어요")
-    //     //     return;
-    //     // }
-    //     let formDataFile = new FormData();
-    //     formDataFile.append('courseImgs', coursesImgArr);
-        
-    //     formData.append('chef_introduce', chefIntroduce);
-    //     formData.append('courses', courses);
-    //     sendAjax('POST', 'chef/registerchef/4', ()=>{}, formData, formDataFile)
-    // })
+    }, false);*/
 
 </script>
 

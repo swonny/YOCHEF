@@ -95,7 +95,7 @@
       <ul class="nav__item-container">
         <li class="nav__item"><a href="{% url 'main' %}">메인페이지</a></li>  
         <li class="nav__item"><a href="{% url 'mymenuReservation' %}">마이메뉴</a></li>
-        <li class="nav__item"><a>쿠폰함</a></li>
+        <li class="nav__item" value=0><a>쿠폰함</a></li>
         <li class="nav__item"><a href="{% url 'registerChef' '1' %}">셰프등록</a></li>
         <li class="nav__item"><a href="{% url 'logout' %}">로그아웃</a></li>
       </ul>
@@ -119,54 +119,49 @@
   </div> 
   <!-- 푸터 -->
   <footer id="footer">
-    <div class="footer-link-container">
+    <!-- <div class="footer-link-container">
       <ul class="footer-container">
         <li><span class="footer-top">COMPANY</span></li>
-        <li class="footer-item">company</li>
-        <li class="footer-item">company</li>
-        <li class="footer-item">company</li>
+        <li class="footer-item"></li>
+        <li class="footer-item"></li>
+        <li class="footer-item"></li>
       </ul>
 
       <ul class="footer-container">
         <li><span class="footer-top">POLICIES</span></li>
-        <li class="footer-item">company</li>
-        <li class="footer-item">company</li>
+        <li class="footer-item"></li>
+        <li class="footer-item"></li>
       </ul>
 
       <ul class="footer-container">
         <li><span class="footer-top">SUPPORT</span></li>
-        <li class="footer-item">company</li>
-        <li class="footer-item">company</li>
+        <li class="footer-item"></li>
+        <li class="footer-item"></li>
       </ul>
 
       <ul class="footer-container">
         <li><span class="footer-top">BETWEEN</span></li>
-        <li class="footer-item">company</li>
-        <li class="footer-item">company</li>
+        <li class="footer-item"></li>
+        <li class="footer-item"></li>
       </ul>
 
       <ul class="footer-container">
         <li><span class="footer-top">YOCHEF CENTER</span></li>
-        <li class="footer-item">company</li>
-        <li class="footer-item">company</li>
-        <li class="footer-item">company</li>
+        <li class="footer-item"></li>
+        <li class="footer-item"></li>
+        <li class="footer-item"></li>
       </ul>
-    </div>
+    </div> -->
 
     <div id="footer-bottom">
-      <div class="footer-copyright-part">
-        Cursus bibendum pellentesque lectus in. Ut amet ut egestas libero tincidunt pellentesque eu.
-      </div>
-
-      <div class="footer-bottom-container">
-        <ul class="footer-bottom-link-item-container">
-          <li class="footer-bottom-link-item"><a href="">이용약관</a></li>
-          <li class="footer-bottom-link-item"><a href="">개인정보취급방침</a></li>
-          <li class="footer-bottom-link-item"><a href="">환불규정</a></li>
-        </ul>
+      <div>
+        <div class="footer-copyright-part">
+          Copyright © 2021 KAU Likelion 9TH Team STANDARD all rights reserved.
+          <br>
+        </div>
+        <p class="team-name">기획 및 개발 : 블루, 워니, 제우스, 키위</p>
       </div>
     </div>
-
 
   </footer>
 
@@ -233,11 +228,16 @@
     document.querySelector("div.coupon_box__detail > p > span").innerHTML = availableCoupon + "장"
   }
 
-  let openCouponBox = () => {
+  function openCouponBox()  {
     let couponBox = document.querySelector("div.coupon_point_box");
-    couponBox.classList.remove("close");
-    couponBox.classList.add('open');
-    sendAjax('POST', '/getCoupon', setCoupon);
+    if (couponBox.value){
+      couponBox.value = 0;
+      couponBox.classList.replace("open", "close");
+    }else{
+      couponBox.classList.replace("close", "open");
+      couponBox.value = 1;
+      sendAjax('POST', '/getCoupon', setCoupon);
+    }
   }
 
   document.querySelector('ul.nav__item-container > li.nav__item:nth-child(3)').addEventListener('click', openCouponBox);

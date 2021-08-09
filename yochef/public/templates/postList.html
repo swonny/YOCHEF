@@ -28,8 +28,8 @@
                         <li>
                             <div>
                                 <span>지역</span>
-                                <select name="residence"></select>
-                                <select class="hide" name="residenceDetail"></select>
+                                <select name="residence" value="{{region|default:0}}"></select>
+                                <select class="hide" name="residenceDetail" value="{{regionDetail|default:0}}"></select>
                             </div>
                             <div>
                                 <span>날짜 선택</span>
@@ -94,8 +94,8 @@
 {% block scripts %}
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", () => {
-            getRegion();
-            getRegionDetail(1);
+            getRegion("{{region}}");
+            getRegionDetail(parseInt("{{region}}"), parseInt("{{regionDetail}}"));
         });
 
         document.getElementsByName('residence')[0].addEventListener('change', (event)=>{

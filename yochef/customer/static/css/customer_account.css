@@ -55,13 +55,13 @@ input[type="checkbox"]{
 }
 
 input[type="checkbox"] + label{
-    font-size: 12px;
+    font-size: 13px;
     height: 23px;
     line-height: 23px;
     padding-left: 23px; 
     background-repeat: no-repeat;
     background-image: url('../img/whitecheckbox.png');
-    background-size: 15px;
+    background-size: 13px;
 }
 
 input[type="checkbox"]:checked + label{
@@ -146,7 +146,7 @@ li > select:first-child {
 }
 
 .inputbox__checkbox__signup{
-    margin: 70px 0 -8px 0;
+    margin: 70px 0 -4px 0;
     z-index: 1;
 }
 

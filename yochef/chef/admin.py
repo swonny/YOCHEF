@@ -9,8 +9,8 @@ class ChefAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'category_name', 'movingPrice', 'region_name', 'isOpen', 'print_registerDate', 'chef']
-    list_display_links = ['id', 'title', 'category_name', 'movingPrice', 'region_name', 'isOpen', 'print_registerDate', 'chef']
+    list_display = ['id', 'chef', 'title', 'category_name', 'movingPrice', 'region_name', 'isOpen', 'print_registerDate']
+    list_display_links = ['id', 'chef', 'title', 'category_name', 'movingPrice', 'region_name', 'isOpen', 'print_registerDate']
     list_per_page = 20
 
 @admin.register(Course)

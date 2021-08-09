@@ -203,3 +203,7 @@ input[type="submit"]{
 .noneResult{
     margin: 60px auto 80px auto;
 }
+
+input[type="button"]:hover, input[type="submit"]:hover {
+    cursor: pointer;
+}

@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{% static 'css/editChefProfile_3.css' %}">
 {% endblock %}
 {% block content %}
-    <form name="editChefProfile_1" action="{% url 'updateMovingPrice' %}" method="POST" >
+    <form onsubmit="return formCheck()" name="editChefProfile_1" action="{% url 'updateMovingPrice' %}" method="POST" >
     {% csrf_token %}
         <div class="edit-chef-wrapper">
             {% include 'editChefProfile_side.html' %}
@@ -41,7 +41,7 @@
                             <div class="plus">=</div>
                             
                             <div class="price-input-wrapper">
-                                <h4>최종 금액</h4>
+                                <h4>1인 기준 총 금액</h4>
                                 <div class="input-wrapper input--disabled">
                                     <input class="price-area__input" name="totalPrice" type="text" placeholder="(자동계산)" disabled>
                                     <span class="unit">원</span>
@@ -107,6 +107,25 @@
 
 {% block scripts %}
 <script>
+    //가격 숫자만 입력
+    document.querySelector("input[name=movingPriceInput]").addEventListener('keyup', (e) => {
+        e.target.value = e.target.value.replace(/[^0-9]/g, "");
+        //alert("숫자만 입력가능합니다.");
+    });
+
+    //form data 모두 등록되었는지 확인
+    function formCheck() {
+
+        const movingPrice = document.getElementsByName('movingPriceInput')[0].value;
+
+        if(movingPrice == ""){
+            alert("출장비를 입력해주세요!")
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     // 자동계산
     function mutation() {
         const coursePriceOutput = document.querySelector("input[name=coursePrice]");

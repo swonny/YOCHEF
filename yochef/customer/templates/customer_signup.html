@@ -24,10 +24,10 @@
                         <li><input class="inputbox__passwordCheck" name="userPasswordCheck" type="password" placeholder="비밀번호 확인"></li>
                         <li><input class="inputbox__name" name="username" type="text" placeholder="이름"></li>
                         <li><input class="inputbox__phoneNum" pattern="[0-9]+" name="userPhoneNum"type="text" placeholder="전화번호 | +82"></li>
-                        <li>
+                        <!-- <li>
                             <select name="residence"></select>
                             <select class="hide" name="residenceDetail"></select>
-                        </li>
+                        </li> -->
                         <li class="inputbox__checkbox__signup"><input class="inputbox__agree" type="checkbox" id="agreePolicy" name="agreePolicy"><label for="agreePolicy">이용약관 동의</label></li>
                         <li><input class="mainContainer__submit last__button" type="button" value="가입완료"></li>
                         <li><input class="mainContainer__submit last__button" type="submit" value="가입완료" hidden></li>
@@ -39,19 +39,21 @@
 {% endblock %}
 {% block scripts %}
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", () => {
-            getRegion();
-            getRegionDetail(1);
-        });
+        // document.addEventListener("DOMContentLoaded", () => {
+        //     getRegion();
+        //     getRegionDetail(1);
+        // });
 
-        document.getElementsByName('residence')[0].addEventListener('change', (event)=>{
-            getRegionDetail(document.getElementsByName('residence')[0].value);
-        });
+        // document.getElementsByName('residence')[0].addEventListener('change', (event)=>{
+        //     getRegionDetail(document.getElementsByName('residence')[0].value);
+        // });
 
         let checkDouble = (data) => {
-            console.log(data.ok)
             if (data.ok){
                 document.querySelector('div.inputbox__duplicateCheck').value = 1;
+                alert("중복확인이 완료되었습니다.")
+            }else{
+                alert("중복된 이메일이 존재합니다.")
             }
         }
 

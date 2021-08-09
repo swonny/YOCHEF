@@ -23,18 +23,16 @@
 
                     <!-- 날짜 선택 -->
                     <aside class="date-filter-wrapper">
-                        <form class="date-filter" action="GET" name="dateFilter"><!--JS 사용 방식 논의 필요-->
-                            <div class="date-filter__start-date"><input class="start-date" type="date"></div>
-                            <span>~</span>
-                            <div class="date-filter__end-date"><input class="end-date" type="date"></div>
-                            <button onclick="dateFilter()" class="search-button" type="button" name="search"><img class="search--image" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMS45OTkgNTExLjk5OSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgY2xhc3M9IiI+PGc+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNNTA4Ljg3NCw0NzguNzA4TDM2MC4xNDIsMzI5Ljk3NmMyOC4yMS0zNC44MjcsNDUuMTkxLTc5LjEwMyw0NS4xOTEtMTI3LjMwOWMwLTExMS43NS05MC45MTctMjAyLjY2Ny0yMDIuNjY3LTIwMi42NjcgICAgUzAsOTAuOTE3LDAsMjAyLjY2N3M5MC45MTcsMjAyLjY2NywyMDIuNjY3LDIwMi42NjdjNDguMjA2LDAsOTIuNDgyLTE2Ljk4MiwxMjcuMzA5LTQ1LjE5MWwxNDguNzMyLDE0OC43MzIgICAgYzQuMTY3LDQuMTY1LDEwLjkxOSw0LjE2NSwxNS4wODYsMGwxNS4wODEtMTUuMDgyQzUxMy4wNCw0ODkuNjI3LDUxMy4wNCw0ODIuODczLDUwOC44NzQsNDc4LjcwOHogTTIwMi42NjcsMzYyLjY2NyAgICBjLTg4LjIyOSwwLTE2MC03MS43NzEtMTYwLTE2MHM3MS43NzEtMTYwLDE2MC0xNjBzMTYwLDcxLjc3MSwxNjAsMTYwUzI5MC44OTYsMzYyLjY2NywyMDIuNjY3LDM2Mi42Njd6IiBmaWxsPSIjZmZmZmZmIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+Cgk8L2c+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPC9nPjwvc3ZnPg==" /></button>
-                        </form>
+                        <div class="date-filter__start-date"><input class="start-date" type="date"></div>
+                        <span>~</span>
+                        <div class="date-filter__end-date"><input class="end-date" type="date"></div>
+                        <button onclick="dateFilter()" class="search-button" type="button"><img style="width: 20px; height:20px;" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMi4wMDUgNTEyLjAwNSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNNTA1Ljc0OSw0NzUuNTg3bC0xNDUuNi0xNDUuNmMyOC4yMDMtMzQuODM3LDQ1LjE4NC03OS4xMDQsNDUuMTg0LTEyNy4zMTdjMC0xMTEuNzQ0LTkwLjkyMy0yMDIuNjY3LTIwMi42NjctMjAyLjY2NyAgICBTMCw5MC45MjUsMCwyMDIuNjY5czkwLjkyMywyMDIuNjY3LDIwMi42NjcsMjAyLjY2N2M0OC4yMTMsMCw5Mi40OC0xNi45ODEsMTI3LjMxNy00NS4xODRsMTQ1LjYsMTQ1LjYgICAgYzQuMTYsNC4xNiw5LjYyMSw2LjI1MSwxNS4wODMsNi4yNTFzMTAuOTIzLTIuMDkxLDE1LjA4My02LjI1MUM1MTQuMDkxLDQ5Ny40MTEsNTE0LjA5MSw0ODMuOTI4LDUwNS43NDksNDc1LjU4N3ogICAgIE0yMDIuNjY3LDM2Mi42NjljLTg4LjIzNSwwLTE2MC03MS43NjUtMTYwLTE2MHM3MS43NjUtMTYwLDE2MC0xNjBzMTYwLDcxLjc2NSwxNjAsMTYwUzI5MC45MDEsMzYyLjY2OSwyMDIuNjY3LDM2Mi42Njl6IiBmaWxsPSIjZmZmZmZmIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+Cgk8L2c+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPC9nPjwvc3ZnPg==" /></button>
                     </aside>
                     <!-- // 날짜 선택 -->
 
                     <!-- 전체 일정 목록 -->
                     <article class="schedule-list-wrapper">
-                        <h3 class="schedule-list__header">전체 일정 목록</h3>
+                        <h3 class="schedule-list__header">전체 예약 목록</h3>
                         <table class="schedule-list__total-container">                
                             <tr class="list-header-container">                                                
                                 <th class="list-item td-date">예약날짜</th>
@@ -50,16 +48,21 @@
 
                             {% for schedule in scheduleList %}
                             <tr class="list-container">
-                                <td class="list-item td-date">{{schedule.eventDate|date:"y.m.d"}}</td>
+                                <td class="list-item td-date date">{{schedule.eventDate|date:"y.m.d"}}</td>
                                 <td class="list-item td-region">{{schedule.regionDetail.detailName}}</td>
-                                <td class="list-item td-paymentStatus">{{schedule.paymentStatus|default:'예약가능'}}</td>
+                                <td class="list-item td-paymentStatus">{{schedule.paymentStatus|default:'-'}}</td>
                                 <td class="list-item td-course">{{schedule.course|default:'-'}}</td>
                                 <td class="list-item td-person-num">{{schedule.personNum|default:'-'}}</td>
                                 <td class="list-item td-total-price">{{schedule.totalPrice|default:'-'}}</td>
                                 <td class="list-item td-confirm-status">{{schedule.confirmStatus|default:'-'}}</td>
-                                <!-- <td class="list-item td-detail"><a  href="{% url 'chefScheduleDetail' schedule.scheduleID %}">확인</a></td> -->
-                                <td class="list-item td-detail">{% if schedule.course %}<a  href="{% url 'chefScheduleDetail' schedule.scheduleID %}">확인</a>{% else %}-{% endif %}</td>
+                                <td class="list-item td-detail">{% if schedule.course %}<a href="{% url 'chefScheduleDetail' schedule.bookID %}" style="text-decoration: underline;">확인</a>{% else %} <p style="color:#9e9e9e">확인</p> {% endif %}</td>
+                                {% if schedule.confirmStatus == "취소됨" %}
                                 <td class="list-item td-delete" onclick="deleteSchedule(this)" style="cursor: pointer;" value="{{schedule.scheduleID}}"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQwNyA0MDciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTg5LjE5OTIxOSAzN2MwLTEyLjEzMjgxMiA5LjQ2ODc1LTIxIDIxLjYwMTU2Mi0yMWg4OC44MDA3ODFjMTIuMTI4OTA3IDAgMjEuNTk3NjU3IDguODY3MTg4IDIxLjU5NzY1NyAyMXYyM2gxNnYtMjNjMC0yMC45NTMxMjUtMTYuNjQ0NTMxLTM3LTM3LjU5NzY1Ny0zN2gtODguODAwNzgxYy0yMC45NTMxMjUgMC0zNy42MDE1NjIgMTYuMDQ2ODc1LTM3LjYwMTU2MiAzN3YyM2gxNnptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtNjAuNjAxNTYyIDQwN2gxODkuMTk5MjE5YzE4LjI0MjE4OCAwIDMyLjM5ODQzOC0xNi4wNDY4NzUgMzIuMzk4NDM4LTM2di0yNDdoLTI1NHYyNDdjMCAxOS45NTMxMjUgMTQuMTU2MjUgMzYgMzIuNDAyMzQzIDM2em0xNDUuNTk3NjU3LTI0NC44MDA3ODFjMC00LjQxNzk2OSAzLjU4MjAzMS04IDgtOHM4IDMuNTgyMDMxIDggOHYxODljMCA0LjQxNzk2OS0zLjU4MjAzMSA4LTggOHMtOC0zLjU4MjAzMS04LTh6bS01OSAwYzAtNC40MTc5NjkgMy41ODIwMzEtOCA4LThzOCAzLjU4MjAzMSA4IDh2MTg5YzAgNC40MTc5NjktMy41ODIwMzEgOC04IDhzLTgtMy41ODIwMzEtOC04em0tNTkgMGMwLTQuNDE3OTY5IDMuNTgyMDMxLTggOC04czggMy41ODIwMzEgOCA4djE4OWMwIDQuNDE3OTY5LTMuNTgyMDMxIDgtOCA4cy04LTMuNTgyMDMxLTgtOHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjAgMTA4aDI3MC4zOTg0MzhjMTEuMDQ2ODc0IDAgMjAtOC45NTMxMjUgMjAtMjBzLTguOTUzMTI2LTIwLTIwLTIwaC0yNzAuMzk4NDM4Yy0xMS4wNDY4NzUgMC0yMCA4Ljk1MzEyNS0yMCAyMHM4Ljk1MzEyNSAyMCAyMCAyMHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PC9nPjwvc3ZnPg==" /></td>
+                                {% elif not schedule.course %}
+                                <td  class="list-item td-delete" onclick="deleteSchedule(this)" style="cursor: pointer;" value="{{schedule.scheduleID}}"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQwNyA0MDciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTg5LjE5OTIxOSAzN2MwLTEyLjEzMjgxMiA5LjQ2ODc1LTIxIDIxLjYwMTU2Mi0yMWg4OC44MDA3ODFjMTIuMTI4OTA3IDAgMjEuNTk3NjU3IDguODY3MTg4IDIxLjU5NzY1NyAyMXYyM2gxNnYtMjNjMC0yMC45NTMxMjUtMTYuNjQ0NTMxLTM3LTM3LjU5NzY1Ny0zN2gtODguODAwNzgxYy0yMC45NTMxMjUgMC0zNy42MDE1NjIgMTYuMDQ2ODc1LTM3LjYwMTU2MiAzN3YyM2gxNnptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtNjAuNjAxNTYyIDQwN2gxODkuMTk5MjE5YzE4LjI0MjE4OCAwIDMyLjM5ODQzOC0xNi4wNDY4NzUgMzIuMzk4NDM4LTM2di0yNDdoLTI1NHYyNDdjMCAxOS45NTMxMjUgMTQuMTU2MjUgMzYgMzIuNDAyMzQzIDM2em0xNDUuNTk3NjU3LTI0NC44MDA3ODFjMC00LjQxNzk2OSAzLjU4MjAzMS04IDgtOHM4IDMuNTgyMDMxIDggOHYxODljMCA0LjQxNzk2OS0zLjU4MjAzMSA4LTggOHMtOC0zLjU4MjAzMS04LTh6bS01OSAwYzAtNC40MTc5NjkgMy41ODIwMzEtOCA4LThzOCAzLjU4MjAzMSA4IDh2MTg5YzAgNC40MTc5NjktMy41ODIwMzEgOC04IDhzLTgtMy41ODIwMzEtOC04em0tNTkgMGMwLTQuNDE3OTY5IDMuNTgyMDMxLTggOC04czggMy41ODIwMzEgOCA4djE4OWMwIDQuNDE3OTY5LTMuNTgyMDMxIDgtOCA4cy04LTMuNTgyMDMxLTgtOHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjAgMTA4aDI3MC4zOTg0MzhjMTEuMDQ2ODc0IDAgMjAtOC45NTMxMjUgMjAtMjBzLTguOTUzMTI2LTIwLTIwLTIwaC0yNzAuMzk4NDM4Yy0xMS4wNDY4NzUgMC0yMCA4Ljk1MzEyNS0yMCAyMHM4Ljk1MzEyNSAyMCAyMCAyMHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PC9nPjwvc3ZnPg==" /></td>
+                                {% else %}
+                                <td style="opacity: 50%;" class="list-item td-delete"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQwNyA0MDciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTg5LjE5OTIxOSAzN2MwLTEyLjEzMjgxMiA5LjQ2ODc1LTIxIDIxLjYwMTU2Mi0yMWg4OC44MDA3ODFjMTIuMTI4OTA3IDAgMjEuNTk3NjU3IDguODY3MTg4IDIxLjU5NzY1NyAyMXYyM2gxNnYtMjNjMC0yMC45NTMxMjUtMTYuNjQ0NTMxLTM3LTM3LjU5NzY1Ny0zN2gtODguODAwNzgxYy0yMC45NTMxMjUgMC0zNy42MDE1NjIgMTYuMDQ2ODc1LTM3LjYwMTU2MiAzN3YyM2gxNnptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtNjAuNjAxNTYyIDQwN2gxODkuMTk5MjE5YzE4LjI0MjE4OCAwIDMyLjM5ODQzOC0xNi4wNDY4NzUgMzIuMzk4NDM4LTM2di0yNDdoLTI1NHYyNDdjMCAxOS45NTMxMjUgMTQuMTU2MjUgMzYgMzIuNDAyMzQzIDM2em0xNDUuNTk3NjU3LTI0NC44MDA3ODFjMC00LjQxNzk2OSAzLjU4MjAzMS04IDgtOHM4IDMuNTgyMDMxIDggOHYxODljMCA0LjQxNzk2OS0zLjU4MjAzMSA4LTggOHMtOC0zLjU4MjAzMS04LTh6bS01OSAwYzAtNC40MTc5NjkgMy41ODIwMzEtOCA4LThzOCAzLjU4MjAzMSA4IDh2MTg5YzAgNC40MTc5NjktMy41ODIwMzEgOC04IDhzLTgtMy41ODIwMzEtOC04em0tNTkgMGMwLTQuNDE3OTY5IDMuNTgyMDMxLTggOC04czggMy41ODIwMzEgOCA4djE4OWMwIDQuNDE3OTY5LTMuNTgyMDMxIDgtOCA4cy04LTMuNTgyMDMxLTgtOHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjAgMTA4aDI3MC4zOTg0MzhjMTEuMDQ2ODc0IDAgMjAtOC45NTMxMjUgMjAtMjBzLTguOTUzMTI2LTIwLTIwLTIwaC0yNzAuMzk4NDM4Yy0xMS4wNDY4NzUgMC0yMCA4Ljk1MzEyNS0yMCAyMHM4Ljk1MzEyNSAyMCAyMCAyMHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PC9nPjwvc3ZnPg==" /></td>
+                                {% endif %}
                             </tr>
                             {% endfor %}
 
@@ -81,7 +84,7 @@
                             {% csrf_token %}
                                 <!-- 지역 추가 -->
                                 <div class="form__region">
-                                    <h4 class="region__title">지역 추가</h4>
+                                    <h4 class="region__title">지역 선택</h4>
 
                                     <div class="region__select-container">
                                         <select id="region-selection" name="residence"></select>
@@ -130,10 +133,32 @@
 
 {% block scripts %}
 <script>
+
     //날짜 필터
     function dateFilter() {
-        alert("테스트ㅡㅡㅡㅡㅡㅡㅡ");
+        //document.getElementsByClassName("list-container")[0].classList.remove('hidden');
+        let startDate = document.querySelector("input.start-date").value;
+        let endDate = document.querySelector("input.end-date").value;
+        let scheduleDate = document.getElementsByClassName("list-container");
         
+        for(let i = 0; i < scheduleDate.length; i ++) {
+            //console.log(scheduleCount);
+            //console.log(scheduleDate[i]);
+            scheduleDate[i].classList.remove("hidden");
+            let date = scheduleDate[i].getElementsByClassName('date')[0].innerHTML;
+            let year = "20" + date.substring(0,2);
+            let month = date.substring(3,5);
+            let day = date.substring(6,8);
+
+            let fullDate = new Date(year, month-1, day);
+            console.log(fullDate);
+            
+            if (fullDate > new Date(`${endDate.substring(0,4)}`,`${endDate.substring(5,7)}`-1,`${endDate.substring(8,10)}`) ) {
+                document.getElementsByClassName("list-container")[i].classList.add("hidden");
+            } else if (fullDate < new Date(`${startDate.substring(0,4)}`,`${startDate.substring(5,7)}`-1,`${startDate.substring(8,10)}`)) {
+                document.getElementsByClassName("list-container")[i].classList.add("hidden");
+            }
+        }
     }
 
     // 제우스 - schedule delete
@@ -200,7 +225,7 @@
     }
     
     //스케줄 table
-    function test(e){
+    /*function test(e){
         //formData input 값 가져오기
         var formData = new FormData(document.getElementsByClassName("schedule-register-form")[0]);
         const scheduleRegion = formData.get('residence');
@@ -264,11 +289,11 @@
         if(region == 6) {tdRegion.innerHTML = "대전·충청";}
         if(region == 7) {tdRegion.innerHTML = "강원";}
         if(region == 8) {tdRegion.innerHTML = "광주·전라·제주";}
-        /*sendAjax('GET', '/getRegion', regionString);
+        sendAjax('GET', '/getRegion', regionString);
         function regionString(data) {
             let region = '';
             tdRegion.innerHTML = `${data[id]}`;
-        }*/       
+        }       
 
         tdConfirmStatus.innerHTML = "-";
         td4.innerHTML = "-";
@@ -290,7 +315,7 @@
         row.appendChild(td9);
 
         return row;
-    }
+    } */
 
     
 

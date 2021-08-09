@@ -12,7 +12,7 @@
                     <!-- 좋아요 메뉴 없을 때 -->
                     <article class="my-menu__none">
                         <h4>찜한 셰프가 없습니다.</h4>
-                        <h3>마음에 드는 세프를 저장해보세요!</h3>
+                        <h3>마음에 드는 셰프를 저장해보세요!</h3>
                         <a href="/postList" class="{% if category == 0 %} currentCategory{% endif %}">셰프 구경하러 가기</a>
                     </article>
                     <!-- // 좋아요 메뉴 없을 때 -->
@@ -22,7 +22,7 @@
                     <div class="content__menu-info">
                         <div class="menu-info-wrapper">
                             <div class="content__image-wrapper">
-                                <img style="width: 180px; height: 150px;" src="{{post_cover_imgurl}}" onerror="this.src='{% static 'img/default.png' %}';" alt=""><!-- 수정 필요 -->
+                                <img style="width: 180px; height: 150px;" src="{{post.cover_img}}" onerror="this.src='{% static 'img/default.png' %}';" alt=""><!-- 수정 필요 -->
                             </div>
                             <div class="content__description">
                                 <h4>{{post.title}}</h4>
@@ -30,9 +30,9 @@
                                 <p>{{post.introduce}}</p>
                             </div>
                         </div>
-                        <input type="button" class="fillLike" name="likeBtn">
+                        <input type="button" id="{{post.id}}" class="fillLike" name="likeBtn">
                         <aside class="button">
-                            <button class="detail-page-button button--gray" onclick="location.href = 'public/detail/{{book.post.id}}';">상세페이지</button>
+                            <button class="detail-page-button button--gray" onclick="location.href = '/detail/{{post.id}}';">상세페이지</button>
                         </aside>
                     </div>
                     {% endfor %}
@@ -60,5 +60,23 @@ function postLike(e){
         sendAjax('POST', '/postLike', ()=>{}, formdata);
     }
 } */
+
+function postLike(e){
+    let formdata = new FormData();
+    formdata.append('postId', e.target.id);
+    if (e.target.classList.contains('emptyLike')){
+        e.target.classList.replace('emptyLike', 'fillLike');
+        formdata.append('status', 1);
+    }else{
+        e.target.classList.replace('fillLike', 'emptyLike');
+        formdata.append('status', 0);
+    }
+    sendAjax('POST', '/postLike', ()=>{}, formdata);
+}
+
+for (btn of document.getElementsByName('likeBtn') ){ 
+    btn.addEventListener('click', postLike);
+}
+
 </script>
 {% endblock %}

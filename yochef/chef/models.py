@@ -119,7 +119,7 @@ class Schedule(models.Model):
 
 	def print_confirmStatus(self):
 		if self.confirmStatus == 0:
-			return "-"
+			return "결제전"
 		elif self.confirmStatus == 1:
 			return "승인대기"
 		elif self.confirmStatus == 2:

@@ -6,6 +6,7 @@ from .models import *
 from chef.models import *
 from django.contrib.auth.hashers import check_password
 import requests     # For KakaoPay API
+import datetime
 
 # Create your views here.
 def signup(request):
@@ -22,9 +23,7 @@ def signup(request):
                     username=request.POST['userEmail'], password=request.POST['userPassword']) 
                 phoneNumber = request.POST['userPhoneNum']
                 customer = Customer(user=user, phoneNum=phoneNumber)
-                customer.region = request.POST.get('region', 0)
                 # regiondetail 임시 지정
-                customer.regionDetail = RegionDetail.objects.get(region = 0)
                 customer.name = request.POST['username']
                 customer.email = user.username
                 customer.phoneNum = request.POST['userPhoneNum']
@@ -43,6 +42,8 @@ def login(request):
         user = auth.authenticate(request, username=username, password=password)
         if user is not None:
             auth.login(request, user)
+            request.user.customer.currentVer = 0
+            request.user.customer.save()
             return redirect('/')  
         else:
             return render(request, "customer_login.html") # html 이름 수정
@@ -57,6 +58,8 @@ def login(request):
                 response.set_cookie('userEmail',username)
                 response.set_cookie('userPassword',password)
                 return response
+            request.user.customer.currentVer = 0
+            request.user.customer.save()
             return redirect('/')
         else:
             return  render(request, "customer_login.html", {'error':'아이디나 비밀번호가 일치하지 않습니다'})
@@ -120,42 +123,58 @@ def payComplete(request): #결제하기 눌렀을 때
     payment = request.POST.get('payment')
     book.payMethod = payment
     book.save()
-
-    # 추후 구현 된다면 실제 결제 기능까지
-
-    return redirect('/')
+    if Book.objects.filter(schedule = book.schedule, paymentStatus = 2).exists():
+        return redirect('/customer/payFail')
+    return kakaoPayLogic(request, book_id)
+    
+def registerCancel(request, book_id):
+    book = Book.objects.get(id = book_id)
+    if book.coupon :
+        book.coupon.isUsed = False
+        book.coupon.save()
+    if book.usedPoint:
+        request.user.customer.point += book.usedPoint
+    request.user.customer.save()
+    book.schedule.confirmStatus = 0
+    book.schedule.save()
+    book.paymentStatus = 3
+    book.save()
+    
+    return redirect('/customer/mymenuReservation')
 
 # 제우스 카카오페이 작업 시작
-def kakaoPayLogic(request):
-    #postTitle = request.POST['postTitle']
-    #personNum = request.POST['personNum']
-    #totalPrice = request.POST['totalPrice']
-    #vat = int(totalPrice) / 11
-    #tax_free = int(totalPrice) - vat
+def kakaoPayLogic(request, book_id):
+    postTitle = request.POST['postTitle']
+    personNum = request.POST['personNum']
+    totalPrice = request.POST['totalPrice']
+    vat = int(totalPrice) / 11
+    tax_free = int(totalPrice) - vat
     _admin_key = '43e1846e5c8f2fb293d6460e124d4a93'
     _url = f"https://kapi.kakao.com/v1/payment/ready"
     _headers = {
         'Authorization' : f"KakaoAK {_admin_key}",
     }
+
     _data = {
         'cid' : 'TC0ONETIME',
         'partner_order_id' : 'partner_order_id',
         'partner_user_id': f'partner_user_id',
-        'item_name' : f'[Yochef]',
-        'quantity' : f'1',
-        'total_amount' : f'10000',
-        'vat_amount' : f'0',
-        'tax_free_amount' : f'0',
-        'approval_url' : 'http://127.0.0.1:8000/customer/paySuccess',
-        'fail_url' : 'http://127.0.0.1:8000/customer/payFail',
-        'cancel_url' : 'http://127.0.0.1:8000/customer/payCancel',
+        'item_name' : f'[Yochef]{postTitle}',
+        'quantity' : f'{personNum}',
+        'total_amount' : f'{totalPrice}',
+        'vat_amount' : f'{vat}',
+        'tax_free_amount' : f'{tax_free}',
+        'approval_url' : 'http://3.36.156.211/customer/paySuccess/'+str(book_id),
+        'fail_url' : 'http://3.36.156.211/customer/payFail',
+        'cancel_url' : 'http://3.36.156.211/customer/payCancel',
     }
     _res = requests.post(_url, data=_data, headers=_headers)
     _result = _res.json()
+
     request.session['tid'] = _result['tid']
     return redirect(_result['next_redirect_pc_url'])
 
-def paySuccess(request):
+def paySuccess(request, book_id):
     _url = 'https://kapi.kakao.com/v1/payment/approve'
     _admin_key = '43e1846e5c8f2fb293d6460e124d4a93' # 입력필요
     _headers = {
@@ -170,12 +189,17 @@ def paySuccess(request):
     }
     _res = requests.post(_url, data=_data, headers=_headers)
     _result = _res.json()
+    book = Book.objects.get(id = book_id)
+    book.paymentStatus = 2
+    book.save()
+    book.schedule.confirmStatus = 1
+    book.schedule.save()
     if _result.get('msg'):
         print(_result.get('msg'))
         return redirect('/customer/payFail')
     else:
-        print(_result)
-        return render(request, 'pay_success.html')
+        return redirect('/customer/mymenuReservation')
+
 
 def payFail(request):
     return render(request, 'pay_fail.html')
@@ -191,26 +215,7 @@ def payCancel(request):
     #   schedule 기록 복원
 
 
-def registerCancle(request):
-    book = Book.objects.filter(customer=request.user.customer)
-    coupon_id = request.POST['selectedCoupon']
-    if coupon_id != '':
-        has_coupon = HasCoupon.objects.get(id = coupon_id)
-        has_coupon.isUsed = False
-        has_coupon.save()
-        book.coupon = HasCoupon.objects.get(id = coupon_id)
-    using_point = request.POST['usingPoint']
-    if using_point != '':
-        book.usedPoint = int(using_point)
-        customer = request.user.customer
-        customer.point = int(customer.point) + int(using_point)
-        customer.save()
-    return render(request, 'myMenu_reservation.html')
-
-
-
 def mypage(request):
-    # 마이페이지 셰프랑 손님 구분 없음
     if request.user.customer.currentVer == 0 :
         return render(request, 'mypage.html')
     else :
@@ -219,23 +224,21 @@ def mypage(request):
             return render(request, 'mypage.html', {'profile':profile})
     return render(request, 'mypage.html')
 
-
-
 def changeInfo(request):
     if str(request.user) == "AnonymousUser":
         return redirect("/customer/login")
     customer = request.user.customer
-    customer.name = request.POST.get('nickname')
+    customer.name = request.POST.get('name')
     customer.phoneNum = request.POST.get('phoneNum')
     customer.save()
     return redirect('/customer/mypage')
-
-
 
 def changePw(request):
     if request.method == "POST":
         currentUserPw = request.POST.get("currentUserPw")
         user = request.user
+        if currentUserPw != user.password:
+            return render(request, "mypage.html", {'error': '비밀번호가 틀렸습니다'})
         if check_password(currentUserPw,user.password):
             new_password = request.POST.get("userPw")
             password_confirm = request.POST.get("userPwCheck")
@@ -244,21 +247,30 @@ def changePw(request):
                 user.save()
                 auth.login(request,user)
                 return redirect('/customer/mypage')
+            elif new_password != password_confirm :
+                return render(request, "mypage.html", {'error': '변경할 비밀번호 확인이 일치하지 않습니다'})
     return render(request, "mypage.html")
 
-
-
+    
 
 def mymenuLikedmenu(request):
     mylike_chefs = Like.objects.filter(customer=request.user.customer).values('chef')
     chefs_post = Post.objects.filter(chef__in = mylike_chefs)
     for chef_post in chefs_post :
         if File.objects.filter(post = chef_post, category = 4).exists():
-            chef_post.cover_img = File.objects.filter(post = chef_post, category = 4)[0].attachment
+            chef_post.cover_img = File.objects.filter(post = chef_post, category = 4)[0].attachment.url
     return render(request, 'myMenu_likedMenu.html', {'posts':chefs_post})
 
 def mymenuReservation(request):
-    books = Book.objects.filter(customer=request.user.customer)
+    books = Book.objects.filter(customer=request.user.customer, paymentStatus__in=[2,3]).order_by('-registerDate')
+    for book in books : 
+        today = datetime.date.today()
+        eventDay = book.schedule.eventDate
+        dDay = eventDay - today
+        book.dDay = dDay.days
+        postCoverImg = File.objects.filter(post = book.schedule.post, category = 4)
+        if postCoverImg.exists() :
+            book.postCoverImg = postCoverImg[0].attachment.url
     return render(request, 'myMenu_reservation.html', {'books': books})
 
 def checkDuplicateAPI(request):
@@ -267,3 +279,23 @@ def checkDuplicateAPI(request):
         ok = False
     print(request.POST['email'])
     return JsonResponse({'ok': ok}, status=200)
+
+
+def writeReviewAPI(request):
+    post_id = int(request.POST['postId'])
+    books = Book.objects.filter(schedule__post__id = post_id, customer = request.user.customer, paymentStatus = 2)
+    alreadyWritten = []
+    for book in books :
+        if Review.objects.filter(book = book).exists() :
+            alreadyWritten.append(book.id)
+    books = books.exclude(id__in = alreadyWritten)
+    if not books.exists() :
+        return JsonResponse({'ok': False}, status=200)
+    else :
+        review = Review()
+        review.post = Post.objects.get(id = post_id)
+        review.customer = request.user.customer
+        review.book = books[0]
+        review.description = request.POST['content']
+        review.save()
+        return JsonResponse({'ok': True}, status=200)

@@ -5,14 +5,14 @@
     font-style: normal;
 }
 
-@media ( max-width: 1532px ) {
+@media screen and ( max-width: 1532px ) {
 
     .recent-menu {
         margin: 40px 200px;
     }
 
-    /* .buffet {
-        width: 42.5% !important;
+    .buffet {
+        width: 42.5% ;
     }
     
     .category__header > div {
@@ -21,7 +21,26 @@
         border-bottom: 1px solid rgb(189, 0, 0);
         padding: 0px 0px;
         margin: 7px 0px;
-    } */
+    }
+}
+
+@media screen and ( max-width: 1391px ) {
+
+    .recent-menu {
+        margin: 30px 100px;
+    }
+
+    .buffet {
+        width: 42.5% ;
+    }
+    
+    .category__header > div {
+        display: inline-block;
+        width: 46.8%;
+        border-bottom: 1px solid rgb(189, 0, 0);
+        padding: 0px 0px;
+        margin: 7px 0px;
+    }
 }
 
 * {

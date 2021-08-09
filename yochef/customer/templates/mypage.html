@@ -41,8 +41,8 @@
                 </div>
                 <ul>
                     <li>
-                        <div><span>닉네임</span></div>
-                        <input class="inputbox__userNickname" name="nickname" type="text" placeholder="닉네임" value="{{ user.customer.nickname }}">
+                        <div><span>이름</span></div>
+                        <input class="inputbox__userNickname" name="name" type="text" placeholder="이름" value="{{ user.customer.name }}">
                     </li>
                     <li>
                         <div><span>전화번호</span></div>
@@ -57,6 +57,7 @@
                 <div class="inputTitle">
                     <span>비밀번호 변경</span>
                 </div>
+                <span>{{error}}</span>
                 <ul>
                     <li>
                         <div><span>현재 비밀번호</span></div>

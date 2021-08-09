@@ -181,7 +181,7 @@
     margin: 25px 0 ;
     display: flex;
     justify-content: space-between;
-    overflow: scroll;
+    overflow-x: auto;
     min-width: 660px;
     max-width: 850px;
 }
@@ -216,11 +216,35 @@
 
 /* 리뷰 정보 */
 
+.mainBox__review.writeReview{
+    margin: 40px 0 0 60px;
+}
+
+.mainBox__review.writeReview > div{
+    margin: 20px 0 0 0;
+}
+
+.mainBox__review.writeReview > div > textarea {
+    padding: 10px;
+    line-height: 20px;
+    width: 97%;
+}
+
+.mainBox__review.writeReview > div > input {
+    float: right;
+    width: 150px;
+    height: 30px;
+    border-radius: 5px;
+    margin: 10px 0 0 0;
+    color: white;
+    background-color: var(--main-color);
+}
+
 .mainBox__review {
-    margin: 30px 0 0 80px;
+    margin: 60px 0 0 40px;
 }
 .mainBox__review.reviewDetail {
-    margin: 30px 0 0 20px;
+    margin: 60px 0 0 20px;
 }
 
 .mainBox__review__detail {
@@ -261,6 +285,7 @@
     color: white;
     background-color: var(--main-color);
     margin: 30px calc((100% - 300px)/ 2);
+    border-radius: 5px;
 }
 
 /* 일정 선택기 */
@@ -269,20 +294,20 @@ aside{
     position: fixed;
     right:40px;
     top:150px;
-    width: 250px;
+    width: 280px;
 }
 
 aside > img {
     display: none;
     float: right;
     position: relative;
-    top: -30px;
+    top: -20px;
     right: -20px;
-    width: 50px;
+    width: 30px;
     max-height: 50px;
     object-fit: scale-down;
     border-radius: 50px;
-    background-color: white;
+    background-color: var(--main-color);
     border: 2px solid var(--main-color)
 }
 
@@ -291,10 +316,11 @@ aside > div {
     background-color: white;
     padding: 10px;
     max-height: 600px;
-    width: 230px;
+    width: 270px;
+    font-family: 'Arita-dotum-Medium';
 }
 
-@media screen and (max-width: 1200px){
+@media screen and (max-width: 1440px){
     aside > div {
         display: none;
     }
@@ -360,13 +386,14 @@ aside > div > span {
 }
 
 .scheduleBox > input {
-    width: 30%;
+    width: 32%;
     height: 25px;
     color: white;
     border-radius: 5px;
     margin: auto 0 auto auto;
     background-color: var(--main-color);
-    border: 1px solid var(--main-color)
+    border: 1px solid var(--main-color);
+    padding: 0;
 }
 
 aside > div > form {
@@ -460,4 +487,16 @@ aside > div > form > :nth-child(7) > :nth-child(2) {
 div.scheduleSelector > div{
     max-height: 320px;
     overflow-y: scroll;
+    overflow-y: auto;
+}
+
+div.scheduleSelector > div > span:nth-child(1) {
+    text-align: center;
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+input[type="button"]:hover, input[type="submit"]:hover {
+    cursor: pointer;
 }

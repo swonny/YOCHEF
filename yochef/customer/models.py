@@ -14,7 +14,6 @@ class Customer(models.Model):
 	registerDate = models.DateTimeField(auto_now_add=True)
 	currentVer = models.IntegerField(default=0) # 0 -> cus, 1 -> chef
 
-
 	def __str__(self):
 		return self.name
 		
@@ -77,7 +76,7 @@ class Book(models.Model):
 
 	def print_paymentStatus(self):
 		if self.paymentStatus == 1:
-			return "예약가능"
+			return "예약중"
 		elif self.paymentStatus == 2:
 			return "예약됨"
 		elif self.paymentStatus == 3:
