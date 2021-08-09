@@ -268,6 +268,12 @@ def mymenuReservation(request):
         eventDay = book.schedule.eventDate
         dDay = eventDay - today
         book.dDay = dDay.days
+        if book.dDay == 0:
+            book.dDay = "day"
+        elif book.dDay < 0:
+            book.dDay = f"+{abs(book.dDay)}"
+        else:
+            book.dDay = f"-{book.dDay}"
         postCoverImg = File.objects.filter(post = book.schedule.post, category = 4)
         if postCoverImg.exists() :
             book.postCoverImg = postCoverImg[0].attachment.url

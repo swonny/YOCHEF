@@ -332,11 +332,11 @@ def addSchedule(request):
 def deleteSchedule(request):
     schedule_id = request.POST['scheduleID']
     schedule = Schedule.objects.get(id=schedule_id)
-    if schedule.confirmStatus == 0:
+    if Book.objects.filter(schedule=schedule, paymentStatus__in=[2,3]).exists():
+        return JsonResponse({}, status=403)
+    else:
         Schedule.objects.filter(id=schedule_id).delete()
         return JsonResponse({}, status=200)
-    else:
-        return JsonResponse({}, status=403)
 
 
 # chefSchedule_detail.html READ

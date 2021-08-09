@@ -45,8 +45,8 @@ class LikeAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ['id', 'customer', 'coupon', 'schedule', 'print_paymentStatus', 'usedPoint', 'print_paymentMethod', 'course', 'totalPrice']
-    list_display_links = ['customer', 'coupon', 'schedule', 'print_paymentStatus', 'usedPoint', 'print_paymentMethod', 'course', 'totalPrice']
+    list_display = ['id', 'customer', 'coupon', 'schedule', 'print_paymentStatus', 'usedPoint', 'print_paymentMethod', 'course', 'totalPrice', 'registerDate']
+    list_display_links = ['customer', 'coupon', 'schedule', 'print_paymentStatus', 'usedPoint', 'print_paymentMethod', 'course', 'totalPrice', 'registerDate']
     list_per_page = 20
 
 @admin.register(Review)

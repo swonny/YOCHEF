@@ -128,6 +128,7 @@ input[type="button"]:hover, input[type="submit"]:hover {
 .mainContainer__book__pay{
     width: 40%;
     margin-right: auto;
+    min-width: 320px;
 }
 
 .mainContainer__book__pay > div {
@@ -162,7 +163,7 @@ input[type="button"]:hover, input[type="submit"]:hover {
     font-family: 'Arita-dotum-SemiBold';
 }
 
-.pay__bookInfo > div > div > :nth-child(2){
+.pay__bookInfo > div > div > :nth-child(3){
     position: relative;
     padding: 5px 10px;
     font-size: 12px;
@@ -179,7 +180,6 @@ input[type="button"]:hover, input[type="submit"]:hover {
 }
 
 .pay__coupon > span {
-    font-size: 15px;
     width: 40%;
     margin-right: auto;
     line-height: 25px;

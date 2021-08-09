@@ -614,3 +614,13 @@
 - 마이페이지 사용자 이름 디폴트값 넣기
 - 메인페이지 에러 해결
 - 마이
+
+21.08.09 제우스
+- chefSchedule.html
+	- chef/views.py chefSchedule()
+		- 예약 기록이 있는 경우 일정을 삭제할 수 없도록 수정
+	- html 
+		- 예약 완료 또는 예약 취소 기록이 있는 경우 일정 삭제 버튼이 보이지 않도록 수정
+- customer/views.py myMenuReservation()
+	- D-day 당일이 표시되지 않는 버그 수정
+	- D-day가 지난 경우 날짜가 음수로 표시되는 버그 수정

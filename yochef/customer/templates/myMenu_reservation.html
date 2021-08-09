@@ -37,7 +37,7 @@
                             <div class="menu-info-wrapper">
                                 <div class="content__image-wrapper">
                                     <img style="width: 180px; height: 150px;" src="{{book.postCoverImg}}" onerror="this.src='{% static 'img/default.png' %}';" alt=""><!-- 수정 필요 -->
-                                    <div class="d-day">D-{{book.dDay}}</div><!-- js 수정 필요 -->
+                                    <div class="d-day">D{{book.dDay}}</div><!-- js 수정 필요 -->
                                 </div>
                                 <div class="content__description">
                                     <h4>{{book.schedule.post.title}}</h4>
