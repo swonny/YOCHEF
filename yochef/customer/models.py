@@ -69,7 +69,7 @@ class Book(models.Model):
 	totalPrice = models.IntegerField(null=True)
 	personNum = models.IntegerField()
 	comment = models.TextField(max_length=1000, null=True)
-	registerDate = models.DateTimeField(auto_now=True) 
+	registerDate = models.DateTimeField(auto_now_add=True) 
 
 	def customerName(self):
 		return self.customer.name

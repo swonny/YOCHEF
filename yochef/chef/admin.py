@@ -27,7 +27,7 @@ class ScheduleAdmin(admin.ModelAdmin):
 
 
 # Register your models here.
-#admin.site.register(Chef)
-#admin.site.register(Post)
-#admin.site.register(Course)
-#admin.site.register(Schedule)
+# admin.site.register(Chef)
+# admin.site.register(Post)
+# admin.site.register(Course)
+# admin.site.register(Schedule)

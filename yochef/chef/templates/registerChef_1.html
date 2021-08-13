@@ -98,12 +98,12 @@
         let profileImage = document.querySelector("img.profile--image").src;
         let nickname = document.querySelector("input.chef-nickname").value;
         let spec = document.querySelector("textarea.spec-input").value;
-        let file = document.querySelector("input.spec-input").value;
+        //let file = document.querySelector("input.spec-input").value;
 
         if(profileImage == "http://127.0.0.1:8000/static/image/profile_default.png") emptyInfo.push("프로필 사진 ");
         if(!nickname) emptyInfo.push("닉네임 ");
         if(!spec) emptyInfo.push("이력 ");
-        if(file == "") emptyInfo.push("이력 증명 파일 ");
+        //if(file == "") emptyInfo.push("이력 증명 파일 ");
 
         if(emptyInfo.length === 0){
             return true;

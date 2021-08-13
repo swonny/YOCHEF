@@ -48,6 +48,7 @@ function getRegionDetail(regionId, regionDetailId = 0){
 }
 
 function setRegionDetail(data){
+    console.log(data)
     regionDetailId = data.region_detail_id
     data = data.region_details;
     let options = ``;

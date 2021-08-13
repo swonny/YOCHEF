@@ -225,6 +225,10 @@ select {
     margin-bottom: 5.4px;
 }
 
+.saved-course-image {
+    display: flex;
+}
+
 .course-image-add {
     border: #E6E6E6 solid 0.5px;
     border-radius: 5px;

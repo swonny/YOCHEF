@@ -41,7 +41,10 @@ class Post(models.Model):
 
 	def __str__(self):
 		if self.title:
-			return self.title
+			if len(self.title) > 15:
+				return self.title[:14] + "..."
+			else:
+				return self.title
 		else:
 			return "Post Object:" + str(self.id)
 

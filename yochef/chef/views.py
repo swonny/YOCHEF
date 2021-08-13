@@ -134,7 +134,7 @@ def registerChef(request, page_num=1):
             post.save()
             chef.save()
             customer.save()
-        return redirect('/')
+        return redirect('chefSchedule')
 
 
 # editChefProfile_1.html READ
@@ -383,7 +383,6 @@ def scheduleCancel(request, book_id):
         book = Book.objects.get(id=book_id)
         schedule = book.schedule
         if request.POST.get('scheduleCancel'):
-            print(request.POST.get('scheduleCancel'))
             schedule.confirmStatus = 3	# 0: 결제대기  1: 승인대기  2: 승인완료  3: 승인취소
             book.paymentStatus = 3 # 1: 결제대기  2: 결제완료  3: 결제취소
             schedule.save()

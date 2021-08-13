@@ -65,6 +65,17 @@
 
 {% block scripts %}
 <script>
+
+    //지역 detail
+    document.addEventListener("DOMContentLoaded", () => {
+        getRegion(parseInt('{{post.region|default:0}}'));
+        getRegionDetail(parseInt('{{post.region|default:1}}'), parseInt('{{post.regionDetail.id|default:0}}'));
+    });
+
+    document.getElementsByName('residence')[0].addEventListener('change', (event)=>{
+        getRegionDetail(document.getElementsByName('residence')[0].value);
+    });
+
     //form data 모두 등록되었는지 확인
     function formCheck() {
 
@@ -88,15 +99,6 @@
     }
     loadSelector(document.querySelector("select[name=category]"));
 
-    //지역 detail
-    document.addEventListener("DOMContentLoaded", () => {
-        getRegion(parseInt('{{post.region|default:0}}'));
-        getRegionDetail(parseInt('{{post.region|default:1}}'), parseInt('{{post.regionDetail.id|default:0}}'));
-    });
-
-    document.getElementsByName('residence')[0].addEventListener('change', (event)=>{
-        getRegionDetail(document.getElementsByName('residence')[0].value);
-    });
 
     //지역 추가
     /*function addRegion(e) {

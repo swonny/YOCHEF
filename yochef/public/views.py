@@ -41,7 +41,6 @@ def main(request):
         cover_img = File.objects.filter(post = post, category = 4)
         if cover_img.exists():
             post.cover_img = cover_img[0].attachment.url
-    print(buffet_posts[0].cover_img)
     
     return render(request, 'main.html', {'buffet_posts': buffet_posts, 'korean_posts': korean_posts, 'japanese_posts':japanese_posts}) 
 
@@ -122,11 +121,9 @@ def getRegionAPI(request, region_id = 1):
 # 세부 지역을 반환해주는 함수
 def getRegionDetailAPI(request):
     region = int(request.POST['region_id'])
-    region_detail_id = request.POST['region_detail_id']
-    if region_detail_id == "" : region_detail_id = 0
-    else : region_detail_id = int(region_detail_id)
-    region_all = list(RegionDetail.objects.filter(id__lte = 104, id__gte = 97, region = region).values('id', 'detailName'))
-    region_details = region_all + list(RegionDetail.objects.filter(region = region, id__lt = 97).values('id', 'detailName'))
+    region_detail_id = int(request.POST['region_detail_id'])
+    region_all = list(RegionDetail.objects.filter(id__lte = 103, id__gte = 96, region = region).values('id', 'detailName'))
+    region_details = region_all + list(RegionDetail.objects.filter(region = region, id__lt = 96).values('id', 'detailName'))
     return JsonResponse({'region_details':region_details, 'region_detail_id':region_detail_id}, status=200)
 
 def changeFile(request):
@@ -152,7 +149,7 @@ def postList(request, category=0, order=0):
     start_date = request.POST.get('startDate', "")
     end_date = request.POST.get('endDate', "")
     region = int(request.POST.get('residence', 1))
-    regionDetail = int(request.POST.get('residenceDetail', 97))
+    regionDetail = int(request.POST.get('residenceDetail', 96))
     keyword = request.POST.get('keyword', "")
     if start_date == "" : start_date = date.today()
     else: start_date = parse_date(start_date)
@@ -164,8 +161,8 @@ def postList(request, category=0, order=0):
         posts = posts.filter(category = category)
 
     schedules = Schedule.objects.filter(post__in = posts, region = region)
-    if regionDetail < 97 :
-        regionAll = 96 + RegionDetail.objects.get(id = regionDetail).region
+    if regionDetail < 96 :
+        regionAll = 95 + RegionDetail.objects.get(id = regionDetail).region
         schedules = schedules.filter(regionDetail_id__in=[regionDetail,regionAll])
 
     # paymentStatus 관련 필터

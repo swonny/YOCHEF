@@ -45,14 +45,16 @@
                     <h3>뷔페 / 케이터링</h3>
                     <div class="div--right buffet"> </div>
                 </div>
-                <div class="menu__item-container posts__buffet">
-                    {% for post in buffet_posts %}
-                    <div onclick="location.href = '/detail/{{post.id}}';" class="menu__item">
-                        <img class="postCoverImage" src="{{post.cover_img}}" onerror="this.src=`{% static 'img/default.png' %}`"><!-- 수정필요: 포스트 이미지 -->
-                        <div class="menu__title">{{post.title}}</div>
-                        <div class="menu__chef-name">{{post.chef.nickname}}</div>
+                <div class="main--center">
+                    <div class="menu__item-container posts__buffet">
+                        {% for post in buffet_posts %}
+                        <div onclick="location.href = '/detail/{{post.id}}';" class="menu__item">
+                            <img class="postCoverImage" src="{{post.cover_img}}" onerror="this.src=`{% static 'img/default.png' %}`"><!-- 수정필요: 포스트 이미지 -->
+                            <div class="menu__title">{{post}}</div>
+                            <div class="menu__chef-name">{{post.chef.nickname}}</div>
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
             </article>
             <!-- // buffet 최근 등록 메뉴 -->
@@ -64,14 +66,16 @@
                     <h3>한식</h3>
                     <div class="div--right"> </div>
                 </div>
-                <div class="menu__item-container posts__korean">
-                    {% for post in korean_posts %}
-                    <div onclick="location.href = '/detail/{{post.id}}';" class="menu__item">
-                        <img src="{{post.cover_img}}" onerror="this.src=`{% static 'img/default.png' %}`">
-                        <div class="menu__title">{{post.title}}</div>
-                        <div class="menu__chef-name">{{post.chef.nickname}}</div>
+                <div class="main--center">
+                    <div class="menu__item-container posts__korean">
+                        {% for post in korean_posts %}
+                        <div onclick="location.href = '/detail/{{post.id}}';" class="menu__item">
+                            <img src="{{post.cover_img}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                            <div class="menu__title">{{post}}</div>
+                            <div class="menu__chef-name">{{post.chef.nickname}}</div>
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
             </article>
             <!-- // buffet 최근 등록 메뉴 -->
@@ -83,14 +87,16 @@
                     <h3>일식</h3>
                     <div class="div--right"> </div>
                 </div>
-                <div class="menu__item-container posts__buffet">
-                    {% for post in japanese_posts %}
-                    <div onclick="location.href = '/detail/{{post.id}}';" class="menu__item">
-                        <img src="{{post.cover_img}}" onerror="this.src=`{% static 'img/default.png' %}`">
-                        <div class="menu__title">{{post.title}}</div>
-                        <div class="menu__chef-name">{{post.chef.nickname}} 셰프님</div>
+                <div class="main--center">
+                    <div class="menu__item-container posts__buffet">
+                        {% for post in japanese_posts %}
+                        <div onclick="location.href = '/detail/{{post.id}}';" class="menu__item">
+                            <img src="{{post.cover_img}}" onerror="this.src=`{% static 'img/default.png' %}`">
+                            <div class="menu__title">{{post}}</div>
+                            <div class="menu__chef-name">{{post.chef.nickname}} 셰프님</div>
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
             </article>
             <!-- // japanese 최근 등록 메뉴 -->

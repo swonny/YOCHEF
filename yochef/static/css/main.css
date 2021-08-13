@@ -21,6 +21,12 @@
     min-width: 950px;
 }
 
+.main--center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .main-image {
     background-image: url("");
     background-color: black;
@@ -213,7 +219,7 @@ border-right: 29px solid transparent;
 
 .category__header > div {
     display: inline-block;
-    width: 46.8%;
+    width: 40%;
     border-bottom: 1px solid rgb(189, 0, 0);
     padding: 0px 0px;
     margin: 7px 0px;
@@ -282,7 +288,7 @@ border-right: 29px solid transparent;
     
     .category__header > div {
         display: inline-block;
-        width: 46.8%;
+        width: 40%;
         border-bottom: 1px solid rgb(189, 0, 0);
         padding: 0px 0px;
         margin: 7px 0px;

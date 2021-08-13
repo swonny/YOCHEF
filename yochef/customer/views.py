@@ -93,7 +93,10 @@ def apply(request): #예약하기 버튼
     book.personNum = int(request.POST['peopleNum'])
     book.totalPrice = schedule.post.movingPrice + (course.price * book.personNum)
     book.save()
-    return render(request, 'pay_apply.html', {'course': course, 'book':book})
+    postCoverImg = File.objects.filter(post = book.schedule.post, category = 4)
+    if postCoverImg.exists() :
+        postCoverImg = postCoverImg[0].attachment.url
+    return render(request, 'pay_apply.html', {'course': course, 'book':book, 'post_coverimg_url': postCoverImg})
 
 def payment(request): #다음 버튼
     book_id = int(request.POST['book'])
@@ -103,7 +106,10 @@ def payment(request): #다음 버튼
         book.comment = request.POST.get('comment')
         book.phoneNum = request.POST.get('phoneNum')
         book.save()
-    return render(request, 'pay_payment.html', {'book':book, 'coupons' : coupons})
+    postCoverImg = File.objects.filter(post = book.schedule.post, category = 4)
+    if postCoverImg.exists() :
+        postCoverImg = postCoverImg[0].attachment.url
+    return render(request, 'pay_payment.html', {'book':book, 'coupons' : coupons, 'post_coverimg_url': postCoverImg})
 
 def payComplete(request): #결제하기 눌렀을 때
     book_id = int(request.POST['book'])
@@ -283,7 +289,6 @@ def checkDuplicateAPI(request):
     ok = True
     if User.objects.filter(username = request.POST['email']).exists() :
         ok = False
-    print(request.POST['email'])
     return JsonResponse({'ok': ok}, status=200)
 
 

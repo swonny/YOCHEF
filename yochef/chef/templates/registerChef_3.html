@@ -78,7 +78,7 @@
                                             <h4 class="course-name__title">코스 설명</h4>
                                             <div class="textarea-wrapper course__input-wrapper">
                                                 <!-- 클래스명 변경: courseInfo__descr__input -> course-info__description-->
-                                                <textarea class="course-info__description" name="courseDescribe1" maxlength="500" placeholder="ex)&#10;&#10;1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)&#10;&#10;2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...&#10;&#10;3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국&#10;&#10;8인~12인용 코스입니다.&#10;&#10;인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^">{{course.description|default:""}}</textarea>
+                                                <textarea class="course-info__description" name="courseDescribe{{forloop.counter}}" maxlength="500" placeholder="ex)&#10;&#10;1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)&#10;&#10;2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...&#10;&#10;3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국&#10;&#10;8인~12인용 코스입니다.&#10;&#10;인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^">{{course.description|default:""}}</textarea>
                                             </div>
                                             <div class="course__img-wrapper">
                                                 <div class="course__img-container">
@@ -169,7 +169,8 @@
         //const count = document.getElementsByClassName('course-info-all')[0].childElementCount;
         //const imageContainer = document.getElementsByClassName('course__img-container')[count-1];
         const imageContainer = e.parentElement;
-        const imageDivs = imageContainer.children[2].querySelectorAll("div.course-image");
+        //const imageDivs = imageContainer.children[2].querySelectorAll("div.course-image");
+        const imageDivs = imageContainer.querySelectorAll("div.course-image");
         for (div of imageDivs) {
             div.remove();
         }
@@ -281,7 +282,7 @@
         courseNode.querySelector("textarea.course-info__description").value = "";
         //courseNode.querySelector("div.saved-course-image").remove();
         if (courseNode.querySelector("div.course-image")) {
-            const imageDivs = courseNode.querySelector("div.course-image");
+            const imageDivs = courseNode.querySelectorAll("div.course-image");
             for (div of imageDivs) {
                 div.remove();
             }
@@ -315,22 +316,22 @@
         const titleArr = new Array();
         const priceArr= new Array();
         const descriptionArr = new Array();
-        const imageArr = new Array();
+        //const imageArr = new Array();
         const checkTitle = document.getElementsByClassName('course-info__title');
         const checkPrice = document.getElementsByClassName('course-info__price');
         const checkDescription = document.getElementsByClassName('course-info__description');
-        const checkImage = document.getElementsByClassName('course-image__content');
+        //const checkImage = document.getElementsByClassName('course-image__content');
         for(let i = 0; i < count ; i ++) {
             titleArr.push(checkTitle[i]);
             priceArr.push(checkPrice[i]);
             descriptionArr.push(checkDescription[i]);
-            imageArr.push(checkImage[i]);
+            //imageArr.push(checkImage[i]);
         }
         let alertMessage = new Array();
         if(checkTitle[count-1].value == "") alertMessage.push("코스 이름 ");
         if(checkPrice[count-1].value == "") alertMessage.push("코스 가격 ");
         if(checkDescription[count-1].value == "") alertMessage.push("코스 설명 ");
-        if(checkImage[count-1].value == "") alertMessage.push("코스 이미지 ");
+        //if(checkImage[count-1].value == "") alertMessage.push("코스 이미지 ");
         
         if(alertMessage.length){ 
             return alertMessage;
