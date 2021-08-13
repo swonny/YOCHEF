@@ -214,12 +214,12 @@ border-right: 29px solid transparent;
 }
 
 .buffet {
-    width: 42.5% !important;
+    width: 350px !important;
 }
 
 .category__header > div {
     display: inline-block;
-    width: 40%;
+    width: 388.500px;
     border-bottom: 1px solid rgb(189, 0, 0);
     padding: 0px 0px;
     margin: 7px 0px;
@@ -283,12 +283,12 @@ border-right: 29px solid transparent;
     }
 
     .buffet {
-        width: 42.5% ;
+        width: 350px ;
     }
     
     .category__header > div {
         display: inline-block;
-        width: 40%;
+        width: 388.500px;
         border-bottom: 1px solid rgb(189, 0, 0);
         padding: 0px 0px;
         margin: 7px 0px;
@@ -307,7 +307,7 @@ border-right: 29px solid transparent;
     
     .category__header > div {
         display: inline-block;
-        width: 46.8%;
+        width: 388.500px;
         border-bottom: 1px solid rgb(189, 0, 0);
         padding: 0px 0px;
         margin: 7px 0px;
@@ -326,7 +326,7 @@ border-right: 29px solid transparent;
     
     .category__header > div {
         display: inline-block;
-        width: 46.8%;
+        width: 388.500px;
         border-bottom: 1px solid rgb(189, 0, 0);
         padding: 0px 0px;
         margin: 7px 0px;
@@ -345,7 +345,7 @@ border-right: 29px solid transparent;
     
     .category__header > div {
         display: inline-block;
-        width: 46.8%;
+        width: 388.500px;
         border-bottom: 1px solid rgb(189, 0, 0);
         padding: 0px 0px;
         margin: 7px 0px;
@@ -364,7 +364,7 @@ border-right: 29px solid transparent;
     
     .category__header > div {
         display: inline-block;
-        width: 46.8%;
+        width: 388.500px;
         border-bottom: 1px solid rgb(189, 0, 0);
         padding: 0px 0px;
         margin: 7px 0px;
@@ -420,13 +420,16 @@ border-right: 29px solid transparent;
     
     .category__header > div {
         display: inline-block;
-        width: 46.8%;
+        width: 388.500px;
         border-bottom: 1px solid rgb(189, 0, 0);
         padding: 0px 0px;
         margin: 7px 0px;
     }
 }
 
+
+
+ 
 @media screen and ( max-width: 982px ) {
 
     .main-category-container {
@@ -465,7 +468,7 @@ border-right: 29px solid transparent;
     
     .category__header > div {
         display: inline-block;
-        width: 46.8%;
+        width: 388.500px;
         border-bottom: 1px solid rgb(189, 0, 0);
         padding: 0px 0px;
         margin: 7px 0px;
@@ -490,5 +493,15 @@ border-right: 29px solid transparent;
         top: 65px;
         left: 30px;
         z-index: 1;
+    }
+}
+
+@media (max-width:1520px) and (min-width:1323px) {
+    .category__header > div {
+        display: inline-block;
+        width: 388.500px;
+        border-bottom: 1px solid rgb(189, 0, 0);
+        padding: 0px 0px;
+        margin: 7px 0px;
     }
 }

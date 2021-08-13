@@ -153,7 +153,7 @@ def kakaoPayLogic(request, book_id):
     postTitle = request.POST['postTitle']
     personNum = request.POST['personNum']
     totalPrice = request.POST['totalPrice']
-    vat = int(totalPrice) / 11
+    vat = int(int(totalPrice) / 11)
     tax_free = int(totalPrice) - vat
     _admin_key = '43e1846e5c8f2fb293d6460e124d4a93'
     _url = f"https://kapi.kakao.com/v1/payment/ready"
@@ -176,6 +176,7 @@ def kakaoPayLogic(request, book_id):
     }
     _res = requests.post(_url, data=_data, headers=_headers)
     _result = _res.json()
+    print(_result)
 
     request.session['tid'] = _result['tid']
     return redirect(_result['next_redirect_pc_url'])
