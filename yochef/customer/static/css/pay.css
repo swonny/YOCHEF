@@ -287,12 +287,18 @@ input[type="button"]:hover, input[type="submit"]:hover {
 }
 
 .pay__point > div > div  > div {
-    width: 70%;
+    width: 80%;
 }
+
+.pay__point > div > div  > div {
+    width: 80%;
+}
+
 
 .pay__point > div > div > span {
     font-size: 13px;
     line-height: 20px;
+    display: inline-block;
 }
 
 .pay__point > div > div > div > input {

@@ -94,17 +94,19 @@ def detail(request, post_id):
         is_like = True
     else: 
         is_like = False
-
-    books = Book.objects.filter(schedule__post__id = post_id, customer = request.user.customer, paymentStatus = 2)
-    alreadyWritten = []
-    for book in books :
-        if Review.objects.filter(book = book).exists() :
-            alreadyWritten.append(book.id)
-    books = books.exclude(id__in = alreadyWritten)
-    can_write = False
-    if books.exists() :
-        can_write = True
     
+    # 작성 권한 유무
+    can_write = False
+    if request.user.is_authenticated :
+        books = Book.objects.filter(schedule__post__id = post_id, customer = request.user.customer, paymentStatus = 2)
+        alreadyWritten = []
+        for book in books :
+            if Review.objects.filter(book = book).exists() :
+                alreadyWritten.append(book.id)
+        books = books.exclude(id__in = alreadyWritten)
+        if books.exists() :
+            can_write = True
+        
     return render(request, 'detail.html', {'post': post, 'courses':courses, 'reviews': reviews, 'is_review_over': is_review_over, 'schedules':available_schedules
     , 'post_cover_imgurl': post_cover_imgurl, 'post_imgs_uptotwo': post_imgs[:2], 'more_img': more_img, 'post_imgs': post_imgs,
     'profile_imgurl':profile_imgurl, 'is_like': is_like, 'can_write':can_write})

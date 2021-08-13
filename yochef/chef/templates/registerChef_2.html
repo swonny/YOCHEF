@@ -37,8 +37,8 @@
                             <h4 class="article-title article-title--top">지역 선택 </h4>
                             <div id="region-selection-all">
                                 <div class="region-selection-wrapper">
-                                    <select class="region-selection" name="residence"></select>
-                                    <select id="region-detail-selection" name="residenceDetail"></select>
+                                    <select class="region-selection" value="{{region|default:0}}" name="residence"></select>
+                                    <select id="region-detail-selection" value="{{regionDetail|default:0}}" name="residenceDetail"></select>
                                     <!-- 추후구현: 지역추가기능 구현시 필요한 삭제기능
                                     <button type="button" onclick="delRegion(this)" class="delete-region" ><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQwNyA0MDciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTg5LjE5OTIxOSAzN2MwLTEyLjEzMjgxMiA5LjQ2ODc1LTIxIDIxLjYwMTU2Mi0yMWg4OC44MDA3ODFjMTIuMTI4OTA3IDAgMjEuNTk3NjU3IDguODY3MTg4IDIxLjU5NzY1NyAyMXYyM2gxNnYtMjNjMC0yMC45NTMxMjUtMTYuNjQ0NTMxLTM3LTM3LjU5NzY1Ny0zN2gtODguODAwNzgxYy0yMC45NTMxMjUgMC0zNy42MDE1NjIgMTYuMDQ2ODc1LTM3LjYwMTU2MiAzN3YyM2gxNnptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtNjAuNjAxNTYyIDQwN2gxODkuMTk5MjE5YzE4LjI0MjE4OCAwIDMyLjM5ODQzOC0xNi4wNDY4NzUgMzIuMzk4NDM4LTM2di0yNDdoLTI1NHYyNDdjMCAxOS45NTMxMjUgMTQuMTU2MjUgMzYgMzIuNDAyMzQzIDM2em0xNDUuNTk3NjU3LTI0NC44MDA3ODFjMC00LjQxNzk2OSAzLjU4MjAzMS04IDgtOHM4IDMuNTgyMDMxIDggOHYxODljMCA0LjQxNzk2OS0zLjU4MjAzMSA4LTggOHMtOC0zLjU4MjAzMS04LTh6bS01OSAwYzAtNC40MTc5NjkgMy41ODIwMzEtOCA4LThzOCAzLjU4MjAzMSA4IDh2MTg5YzAgNC40MTc5NjktMy41ODIwMzEgOC04IDhzLTgtMy41ODIwMzEtOC04em0tNTkgMGMwLTQuNDE3OTY5IDMuNTgyMDMxLTggOC04czggMy41ODIwMzEgOCA4djE4OWMwIDQuNDE3OTY5LTMuNTgyMDMxIDgtOCA4cy04LTMuNTgyMDMxLTgtOHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjAgMTA4aDI3MC4zOTg0MzhjMTEuMDQ2ODc0IDAgMjAtOC45NTMxMjUgMjAtMjBzLTguOTUzMTI2LTIwLTIwLTIwaC0yNzAuMzk4NDM4Yy0xMS4wNDY4NzUgMC0yMCA4Ljk1MzEyNS0yMCAyMHM4Ljk1MzEyNSAyMCAyMCAyMHptMCAwIiBmaWxsPSIjOTI5MjkyIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PC9nPjwvc3ZnPg==" /></button>
                                     추후구현: 지역추가기능 구현시 필요한 삭제기능 -->
@@ -90,8 +90,8 @@
 
     //지역 detail
     document.addEventListener("DOMContentLoaded", () => {
-        getRegion(parseInt('{{post.region}}'));
-        getRegionDetail(parseInt('{{post.region}}'), parseInt('{{post.regionDetail.id}}'));
+        getRegion(parseInt('{{post.region|default:0}}'));
+        getRegionDetail(parseInt('{{post.region|default:1}}'), parseInt('{{post.regionDetail.id|default:0}}'));
     });
 
     document.getElementsByName('residence')[0].addEventListener('change', (event)=>{
@@ -99,7 +99,7 @@
     });
 
     //지역 추가
-    function addRegion(e) {
+    /*function addRegion(e) {
         const newRegion = document.getElementsByClassName("region-selection-wrapper");
         const regionNode = newRegion[0].cloneNode(true);
         regionNode.value = "";
@@ -127,7 +127,7 @@
                 alert("취소를 누르셨습니다.");
             }
         }
-    }
+    }*/
     
     
 </script>
