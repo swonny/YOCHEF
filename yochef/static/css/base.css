@@ -73,7 +73,7 @@ main {
 /* 반응형 */
 @media screen and (min-width: 1100px) and (max-width: 1440px){
     main{
-        margin: 90px 200px;
+        margin: 90px 250px;
     }
 }
 
@@ -302,10 +302,10 @@ ul.nav__item-container > li.nav__item:nth-child(3) > a:hover{
 }
 
 #footer {
-    /* flex-shrink: 0;
-    margin-top: auto;
+    background-color: #e6e6e6;
+    padding: 10px 0px;
     display: flex;
-    flex-direction: column; */
+    justify-content: center;
 }
 
 /* 푸터 링크 컨테이너 */
@@ -338,7 +338,8 @@ ul.nav__item-container > li.nav__item:nth-child(3) > a:hover{
     font-family: 'arita-dotum-medium';
     font-size: 15px;
     margin: 0px 220px;
-    min-width: 950px;
+    min-width: 600px;
+    text-align: center;
 }
 
 @media screen and ( max-width: 1391px ) {
@@ -377,17 +378,17 @@ ul.nav__item-container > li.nav__item:nth-child(3) > a:hover{
 
 .team-name {
     margin-top: 10px;
-    margin-bottom: 80px;
+    margin-bottom: 20px;
 }
 
 .footer-copyright-part {
     display: inline-box;
     width: 100%;
-    margin-top: 20;
+    margin-top: 10px;
     font-weight: 200;
     padding: 10px 10px 10px 0px;
     /* background-color: #e6e6e6; */
-    border-bottom: #868686 solid 0.5px;
+    /* border-bottom: #868686 solid 0.5px; */
 }
 
 .footer-bottom-container {

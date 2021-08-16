@@ -624,3 +624,9 @@
 - customer/views.py myMenuReservation()
 	- D-day 당일이 표시되지 않는 버그 수정
 	- D-day가 지난 경우 날짜가 음수로 표시되는 버그 수정
+
+
+21.08.16 블루
+- detail page anonymousUser로 접속 시 에러 해결
+- 전체적으로 hover시 pointer로 변경
+- 이미지 object-fit: cover로 전체 변경

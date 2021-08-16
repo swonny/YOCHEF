@@ -136,7 +136,6 @@
     <!-- 일정 선택기 -->
     
     <aside>
-        {% if request.user.is_authenticated %}
         <img src="{% static 'img/close.png' %}">
         <div class="scheduleSelector" style="display: block;">
             <span>일정</span>
@@ -167,7 +166,7 @@
                 {% csrf_token %}
                 <input type="text" name="schedule" hidden>
                 <div>
-                    <span>수량 선택</span>
+                    <span>코스 선택</span>
                     <div>
                         <select name="course" id="course">
                             {% for course in courses %}
@@ -206,7 +205,6 @@
                 </div>
             </form>
         </div>
-        {% endif %}
     </aside>
     
 {% endblock %}
@@ -214,61 +212,62 @@
 {% block scripts %}
 <script>
 
-    if ('{{request.user.is_authenticated}}' === 'True' ){
-
-        document.addEventListener('DOMContentLoaded', ()=>{
-            priceChange();
-            document.querySelector('aside > img').value = "0";
-        })
-
-        console.log("{{request.user.is_authenticated}}")
-        document.querySelector('input[name="fakeSubmit"]').addEventListener('click', ()=>{
-            if (document.getElementsByName('schedule')[0].value == ''){
-                alert('일정을 선택해주세요');
-                return;
-            }else{
-                document.querySelector('input[type="submit"]').click()
-            }
-        })
     
 
-        let peopleNum = document.getElementsByName('peopleNum')[0];
-
-        // 일정 선택기 버튼 함수
-        document.querySelector('aside > img').addEventListener('click', (e)=>{
-            console.log(e.target.value)
-            if (e.target.value == "1"){
-                document.querySelector('aside > div').setAttribute('style', 'display: block;');
-                e.target.setAttribute('src', "{% static 'img/close.png' %}");
-                e.target.setAttribute('style', '');
-                e.target.value = "0";
-            }else {
-                document.querySelector('aside > div').setAttribute('style', '');
-                e.target.setAttribute('src', "{% static 'img/logo.png' %}");
-                e.target.setAttribute('style', 'background-color: white; width: 50px; top: -30px;');
-                e.target.value = "1";
-            }
-        })
-
-        peopleNum.addEventListener('keyup', priceChange);
-    
-        document.getElementsByName('course')[0].addEventListener('change', priceChange);
-
-        document.getElementsByName('likeBtn')[0].addEventListener('click', postLike);
-
-
-        function priceChange(){
-            let selectedCourseId = document.getElementsByName('course')[0].value;
-            let price = document.querySelector(`option[value="${selectedCourseId}"]`).getAttribute('price');
-            let totalPriceElement = document.getElementsByClassName('course__totalPrice')[0]
-            let totalPrice = parseInt(price) * parseInt(peopleNum.value);
-            try{
-                document.getElementsByClassName('course__price')[0].innerText = String(totalPrice) + ' 원';
-            }catch(e){
-                document.getElementsByClassName('course__price')[0].innerText = '0 원'
-            }
-            totalPriceElement.innerText = String(totalPrice + parseInt('{{post.movingPrice}}')) + ' 원';
+    document.addEventListener('DOMContentLoaded', ()=>{
+        priceChange();
+        document.querySelector('aside > img').value = "0";
+    })
+    document.querySelector('input[name="fakeSubmit"]').addEventListener('click', ()=>{
+        if (document.getElementsByName('schedule')[0].value == ''){
+            alert('일정을 선택해주세요');
+            return;
         }
+        else if ("{{request.user.is_authenticated}}" == "False"){
+            location.href = "/customer/login";
+        }
+        else{
+            document.querySelector('input[type="submit"]').click()
+        }
+    })
+
+
+    let peopleNum = document.getElementsByName('peopleNum')[0];
+
+    // 일정 선택기 버튼 함수
+    document.querySelector('aside > img').addEventListener('click', (e)=>{
+        console.log(e.target.value)
+        if (e.target.value == "1"){
+            document.querySelector('aside > div').setAttribute('style', 'display: block;');
+            e.target.setAttribute('src', "{% static 'img/close.png' %}");
+            e.target.setAttribute('style', '');
+            e.target.value = "0";
+        }else {
+            document.querySelector('aside > div').setAttribute('style', '');
+            e.target.setAttribute('src', "{% static 'img/logo.png' %}");
+            e.target.setAttribute('style', 'background-color: white; width: 50px; top: -30px;');
+            e.target.value = "1";
+        }
+    })
+
+    peopleNum.addEventListener('keyup', priceChange);
+
+    document.getElementsByName('course')[0].addEventListener('change', priceChange);
+
+    document.getElementsByName('likeBtn')[0].addEventListener('click', postLike);
+
+
+    function priceChange(){
+        let selectedCourseId = document.getElementsByName('course')[0].value;
+        let price = document.querySelector(`option[value="${selectedCourseId}"]`).getAttribute('price');
+        let totalPriceElement = document.getElementsByClassName('course__totalPrice')[0]
+        let totalPrice = parseInt(price) * parseInt(peopleNum.value);
+        try{
+            document.getElementsByClassName('course__price')[0].innerText = String(totalPrice) + ' 원';
+        }catch(e){
+            document.getElementsByClassName('course__price')[0].innerText = '0 원'
+        }
+        totalPriceElement.innerText = String(totalPrice + parseInt('{{post.movingPrice}}')) + ' 원';
     }
 
     Array.from(document.getElementsByClassName('scheduleBtn')).forEach(function(element) {

@@ -7,6 +7,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="셰프가 있는 곳이 식당이다, YOCHEF"> 
+    <meta property="og:type" content="website"> 
+    <meta property="og:url" content="http://yochef.site"> 
+    <meta property="og:image" content="{% static 'image/og_meta_yochef1.png' %}">
+    <meta property="og:description" content="한국 최초 출장요리 플랫폼, yochef">
     {% load static %}
     <title>YOCHEF</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css">
@@ -104,8 +109,8 @@
     <!-- 로그아웃 상태라면 -->
     {% else %}
     <ul class="nav__item-container log-out">
+      <li class="nav__item"><a href=""></a></li>
       <li class="nav__item"><a href="{% url 'main' %}">메인페이지</a></li>    
-      <li class="nav__item"><a href="">아이디/비밀번호 찾기</a></li>
       <li class="nav__item"><a  href="{% url 'signup' %}">회원가입</a></li>
       <li class="nav__item"><a href="{% url 'login' %}">로그인</a></li>
     </ul>
