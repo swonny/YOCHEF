@@ -83,7 +83,10 @@ main {
     }
 }
 
-img { border: 0; }
+img { 
+    border: 0; 
+    object-fit: cover;
+}
 
 input[type="submit"]:hover, input[type="button"]:hover, button:hover{
     cursor: pointer;
@@ -250,6 +253,7 @@ ul.nav__item-container > li.nav__item:nth-child(3) > a:hover{
 .nav--right img {
     width: 70px;
     height: 45px;
+    object-fit: unset;
 }
 
 .customer-button-describe  {
@@ -457,6 +461,10 @@ div.coupon_point_box > .box_tab > div{
     margin: auto;
     padding-bottom: 10px;
     border-bottom: #e6e6e6 solid 2px;
+}
+
+div.coupon_point_box > .box_tab > div:hover{
+    cursor: pointer;
 }
 
 div.coupon_point_box > .box_tab > div.selected{

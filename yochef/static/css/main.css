@@ -257,7 +257,6 @@ border-right: 29px solid transparent;
     height: 150px;
     border-radius: 5px;
     box-shadow: rgb(88 88 88 / 80%) 0px 3px 4px;
-    object-fit: cover;
 }
 
 .menu__item {

@@ -182,7 +182,6 @@ input[type="submit"]{
     border-radius: 10px;
     width: 150px;
     height: 150px;
-    object-fit: cover;
 }
 .postList__post > div{
     text-align: center;
