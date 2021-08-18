@@ -5,7 +5,7 @@
 {% endblock %} -->
 {% block content %}
 <main>
-    <div class="mainContainer">
+    <div class="mainContainer signup">
         <span>회원가입</span>
         <form method="POST" action="{% url 'signup'%}">
             <div class="inputbox">    
@@ -29,7 +29,7 @@
                             <select class="hide" name="residenceDetail"></select>
                         </li> -->
                         <li class="inputbox__checkbox__signup"><input class="inputbox__agree" type="checkbox" id="agreePolicy" name="agreePolicy"><label for="agreePolicy">이용약관 동의</label></li>
-                        <li><input class="mainContainer__submit last__button" type="button" value="가입완료"></li>
+                        <li><input class="mainContainer__submit last__button signup" type="button" value="가입완료"></li>
                         <li><input class="mainContainer__submit last__button" type="submit" value="가입완료" hidden></li>
                     </ul>
                 </div>

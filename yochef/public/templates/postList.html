@@ -5,9 +5,9 @@
 {% endblock %}
 {% block content %}
 <main>
-    <span>음식별 카테고리</span>
+    <!-- <span>음식별 카테고리</span> -->
     <div class="infoBox">
-        <aside>
+        <!-- <aside>
             <a href="/postList" class="{% if category == 0 %} currentCategory{% endif %}">전체보기</a>
             <a href="/postList?category=1" class="{% if category == 1 %} currentCategory{% endif %}">뷔페/케이터링</a>
             <a href="/postList?category=2" class="{% if category == 2 %} currentCategory{% endif %}">한식</a>
@@ -17,7 +17,7 @@
             <a href="/postList?category=6" class="{% if category == 6 %} currentCategory{% endif %}">양식</a>
             <a href="/postList?category=7" class="{% if category == 7 %} currentCategory{% endif %}">채식</a>
             <a href="/postList?category=8" class="{% if category == 8 %} currentCategory{% endif %}">기타</a>
-        </aside>
+        </aside> -->
         <div class="mainContainer">
             <form method="POST" action="{% url 'postList' %}">
                 {% csrf_token %}

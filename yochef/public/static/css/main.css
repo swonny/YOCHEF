@@ -28,123 +28,39 @@
 }
 
 .main-image {
-    background-image: url("");
-    background-color: black;
-    width: 100%;
-    height: 400px;
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.main-image img {
-    opacity: 60%;
+.main-image > div {
+    background-image: url(main.css);
+    background-color: black;
+    width: 840px;
+    height: 330px;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+.main-image > div > img {
+    opacity: 0.5;
     height: 100%;
-    width: 95%;
+    width: 100%;
+    border-radius: 5px;
 }
 
 .main-img-desc {
     position: absolute;
-    left: 20%;
+    left: 26%;
     display: inline-block;
     color: white;
-    font-size: 17px;
-    font-family: '국립박물관문화재단클래식L' !important;
+    font-size: 15px;
     font-weight: 100;
     writing-mode: tb-rl;
     padding: 70px 15px;
-    text-shadow: 2px 2px 2px rgb(92, 92, 92);
+    text-shadow: rgb(92 92 92) 2px 2px 2px;
     z-index: 1;
-}
-
-/* 메인페이지 카테고리 네브바 전체 컨테이너 */
-.main-category-container {
-    /* display: none; */
-    margin: 0px;
-    position: fixed;
-    top: 70px;
-    left: 0px;
-    /* box-shadow: 5px 5px 10px -5px gray; */
-    /* opacity: 50%; */
-}
-
-#octagon {
-    background-color: #970000;
-    padding: 15px;
-}
-
-/* #octagon:before {
-content: "";
-width: 100%;
-height: 0;
-position: absolute;
-top: 0;
-left: 0;
-border-bottom: 29px solid #970000;
-border-right: 29px solid transparent;
-}
-
-#octagon:after {
-content: "";
-width: 70%;
-height: 0;
-position: absolute;
-bottom: 0;
-left: 0;
-border-top: 29px solid #970000;
-border-right: 29px solid transparent;
-} */
-
-/* 
-
-.octa {
-    height: 250px;
-    overflow: hidden;
-    position: absolute;
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    transform: rotate(45deg);
-    width: 250px;
-  }
-  .octa:after {
-    background-color:#cecece;;
-    bottom: 0;
-    content: '';
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
- */
-
-
-/* 메인페이지 카테고리 네브바 아이템 컨테이너 */
-.main-category-item-container {
-    margin: 0px;
-    /* padding: 15px 5px; */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    text-align: center;
-    border-radius: 7px;
-    font-family: 'Arita-dotum-Light';
-}
-
-/* 메인페이지 카테고리 네브바 item */
-.main-category-item {
-    display: inline-block;
-    padding: 13px 2px;
-    border-bottom: solid thin white;
-}
-
-/* 메인페이지 카테고리 네브바 item 링크*/
-.main-category-item a {
-    color: white;
-    font-size: 12px;
-    text-decoration-line: none;
+    font-family: 국립박물관문화재단클래식L !important;
 }
 
 .main-section-wrapper {
@@ -186,11 +102,11 @@ border-right: 29px solid transparent;
 }
 
 .header--top {
-    font-size: 35px;
+    font-size: 29px;
     color: black;
     text-align: center;
     padding: 0px 100px;
-    font-family: 'Arita-dotum-SemiBold';
+    font-family: Arita-dotum-SemiBold;
 }
 
 .recent-menu__header div {
@@ -383,10 +299,6 @@ border-right: 29px solid transparent;
 
 @media screen and ( max-width: 1095px ) {
 
-    .main-category-container {
-        display: none;
-    }
-
     .main-logo {
         display: inline-block;
         width: 70px;
@@ -430,11 +342,6 @@ border-right: 29px solid transparent;
 
  
 @media screen and ( max-width: 982px ) {
-
-    .main-category-container {
-        display: none;
-    }
-
     .nav--x {
         display: none;
         width: 22px;

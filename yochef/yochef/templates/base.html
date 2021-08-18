@@ -11,7 +11,7 @@
     <meta property="og:type" content="website"> 
     <meta property="og:url" content="http://yochef.site"> 
     <meta property="og:image" content="{% static 'image/og_meta_yochef1.png' %}">
-    <meta property="og:description" content="한국 최초 출장요리 플랫폼, yochef">
+    <meta property="og:description" content="한국 최초 출장요리 플랫폼 yochef">
     {% load static %}
     <title>YOCHEF</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css">
@@ -22,166 +22,148 @@
 <body>
   <!-- 네브바 -->
   <nav class="nav-container">
-    <div class="nav__left-container">
-      <div class="nav__item yochef"><a href="{% url 'main' %}">YOCHEF</a></div>
-      <a href="{% url 'main' %}"><img class="logo" src="{% static 'image/navlogo.png' %}" alt=""></a>
-    </div>
-    <!-- 로그인 상태라면 -->
-    {% if user.is_authenticated %}
-      <!-- 셰프등록 돼있다면 -->
-      {% if user.customer.isChef %}
-        <!-- 셰프버전이라면 -->
-        {% if user.customer.currentVer == 1 %}
-        <ul class="nav__item-container nav--middle">
-          <li class="nav__item"><a href="{% url 'main' %}">메인페이지</a></li>    
-          <li class="nav__item"><a href="{% url 'editChefProfile' %}">셰프 정보 관리</a></li>
-          <li class="nav__item"><a href="{% url 'logout' %}">로그아웃</a></li>
-        </ul>
-        <div class="nav__item-wrapper nav--right">
-          <li class="nav__item"><a href="{% url 'mypage' %}">{{user.customer.name}} 셰프님</a></li>
-          <div class="button-wrapper">
-            <a href="{% url 'changePageVer' %}"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDU1IDU1IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIiBjbGFzcz0iIj48Zz48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im0xNC4yMyAzOWExMS40OCAxMS40OCAwIDAgMSAwLTIzIC43NS43NSAwIDAgMSAwIDEuNSAxMCAxMCAwIDAgMCAwIDIwIC43NS43NSAwIDAgMSAwIDEuNXoiIGZpbGw9IiNmZmNlMzEiIGRhdGEtb3JpZ2luYWw9IiM1NTYwNjUiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48cmVjdCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiM5NzAwMDAiIGhlaWdodD0iMjEuNDYiIHJ4PSIxMC43MyIgd2lkdGg9IjQ4IiB4PSIzLjUiIHk9IjE2Ljc3IiBkYXRhLW9yaWdpbmFsPSIjZWRlZGVkIiBzdHlsZT0iIiBjbGFzcz0iIj48L3JlY3Q+PGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBvcGFjaXR5PSIuNCI+PHBhdGggZD0ibTQ4LjMzIDM1LjEyYTEwLjc0IDEwLjc0IDAgMCAwIC05LjQ4LTE1Ljc3aC0yNi41M2ExMC42OCAxMC42OCAwIDAgMCAtNy41OSAzLjE1IDEwLjczIDEwLjczIDAgMCAxIDkuNS01LjczaDI2LjU0YTEwLjczIDEwLjczIDAgMCAxIDcuNTYgMTguMzV6IiBmaWxsPSIjOTcwMDAwIiBkYXRhLW9yaWdpbmFsPSIjZGJkOGRkIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PC9nPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTE0LjIzIDM1LjIzYTcuNzMgNy43MyAwIDEgMSA3Ljc3LTcuNzMgNy43NCA3Ljc0IDAgMCAxIC03Ljc3IDcuNzN6IiBmaWxsPSIjZmZjZTMxIiBkYXRhLW9yaWdpbmFsPSIjNmVhZGRmIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBvcGFjaXR5PSIuNCI+PHBhdGggZD0ibTE2LjMzIDM0Ljk0YTcuNjYgNy42NiAwIDAgMSAtMi4xLjI5IDcuNzMgNy43MyAwIDAgMSAtLjA2LTE1LjQ2IDcuNzMgNy43MyAwIDAgMCAyLjEgMTUuMTd6IiBmaWxsPSIjZmZjZTMxIiBkYXRhLW9yaWdpbmFsPSIjNGQ5NmQyIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PC9nPjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbD0iIzU1NjA2NSI+PHBhdGggZD0ibTQwLjc3IDM5aC0yNi41NGExMS40OCAxMS40OCAwIDAgMSAwLTIzaDI2LjU0YTExLjQ4IDExLjQ4IDAgMCAxIDAgMjN6bS0yNi41NC0yMS40OGExMCAxMCAwIDAgMCAwIDIwaDI2LjU0YTEwIDEwIDAgMCAwIDAtMjB6IiBmaWxsPSIjZmZjZTMxIiBkYXRhLW9yaWdpbmFsPSIjNTU2MDY1IiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggZD0ibTE0LjIzIDM2YTguNDggOC40OCAwIDEgMSA4LjQ4LTguNDggOC40OSA4LjQ5IDAgMCAxIC04LjQ4IDguNDh6bTAtMTUuNDZhNyA3IDAgMSAwIDcgNyA3IDcgMCAwIDAgLTctNy4wMnoiIGZpbGw9IiNmZmNlMzEiIGRhdGEtb3JpZ2luYWw9IiM1NTYwNjUiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48L2c+PC9nPjwvc3ZnPg==" /></a>
-            <div class="chef-button-describe">셰프</div>
-          </div>
-          </div>
-        <!-- 셰프등록 o & 손님버전이라면 -->
-        {% else %}
-        <ul class="nav__item-container">
-          <li class="nav__item"><a href="{% url 'main' %}">메인페이지</a></li>    
-          <li class="nav__item"><a href="{% url 'mymenuReservation' %}">마이메뉴</a></li> <!-- 백 작업 위해 임의로 url 연결했습니다-->
-          <li class="nav__item"><a>쿠폰함</a></li>
-          <li class="nav__item"><a href="{% url 'logout' %}">로그아웃</a></li>
-        </ul>
-        <!-- 쿠폰/포인트함 -->
-        <div class="coupon_point_box close">
-          <p>적립 혜택</p>
-          <div class="box_tab">
-            <div class="box_tab__coupon selected">쿠폰</div>
-            <div class="box_tab__point">포인트</div>
-          </div>
-          <div class="coupon_box open">
-            <!-- 쿠폰 코드 관련 내용 임시 삭제 -->
-            <!-- <form action="" method="POST">
-                  <input type="text" name="couponCode" placeholder="쿠폰 코드를 입력해주세요">
-                  <input type="submit" value="등록하기">
-            </form>   -->
-            <div class="coupon_box__detail">
-              <p>사용 가능한 쿠폰 <span>{{coupons.count|default:'0'}}장</span></p>
-            </div>
-            <div class="coupon_box__notice">
-              <div><span>**</span><p>쿠폰 사용 약관을 꼭 숙지해주세요!</p></div>
-              <div><span>-</span><p>쿠폰은 예약 당 1장만 사용이 가능합니다.</p></div>
-              <div><span>-</span><p>유효기간 내에 반드시 사용해야 하며, 기간 만료 후에는 사용이 불가합니다.쿠폰이 사용된 수업 환불 시, 결제 취소 및 환불 완료 시점에 쿠폰의 유효 기간이 남아있는 경우에만 사용 가능한 상태로 복구 됩니다.</p></div>
-              <div><span>-</span><p>쿠폰 금액이 결제 금액을 초과하는 경우, 차액은 반환되지 않습니다. </p></div>
+    <div>
+      <div class="nav__left-container">
+        <div class="nav__item yochef"><a href="{% url 'main' %}">YOCHEF</a></div>
+        <!-- <a href="{% url 'main' %}"><img class="logo" src="{% static 'image/navlogo.png' %}" alt=""></a> -->
+      </div>
+      <!-- 로그인 상태라면 -->
+      {% if user.is_authenticated %}
+        <!-- 셰프등록 돼있다면 -->
+        {% if user.customer.isChef %}
+          <!-- 셰프버전이라면 -->
+          {% if user.customer.currentVer == 1 %}
+          <!-- <ul class="nav__item-container nav--middle">
+            <li class="nav__item"><a href="{% url 'editChefProfile' %}">셰프 정보 관리</a></li>
+            <li class="nav__item"><a href="{% url 'logout' %}">로그아웃</a></li>
+          </ul> -->
+          <div class="nav__item-wrapper nav--right">
+            <li class="nav__item"><a href="{% url 'mypage' %}">{{user.customer.name}} 셰프님</a></li>
+            <li class="nav__item"><a href="{% url 'editChefProfile' %}">셰프 정보 관리</a></li>
+            <li class="nav__item"><a href="{% url 'logout' %}">로그아웃</a></li>
+            <div class="button-wrapper">
+              <a href="{% url 'changePageVer' %}"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMS45OTkgNTExLjk5OSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgY2xhc3M9IiI+PGc+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNMzc2LjQ5OSwxMjAuNWgtMjQxQzYwLjc4NCwxMjAuNSwwLDE4MS4yODYsMCwyNTZzNjAuNzg0LDEzNS41LDEzNS40OTksMTM1LjVoMjQxYzc0LjcxNSwwLDEzNS41LTYwLjc4NSwxMzUuNS0xMzUuNSAgICBTNDUxLjIxNCwxMjAuNSwzNzYuNDk5LDEyMC41eiBNMTM1LjQ5OSwzNjEuNTAxQzc3LjMyNiwzNjEuNTAxLDMwLDMxNC4xNzMsMzAsMjU2YzAtNTguMTczLDQ3LjMyNi0xMDUuNSwxMDUuNDk5LTEwNS41ICAgIGM1OC4xNzMsMCwxMDUuNSw0Ny4zMjcsMTA1LjUsMTA1LjVDMjQwLjk5OSwzMTQuMTczLDE5My42NzIsMzYxLjUwMSwxMzUuNDk5LDM2MS41MDF6IiBmaWxsPSIjYmQwMDAwIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+Cgk8L2c+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPC9nPjwvc3ZnPg==" /></a>
+              <div class="chef-button-describe">셰프</div>
             </div>
           </div>
-          <div class="point_box close">
-            <div class="point_box__detail">
-              <p>보유 포인트 <span>{{request.user.customer.point}}P</span></p>
-              <div class="point_box__detial__notice">
-                <p>셰프가 준비한 프로그램의 리뷰를 작성하시면 포인트를 적립할 수 
-                  있어요!</p>
-                <p>[ 텍스트 리뷰 500P ]</p>
+          <!-- 셰프등록 o & 손님버전이라면 -->
+          {% else %}
+          <div class="nav__item-wrapper nav--right">
+            <li class="nav__item"><a href="{% url 'mypage' %}">{{user.customer.name}} 님</a></li>
+            <li class="nav__item"><a href="{% url 'mymenuReservation' %}">마이메뉴</a></li> <!-- 백 작업 위해 임의로 url 연결했습니다-->
+            <li class="nav__item"><a>쿠폰함</a></li>
+            <li class="nav__item"><a href="{% url 'logout' %}">로그아웃</a></li>
+            <div class="button-wrapper">
+              <a href="{% url 'changePageVer' %}"><img id="customer--button" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMS45OTkgNTExLjk5OSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgY2xhc3M9IiI+PGc+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNMzc2LjQ5OSwxMjAuNWgtMjQxQzYwLjc4NCwxMjAuNSwwLDE4MS4yODYsMCwyNTZzNjAuNzg0LDEzNS41LDEzNS40OTksMTM1LjVoMjQxYzc0LjcxNSwwLDEzNS41LTYwLjc4NSwxMzUuNS0xMzUuNSAgICBTNDUxLjIxNCwxMjAuNSwzNzYuNDk5LDEyMC41eiBNMTM1LjQ5OSwzNjEuNTAxQzc3LjMyNiwzNjEuNTAxLDMwLDMxNC4xNzMsMzAsMjU2YzAtNTguMTczLDQ3LjMyNi0xMDUuNSwxMDUuNDk5LTEwNS41ICAgIGM1OC4xNzMsMCwxMDUuNSw0Ny4zMjcsMTA1LjUsMTA1LjVDMjQwLjk5OSwzMTQuMTczLDE5My42NzIsMzYxLjUwMSwxMzUuNDk5LDM2MS41MDF6IiBmaWxsPSIjYmQwMDAwIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+Cgk8L2c+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPC9nPjwvc3ZnPg==" /></a>
+              <div class="customer-button-describe">손님</div>
+            </div>
+          </div>
+          <!-- 쿠폰/포인트함 -->
+          <div class="coupon_point_box close">
+            <p>적립 혜택</p>
+            <div class="box_tab">
+              <div class="box_tab__coupon selected">쿠폰</div>
+              <div class="box_tab__point">포인트</div>
+            </div>
+            <div class="coupon_box open">
+              <!-- 쿠폰 코드 관련 내용 임시 삭제 -->
+              <!-- <form action="" method="POST">
+                    <input type="text" name="couponCode" placeholder="쿠폰 코드를 입력해주세요">
+                    <input type="submit" value="등록하기">
+              </form>   -->
+              <div class="coupon_box__detail">
+                <p>사용 가능한 쿠폰 <span>{{coupons.count|default:'0'}}장</span></p>
+              </div>
+              <div class="coupon_box__notice">
+                <div><span>**</span><p>쿠폰 사용 약관을 꼭 숙지해주세요!</p></div>
+                <div><span>-</span><p>쿠폰은 예약 당 1장만 사용이 가능합니다.</p></div>
+                <div><span>-</span><p>유효기간 내에 반드시 사용해야 하며, 기간 만료 후에는 사용이 불가합니다.쿠폰이 사용된 수업 환불 시, 결제 취소 및 환불 완료 시점에 쿠폰의 유효 기간이 남아있는 경우에만 사용 가능한 상태로 복구 됩니다.</p></div>
+                <div><span>-</span><p>쿠폰 금액이 결제 금액을 초과하는 경우, 차액은 반환되지 않습니다. </p></div>
+              </div>
+            </div>
+            <div class="point_box close">
+              <div class="point_box__detail">
+                <p>보유 포인트 <span>{{request.user.customer.point}}P</span></p>
+                <div class="point_box__detial__notice">
+                  <p>셰프가 준비한 프로그램의 리뷰를 작성하시면 포인트를 적립할 수 
+                    있어요!</p>
+                  <p>[ 텍스트 리뷰 500P ]</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- // 쿠폰/포인트함 -->
-        <div class="nav__item-wrapper nav--right">
-          <li class="nav__item"><a href="{% url 'mypage' %}">{{user.customer.name}} 님</a></li>
-          <div class="button-wrapper">
-            <a href="{% url 'changePageVer' %}"><img id="customer--button" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDU1IDU1IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIiBjbGFzcz0iIj48Zz48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im0xNC4yMyAzOWExMS40OCAxMS40OCAwIDAgMSAwLTIzIC43NS43NSAwIDAgMSAwIDEuNSAxMCAxMCAwIDAgMCAwIDIwIC43NS43NSAwIDAgMSAwIDEuNXoiIGZpbGw9IiNmZmNlMzEiIGRhdGEtb3JpZ2luYWw9IiM1NTYwNjUiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48cmVjdCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiM5NzAwMDAiIGhlaWdodD0iMjEuNDYiIHJ4PSIxMC43MyIgd2lkdGg9IjQ4IiB4PSIzLjUiIHk9IjE2Ljc3IiBkYXRhLW9yaWdpbmFsPSIjZWRlZGVkIiBzdHlsZT0iIiBjbGFzcz0iIj48L3JlY3Q+PGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBvcGFjaXR5PSIuNCI+PHBhdGggZD0ibTQ4LjMzIDM1LjEyYTEwLjc0IDEwLjc0IDAgMCAwIC05LjQ4LTE1Ljc3aC0yNi41M2ExMC42OCAxMC42OCAwIDAgMCAtNy41OSAzLjE1IDEwLjczIDEwLjczIDAgMCAxIDkuNS01LjczaDI2LjU0YTEwLjczIDEwLjczIDAgMCAxIDcuNTYgMTguMzV6IiBmaWxsPSIjOTcwMDAwIiBkYXRhLW9yaWdpbmFsPSIjZGJkOGRkIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PC9nPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTE0LjIzIDM1LjIzYTcuNzMgNy43MyAwIDEgMSA3Ljc3LTcuNzMgNy43NCA3Ljc0IDAgMCAxIC03Ljc3IDcuNzN6IiBmaWxsPSIjZmZjZTMxIiBkYXRhLW9yaWdpbmFsPSIjNmVhZGRmIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBvcGFjaXR5PSIuNCI+PHBhdGggZD0ibTE2LjMzIDM0Ljk0YTcuNjYgNy42NiAwIDAgMSAtMi4xLjI5IDcuNzMgNy43MyAwIDAgMSAtLjA2LTE1LjQ2IDcuNzMgNy43MyAwIDAgMCAyLjEgMTUuMTd6IiBmaWxsPSIjZmZjZTMxIiBkYXRhLW9yaWdpbmFsPSIjNGQ5NmQyIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PC9nPjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbD0iIzU1NjA2NSI+PHBhdGggZD0ibTQwLjc3IDM5aC0yNi41NGExMS40OCAxMS40OCAwIDAgMSAwLTIzaDI2LjU0YTExLjQ4IDExLjQ4IDAgMCAxIDAgMjN6bS0yNi41NC0yMS40OGExMCAxMCAwIDAgMCAwIDIwaDI2LjU0YTEwIDEwIDAgMCAwIDAtMjB6IiBmaWxsPSIjZmZjZTMxIiBkYXRhLW9yaWdpbmFsPSIjNTU2MDY1IiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggZD0ibTE0LjIzIDM2YTguNDggOC40OCAwIDEgMSA4LjQ4LTguNDggOC40OSA4LjQ5IDAgMCAxIC04LjQ4IDguNDh6bTAtMTUuNDZhNyA3IDAgMSAwIDcgNyA3IDcgMCAwIDAgLTctNy4wMnoiIGZpbGw9IiNmZmNlMzEiIGRhdGEtb3JpZ2luYWw9IiM1NTYwNjUiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48L2c+PC9nPjwvc3ZnPg==" /></a>
-            <div class="customer-button-describe">손님</div>
-          </div>
-        </div>
+          <!-- // 쿠폰/포인트함 -->
+          {% endif %}
+        <!-- 셰프등록 안돼있다면 -->
+        {% else %}
+        <ul class="nav__item-wrapper nav--right">
+          <a class="nav__item" href="{% url 'mypage' %}">{{user.customer.name}} 님</a>
+          <li class="nav__item"><a href="{% url 'mymenuReservation' %}">마이메뉴</a></li>
+          <li class="nav__item" value=0><a>쿠폰함</a></li>
+          <li class="nav__item"><a href="{% url 'registerChef' '1' %}">셰프등록</a></li>
+          <li class="nav__item"><a href="{% url 'logout' %}">로그아웃</a></li>
+        </ul>
         {% endif %}
-      <!-- 셰프등록 안돼있다면 -->
+      <!-- 로그아웃 상태라면 -->
       {% else %}
-      <ul class="nav__item-container">
-        <li class="nav__item"><a href="{% url 'main' %}">메인페이지</a></li>  
-        <li class="nav__item"><a href="{% url 'mymenuReservation' %}">마이메뉴</a></li>
-        <li class="nav__item" value=0><a>쿠폰함</a></li>
-        <li class="nav__item"><a href="{% url 'registerChef' '1' %}">셰프등록</a></li>
-        <li class="nav__item"><a href="{% url 'logout' %}">로그아웃</a></li>
+      <ul class="nav__item-wrapper nav--right">
+        <li class="nav__item"></li>
+        <li class="nav__item"></li>
+        <li class="nav__item"><a  href="{% url 'signup' %}">회원가입</a></li>
+        <li class="nav__item"><a href="{% url 'login' %}">로그인</a></li>
       </ul>
-      <a style="color: white; font-family: 'arita-dotum-medium'" class="nav__item nav--right" href="{% url 'mypage' %}">{{user.customer.name}} 님</a>
       {% endif %}
-    <!-- 로그아웃 상태라면 -->
-    {% else %}
-    <ul class="nav__item-container log-out">
-      <li class="nav__item"><a href=""></a></li>
-      <li class="nav__item"><a href="{% url 'main' %}">메인페이지</a></li>    
-      <li class="nav__item"><a  href="{% url 'signup' %}">회원가입</a></li>
-      <li class="nav__item"><a href="{% url 'login' %}">로그인</a></li>
-    </ul>
-    <div class="nav__item nav--right"></div>
-    {% endif %}
+    </div>
   </nav>   
   <!-- // 네브바 -->
+
+  <!-- 카테고리 네브바 -->
+  <nav class="main-category-container">
+    <ul id="octagon" class="main-category-item-container">
+        <li class="main-category-item"><a href="/postList" class="{% if category == 0 %} currentCategory{% endif %}">전체보기</a></li>
+        <li class="main-category-item"><a href="/postList?category=1" class="{% if category == 1 %} currentCategory{% endif %}">뷔페/케이터링</a></li>
+        <li class="main-category-item"><a href="/postList?category=2" class="{% if category == 2 %} currentCategory{% endif %}">한식</a></li>
+        <li class="main-category-item"><a href="/postList?category=3" class="{% if category == 3 %} currentCategory{% endif %}">일식</a></li>
+        <li class="main-category-item"><a href="/postList?category=4" class="{% if category == 4 %} currentCategory{% endif %}">중식</a></li>
+        <li class="main-category-item"><a href="/postList?category=5" class="{% if category == 5 %} currentCategory{% endif %}">아시안</a></li>
+        <li class="main-category-item"><a href="/postList?category=6" class="{% if category == 6 %} currentCategory{% endif %}">양식</a></li>
+        <li class="main-category-item"><a href="/postList?category=7" class="{% if category == 7 %} currentCategory{% endif %}">채식</a></li>
+        <li class="main-category-item"><a href="/postList?category=8" class="{% if category == 8 %} currentCategory{% endif %}">기타</a></li>
+    </ul>
+  </nav>
+  <!-- // 카테고리 네브바 -->
+
+  <!-- 내용 -->
   <div style="margin-bottom: 100px;" class="contents">
     {% block content %}
     {% endblock %}
   </div> 
+  <!-- // 내용 -->
+
   <!-- 푸터 -->
   <footer id="footer">
-    <!-- <div class="footer-link-container">
-      <ul class="footer-container">
-        <li><span class="footer-top">COMPANY</span></li>
-        <li class="footer-item"></li>
-        <li class="footer-item"></li>
-        <li class="footer-item"></li>
-      </ul>
-
-      <ul class="footer-container">
-        <li><span class="footer-top">POLICIES</span></li>
-        <li class="footer-item"></li>
-        <li class="footer-item"></li>
-      </ul>
-
-      <ul class="footer-container">
-        <li><span class="footer-top">SUPPORT</span></li>
-        <li class="footer-item"></li>
-        <li class="footer-item"></li>
-      </ul>
-
-      <ul class="footer-container">
-        <li><span class="footer-top">BETWEEN</span></li>
-        <li class="footer-item"></li>
-        <li class="footer-item"></li>
-      </ul>
-
-      <ul class="footer-container">
-        <li><span class="footer-top">YOCHEF CENTER</span></li>
-        <li class="footer-item"></li>
-        <li class="footer-item"></li>
-        <li class="footer-item"></li>
-      </ul>
-    </div> -->
-
-    <!-- <div id="footer-bottom"> -->
-      <div id="footer-bottom">
-        <div class="footer-copyright-part">
-          Copyright © 2021 KAU Likelion 9TH Team STANDARD all rights reserved.
-          <br>
-        </div>
-        <p class="team-name">기획 및 개발 : 블루, 워니, 제우스, 키위</p>
+    <div id="footer-bottom">
+      <div class="footer-copyright-part">
+        Copyright © 2021 KAU Likelion 9TH Team STANDARD all rights reserved.
+        <br>
       </div>
-    <!-- </div> -->
-
+      <p class="team-name">기획 및 개발 : 블루, 워니, 제우스, 키위</p>
+    </div>
   </footer>
+  <!-- // 푸터  -->
 
 </body>
 <script src="{% static 'js/common.js' %}"></script>
 <script>
   
-  const logo = document.getElementsByClassName('logo');
+  /*const logo = document.getElementsByClassName('logo');
   const yochef = document.getElementsByClassName('yochef');
   
   if ( window.location.pathname == '/' ) {
     logo[0].classList.toggle('hidden');
   } else {
     yochef[0].classList.toggle('hidden');
-  }
+  }*/
 
 
   // 쿠폰함 
@@ -245,7 +227,7 @@
     }
   }
 
-  document.querySelector('ul.nav__item-container > li.nav__item:nth-child(3)').addEventListener('click', openCouponBox);
+  document.querySelector('div.nav__item-wrapper > li.nav__item:nth-child(3)').addEventListener('click', openCouponBox);
 
   let changeTab  = (e) => {
     e.target.classList.add("selected");

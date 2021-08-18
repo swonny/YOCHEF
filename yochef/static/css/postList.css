@@ -23,12 +23,11 @@ aside {
 }
 
 .mainContainer{
-    width: 90%;
+    margin: auto;
+    width: 800px;
     height: 100%;
-    margin-left: auto;
     min-width: 800px;
 }
-
 
 aside > a {
     display: inline-block;
@@ -168,6 +167,7 @@ input[type="submit"]{
     margin-top: 30px;
     border-top: 1px solid #E6E6E6;
     border-bottom: 1px solid #E6E6E6;
+    min-height: calc(100vh - 670px);
 }
 
 .mainList {
@@ -202,7 +202,7 @@ input[type="submit"]{
 }
 
 .noneResult{
-    margin: 60px auto 80px auto;
+    margin: 100px auto;
 }
 
 input[type="button"]:hover, input[type="submit"]:hover {

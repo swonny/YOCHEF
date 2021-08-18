@@ -66,22 +66,6 @@ select {
 select:focus {
     outline: none;
 }
-main {
-    margin: 90px 300px; /* 수정 필요 - 기본 마진*/
-}
-
-/* 반응형 */
-@media screen and (min-width: 1100px) and (max-width: 1440px){
-    main{
-        margin: 90px 250px;
-    }
-}
-
-@media screen and (max-width: 1100px){
-    main{
-        margin: 90px 30px;
-    }
-}
 
 img { 
     border: 0; 
@@ -93,6 +77,11 @@ input[type="submit"]:hover, input[type="button"]:hover, button:hover{
 }
 [onclick]{
     cursor: pointer;
+}
+
+main {
+    margin: 30px auto;
+    width: 800px;
 }
 
 /* 아래부터 base.html css */
@@ -164,15 +153,25 @@ a {
 
 /* 네브바 전체 감싸는 컨테이너 */
 .nav-container {
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    min-width: 950px;
+}
+
+.nav-container > div {
+    min-width: 860px;
+    margin: 0px 300px;
+    /* align-items: center; */
+    width: 900px;
     height: 57.55px;
-    background-color: #970000;
-    box-shadow: 0 10px 10px -10px rgb(105, 105, 105);
+    background-color: white;
+    /* box-shadow: 0 10px 10px -10px rgb(105 105 105); */
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: nowrap;
 }
+
 
 .nav__item-container {
     width: 60%;
@@ -185,23 +184,31 @@ a {
 /* 네브바 각 버튼 */
 .nav__item {
     display: inline-block;
-    font-size: 15px;
+    font-size: 13px;
     font: white;
-    padding: 23px 20px 20PX;
+    padding: 20px;
     text-align: center;
     font-family: 'Arita-dotum-medium';
 }
 
-ul.nav__item-container > li.nav__item:nth-child(3) > a:hover{
+div.nav__item-wrapper > li.nav__item:nth-child(3) > a:hover{
     cursor: pointer;
 }
 
 /* 네브바 아이템 링크 */
 .nav__item a{
     display: inline;
-    color: white;
+    color: black;
     text-decoration-line: none;
     position: inherit;
+    /* font-size: 14px;*/
+}
+
+.yochef a {
+    font-family: 'Arita-dotum-bold'!important;
+    font-size: 20px;
+    color: #BD0000;
+    /* display: none; */
 }
 
 .nav__left-container {
@@ -211,12 +218,6 @@ ul.nav__item-container > li.nav__item:nth-child(3) > a:hover{
     justify-content: start;
     min-width: 110px;
     /* align-items: center; */
-}
-
-.yochef {
-    font-family: 'Arita-dotum-semibold'!important;
-    font-size: 18px;
-    /* display: none; */
 }
 
 .logo {
@@ -233,16 +234,16 @@ ul.nav__item-container > li.nav__item:nth-child(3) > a:hover{
 .nav--right {
     padding-right: 0px;
     display: inline-block;
-    width: 18%;
+    width: fit-content;
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-end;
     align-items: center;
-    min-width: 200px;
+    min-width: 380px;
 }
 
 .nav--right>li {
-    padding: 9px;
+    padding: 9px 20px;
 }
 
 .button-wrapper {
@@ -260,15 +261,15 @@ ul.nav__item-container > li.nav__item:nth-child(3) > a:hover{
     font-size: 10px;
     position: relative;
     top: -10px;
-    padding-left: 5px;
+    padding-left: 9.5px;
     display: inline-block;
-    color: #FFCE31;
+    color: #bd0000;
     font-family: 'Arita-dotum';
 }
 
 .customer-button-describe::before {
     content: "셰프 |";
-    color: white;
+    color: black;
     font-size: 10px;
     padding: 3px;
 }
@@ -277,15 +278,15 @@ ul.nav__item-container > li.nav__item:nth-child(3) > a:hover{
     font-size: 10px;
     position: relative;
     top: -10px;
-    padding-left: 9px;
+    padding-left: 13px;
     display: inline-block;
-    color: #FFCE31;
+    color: #bd0000;
     font-family: 'Arita-dotum';
 }
 
 .chef-button-describe::after {
     content: "| 손님";
-    color: white;
+    color: black;
     font-size: 10px;
     padding: 3px;
 }
@@ -308,12 +309,64 @@ ul.nav__item-container > li.nav__item:nth-child(3) > a:hover{
     justify-content: center;
 }
 
+/* 카테고리 네브바 */
+.main-category-container {
+    margin: 0px;
+    /* top: 70px; */
+    /* left: 0px; */
+    /* box-shadow: 5px 5px 10px -5px grey; */
+    /* opacity: 50%; */
+    display: flex;
+    justify-content: center;
+    min-width: 950px;
+}
+
+#octagon {
+    background-color: #970000;
+    padding: 18px;
+}
+
+/* 카테고리 네브바 아이템 컨테이너 */
+.main-category-item-container {
+    min-width: 805px;
+    margin: 0px;
+    /* padding: 15px 5px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+    border-radius: 7px;
+    font-family: 'Arita-dotum-Light';
+    width: 805px;
+    margin-bottom: 5px;
+}
+}
+
+/* 카테고리 네브바 item */
+.main-category-item {
+    display: inline-block;
+    padding: 0px;
+    /* border-bottom: solid thin white;*/
+}
+
+/* 카테고리 네브바 item 링크*/
+.main-category-item a {
+    color: white;
+    font-size: 13px;
+    text-decoration-line: none;
+}
+
 /* 푸터 링크 컨테이너 */
 .footer-link-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
+}
+
+.contents {
+    margin-bottom: 100px;
+    min-width: 954px;
 }
 
 /* 푸터 컨테이너 */
@@ -428,8 +481,8 @@ div.coupon_point_box {
     background-color: white;
     position: absolute;
     z-index: 1;
-    left: 40%;
-    top: 7%;
+    left: 56%;
+    top: 5%;
     border-radius: 10px;
     border: 1px solid #e6e6e6;
     box-shadow: 1px 1px 5px #e6e6e6;
