@@ -630,3 +630,6 @@
 - detail page anonymousUser로 접속 시 에러 해결
 - 전체적으로 hover시 pointer로 변경
 - 이미지 object-fit: cover로 전체 변경
+
+21.08.18 블루
+- PostList, Detail, 회원가입 페이지 등등 네브바에 맞춰 여백 조정 완료

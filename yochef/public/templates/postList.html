@@ -39,10 +39,10 @@
                         <li>
                             <div>
                                 <span>키워드</span>
-                                <input type="text" name="keyword" value="{{keyword}}" placeholder="음식 또는 셰프 키워드를 입력해보세요.">
+                                <input type="text" name="keyword" value="{{keyword}}" placeholder="제목, 셰프명">
                             </div>
                             <div>
-                                <span>정렬 방식</span>
+                                <span>정렬</span>
                                 <select name="order">
                                     <option value="1"{% if order == 1 %} selected{% endif %}>등록일순</option>
                                     <option value="2"{% if order == 2 %} selected{% endif %}>높은 가격순</option>
@@ -50,14 +50,15 @@
                                     <option value="4"{% if order == 4 %} selected{% endif %}>리뷰 많은순</option>
                                 </select>
                             </div>
+                            <div class="submitBtn">
+                                <div>
+                                    <input type="submit" value="검색">
+                                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMi4wMDUgNTEyLjAwNSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGcgdHJhbnNmb3JtPSJtYXRyaXgoMC43MywwLDAsMC43Myw2OS4xMjA3NTgwNTY2NDA2NSw2OS4xMjA4MDc0OTUxMTcyMikiPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgoJPGc+CgkJPHBhdGggZD0iTTUwNS43NDksNDc1LjU4N2wtMTQ1LjYtMTQ1LjZjMjguMjAzLTM0LjgzNyw0NS4xODQtNzkuMTA0LDQ1LjE4NC0xMjcuMzE3YzAtMTExLjc0NC05MC45MjMtMjAyLjY2Ny0yMDIuNjY3LTIwMi42NjcgICAgUzAsOTAuOTI1LDAsMjAyLjY2OXM5MC45MjMsMjAyLjY2NywyMDIuNjY3LDIwMi42NjdjNDguMjEzLDAsOTIuNDgtMTYuOTgxLDEyNy4zMTctNDUuMTg0bDE0NS42LDE0NS42ICAgIGM0LjE2LDQuMTYsOS42MjEsNi4yNTEsMTUuMDgzLDYuMjUxczEwLjkyMy0yLjA5MSwxNS4wODMtNi4yNTFDNTE0LjA5MSw0OTcuNDExLDUxNC4wOTEsNDgzLjkyOCw1MDUuNzQ5LDQ3NS41ODd6ICAgICBNMjAyLjY2NywzNjIuNjY5Yy04OC4yMzUsMC0xNjAtNzEuNzY1LTE2MC0xNjBzNzEuNzY1LTE2MCwxNjAtMTYwczE2MCw3MS43NjUsMTYwLDE2MFMyOTAuOTAxLDM2Mi42NjksMjAyLjY2NywzNjIuNjY5eiIgZmlsbD0iI2U2ZTZlNiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjwvZz48L3N2Zz4=" />
+                                </div>
+                            </div>
                         </li>
                     </ul>
-                    <div class="submitBtn">
-                        <div>
-                            <input type="submit" value="필터 적용하여 검색하기">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMi4wMDUgNTEyLjAwNSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGcgdHJhbnNmb3JtPSJtYXRyaXgoMC43MywwLDAsMC43Myw2OS4xMjA3NTgwNTY2NDA2NSw2OS4xMjA4MDc0OTUxMTcyMikiPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgoJPGc+CgkJPHBhdGggZD0iTTUwNS43NDksNDc1LjU4N2wtMTQ1LjYtMTQ1LjZjMjguMjAzLTM0LjgzNyw0NS4xODQtNzkuMTA0LDQ1LjE4NC0xMjcuMzE3YzAtMTExLjc0NC05MC45MjMtMjAyLjY2Ny0yMDIuNjY3LTIwMi42NjcgICAgUzAsOTAuOTI1LDAsMjAyLjY2OXM5MC45MjMsMjAyLjY2NywyMDIuNjY3LDIwMi42NjdjNDguMjEzLDAsOTIuNDgtMTYuOTgxLDEyNy4zMTctNDUuMTg0bDE0NS42LDE0NS42ICAgIGM0LjE2LDQuMTYsOS42MjEsNi4yNTEsMTUuMDgzLDYuMjUxczEwLjkyMy0yLjA5MSwxNS4wODMtNi4yNTFDNTE0LjA5MSw0OTcuNDExLDUxNC4wOTEsNDgzLjkyOCw1MDUuNzQ5LDQ3NS41ODd6ICAgICBNMjAyLjY2NywzNjIuNjY5Yy04OC4yMzUsMC0xNjAtNzEuNzY1LTE2MC0xNjBzNzEuNzY1LTE2MCwxNjAtMTYwczE2MCw3MS43NjUsMTYwLDE2MFMyOTAuOTAxLDM2Mi42NjksMjAyLjY2NywzNjIuNjY5eiIgZmlsbD0iI2U2ZTZlNiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjwvZz48L3N2Zz4=" />
-                        </div>
-                    </div>
+                    
                 </div>
             </form>
             <div class="postList">

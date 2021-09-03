@@ -160,7 +160,7 @@ def kakaoPayLogic(request, book_id):
     _headers = {
         'Authorization' : f"KakaoAK {_admin_key}",
     }
-
+    # request.get_full_path()
     _data = {
         'cid' : 'TC0ONETIME',
         'partner_order_id' : 'partner_order_id',
@@ -170,13 +170,12 @@ def kakaoPayLogic(request, book_id):
         'total_amount' : f'{totalPrice}',
         'vat_amount' : f'{vat}',
         'tax_free_amount' : f'{tax_free}',
-        'approval_url' : 'http://3.36.156.211/customer/paySuccess/'+str(book_id),
-        'fail_url' : 'http://3.36.156.211/customer/payFail',
-        'cancel_url' : 'http://3.36.156.211/customer/payCancel',
+        'approval_url' : 'http://yochef.site/customer/paySuccess/'+str(book_id),
+        'fail_url' : 'http://yochef.site/customer/payFail',
+        'cancel_url' : 'http://yochef.site/customer/payCancel',
     }
     _res = requests.post(_url, data=_data, headers=_headers)
     _result = _res.json()
-    print(_result)
 
     request.session['tid'] = _result['tid']
     return redirect(_result['next_redirect_pc_url'])

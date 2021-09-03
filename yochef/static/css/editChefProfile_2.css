@@ -256,7 +256,7 @@ select {
     flex-direction: row;
     align-items: flex-start;
     height: auto;
-    width: 560px;
+    width: 600px;
     flex-wrap: wrap;
 }
 

@@ -51,7 +51,7 @@
 
 .main-img-desc {
     position: absolute;
-    left: 26%;
+    /* left: 26%; */
     display: inline-block;
     color: white;
     font-size: 15px;
@@ -61,6 +61,7 @@
     text-shadow: rgb(92 92 92) 2px 2px 2px;
     z-index: 1;
     font-family: 국립박물관문화재단클래식L !important;
+    margin-left: 120px;
 }
 
 .main-section-wrapper {

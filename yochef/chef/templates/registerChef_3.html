@@ -69,28 +69,24 @@
                                         <div class="course__info">
                                             <h4 class="course-name__title">코스 이름</h4>
                                             <div class="input-wrapper course__input-wrapper">
-                                                <input class="course-info__title" name="courseTitle1" type="text" placeholder="ex) A코스(10인) 20,000원"><!-- 클래스명 변경: courseInfo__Name__input -> course-info__title  -->
+                                                <input class="course-info__title" name="courseTitle1" type="text" placeholder="ex) A코스(10인) 20,000원">
                                             </div>
                                             <h4 class="course-price__title">1인당 가격</h4>
                                             <div class="input-wrapper course__input-wrapper">
-                                                <input class="course-info__price" name="coursePrice1" type="text" placeholder="인당 가격" value=""><!-- 클래스명 변경: courseInfo__price__input -> course-info__price -->
+                                                <input class="course-info__price" name="coursePrice1" type="text" placeholder="인당 가격" value="">
                                             </div>
                                             <h4 class="course-name__title">코스 설명</h4>
                                             <div class="textarea-wrapper course__input-wrapper">
-                                                <!-- 클래스명 변경: courseInfo__descr__input -> course-info__description-->
-                                                <textarea class="course-info__description" name="courseDescribe{{forloop.counter}}" maxlength="500" placeholder="ex)&#10;&#10;1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)&#10;&#10;2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...&#10;&#10;3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국&#10;&#10;8인~12인용 코스입니다.&#10;&#10;인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^">{{course.description|default:""}}</textarea>
+                                                <textarea class="course-info__description" name="courseDescribe1" maxlength="500" placeholder="ex)&#10;&#10;1. 메인반찬 : 돼지수육(800g), 돼지갈비조림(1kg), 소불고기(800g)&#10;&#10;2. 반찬 : 호박전/동태전, 탕수육, 궁중잡채, 겉절이김치, 콩나물무침 ...&#10;&#10;3. 후식 : 꿀떡, 인절미, 과일샐러드, 치킨텐더연어샐러드, 다슬기미역국&#10;&#10;8인~12인용 코스입니다.&#10;&#10;인원 및 요리 변경은 예약 후 말씀해주시면 가능한 범위 내에서 바꿔드립니다 ^^"></textarea>
                                             </div>
                                             <div class="course__img-wrapper">
                                                 <div class="course__img-container">
-                                                    <!-- <div class="course-image-add"> -->
                                                         <img src="{% static 'image/Group 333.png' %}" alt="">
-                                                        <input style="cursor: pointer;" onchange="courseImageChange(this)" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]"  multiple accept="image/*">
-                                                    <!-- </div> -->
+                                                        <input style="cursor: pointer;" onchange="courseImageChange(this)" class="course-image__content" type="file" name="courseImg1[]"  multiple accept="image/*">
                                                     <div class="saved-course-image">
                                                         {% for image in course.images %}
                                                         <div class="course-image">
                                                             <img class="course-image" name="courseImageTag" src="{{image.attachment.url}}" alt="" style="width:105px; height:105px;">
-                                                            <!-- <input class="course__image-input" name="courseImageInput" class="course-image__content" type="file" name="courseImg{{forloop.counter}}[]" id="2" multiple accept="image/*"> -->
                                                         </div>
                                                         {% endfor %}
                                                     </div>
@@ -100,7 +96,6 @@
                                         <button style="cursor: pointer;" class="course__delete" onclick=" delCourse(this)" type="button"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDMyOS4yNjkzMyAzMjkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbD0iI2Y0NDMzNiI+PHBhdGggZD0ibTIxLjMzOTg0NCAzMjkuMzk4NDM4Yy01LjQ2MDkzOCAwLTEwLjkyNTc4Mi0yLjA4OTg0NC0xNS4wODIwMzItNi4yNS04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzbDI4Ni41ODk4NDQtMjg2LjU5Mzc1YzguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyNDIxOS04LjMzOTg0NCAzMC4xNjQwNjMgMCA4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzbC0yODYuNTg5ODQ0IDI4Ni41OTM3NWMtNC4xODM1OTQgNC4xNzk2ODctOS42MjEwOTQgNi4yNS0xNS4wODIwMzEgNi4yNXptMCAwIiBmaWxsPSIjYmQwMDAwIiBkYXRhLW9yaWdpbmFsPSIjZjQ0MzM2IiBzdHlsZT0iIj48L3BhdGg+PHBhdGggZD0ibTMwNy45Mjk2ODggMzI5LjM5ODQzOGMtNS40NjA5MzggMC0xMC45MjE4NzYtMi4wODk4NDQtMTUuMDgyMDMyLTYuMjVsLTI4Ni41ODk4NDQtMjg2LjU5Mzc1Yy04LjM0Mzc1LTguMzM5ODQ0LTguMzQzNzUtMjEuODI0MjE5IDAtMzAuMTY0MDYzIDguMzM5ODQ0LTguMzM5ODQ0IDIxLjgyMDMxMy04LjMzOTg0NCAzMC4xNjQwNjMgMGwyODYuNTg5ODQ0IDI4Ni41OTM3NWM4LjM0Mzc1IDguMzM5ODQ0IDguMzQzNzUgMjEuODI0MjE5IDAgMzAuMTY0MDYzLTQuMTYwMTU3IDQuMTc5Njg3LTkuNjIxMDk0IDYuMjUtMTUuMDgyMDMxIDYuMjV6bTAgMCIgZmlsbD0iI2JkMDAwMCIgZGF0YS1vcmlnaW5hbD0iI2Y0NDMzNiIgc3R5bGU9IiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+" /></button>
                                     </div>
                                 </div>
-
                                 {% else %}
                                 {% for course in courses %}
                                 <div class="courseInfo__eachCourse">
@@ -377,7 +372,7 @@
             let courseImg = courseImgs[i];
             courseTitle.setAttribute("name", "courseTitle" + String(i+1));
             coursePrice.setAttribute("name", "coursePrice" + String(i+1));
-            courseDescription.setAttribute("name", "courseDescription" + String(i+1));
+            courseDescription.setAttribute("name", "courseDescribe" + String(i+1)); //0819 워니수정 (courseDescription -> courseDescribe)
             courseImg.setAttribute("name", "courseImg" + String(i+1) + "[]");
         }
     });

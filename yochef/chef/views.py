@@ -222,20 +222,23 @@ def updatePost(request):
             File.objects.create(post=post, attachment=postCoverImage, category=4)
         post.introduce = request.POST.get('introduce')
         post.notice = request.POST.get('notice')
-        Course.objects.filter(post=post).delete() # 직접 수정이 불가능하니 기존에 입력된 DB 삭제 후 재입력
-        courseCount = request.POST.get("courseCount") if request.POST.get("courseCount") else 0
-        for i in range(1, int(courseCount)+1):
-            course = Course(post=post, order=i)
-            course.title = request.POST.get("courseTitle"+str(i))
-            course.price = request.POST.get("coursePrice"+str(i))
-            course.description = request.POST.get("courseDescribe"+str(i))
-            course.save()
-            if request.FILES.getlist("courseImg"+str(i)+"[]"):
-                courseImageFiles = request.FILES.getlist("courseImg"+str(i)+"[]")
-                File.objects.filter(course=course, category=3).delete() # 직접 수정이 불가능하니 기존에 입력된 DB 삭제 후 재입력
-                for index, file in enumerate(courseImageFiles):
-                    File.objects.create(attachment=file, course=course, category=3, order=index+1)
         post.save()
+        #courseCount = request.POST.get("courseCount") if request.POST.get("courseCount") else 0
+        courseCount = request.POST.get("courseCount")
+        for i in range(1, int(courseCount)+1):
+                if Course.objects.filter(post=post, order=i).exists():
+                    course = Course.objects.get(post=post, order=i)
+                else:
+                    course = Course(post=post, order=i)
+                course.title = request.POST.get("courseTitle"+str(i))
+                course.price = request.POST.get("coursePrice"+str(i))
+                course.description = request.POST.get("courseDescribe"+str(i))
+                course.save()
+                if request.FILES.getlist("courseImg"+str(i)+"[]"):
+                    courseImageFiles = request.FILES.getlist("courseImg"+str(i)+"[]")
+                    File.objects.filter(course=course, category=3).delete() # 직접 수정이 불가능하니 기존에 입력된 DB 삭제 후 재입력
+                    for index, file in enumerate(courseImageFiles):
+                        File.objects.create(attachment=file, course=course, category=3, order=index+1)
     return redirect('editPost')
 
 

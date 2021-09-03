@@ -230,6 +230,10 @@ main {
     margin: 40px 0 0 60px;
 }
 
+.mainBox__review.writeReview > span{
+    font-size: 14px;
+}
+
 .mainBox__review.writeReview > div{
     margin: 20px 0 0 0;
 }

@@ -115,6 +115,13 @@ input {
     display: inline-block;
     padding: 5px 0px;
     width: 200px;
+}
+
+.date-filter__start-date {
+    margin-right: 15px;
+}
+
+.date-filter__end-date {
     margin: 0px 15px;
 }
 
@@ -122,6 +129,10 @@ input {
 .date-filter__end-date > input {
     width: 90%;
     padding: 0px 5px;
+}
+
+.date-filter-wrapper > span {
+    padding-top: 10px;
 }
 
 .search-button {
