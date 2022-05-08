@@ -1,4 +1,4 @@
-# YOCHEF
+# 👩🏻‍🍳  YOCHEF 
 
 <img width=1000 src="https://user-images.githubusercontent.com/64150179/167296029-0df6912b-6485-4db3-98fd-e84b6a343e69.png">
 
@@ -53,6 +53,6 @@
 
 ## ➕ ETC Documents
 
-기획 관련 기록 : https://www.notion.so/a88e1b5a3ff5420cb659482d719eba2b<br>
-개발 관리 시트 : https://docs.google.com/spreadsheets/d/1L3N1o_RYehK9y9cOCyJzEMh55GFiLMmOUwbyh8i6X2M/edit?usp=sharing
+- [기획 관련 기록](https://www.notion.so/a88e1b5a3ff5420cb659482d719eba2b)<br>
+- [개발 관리 시트](https://docs.google.com/spreadsheets/d/1L3N1o_RYehK9y9cOCyJzEMh55GFiLMmOUwbyh8i6X2M/edit?usp=sharing)
 
